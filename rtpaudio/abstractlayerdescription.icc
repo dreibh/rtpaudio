@@ -1,0 +1,470 @@
+// ##########################################################################
+// ####                                                                  ####
+// ####                    Master Thesis Implementation                  ####
+// ####  Management of Layered Variable Bitrate Multimedia Streams over  ####
+// ####                  DiffServ with A Priori Knowledge                ####
+// ####                                                                  ####
+// #### ================================================================ ####
+// ####                                                                  ####
+// ####                                                                  ####
+// #### Abstract Layer Description Inlines                               ####
+// ####                                                                  ####
+// #### Version 1.00  --  February 23, 2001                              ####
+// ####                                                                  ####
+// #### Copyright (C) 2000/2001 Thomas Dreibholz                         ####
+// #### University of Bonn, Department of Computer Science IV            ####
+// #### EMail: Dreibholz@bigfoot.com                                     ####
+// #### WWW:   http://www.bigfoot.com/~dreibholz/diplom/index.html       ####
+// ####                                                                  ####
+// ##########################################################################
+
+
+#ifndef ABSTRACTLAYERDESCRIPTION_ICC
+#define ABSTRACTLAYERDESCRIPTION_ICC
+
+
+#include "abstractlayerdescription.h"
+
+
+namespace Coral {
+
+
+// Debug options
+// #define VERBOSE_BANDWIDTH_TO_BANDWIDTH
+
+
+// ###### Initialization ####################################################
+inline void AbstractLayerDescription::initLayer(const cardinal pktHeaderSize,
+                                                const cardinal pktMaxSize,
+                                                const double   maxTransferDelay,
+                                                const cardinal maxBufferDelay,
+                                                const double   maxLossRate,
+                                                const double   maxJitter,
+                                                const cardinal flags)
+{
+   PktHeaderSize    = pktHeaderSize;
+   PktMaxSize       = pktMaxSize;
+   MaxTransferDelay = maxTransferDelay;
+   MaxBufferDelay   = maxBufferDelay;
+   MaxLossRate      = maxLossRate;
+   MaxJitter        = maxJitter;
+   BufferDelay      = 1;
+   Flags            = flags;
+}
+
+
+
+// ##########################################################################
+// #### Bandwidth and bandwidth quality methods                          ####
+// ##########################################################################
+
+
+
+// ###### Get bandwidth #####################################################
+inline card64 AbstractLayerDescription::getBandwidth() const
+{
+   return(Bandwidth);
+}
+
+
+// ###### Set bandwidth #####################################################
+inline bool AbstractLayerDescription::setBandwidth(const double frameRate,
+                                                   const card64 bandwidth)
+{
+   Bandwidth = bandwidth;
+   if((card64)getMinFrameSize(frameRate) > bandwidth) {
+      return(false);
+   }
+   return(true);
+}
+
+
+// ###### Get maximum transfer delay ########################################
+inline double AbstractLayerDescription::getMaxTransferDelay() const
+{
+   return(MaxTransferDelay);
+}
+
+
+// ###### Set maximum transfer delay ########################################
+inline void AbstractLayerDescription::setMaxTransferDelay(const double maxDelay)
+{
+   MaxTransferDelay = maxDelay;
+}
+
+
+// ###### Get maximum loss rate #############################################
+inline double AbstractLayerDescription::getMaxLossRate() const
+{
+   return(MaxLossRate);
+}
+
+
+// ###### Set maximum loss rate #############################################
+inline void AbstractLayerDescription::setMaxLossRate(const double maxLossRate)
+{
+   MaxLossRate = maxLossRate;
+}
+
+
+// ###### Get maximum jitter ################################################
+inline double AbstractLayerDescription::getMaxJitter() const
+{
+   return(MaxJitter);
+}
+
+
+// ###### Set maximum jitter ################################################
+inline void AbstractLayerDescription::setMaxJitter(const double maxJitter)
+{
+   MaxJitter = maxJitter;
+}
+
+
+// ##########################################################################
+// #### Frame size methods                                               ####
+// ##########################################################################
+
+
+// ###### Check, if frame size is valid #####################################
+inline bool AbstractLayerDescription::isValidFrameSize(
+                                        const double   frameRate,
+                                        const cardinal bufferDelay,
+                                        const cardinal frameSize) const
+{
+   return(isValidPayloadFrameSize(frameRate,bufferDelay,rawToPayload(frameRate,frameSize,bufferDelay)));
+}
+
+
+// ###### Get nearest lower frame size ######################################
+inline cardinal AbstractLayerDescription::getNearestValidFrameSize(
+                                             const double   frameRate,
+                                             const cardinal bufferDelay,
+                                             const cardinal frameSize) const
+{
+   const cardinal payload = rawToPayload(frameRate,frameSize,bufferDelay);
+   const cardinal nearest = getNearestValidPayloadFrameSize(frameRate,bufferDelay,payload);
+   return(payloadToRaw(frameRate,nearest,bufferDelay));
+}
+
+
+// ###### Translate frame size into bandwidth ###############################
+inline card64 AbstractLayerDescription::frameSizeToBandwidth(
+                                           const double   frameRate,
+                                           const cardinal frameSize)
+{
+   return((card64)ceil((double)frameSize * frameRate));
+}
+
+
+
+// ###### Translate bandwidth into frame size ###############################
+inline cardinal AbstractLayerDescription::bandwidthToFrameSize(
+                                             const double frameRate,
+                                             const card64 bandwidth)
+{
+   return((cardinal)floor((double)bandwidth / frameRate));
+}
+
+
+
+// ##########################################################################
+// #### Scaling and utilization methods, for current buffer delay        ####
+// ##########################################################################
+
+
+
+// ###### Get minimum frame size ############################################
+inline cardinal AbstractLayerDescription::getMinFrameSize(
+                                             const double frameRate) const
+{
+   return(payloadToRaw(frameRate,getMinPayloadFrameSizeForDelay(frameRate,BufferDelay),BufferDelay));
+}
+
+
+// ###### Get maximum frame size ############################################
+inline cardinal AbstractLayerDescription::getMaxFrameSize(
+                                             const double frameRate) const
+{
+   return(payloadToRaw(frameRate,getMaxPayloadFrameSizeForDelay(frameRate,BufferDelay),BufferDelay));
+}
+
+
+// ###### Get peak frame size ###############################################
+inline cardinal AbstractLayerDescription::getPeakFrameSizeForSize(
+                                             const double   frameRate,
+                                             const cardinal frameSize) const
+{
+   return(getPeakFrameSizeForDelayAndSize(frameRate,BufferDelay,frameSize));
+}
+
+
+// ###### Get packet count ##################################################
+inline cardinal AbstractLayerDescription::getPacketCountForSize(
+                                             const double   frameRate,
+                                             const cardinal frameSize) const
+{
+   return(getPacketCountForDelayAndSize(frameRate,BufferDelay,frameSize));
+}
+
+
+// ###### Get next lower frame size #########################################
+inline double AbstractLayerDescription::getPrevFrameSizeForSize(
+                                           const double   frameRate,
+                                           const cardinal frameSize) const
+{
+   return(getPrevFrameSizeForDelayAndSize(frameRate,BufferDelay,frameSize));
+}
+
+
+// ###### Get next higher frame size ########################################
+inline double AbstractLayerDescription::getNextFrameSizeForSize(
+                                           const double   frameRate,
+                                           const cardinal frameSize) const
+{
+   return(getNextFrameSizeForDelayAndSize(frameRate,BufferDelay,frameSize));
+}
+
+
+// ###### Get frame size scale factor #######################################
+inline double AbstractLayerDescription::getFrameSizeScaleFactorForSize(
+                                           const double   frameRate,
+                                           const cardinal frameSize) const
+{
+   return(getFrameSizeScaleFactorForDelayAndSize(frameRate,BufferDelay,frameSize));
+}
+
+
+// ###### Get frame size utilization ########################################
+inline double AbstractLayerDescription::getFrameSizeUtilizationForSize(
+                                           const double   frameRate,
+                                           const cardinal frameSize) const
+{
+   return(getFrameSizeUtilizationForDelayAndSize(frameRate,BufferDelay,frameSize));
+}
+
+
+
+// ##########################################################################
+// #### Scaling and utilization methods, for given buffer delay          ####
+// ##########################################################################
+
+
+
+// ###### Get minimum frame size ############################################
+inline cardinal AbstractLayerDescription::getMinFrameSizeForDelay(
+                                             const double   frameRate,
+                                             const cardinal bufferDelay) const
+{
+   return(payloadToRaw(frameRate,getMinPayloadFrameSizeForDelay(frameRate,bufferDelay),bufferDelay));
+}
+
+
+// ###### Get maximum frame size ############################################
+inline cardinal AbstractLayerDescription::getMaxFrameSizeForDelay(
+                                             const double   frameRate,
+                                             const cardinal bufferDelay) const
+{
+   return(payloadToRaw(frameRate,getMaxPayloadFrameSizeForDelay(frameRate,bufferDelay),bufferDelay));
+}
+
+
+// ###### Get peak frame size ###############################################
+inline cardinal AbstractLayerDescription::getPeakFrameSizeForDelayAndSize(
+                                             const double   frameRate,
+                                             const cardinal bufferDelay,
+                                             const cardinal size) const
+{
+   const double factor = getFrameSizeScaleFactorForDelayAndSize(frameRate,bufferDelay,size);
+   const cardinal diff = getMaxFrameSizeForDelay(frameRate,1) - getMinFrameSizeForDelay(frameRate,1);
+
+   return(getMinFrameSizeForDelay(frameRate,1) +
+             (cardinal)ceil((double)diff * factor));
+}
+
+
+// ###### Get packet count ##################################################
+inline cardinal AbstractLayerDescription::getPacketCountForDelayAndSize(
+                                             const double   frameRate,
+                                             const cardinal bufferDelay,
+                                             const cardinal size) const
+{
+   const cardinal maxFrameCount   = getMaxFrameCountForDelay(frameRate,bufferDelay);
+   const cardinal maxPktPayload   = PktMaxSize - PktHeaderSize;
+   const cardinal maxFramePackets = (maxFrameCount > 1) ? maxFrameCount - 1 : 0;
+   const cardinal payloadPackets  = (cardinal)ceil((double)rawToPayload(frameRate,size,bufferDelay) /
+                                                      (double)maxPktPayload);
+   return(maxFramePackets + payloadPackets);
+}
+
+
+
+// ###### Get next higher frame size ########################################
+inline double AbstractLayerDescription::getPrevFrameSizeForDelayAndSize(
+                                           const double   frameRate,
+                                           const cardinal bufferDelay,
+                                           const cardinal size) const
+{
+   return(payloadToRaw(frameRate,
+             getPrevPayloadFrameSizeForDelayAndSize(frameRate,bufferDelay,
+                rawToPayload(frameRate,size,bufferDelay)),bufferDelay));
+}
+
+
+// ###### Get next lower frame size #########################################
+inline double AbstractLayerDescription::getNextFrameSizeForDelayAndSize(
+                                           const double   frameRate,
+                                           const cardinal bufferDelay,
+                                           const cardinal size) const
+{
+   return(payloadToRaw(frameRate,
+             getNextPayloadFrameSizeForDelayAndSize(frameRate,bufferDelay,
+                rawToPayload(frameRate,size,bufferDelay)),bufferDelay));
+}
+
+
+// ###### Get frame size scale factor #######################################
+inline double AbstractLayerDescription::getFrameSizeScaleFactorForDelayAndSize(
+                                           const double   frameRate,
+                                           const cardinal bufferDelay,
+                                           const cardinal size) const
+{
+   return(getPayloadFrameSizeScaleFactorForDelayAndSize(
+             frameRate, bufferDelay, rawToPayload(frameRate,size,bufferDelay)));
+}
+
+
+// ###### Get frame size utilization ########################################
+inline double AbstractLayerDescription::getFrameSizeUtilizationForDelayAndSize(
+                                           const double   frameRate,
+                                           const cardinal bufferDelay,
+                                           const cardinal size) const
+{
+   return(getPayloadFrameSizeUtilizationForDelayAndSize(
+             frameRate, bufferDelay, rawToPayload(frameRate,size,bufferDelay)));
+}
+
+
+// ##########################################################################
+// #### Buffer delay methods                                             ####
+// ##########################################################################
+
+
+
+// ###### Get buffer delay ##################################################
+inline cardinal AbstractLayerDescription::getBufferDelay() const
+{
+   return(BufferDelay);
+}
+
+
+// ###### Get next higher buffer delay ######################################
+inline cardinal AbstractLayerDescription::getNextBufferDelay(
+                   const double frameRate) const
+{
+   return(getNextBufferDelayForDelay(frameRate,BufferDelay));
+}
+
+
+// ###### Get next lower buffer delay #######################################
+inline cardinal AbstractLayerDescription::getPrevBufferDelay(
+                   const double frameRate) const
+{
+   return(getPrevBufferDelayForDelay(frameRate,BufferDelay));
+}
+
+
+// ###### Translate bandwidth into bandwidth using different buffer delay ###
+inline card64 AbstractLayerDescription::bandwidthToBandwidth(
+                                           const card64   oldBandwidth,
+                                           const double   frameRate,
+                                           const cardinal oldBufferDelay,
+                                           const cardinal newBufferDelay) const
+{
+
+   // ====== Check for necessity to translate bandwidths ====================
+#ifndef VERBOSE_BANDWIDTH_TO_BANDWIDTH
+   if(oldBufferDelay == newBufferDelay) {
+      return(oldBandwidth);
+   }
+#endif
+
+   // ====== Do bandwidth translation using payload translation =============
+   const cardinal oldRawFrameSize =
+      bandwidthToFrameSize(frameRate,oldBandwidth);
+   const cardinal oldPayloadFrameSize =
+      rawToPayload(frameRate,oldRawFrameSize,oldBufferDelay);
+   const card64 oldPayloadBandwidth =
+      frameSizeToBandwidth(frameRate,oldPayloadFrameSize);
+
+   const card64 newPayloadBandwidth =
+      payloadBandwidthToBandwidth(oldPayloadBandwidth, frameRate,
+                                  oldBufferDelay, newBufferDelay);
+
+   const cardinal newPayloadFrameSize =
+      bandwidthToFrameSize(frameRate,newPayloadBandwidth);
+   const cardinal newRawFrameSize =
+      payloadToRaw(frameRate,newPayloadFrameSize,newBufferDelay);
+   const card64 newBandwidth =
+      frameSizeToBandwidth(frameRate,newRawFrameSize);
+
+   return(newBandwidth);
+}
+
+
+// ##########################################################################
+// #### Flags methods                                                    ####
+// ##########################################################################
+
+
+// ###### Get flags #########################################################
+inline cardinal AbstractLayerDescription::getFlags() const
+{
+   return(Flags);
+}
+
+
+// ###### Set flags #########################################################
+inline void AbstractLayerDescription::setFlags(const cardinal flags)
+{
+   Flags = flags;
+}
+
+
+// ##########################################################################
+// #### Source/Destination address methods                               ####
+// ##########################################################################
+
+
+// ###### Get source address ################################################
+inline InternetAddress AbstractLayerDescription::getSource() const
+{
+   return(Source);
+}
+
+
+// ###### Get destination address ###########################################
+inline InternetFlow AbstractLayerDescription::getDestination() const
+{
+   return(Destination);
+}
+
+
+// ###### Set source address ################################################
+inline void AbstractLayerDescription::setSource(const InternetAddress& source)
+{
+   Source = source;
+}
+
+
+// ###### Set destination address ###########################################
+inline void AbstractLayerDescription::setDestination(const InternetFlow& destination)
+{
+   Destination = destination;
+}
+
+
+}
+
+
+#endif

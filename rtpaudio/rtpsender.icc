@@ -1,0 +1,122 @@
+// ##########################################################################
+// ####                                                                  ####
+// ####                      RTP Audio Server Project                    ####
+// ####                    ============================                  ####
+// ####                                                                  ####
+// #### RTP Sender Inlines                                               ####
+// ####                                                                  ####
+// #### Version 1.50  --  August 01, 2001                                ####
+// ####                                                                  ####
+// ####            Copyright (C) 1999-2001 by Thomas Dreibholz           ####
+// #### Contact:                                                         ####
+// ####    EMail: dreibh@exp-math.uni-essen.de                           ####
+// ####    WWW:   http://www.exp-math.uni-essen.de/~dreibh/rtpaudio      ####
+// ####                                                                  ####
+// #### ---------------------------------------------------------------- ####
+// ####                                                                  ####
+// #### This program is free software; you can redistribute it and/or    ####
+// #### modify it under the terms of the GNU General Public License      ####
+// #### as published by the Free Software Foundation; either version 2   ####
+// #### of the License, or (at your option) any later version.           ####
+// ####                                                                  ####
+// #### This program is distributed in the hope that it will be useful,  ####
+// #### but WITHOUT ANY WARRANTY; without even the implied warranty of   ####
+// #### MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the    ####
+// #### GNU General Public License for more details.                     ####
+// ####                                                                  ####
+// ##########################################################################
+
+
+#ifndef RTPSENDER_ICC
+#define RTPSENDER_ICC
+
+
+namespace Coral {
+
+
+// ###### Set pause mode ####################################################
+inline void RTPSender::setPause(const bool on)
+{
+   synchronized();
+   Pause             = on;
+   TransmissionError = false;
+   unsynchronized();
+}
+
+
+// ###### Get pause mode ####################################################
+inline bool RTPSender::paused() const
+{
+   return(Pause);
+}
+
+
+// ###### Get maximum packet size ###########################################
+inline cardinal RTPSender::getMaxPacketSize() const
+{
+   return(MaxPacketSize);
+}
+
+
+// ###### Get maximum packet size ###########################################
+inline cardinal RTPSender::setMaxPacketSize(const cardinal size)
+{
+   if(size < 128) {
+      MaxPacketSize = 128;
+   }
+   else {
+      MaxPacketSize = size;
+   }
+   return(MaxPacketSize);
+}
+
+
+// ###### Get bytes sent ####################################################
+inline card64 RTPSender::getBytesSent() const
+{
+   ((RTPSender*)this)->synchronized();
+   const card64 bytes = BytesSent;
+   ((RTPSender*)this)->synchronized();
+   return(bytes);
+}
+
+
+// ###### Reset bytes sent ##################################################   
+inline void RTPSender::resetBytesSent()
+{
+   BytesSent = 0;
+}
+
+
+// ###### Get packets sent ##################################################
+inline card64 RTPSender::getPacketsSent() const
+{
+   ((RTPSender*)this)->synchronized();
+   const card64 packets = PacketsSent;
+   ((RTPSender*)this)->synchronized();
+   return(packets);
+}
+
+   
+// ###### Reset packets sent ################################################   
+inline void RTPSender::resetPacketsSent()
+{
+   PacketsSent = 0;
+}
+
+
+// ###### Check for detection of transmission error #########################
+inline bool RTPSender::transmissionErrorDetected()
+{
+   synchronized();
+   const bool error = TransmissionError;
+   TransmissionError = false;
+   unsynchronized();
+   return(error);
+}
+
+
+}
+      
+
+#endif

@@ -1,0 +1,161 @@
+// ##########################################################################
+// ####                                                                  ####
+// ####                      RTP Audio Server Project                    ####
+// ####                    ============================                  ####
+// ####                                                                  ####
+// #### Audio Client Inlines                                             ####
+// ####                                                                  ####
+// #### Version 1.50  --  August 01, 2001                                ####
+// ####                                                                  ####
+// ####            Copyright (C) 1999-2001 by Thomas Dreibholz           ####
+// #### Contact:                                                         ####
+// ####    EMail: dreibh@exp-math.uni-essen.de                           ####
+// ####    WWW:   http://www.exp-math.uni-essen.de/~dreibh/rtpaudio      ####
+// ####                                                                  ####
+// #### ---------------------------------------------------------------- ####
+// ####                                                                  ####
+// #### This program is free software; you can redistribute it and/or    ####
+// #### modify it under the terms of the GNU General Public License      ####
+// #### as published by the Free Software Foundation; either version 2   ####
+// #### of the License, or (at your option) any later version.           ####
+// ####                                                                  ####
+// #### This program is distributed in the hope that it will be useful,  ####
+// #### but WITHOUT ANY WARRANTY; without even the implied warranty of   ####
+// #### MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the    ####
+// #### GNU General Public License for more details.                     ####
+// ####                                                                  ####
+// ##########################################################################
+
+
+#ifndef AUDIOCLIENT_ICC
+#define AUDIOCLIENT_ICC
+
+
+#include "internetaddress.h"
+#include "audioclient.h"
+
+
+namespace Coral {
+
+
+// ###### Check, if client is playing #######################################
+inline bool AudioClient::playing() const
+{
+   return(IsPlaying);
+}
+
+
+// ###### Get IP version ####################################################
+inline card8 AudioClient::getIPVersion() const
+{
+   return((InternetAddress::UseIPv6 == true) ? 6 : 4);
+}
+
+
+// ###### Get frame count ###################################################
+inline card64 AudioClient::getMaxPosition() const
+{
+   if(IsPlaying) return(Decoders.getMaxPosition());
+   return(0);   
+}
+
+
+// ###### Get bytes received ################################################
+inline card64 AudioClient::getBytesReceived(const cardinal layer) const
+{
+   if(IsPlaying) return(Receiver->getBytesReceived(layer));
+   return(0);
+}
+
+
+// ###### Get packets received ##############################################
+inline card64 AudioClient::getPacketsReceived(const cardinal layer) const
+{
+   if(IsPlaying) return(Receiver->getPacketsReceived(layer));
+   return(0);
+}
+
+
+// ###### Get error code ####################################################
+inline card8 AudioClient::getErrorCode() const
+{
+   if(IsPlaying) return(Decoders.getErrorCode());
+   return(0);   
+}
+
+
+// ###### Get client SSRC ###################################################
+inline card32 AudioClient::getOurSSRC() const
+{
+   if(IsPlaying) return(OurSSRC);
+   return(0);
+}
+
+
+// ###### Get current encoding's name #######################################
+inline const char* AudioClient::getEncoding() const
+{
+   return(Decoders.getTypeName());
+}
+
+
+// ###### Get bandwidth limit ###############################################
+inline card32 AudioClient::getBandwidthLimit() const
+{
+   return(Status.BandwidthLimit);
+}
+
+
+// ###### Set new position ##################################################
+inline void AudioClient::setPosition(const card64 position)
+{
+   Status.Status        = AudioClientAppPacket::ACAS_Play;
+   Status.StartPosition = position;
+   Status.PosChgSeqNumber++;
+   sendCommand();
+}
+
+
+// ###### Set bandwidth limit ###############################################
+inline void AudioClient::setBandwidthLimit(const card32 bandwidthLimit)
+{
+   Status.BandwidthLimit = bandwidthLimit;
+   sendCommand();
+}
+
+
+// ###### Get internet flow #################################################
+inline InternetFlow AudioClient::getInternetFlow(const cardinal layer) const
+{
+   const InternetFlow flow = Receiver->getInternetFlow(layer);
+   return(flow);
+}
+
+
+// ###### Get flow label ####################################################
+inline card32 AudioClient::getFlowLabel(const cardinal layer) const
+{
+   const InternetFlow flow = Receiver->getInternetFlow(layer);
+   return(flow.getFlowLabel());
+}
+
+
+// ###### Get traffic class #################################################
+inline card8 AudioClient::getTrafficClass(const cardinal layer) const
+{
+   const InternetFlow flow = Receiver->getInternetFlow(layer);
+   return(flow.getTrafficClass());
+}
+
+
+// ###### Get number of layers ##############################################
+inline cardinal AudioClient::getLayers() const
+{
+   return(Receiver->getLayers());
+}
+
+
+}
+
+
+#endif

@@ -1,0 +1,187 @@
+// ##########################################################################
+// ####                                                                  ####
+// ####                      RTP Audio Server Project                    ####
+// ####                    ============================                  ####
+// ####                                                                  ####
+// #### RTCP Sender                                                      ####
+// ####                                                                  ####
+// #### Version 1.50  --  August 01, 2001                                ####
+// ####                                                                  ####
+// ####            Copyright (C) 1999-2001 by Thomas Dreibholz           ####
+// #### Contact:                                                         ####
+// ####    EMail: dreibh@exp-math.uni-essen.de                           ####
+// ####    WWW:   http://www.exp-math.uni-essen.de/~dreibh/rtpaudio      ####
+// ####                                                                  ####
+// #### ---------------------------------------------------------------- ####
+// ####                                                                  ####
+// #### This program is free software; you can redistribute it and/or    ####
+// #### modify it under the terms of the GNU General Public License      ####
+// #### as published by the Free Software Foundation; either version 2   ####
+// #### of the License, or (at your option) any later version.           ####
+// ####                                                                  ####
+// #### This program is distributed in the hope that it will be useful,  ####
+// #### but WITHOUT ANY WARRANTY; without even the implied warranty of   ####
+// #### MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the    ####
+// #### GNU General Public License for more details.                     ####
+// ####                                                                  ####
+// ##########################################################################
+
+
+#ifndef RTCPSENDER_H
+#define RTCPSENDER_H
+
+
+#include "tdsystem.h"
+#include "tdsocket.h"
+#include "timedthread.h"
+#include "rtcppacket.h"
+#include "rtpreceiver.h"
+#include "randomizer.h"
+
+
+#include <map>
+
+
+namespace Coral {
+
+
+/**
+  * This class implements an RTCP sender based on TimedThread.
+  *
+  * @short   RTCP Sender
+  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @version 1.0
+  */
+class RTCPSender : public TimedThread
+{
+   // ====== Constructor/Destructor =========================================
+   public:
+   /**
+     * Default constructor.
+     * You have to initialize RTPSender by calling init(...) later!
+     *
+     * @see init
+     */
+   RTCPSender();
+
+   /**
+     * Constructor for new RTCPSender. The new sender's thread has to be started
+     * by calling start()!
+     *
+     * @param ssrc SSRC.
+     * @param senderSocket Socket to write data to.
+     * @param receiver RTPReceiver for reports to send.
+     * @param bandwidth RTCP Bandwidth (see RFC 1889).
+     */
+   RTCPSender(const card32 ssrc,
+              Socket*      senderSocket,
+              RTPReceiver* receiver,
+              const card64 bandwidth);
+
+   /**
+     * Destructor.
+     */
+   ~RTCPSender();
+
+
+   // ====== Initialize =====================================================
+   /**
+     * Initialize new RTCPSender. The new sender's thread has to be started
+     * by calling start()!
+     *
+     * @param ssrc SSRC.
+     * @param senderSocket Socket to write data to.
+     * @param receiver RTPReceiver for reports to send.
+     * @param bandwidth RTCP Bandwidth (see RFC 1889).
+     */
+   void init(const card32 ssrc,
+             Socket*      senderSocket,
+             RTPReceiver* receiver,
+             const card64 bandwidth);
+
+
+   // ====== RTCP packet sending functions ==================================
+   /**
+     * Send RTCP APP message.
+     *
+     * @param name RTCP APP name.
+     * @param data RTCP APP data.
+     * @param dataLength RTCP APP data length.
+     * @return Bytes sent.
+     */
+   integer sendApp(const char* name, const void* data, const cardinal dataLength);
+
+   /**
+     * Send RTCP BYE message.
+     *
+     * @return Bytes sent.
+     */
+   integer sendBye();
+
+   /**
+     * Send RTCP receiver report from the SourceStateInfo given in the
+     * constructor.
+     *
+     * @return Bytes sent.
+     */
+   integer sendReport();
+
+   /**
+     * Send RTCP SDES message from the list given by addSDESItem().
+     *
+     * @return Bytes sent.
+     *
+     * @see addSDESItem
+     */   
+   integer sendSDES();
+
+   /**
+     * Add SDES item to SDES item list.
+     * If a SDES item with the same type already exists in the list, the new
+     * item replaces the old item.
+     *
+     * @param type SDES item type.
+     * @param data SDES item data.
+     * @param length SDES item data length.
+     * @return true, if item has been added; false, if not.
+     *
+     * @see sendSDES
+     */
+   bool addSDESItem(const card8 type, const void* data, const card8 length = 0);
+
+   /**
+     * Remove SDES item from SDES item list.
+     *
+     * @param type SDES item type to be removed.
+     *
+     * @see addSDESItem
+     * @see sendSDES
+     */
+   void removeSDESItem(const card8 type);
+
+
+   // ====== Private data ===================================================
+   private:
+   void timerEvent();
+   double computeTransmissionInterval();
+
+   SocketAddress*                                   ReceiverAddress;
+   Socket*                                          SenderSocket;
+   RTPReceiver*                                     Receiver;
+   card32                                           SSRC;
+   multimap<const card8,RTCPSourceDescriptionItem*> SDESItemSet;
+   Randomizer                                       Random;
+
+   bool    Initial;         // True, if application has not yet sent an RTCP packet
+   bool    WeSent;          // True, if data sent since 2nd previous RTCP report
+   integer Senders;         // Most current estimate for nr. of session senders
+   integer Members;         // Most current estimate for nr. of session members
+   double  RTCPBandwidth;   // Bandwidth for RTCP in octets/second
+   double  AverageRTCPSize; // Average compound RTCP packet size
+};
+
+
+}
+
+
+#endif

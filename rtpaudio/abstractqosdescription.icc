@@ -1,0 +1,192 @@
+// ##########################################################################
+// ####                                                                  ####
+// ####                    Master Thesis Implementation                  ####
+// ####  Management of Layered Variable Bitrate Multimedia Streams over  ####
+// ####                  DiffServ with A Priori Knowledge                ####
+// ####                                                                  ####
+// #### ================================================================ ####
+// ####                                                                  ####
+// ####                                                                  ####
+// #### Abstract QoS Description Inlines                                 ####
+// ####                                                                  ####
+// #### Version 1.00  --  February 23, 2001                              ####
+// ####                                                                  ####
+// #### Copyright (C) 2000/2001 Thomas Dreibholz                         ####
+// #### University of Bonn, Department of Computer Science IV            ####
+// #### EMail: Dreibholz@bigfoot.com                                     ####
+// #### WWW:   http://www.bigfoot.com/~dreibholz/diplom/index.html       ####
+// ####                                                                  ####
+// ##########################################################################
+
+
+#ifndef ABSTRACTQOSDESCRIPTION_ICC
+#define ABSTRACTQOSDESCRIPTION_ICC
+
+
+#include "abstractqosdescription.h"
+
+
+namespace Coral {
+
+
+// ###### Initialization ####################################################
+inline void AbstractQoSDescription::initDescription(const double frameRate)
+{
+   setFrameRate(frameRate);
+}
+
+
+// ###### Calculate MPEG's maximum utilization for given total bandwidth ####
+inline double AbstractQoSDescription::calculateMaxUtilizationForBandwidth(
+                                  const card64              totalBandwidth,
+                                  ResourceUtilizationPoint& rup) const
+{
+   calculateMaxUtilizationForBandwidthArray(&totalBandwidth,&rup,1);
+   return(rup.Utilization);
+}
+
+
+// ##########################################################################
+// #### Frame rate methods                                               ####
+// ##########################################################################
+
+
+
+// ###### Get frame rate ####################################################
+inline double AbstractQoSDescription::getFrameRate() const
+{
+   return(FrameRate);
+}
+
+
+// ###### Set frame rate ####################################################
+inline double AbstractQoSDescription::setFrameRate(const double rate)
+{
+   if(rate < getMinFrameRate()) {
+      FrameRate = getMinFrameRate();
+   }
+   else if(rate > getMaxFrameRate()) {
+      FrameRate = getMaxFrameRate();
+   }
+   else {
+      FrameRate = getNearestValidFrameRate(rate);
+   }
+   return(FrameRate);
+}
+
+
+// ###### Get position ######################################################
+inline card64 AbstractQoSDescription::getPosition() const
+{
+   return(Position);
+}
+
+
+// ###### Set position ######################################################
+inline void AbstractQoSDescription::setPosition(const card64 position)
+{
+   Position = position;
+}
+
+
+// ###### Get next higher frame rate ########################################
+inline double AbstractQoSDescription::getNextFrameRate() const
+{
+   return(getNextFrameRateForRate(FrameRate));
+}
+
+
+// ###### Get next lower frame rate #########################################
+inline double AbstractQoSDescription::getPrevFrameRate() const
+{
+   return(getPrevFrameRateForRate(FrameRate));
+}
+
+
+// ###### Get frame rate scale factor #######################################
+inline double AbstractQoSDescription::getFrameRateScaleFactor() const
+{
+   return(getFrameRateScaleFactorForRate(FrameRate));
+}
+
+
+
+// ##########################################################################
+// #### Wanted quality methods                                           ####
+// ##########################################################################
+
+
+// ###### Set wanted frame rate #############################################
+inline void AbstractQoSDescription::setWantedUtilization(const double utilization)
+{
+   WantedUtilization = utilization;
+}
+
+
+// ###### Get wanted utilization ############################################
+inline double AbstractQoSDescription::getWantedUtilization() const
+{
+   return(WantedUtilization);
+}
+
+
+// ###### Get minimum bandwidth  ############################################
+inline card64 AbstractQoSDescription::getMinWantedBandwidth() const
+{
+   return(MinWantedBandwidth);
+}
+
+
+// ###### Get maximum bandwidth  ############################################
+inline card64 AbstractQoSDescription::getMaxWantedBandwidth() const
+{
+   return(MaxWantedBandwidth);
+}
+
+
+// ###### Set minimum bandwidth #############################################
+inline void AbstractQoSDescription::setMinWantedBandwidth(const card64 bandwidth)
+{
+   MinWantedBandwidth = bandwidth;
+}
+
+
+// ###### Set maximum bandwidth #############################################
+inline void AbstractQoSDescription::setMaxWantedBandwidth(const card64 bandwidth)
+{
+   MaxWantedBandwidth = bandwidth;
+}
+
+
+// ###### Set stream priority ###############################################
+inline void AbstractQoSDescription::setStreamPriority(const int8 priority)
+{
+   StreamPriority = priority;
+}
+
+
+// ###### Get stream priority ###############################################
+inline int8 AbstractQoSDescription::getStreamPriority() const
+{
+   return(StreamPriority);
+}
+
+
+// ###### Set session priority #############################################
+inline void AbstractQoSDescription::setSessionPriority(const int8 priority)
+{
+   SessionPriority = priority;
+}
+
+
+// ###### Get session priority #############################################
+inline int8 AbstractQoSDescription::getSessionPriority() const
+{
+   return(SessionPriority);
+}
+
+
+}
+
+
+#endif

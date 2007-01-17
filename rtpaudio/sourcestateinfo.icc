@@ -1,0 +1,74 @@
+// ##########################################################################
+// ####                                                                  ####
+// ####                      RTP Audio Server Project                    ####
+// ####                    ============================                  ####
+// ####                                                                  ####
+// #### Source State Info Inlines                                        ####
+// ####                                                                  ####
+// #### Version 1.50  --  August 01, 2001                                ####
+// ####                                                                  ####
+// ####            Copyright (C) 1999-2001 by Thomas Dreibholz           ####
+// #### Contact:                                                         ####
+// ####    EMail: dreibh@exp-math.uni-essen.de                           ####
+// ####    WWW:   http://www.exp-math.uni-essen.de/~dreibh/rtpaudio      ####
+// ####                                                                  ####
+// #### ---------------------------------------------------------------- ####
+// ####                                                                  ####
+// #### This program is free software; you can redistribute it and/or    ####
+// #### modify it under the terms of the GNU General Public License      ####
+// #### as published by the Free Software Foundation; either version 2   ####
+// #### of the License, or (at your option) any later version.           ####
+// ####                                                                  ####
+// #### This program is distributed in the hope that it will be useful,  ####
+// #### but WITHOUT ANY WARRANTY; without even the implied warranty of   ####
+// #### MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the    ####
+// #### GNU General Public License for more details.                     ####
+// ####                                                                  ####
+// ##########################################################################
+
+
+#ifndef SOURCESTATEINFO_ICC
+#define SOURCESTATEINFO_ICC
+
+
+#include "sourcestateinfo.h"
+#include "tools.h"
+
+
+namespace Coral {
+
+
+// ###### Get SSRC ##########################################################
+inline card32 SourceStateInfo::getSSRC() const
+{
+   return(SSRC);
+}
+
+
+// ###### Set SSRC ##########################################################
+inline void SourceStateInfo::setSSRC(card32 ssrc)
+{
+   SSRC = ssrc;
+}
+
+
+// ###### Get DLSR ##########################################################
+inline card32 SourceStateInfo::getLSR() const
+{
+   return(LSR);
+}
+
+
+
+// ###### Set LSR ###########################################################
+inline void SourceStateInfo::setLSR(const card32 lsr)
+{
+   LSR                = lsr;
+   LSRUpdateTimeStamp = getMicroTime();
+}
+
+
+}
+
+
+#endif

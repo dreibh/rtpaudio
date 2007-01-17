@@ -1,0 +1,91 @@
+// ##########################################################################
+// ####                                                                  ####
+// ####                      RTP Audio Server Project                    ####
+// ####                    ============================                  ####
+// ####                                                                  ####
+// #### Traffic Shaper Inlines                                           ####
+// ####                                                                  ####
+// #### Version 1.50  --  August 01, 2001                                ####
+// ####                                                                  ####
+// ####            Copyright (C) 1999-2001 by Thomas Dreibholz           ####
+// #### Contact:                                                         ####
+// ####    EMail: dreibh@exp-math.uni-essen.de                           ####
+// ####    WWW:   http://www.exp-math.uni-essen.de/~dreibh/rtpaudio      ####
+// ####                                                                  ####
+// #### ---------------------------------------------------------------- ####
+// ####                                                                  ####
+// #### This program is free software; you can redistribute it and/or    ####
+// #### modify it under the terms of the GNU General Public License      ####
+// #### as published by the Free Software Foundation; either version 2   ####
+// #### of the License, or (at your option) any later version.           ####
+// ####                                                                  ####
+// #### This program is distributed in the hope that it will be useful,  ####
+// #### but WITHOUT ANY WARRANTY; without even the implied warranty of   ####
+// #### MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the    ####
+// #### GNU General Public License for more details.                     ####
+// ####                                                                  ####
+// ##########################################################################
+
+
+#ifndef TRAFFICSHAPER_ICC
+#define TRAFFICSHAPER_ICC
+
+
+#include "trafficshaper.h"
+
+
+namespace Coral {
+
+
+// ###### Set socket ########################################################
+inline void TrafficShaper::setSocket(Socket* socket)
+{
+   synchronized();
+   flush();
+   SenderSocket = socket;
+   unsynchronized();
+}
+
+
+// ###### Get bandwidth #####################################################
+inline card64 TrafficShaper::getBandwidth() const
+{
+   return(Bandwidth);
+}
+
+
+// ###### Set bandwidth #####################################################
+inline void TrafficShaper::setBandwidth(const card64 bandwidth)
+{
+   Bandwidth = bandwidth;
+}
+
+
+// ###### Get maximum delay #################################################
+inline double TrafficShaper::getBufferDelay() const
+{
+   return(BufferDelay);
+}
+
+
+// ###### Set maximum delay #################################################
+inline void TrafficShaper::setBufferDelay(const double bufferDelay)
+{
+   BufferDelay = bufferDelay;
+}
+
+
+// ###### Get last sequence number ##########################################
+inline cardinal TrafficShaper::getLastSeqNum() const
+{
+   ((TrafficShaper*)this)->synchronized();
+   const cardinal lastSeqNum = LastSeqNum;
+   ((TrafficShaper*)this)->unsynchronized();
+   return(lastSeqNum);
+}
+
+
+}
+
+
+#endif

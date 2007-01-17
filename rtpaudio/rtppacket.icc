@@ -1,0 +1,205 @@
+// ##########################################################################
+// ####                                                                  ####
+// ####                      RTP Audio Server Project                    ####
+// ####                    ============================                  ####
+// ####                                                                  ####
+// #### RTP Packet Inlines                                               ####
+// ####                                                                  ####
+// #### Version 1.50  --  August 01, 2001                                ####
+// ####                                                                  ####
+// ####            Copyright (C) 1999-2001 by Thomas Dreibholz           ####
+// #### Contact:                                                         ####
+// ####    EMail: dreibh@exp-math.uni-essen.de                           ####
+// ####    WWW:   http://www.exp-math.uni-essen.de/~dreibh/rtpaudio      ####
+// ####                                                                  ####
+// #### ---------------------------------------------------------------- ####
+// ####                                                                  ####
+// #### This program is free software; you can redistribute it and/or    ####
+// #### modify it under the terms of the GNU General Public License      ####
+// #### as published by the Free Software Foundation; either version 2   ####
+// #### of the License, or (at your option) any later version.           ####
+// ####                                                                  ####
+// #### This program is distributed in the hope that it will be useful,  ####
+// #### but WITHOUT ANY WARRANTY; without even the implied warranty of   ####
+// #### MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the    ####
+// #### GNU General Public License for more details.                     ####
+// ####                                                                  ####
+// ##########################################################################
+
+
+#ifndef RTPPACKET_ICC
+#define RTPPACKET_ICC
+
+
+#include "rtppacket.h"
+#include "tools.h"
+
+
+namespace Coral {
+
+
+// ###### Calculate header size for RTP packet ##############################
+inline cardinal RTPPacket::calculateHeaderSize() const
+{
+   return(12 + 4 * CC);
+}
+
+
+// ###### Get pointer to payload data #######################################
+inline char* RTPPacket::getPayloadData() const
+{
+   return((char*)((long)this + (long)calculateHeaderSize()));
+}
+
+
+// ###### Get maximum size of payload data ##################################
+inline cardinal RTPPacket::getMaxPayloadSize() const
+{
+   return(sizeof(Data));
+}
+
+
+// ###### Get RTP packet version ############################################
+inline card8 RTPPacket::getVersion() const
+{
+   return(V);
+}
+
+
+// ###### Get padding #######################################################
+inline card8 RTPPacket::getPadding() const
+{
+   return(P);
+}
+
+
+// ###### Get extension #####################################################
+inline card8 RTPPacket::getExtension() const
+{
+   return(X);
+}
+
+
+// ###### Get CSRC count ####################################################
+inline card8 RTPPacket::getCSRCCount() const
+{
+   return(CC);
+}
+
+
+// ###### Get marker bit ####################################################
+inline bool RTPPacket::getMarker() const
+{
+   return(M);
+}
+
+
+// ###### Get payload type ##################################################
+inline card8 RTPPacket::getPayloadType() const
+{
+   return(PT);
+}
+
+
+// ###### Get sequence number ###############################################
+inline card16 RTPPacket::getSequenceNumber() const
+{
+   return(translate16(SequenceNumber));
+}
+
+
+// ###### Get packet's time stamp ###########################################
+inline card32 RTPPacket::getTimeStamp() const
+{
+   return(translate32(TimeStamp));
+}
+
+
+// ###### Get SSRC ##########################################################
+inline card32 RTPPacket::getSSRC() const
+{
+   return(translate32(SSRC));
+}
+
+
+// ###### Get CSRC at given index ###########################################
+inline card32 RTPPacket::getCSRC(const cardinal index) const
+{
+   return(translate32(CSRC[index]));
+}
+
+
+// ###### Set version #######################################################
+inline void RTPPacket::setVersion(const card8 version)
+{
+   V = version;
+}
+
+
+// ###### Set padding #######################################################
+inline void RTPPacket::setPadding(const card8 padding)
+{
+   P = padding;
+}
+
+
+// ###### Set extension #####################################################
+inline void RTPPacket::setExtension(const card8 extension)
+{
+   X = extension;
+}
+
+
+// ###### Set CSRC count ####################################################
+inline void RTPPacket::setCSRCCount(const card8 CSRCCount)
+{
+   CC = CSRCCount;
+}
+
+
+// ###### Set marker bit ####################################################
+inline void RTPPacket::setMarker(const bool marker)
+{
+   M = marker;
+}
+
+
+// ###### Set payload type ##################################################
+inline void RTPPacket::setPayloadType(const card8 payloadType)
+{
+   PT = payloadType;
+}
+
+
+// ###### Set sequence number ###############################################
+inline void RTPPacket::setSequenceNumber(const card16 sequenceNumber)
+{
+   SequenceNumber = translate16(sequenceNumber);
+}
+
+
+// ###### Set time stamp ####################################################
+inline void RTPPacket::setTimeStamp(const card32 timeStamp)
+{
+   TimeStamp = translate32(timeStamp);
+}
+
+
+// ###### Set SSRC ##########################################################
+inline void RTPPacket::setSSRC(const card32 ssrc)
+{
+   SSRC = translate32(ssrc);
+}
+
+
+// ###### Set CSRC at given index ###########################################
+inline void RTPPacket::setCSRC(const cardinal index, const card32 csrc)
+{
+   CSRC[index] = translate32(csrc);
+}
+
+
+}
+
+
+#endif

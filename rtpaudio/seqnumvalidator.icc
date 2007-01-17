@@ -1,0 +1,96 @@
+// ##########################################################################
+// ####                                                                  ####
+// ####                      RTP Audio Server Project                    ####
+// ####                    ============================                  ####
+// ####                                                                  ####
+// #### Sequence Number Validator Inlines                                ####
+// ####                                                                  ####
+// #### Version 1.50  --  August 01, 2001                                ####
+// ####                                                                  ####
+// ####            Copyright (C) 1999-2001 by Thomas Dreibholz           ####
+// #### Contact:                                                         ####
+// ####    EMail: dreibh@exp-math.uni-essen.de                           ####
+// ####    WWW:   http://www.exp-math.uni-essen.de/~dreibh/rtpaudio      ####
+// ####                                                                  ####
+// #### ---------------------------------------------------------------- ####
+// ####                                                                  ####
+// #### This program is free software; you can redistribute it and/or    ####
+// #### modify it under the terms of the GNU General Public License      ####
+// #### as published by the Free Software Foundation; either version 2   ####
+// #### of the License, or (at your option) any later version.           ####
+// ####                                                                  ####
+// #### This program is distributed in the hope that it will be useful,  ####
+// #### but WITHOUT ANY WARRANTY; without even the implied warranty of   ####
+// #### MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the    ####
+// #### GNU General Public License for more details.                     ####
+// ####                                                                  ####
+// ##########################################################################
+
+
+#ifndef SEQNUMVALIDATOR_ICC
+#define SEQNUMVALIDATOR_ICC
+
+
+#include "seqnumvalidator.h"
+
+
+namespace Coral {
+
+
+// ###### Get packets received ##############################################
+inline card64 SeqNumValidator::getPacketsReceived() const
+{
+   return(Received);
+}
+
+
+// ###### Calculate packets lost ############################################
+inline card64 SeqNumValidator::getPacketsLost() const
+{
+   if(Uninitialized)
+      return(0);
+
+   return(((Cycles + (card64)MaxSeq) - (card64)BaseSeq + 1) - Received);
+}
+   
+
+// ###### Calculate last sequence number ####################################
+inline card64 SeqNumValidator::getLastSeqNum() const
+{
+   return(Cycles + MaxSeq);
+}
+
+
+// ###### Get fraction of packets lost ######################################
+inline double SeqNumValidator::getFractionLost() const
+{
+   return(FractionLost);
+}
+
+
+// ###### Calculate jitter ##################################################
+inline double SeqNumValidator::getJitter() const
+{
+   return(Jitter);
+}
+
+
+// ###### Initialize packet sequence ########################################
+inline void SeqNumValidator::init(const card64 sequenceNumber)
+{
+   Jitter                = 0.0;
+   FractionLost          = 0.0;
+   PrevPacketTimeStamp   = 0;
+   PrevPacketArrivalTime = 0;
+
+   Cycles                = 0;
+   MaxSeq                = sequenceNumber;
+   BaseSeq               = sequenceNumber - 1;
+   BadSeq                = SeqMod + 1;
+}            
+
+
+}
+
+
+#endif

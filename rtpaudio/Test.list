@@ -1,0 +1,107 @@
+AudioList
+
+# This a an audio list file for RTP Audio.
+# It contains a set of file names of WAV and MP3 files. Option lines begin with
+# "*", comments with "#".
+#
+# There are four possible options:
+# *directory = <name> changes the current directory.
+#
+# The next options set title, artist and comment for the next file. If the
+# file contains its own information, the file's settings will be overwritten
+# by the options.
+# *title = <title> sets the title string for the next file.
+# *artist = <artist> sets the artist string for the next file.
+# *comment = <comment> sets the comment string for the next file.
+
+*directory = /home/dreibh/MP3s
+
+*title   = Born To Be Wild
+*artist  = Steppenwolf, 1967
+*comment = RTP Audio Test MP3 File #1
+BornToBeWild.mp3
+
+*title   = San Francisco
+*artist  = Scott McKenzie, 1968
+*comment = RTP Audio Test MP3 File #2
+SanFrancisco.mp3
+
+*title   = Go West
+*artist  = Pet Shop Boys, 1993
+*comment = RTP Audio Test MP3 File #3
+GoWest.mp3
+
+*title   = Hellraiser
+*artist  = Motörhead, 1992
+*comment = RTP Audio Test MP3 File #4
+Hellraiser.mp3
+
+*title   = Highway To Hell
+*artist  = ACDC
+*comment = RTP Audio Test MP3 File #6
+HighwayToHell.mp3
+
+*title   = Hands of Devil
+*artist  = Oliver Onions
+*comment = RTP Audio Test MP3 File #7
+HandOfDevil.mp3
+
+*title   = A Man and a Train
+*artist  = Marty Robbins
+*comment = RTP Audio Test MP3 File #8
+Marty Robbins - A Man And A Train.mp3
+
+*title   = Bryan Adams
+*artist  = Summer Of '69
+*comment = RTP Audio Test MP3 File #9
+Bryan Adams - Summer Of '69.mp3
+
+*title   = The Riddle
+*artist  = Nik Kershaw
+*comment = RTP Audio Test MP3 File #10
+Nik Kershaw - The Riddle.mp3
+
+*title   = Bello e Impossibile
+*artist  = Gianna Nanini
+*comment = RTP Audio Test MP3 File #11
+gianna_nanini-bello_e_impossibile.mp3
+
+*title   = Yellow River
+*artist  = Unknown
+*comment = RTP Audio Test MP3 File #12
+YellowRiver.mp3
+
+*title   = Heaven Is a Place on Earth
+*artist  = Belinda Carlise
+*comment = RTP Audio Test MP3 File #13
+Belinda Carlise - Heaven Is a Place on Earth.mp3
+
+*title   = American Pie
+*artist  = Madonna
+*comment = RTP Audio Test MP3 File #14
+AmericanPie.mp3
+
+*title   = Africa
+*artist  = Toto
+*comment = RTP Audio Test MP3 File #15
+Africa.mp3
+
+*title   = Back to the Future Theme
+*artist  = Unknown
+*comment = RTP Audio Test MP3 File #16
+BackToTheFuture.mp3
+
+*title   = Waterloo
+*artist  = ABBA
+*comment = RTP Audio Test MP3 File #17
+ABBA - Waterloo.mp3
+
+*title   = Faust Auf Faust (Schimanski)
+*artist  = Klaus Lage
+*comment = RTP Audio Test MP3 File #17
+Klaus Lage - Faust Auf Faust (Schimanski).mp3
+
+*title   = Die glorreichen Sieben
+*artist  = Unknown
+*comment = RTP Audio Test MP3 File #19
+DieGlorreichenSieben.mp3

@@ -1,0 +1,58 @@
+// ##########################################################################
+// ####                                                                  ####
+// ####                    Master Thesis Implementation                  ####
+// ####  Management of Layered Variable Bitrate Multimedia Streams over  ####
+// ####                  DiffServ with A Priori Knowledge                ####
+// ####                                                                  ####
+// #### ================================================================ ####
+// ####                                                                  ####
+// ####                                                                  ####
+// #### Bandwidth Info Inlines                                           ####
+// ####                                                                  ####
+// #### Version 1.00  --  February 23, 2001                              ####
+// ####                                                                  ####
+// #### Copyright (C) 2000/2001 Thomas Dreibholz                         ####
+// #### University of Bonn, Department of Computer Science IV            ####
+// #### EMail: Dreibholz@bigfoot.com                                     ####
+// #### WWW:   http://www.bigfoot.com/~dreibholz/diplom/index.html       ####
+// ####                                                                  ####
+// ##########################################################################
+
+
+#ifndef BANDWIDTHINFO_ICC
+#define BANDWIDTHINFO_ICC
+
+
+#include "tdsystem.h"
+#include "bandwidthinfo.h"
+
+
+namespace Coral {
+
+
+// ###### Operator "==" #####################################################
+inline int BandwidthInfo::operator==(const BandwidthInfo& bi) const
+{
+   if((BufferDelay      != bi.BufferDelay)      ||
+      (BytesPerSecond   != bi.BytesPerSecond)   ||
+      (PacketsPerSecond != bi.PacketsPerSecond) ||
+      (MaxTransferDelay != bi.MaxTransferDelay) ||
+      (MaxLossRate      != bi.MaxLossRate)      ||
+      (MaxJitter        != bi.MaxJitter)) {
+      return(0);
+   }
+   return(1);
+}
+
+
+// ###### Operator "!=" #####################################################
+inline int BandwidthInfo::operator!=(const BandwidthInfo& bi) const
+{
+   return(!(*this == bi));
+}
+
+
+}
+
+
+#endif

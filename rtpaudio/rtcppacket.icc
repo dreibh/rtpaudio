@@ -1,0 +1,378 @@
+// ##########################################################################
+// ####                                                                  ####
+// ####                      RTP Audio Server Project                    ####
+// ####                    ============================                  ####
+// ####                                                                  ####
+// #### RTCP Packet Inlines                                              ####
+// ####                                                                  ####
+// #### Version 1.50  --  August 01, 2001                                ####
+// ####                                                                  ####
+// ####            Copyright (C) 1999-2001 by Thomas Dreibholz           ####
+// #### Contact:                                                         ####
+// ####    EMail: dreibh@exp-math.uni-essen.de                           ####
+// ####    WWW:   http://www.exp-math.uni-essen.de/~dreibh/rtpaudio      ####
+// ####                                                                  ####
+// #### ---------------------------------------------------------------- ####
+// ####                                                                  ####
+// #### This program is free software; you can redistribute it and/or    ####
+// #### modify it under the terms of the GNU General Public License      ####
+// #### as published by the Free Software Foundation; either version 2   ####
+// #### of the License, or (at your option) any later version.           ####
+// ####                                                                  ####
+// #### This program is distributed in the hope that it will be useful,  ####
+// #### but WITHOUT ANY WARRANTY; without even the implied warranty of   ####
+// #### MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the    ####
+// #### GNU General Public License for more details.                     ####
+// ####                                                                  ####
+// ##########################################################################
+
+
+#ifndef RTCPPACKET_ICC
+#define RTCPPACKET_ICC
+
+
+#include "rtcppacket.h"
+#include "tools.h"
+
+
+namespace Coral {
+
+
+// ##########################################################################
+// #### RTCP Common Header                                               ####
+// ##########################################################################
+
+
+// ###### Get version #######################################################
+inline card8 RTCPCommonHeader::getVersion() const
+{
+   return(V);
+}
+
+
+// ###### Get padding #######################################################
+inline card8 RTCPCommonHeader::getPadding() const
+{
+   return(P);
+}
+
+
+// ###### Get count #########################################################
+inline card8 RTCPCommonHeader::getCount() const
+{
+   return(C);
+}
+
+
+// ###### Get packet type ###################################################
+inline card8 RTCPCommonHeader::getPacketType() const
+{
+   return(PT);
+}
+
+
+// ###### Get length ########################################################
+inline card16 RTCPCommonHeader::getLength() const
+{
+   return((translate16(Length) + 1) * 4);
+}
+
+
+// ###### Set version #######################################################
+inline void RTCPCommonHeader::setVersion(const card8 version)
+{
+   V = version;
+}
+
+
+// ###### Set padding #######################################################
+inline void RTCPCommonHeader::setPadding(const card8 padding)
+{
+   P = padding;
+}
+
+
+// ###### Set count #########################################################
+inline void RTCPCommonHeader::setCount(const card8 count)
+{
+   C = count;
+}
+
+
+// ###### Set packet type ###################################################
+inline void RTCPCommonHeader::setPacketType(const card8 packetType)
+{
+   PT = packetType;
+}
+
+
+// ###### Set length ########################################################
+inline void RTCPCommonHeader::setLength(const card16 length)
+{
+   Length = translate16((length / 4) - 1);
+}
+
+
+// ##########################################################################
+// #### RTCP Report                                                      ####
+// ##########################################################################
+
+
+// ###### Get SSRC ##########################################################
+inline card32 RTCPReport::getSSRC() const
+{
+   return(translate32(SSRC));
+}
+
+
+// ###### Set SSRC ########################################################## 
+inline void RTCPReport::setSSRC(const card32 syncSource)
+{
+   SSRC = translate32(syncSource);
+}
+
+
+// ##########################################################################
+// #### RTCP Sender Report                                               ####
+// ##########################################################################
+
+
+
+
+// ##########################################################################
+// #### RTCP Receiver Report                                             ####
+// ##########################################################################
+
+
+
+
+// ##########################################################################
+// #### RTCP Sender Info Block                                           ####
+// ##########################################################################
+
+
+// ###### Get NTP seconds ###################################################
+inline card64 RTCPSenderInfoBlock::getNTPTimeStamp() const
+{
+   const card64 most  = (card64)translate32(NTP_MostSignificant);
+   const card64 least = (card64)translate32(NTP_LeastSignificant);
+   return((most << 32) | least);
+}
+
+
+// ###### Get RTP time stamp ################################################
+inline card32 RTCPSenderInfoBlock::getRTPTimeStamp() const
+{
+   return(translate32(RTPTimeStamp));
+}
+
+
+// ###### Get packets sent ##################################################
+inline card32 RTCPSenderInfoBlock::getPacketsSent() const
+{
+   return(translate32(PacketsSent));
+}
+
+
+// ###### Get octets sent ###################################################
+inline card32 RTCPSenderInfoBlock::getOctetsSent() const
+{
+   return(translate32(OctetsSent));
+}
+
+
+// ###### Set NTP seconds ###################################################
+inline void RTCPSenderInfoBlock::setNTPTimeStamp(const card64 timeStamp)
+{
+   NTP_MostSignificant  = translate32((card32)(timeStamp >> 32));
+   NTP_LeastSignificant = translate32((card32)(timeStamp & 0xffffffff));
+}
+
+
+// ###### Set RTP time stamp ################################################
+inline void RTCPSenderInfoBlock::setRTPTimeStamp(const card32 timeStamp)
+{
+   RTPTimeStamp = translate32(timeStamp);
+}
+
+
+// ###### Set packets sent ##################################################
+inline void RTCPSenderInfoBlock::setPacketsSent(const card32 packets)
+{ 
+   PacketsSent = translate32(packets);
+}
+
+
+// ###### Set octets sent ###################################################
+inline void RTCPSenderInfoBlock::setOctetsSent(const card32 octets)
+{ 
+   OctetsSent = translate32(octets);
+}
+
+
+// ##########################################################################
+// #### RTCP Reception Report Block                                      ####
+// ##########################################################################
+
+
+// ###### Get SSRC ##########################################################
+inline card32 RTCPReceptionReportBlock::getSSRC() const
+{ 
+   return(translate32(SSRC));
+}
+
+
+// ###### Get fraction lost #################################################
+inline double RTCPReceptionReportBlock::getFractionLost() const
+{ 
+   return((double)Fraction / 256.0);
+}
+
+
+// ###### Get packets lost ##################################################
+inline card32 RTCPReceptionReportBlock::getPacketsLost() const
+{ 
+   return(translate32(Lost));
+}
+
+
+// ###### Get last sequence number ##########################################
+inline card32 RTCPReceptionReportBlock::getLastSeqNum() const
+{ 
+   return(translate32(LastSeq));
+}
+
+
+// ###### Get jitter ########################################################
+inline card32 RTCPReceptionReportBlock::getJitter() const
+{ 
+   return(translate32(Jitter));
+}
+
+
+// ###### Get LSR ###########################################################
+inline card32 RTCPReceptionReportBlock::getLSR() const
+{ 
+   return(translate32(LSR));
+}
+
+
+// ###### Get DLSR ##########################################################
+inline card32 RTCPReceptionReportBlock::getDLSR() const
+{
+   return(translate32(DLSR));
+}
+
+
+// ###### Set SSRC ##########################################################
+inline void RTCPReceptionReportBlock::setSSRC(const card32 syncSource)
+{ 
+   SSRC = translate32(syncSource);
+}
+
+
+// ###### Set fraction lost #################################################
+inline void RTCPReceptionReportBlock::setFractionLost(const double fraction)
+{ 
+   Fraction = (card8)(256.0 * fraction);
+}
+
+
+// ###### Set packets lost ##################################################
+inline void RTCPReceptionReportBlock::setPacketsLost(const card32 lost)
+{ 
+   Lost = translate32(lost);
+}
+
+
+// ###### Set last sequence number ##########################################
+inline void RTCPReceptionReportBlock::setLastSeqNum(const card32 lastSeq)
+{
+   LastSeq = translate32(lastSeq);
+}
+
+
+// ###### Set jitter ########################################################
+inline void RTCPReceptionReportBlock::setJitter(const card32 jitter)
+{ 
+   Jitter = translate32(jitter);
+}
+
+
+// ###### Set LSR ###########################################################
+inline void RTCPReceptionReportBlock::setLSR(const card32 lsr)
+{
+   LSR = translate32(lsr);
+}
+
+
+// ###### Set DLSR ##########################################################
+inline void RTCPReceptionReportBlock::setDLSR(const card32 dlsr)
+{ 
+   DLSR = translate32(dlsr);
+}
+
+
+// ##########################################################################
+// #### RTCP Source Description                                          ####
+// ##########################################################################
+
+
+
+
+// ##########################################################################
+// #### RTCP Bye                                                         ####
+// ##########################################################################
+
+
+// ###### Get packet's source ###############################################
+inline card32 RTCPBye::getSource(const cardinal index) const
+{ 
+   return(translate32(Source[index]));
+}
+
+
+// ###### Set packet's source ###############################################
+inline void RTCPBye::setSource(const cardinal index, const card32 source)
+{ 
+   Source[index] = translate32(source);
+}
+
+
+// ##########################################################################
+// #### RTCP App                                                         ####
+// ##########################################################################
+
+
+// ###### Get packet's source ###############################################
+inline card32 RTCPApp::getSource() const
+{ 
+   return(translate32(Source));
+}
+
+
+// ###### Get message's name ################################################
+inline char* RTCPApp::getName()
+{ 
+   return(Name);
+}
+
+
+// ###### Get pointer to message's data #####################################
+inline char* RTCPApp::getData()
+{ 
+   return(&Data[0]);
+}
+
+
+// ###### Set packet's source ###############################################
+inline void RTCPApp::setSource(const card32 source)
+{
+   Source = translate32(source);
+}
+
+
+}
+
+
+#endif

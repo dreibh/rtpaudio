@@ -1,0 +1,76 @@
+// ##########################################################################
+// ####                                                                  ####
+// ####                      RTP Audio Server Project                    ####
+// ####                    ============================                  ####
+// ####                                                                  ####
+// #### Audio Quality Inlines                                            ####
+// ####                                                                  ####
+// #### Version 1.50  --  August 01, 2001                                ####
+// ####                                                                  ####
+// ####            Copyright (C) 1999-2001 by Thomas Dreibholz           ####
+// #### Contact:                                                         ####
+// ####    EMail: dreibh@exp-math.uni-essen.de                           ####
+// ####    WWW:   http://www.exp-math.uni-essen.de/~dreibh/rtpaudio      ####
+// ####                                                                  ####
+// #### ---------------------------------------------------------------- ####
+// ####                                                                  ####
+// #### This program is free software; you can redistribute it and/or    ####
+// #### modify it under the terms of the GNU General Public License      ####
+// #### as published by the Free Software Foundation; either version 2   ####
+// #### of the License, or (at your option) any later version.           ####
+// ####                                                                  ####
+// #### This program is distributed in the hope that it will be useful,  ####
+// #### but WITHOUT ANY WARRANTY; without even the implied warranty of   ####
+// #### MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the    ####
+// #### GNU General Public License for more details.                     ####
+// ####                                                                  ####
+// ##########################################################################
+
+
+#ifndef AUDIOQUALITY_ICC
+#define AUDIOQUALITY_ICC
+
+
+#include "audioquality.h"
+
+
+namespace Coral {
+
+
+// ###### Check, if quality is highest quality ##############################
+inline bool AudioQuality::isHighest() const
+{
+   return((SamplingRate >= HighestSamplingRate) && (Bits >= 16) && (Channels >= 2));
+}
+
+
+// ###### Check, if quality is lowest quality ###############################
+inline bool AudioQuality::isLowest() const
+{
+   return((SamplingRate <= LowestSamplingRate) && (Bits <= 8) && (Channels <= 1));
+}
+
+
+// ###### Convert bytes to microseconds #####################################
+inline card64 AudioQuality::bytesToTime(const size_t bytes) const
+{
+   const card64 bps = (card64)getBytesPerSecond();
+   if(bps == 0) {
+      return(0);
+   }
+   return(((card64)1000000 * (card64)bytes) / bps);
+}
+
+
+// ###### Convert microseconds to bytes #####################################
+inline size_t AudioQuality::timeToBytes(const card64 microseconds) const
+{
+   const card64 bps = (card64)getBytesPerSecond();
+   return((size_t)((bps * microseconds) / 1000000));
+}
+
+
+}
+
+
+#endif
