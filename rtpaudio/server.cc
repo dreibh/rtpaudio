@@ -59,14 +59,14 @@ void cleanUp(const cardinal exitCode = 0);
 
 
 // ###### Initialize ########################################################
-void initAll(const char*              directory,
-             SocketAddress**          localAddressArray,
-             const cardinal           localAddresses,
-             const card16             port,
-             const card64             timeout,
-             const cardinal           maxPacketSize,
-             const bool               lossScalability,
-             const bool               useSCTP)
+void initAll(const char*     directory,
+             SocketAddress** localAddressArray,
+             const cardinal  localAddresses,
+             const card16    port,
+             const card64    timeout,
+             const cardinal  maxPacketSize,
+             const bool      lossScalability,
+             const bool      useSCTP)
 {
    rtcpServerSocket = new Socket(Socket::IP,Socket::UDP,useSCTP ? Socket::SCTP : Socket::Default);
    if(rtcpServerSocket == NULL) {
