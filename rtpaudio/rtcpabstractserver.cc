@@ -49,7 +49,7 @@ void* RTCPAbstractServer::stop()
 
    synchronized();
    while(ClientSet.begin() != ClientSet.end()) {
-      multimap<const cardinal,Client*>::iterator clientIterator = ClientSet.begin();
+      std::multimap<const cardinal,Client*>::iterator clientIterator = ClientSet.begin();
       Client* client = clientIterator->second;
 
       // Note: The client will be removed and deleted here. The iterator
@@ -72,7 +72,7 @@ RTCPAbstractServer::~RTCPAbstractServer()
 // ###### Out of memory warning #############################################
 void RTCPAbstractServer::outOfMemoryWarning()
 {
-   cerr << "WARNING: RTCPAbstractServer - Out of memory!" << endl;
+   std::cerr << "WARNING: RTCPAbstractServer - Out of memory!" << std::endl;
 }
 
 
@@ -100,7 +100,7 @@ void RTCPAbstractServer::receivedSourceDescription(const InternetFlow flow,
             client->UserData      = NULL;
             client->UserData      = newClient(client,cnameString.getData());
             if(client->UserData != NULL) {
-               ClientSet.insert(pair<const cardinal,Client*>(source,client));
+               ClientSet.insert(std::pair<const cardinal,Client*>(source,client));
             }
          }
          else {
@@ -123,8 +123,8 @@ void RTCPAbstractServer::receivedSenderReport(
                             const RTCPReceptionReportBlock* report,
                             const cardinal                  layer)
 {
-   cerr << "RTCPAbstractServer::receivedSenderReport() - Not implemented yet!"
-        << endl;
+   std::cerr << "RTCPAbstractServer::receivedSenderReport() - Not implemented yet!"
+        << std::endl;
 }
 
 
@@ -134,7 +134,7 @@ void RTCPAbstractServer::receivedBye(const InternetFlow flow,
                                      const DeleteReason reason)
 {
    synchronized();
-   multimap<const cardinal,Client*>::iterator found = ClientSet.find(source);
+   std::multimap<const cardinal,Client*>::iterator found = ClientSet.find(source);
    if(found != ClientSet.end()) {
       Client* client = found->second;
       if((InternetAddress)client->ClientAddress == (InternetAddress)flow) {
@@ -180,15 +180,15 @@ void RTCPAbstractServer::receivedReceiverReport(
    unsynchronized();
 
 /*
-   cout << "RTCP Receiver Report from " << source << endl;
-   cout << "   SSRC            : " << report->getSSRC()         << endl;
-   cout << "   Fraction Lost   : " << report->getFractionLost() << endl;
-   cout << "   Packets Lost    : " << report->getPacketsLost()  << endl;
-   cout << "   Last Seq Number : " << report->getLastSeqNum()   << endl;
-   cout << "   Interar. Jitter : " << report->getJitter()       << endl;
-   cout << "   LSR             : " << report->getLSR()          << endl;
-   cout << "   DLSR            : " << report->getDLSR()         << endl;
-   cout << "}" << endl;
+   std::cout << "RTCP Receiver Report from " << source << std::endl;
+   std::cout << "   SSRC            : " << report->getSSRC()         << std::endl;
+   std::cout << "   Fraction Lost   : " << report->getFractionLost() << std::endl;
+   std::cout << "   Packets Lost    : " << report->getPacketsLost()  << std::endl;
+   std::cout << "   Last Seq Number : " << report->getLastSeqNum()   << std::endl;
+   std::cout << "   Interar. Jitter : " << report->getJitter()       << std::endl;
+   std::cout << "   LSR             : " << report->getLSR()          << std::endl;
+   std::cout << "   DLSR            : " << report->getDLSR()         << std::endl;
+   std::cout << "}" << std::endl;
 */
 }
 
@@ -198,7 +198,7 @@ RTCPAbstractServer::Client* RTCPAbstractServer::findClient(
                                const card32       source,
                                const InternetFlow flow)
 {
-   multimap<const cardinal,Client*>::iterator found = ClientSet.find(source);
+   std::multimap<const cardinal,Client*>::iterator found = ClientSet.find(source);
    if(found != ClientSet.end()) {
       Client* client = found->second;
       if((InternetAddress)client->ClientAddress == (InternetAddress)flow) {
@@ -207,9 +207,9 @@ RTCPAbstractServer::Client* RTCPAbstractServer::findClient(
       else {
          char str[32];
          snprintf((char*)&str,sizeof(str),"$%08x",source);
-         cerr << "WARNING: SSRC " << str << " changed address from "
-              << (InternetAddress)client->ClientAddress << " to "
-              << (InternetAddress)flow << endl;
+         std::cerr << "WARNING: SSRC " << str << " changed address from "
+                   << (InternetAddress)client->ClientAddress << " to "
+                   << (InternetAddress)flow << std::endl;
       }
    }
    return(NULL);
@@ -223,7 +223,7 @@ void RTCPAbstractServer::timerEvent()
 
    const card64 now = getMicroTime();
 
-   multimap<const cardinal,Client*>::iterator clientIterator = ClientSet.begin();
+   std::multimap<const cardinal,Client*>::iterator clientIterator = ClientSet.begin();
    while(clientIterator != ClientSet.end()) {
       Client* client = clientIterator->second;
       if(client->TimeStamp + client->Timeout < now) {

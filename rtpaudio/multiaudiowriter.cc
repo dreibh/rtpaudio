@@ -66,7 +66,7 @@ bool MultiAudioWriter::addWriter(AudioWriterInterface* writer)
 void MultiAudioWriter::removeWriter(AudioWriterInterface* writer)
 {
    synchronized();
-   multiset<AudioWriterInterface*>::iterator found = WriterSet.find(writer);
+   std::multiset<AudioWriterInterface*>::iterator found = WriterSet.find(writer);
    if(found != WriterSet.end()) {
       WriterSet.erase(found);
    }
@@ -107,7 +107,7 @@ card8 MultiAudioWriter::setBits(const card8 bits) {
    synchronized();
    AudioBits = bits;
 
-   multiset<AudioWriterInterface*>::iterator writerIterator = WriterSet.begin();
+   std::multiset<AudioWriterInterface*>::iterator writerIterator = WriterSet.begin();
    while(writerIterator != WriterSet.end()) {
       (*writerIterator)->setBits(AudioBits);
       writerIterator++;
@@ -123,7 +123,7 @@ card8 MultiAudioWriter::setChannels(const card8 channels) {
    synchronized();
    AudioChannels = channels;
 
-   multiset<AudioWriterInterface*>::iterator writerIterator = WriterSet.begin();
+   std::multiset<AudioWriterInterface*>::iterator writerIterator = WriterSet.begin();
    while(writerIterator != WriterSet.end()) {
       (*writerIterator)->setChannels(AudioChannels);
       writerIterator++;
@@ -139,7 +139,7 @@ card16 MultiAudioWriter::setSamplingRate(const card16 rate) {
    synchronized();
    AudioSamplingRate = rate;
 
-   multiset<AudioWriterInterface*>::iterator writerIterator = WriterSet.begin();
+   std::multiset<AudioWriterInterface*>::iterator writerIterator = WriterSet.begin();
    while(writerIterator != WriterSet.end()) {
       (*writerIterator)->setSamplingRate(AudioSamplingRate);
       writerIterator++;
@@ -156,7 +156,7 @@ card16 MultiAudioWriter::setByteOrder(const card16 byteOrder)
    synchronized();
    AudioByteOrder = byteOrder;
 
-   multiset<AudioWriterInterface*>::iterator writerIterator = WriterSet.begin();
+   std::multiset<AudioWriterInterface*>::iterator writerIterator = WriterSet.begin();
    while(writerIterator != WriterSet.end()) {
       (*writerIterator)->setByteOrder(AudioByteOrder);
       writerIterator++;
@@ -193,7 +193,7 @@ void MultiAudioWriter::sync()
 {
    synchronized();
 
-   multiset<AudioWriterInterface*>::iterator writerIterator = WriterSet.begin();
+   std::multiset<AudioWriterInterface*>::iterator writerIterator = WriterSet.begin();
    while(writerIterator != WriterSet.end()) {
       (*writerIterator)->sync();
       writerIterator++;
@@ -209,7 +209,7 @@ bool MultiAudioWriter::write(const void* data, const size_t length)
    bool success = true;
    synchronized();
 
-   multiset<AudioWriterInterface*>::iterator writerIterator = WriterSet.begin();
+   std::multiset<AudioWriterInterface*>::iterator writerIterator = WriterSet.begin();
    while(writerIterator != WriterSet.end()) {
       if((*writerIterator)->write(data,length) == false) {
          success = false;

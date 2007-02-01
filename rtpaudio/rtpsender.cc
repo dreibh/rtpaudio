@@ -129,7 +129,7 @@ AbstractQoSDescription* RTPSender::getQoSDescription(const card64 offset)
       const cardinal headerSize    = ((peerAddress.isIPv6()) ? IPv6HeaderSize : IPv4HeaderSize) +
                                         UDPHeaderSize +
                                         RTPConstants::RTPDefaultHeaderSize;
-      const cardinal maxPacketSize = min(MaxPacketSize, headerSize + RTPConstants::RTPMaxPayloadLimit);
+      const cardinal maxPacketSize = std::min(MaxPacketSize, headerSize + RTPConstants::RTPMaxPayloadLimit);
 
       // ====== Get QoS description =========================================
       AbstractQoSDescription* aqd =
@@ -139,7 +139,7 @@ AbstractQoSDescription* RTPSender::getQoSDescription(const card64 offset)
       if(aqd != NULL) {
          InternetAddress localAddress;
          SenderSocket->getSocketAddress(localAddress);
-         const cardinal layers = min(aqd->getLayers(),RTPConstants::RTPMaxQualityLayers);
+         const cardinal layers = std::min(aqd->getLayers(),RTPConstants::RTPMaxQualityLayers);
          for(cardinal i = 0;i < layers;i++) {
             AbstractLayerDescription* ald = aqd->getLayer(i);
             ald->setSource(localAddress);
@@ -162,7 +162,7 @@ void RTPSender::updateQuality(const AbstractQoSDescription* aqd)
       synchronized();
 
       // ====== Update traffic constraints ==================================
-      const cardinal layers    = min(aqd->getLayers(),RTPConstants::RTPMaxQualityLayers);
+      const cardinal layers    = std::min(aqd->getLayers(),RTPConstants::RTPMaxQualityLayers);
       const double   frameRate = aqd->getFrameRate();
       for(cardinal i = 0;i < layers;i++) {
          AbstractLayerDescription* ald = aqd->getLayer(i);
@@ -222,8 +222,8 @@ void RTPSender::unlock()
 void RTPSender::timerEvent()
 {
    if(Encoder == NULL) {
-      cerr << "ERROR: RTPSender::timerEvent() - RTPSender is uninitialized!"
-           << endl;
+      std::cerr << "ERROR: RTPSender::timerEvent() - RTPSender is uninitialized!"
+                << std::endl;
       return;
    }
    synchronized();
@@ -256,7 +256,7 @@ void RTPSender::timerEvent()
          const integer error = SenderSocket->getLastError();
          if((TransmissionError == false) && (error != EAGAIN) && (error != EINTR)) {
 #ifdef DEBUG
-            cerr << "RTPSender::timerEvent() - Transmission of RTCP SR failed!" << endl;
+            std::cerr << "RTPSender::timerEvent() - Transmission of RTCP SR failed!" << std::endl;
 #endif
             TransmissionError = true;
          }
@@ -273,7 +273,7 @@ void RTPSender::timerEvent()
       UDPHeaderSize;
    const cardinal headerSizeRTP = packet.calculateHeaderSize();
    const cardinal maxPacketSize =
-      min(MaxPacketSize, headerSizeTransport + headerSizeRTP + RTPConstants::RTPMaxPayloadLimit);
+      std::min(MaxPacketSize, headerSizeTransport + headerSizeRTP + RTPConstants::RTPMaxPayloadLimit);
    const cardinal maxPayloadSize =
       maxPacketSize - (headerSizeTransport + headerSizeRTP);
 
@@ -306,9 +306,8 @@ void RTPSender::timerEvent()
          encoderPacket.PayloadType = 0x00;
          encoderPacket.ErrorCode   = ME_NoError;
          bytesData = Encoder->getNextPacket(&encoderPacket);
-cerr << "";
          if(bytesData > maxPayloadSize) {
-            cerr << "WARNING: RTPSender::timerEvent() - Encoder exceeds packet size limit!" << endl;
+            std::cerr << "WARNING: RTPSender::timerEvent() - Encoder exceeds packet size limit!" << std::endl;
             bytesData = 0;
          }
 
@@ -380,11 +379,11 @@ printf("send: %d\n",bytesData);
             else {
                const integer error = SenderSocket->getLastError();
                if((error != 0) && (TransmissionError == false) && (error != EAGAIN) && (error != EINTR)) {
-                  cerr << "WARNING: RTPSender::timerEvent() - "
-                       << "Unable to send " << packet.calculateHeaderSize() + bytesData
-                       << " bytes to " << Flow[encoderPacket.Layer] << endl
-                       << "Transmission error #"
-                       << error << ": " << strerror(error) << endl;
+                  std::cerr << "WARNING: RTPSender::timerEvent() - "
+                            << "Unable to send " << packet.calculateHeaderSize() + bytesData
+                            << " bytes to " << Flow[encoderPacket.Layer] << std::endl
+                            << "Transmission error #"
+                            << error << ": " << strerror(error) << std::endl;
                   TransmissionError = true;
                   break;
                }
@@ -396,8 +395,8 @@ printf("send: %d\n",bytesData);
             const integer error = SenderSocket->getLastError();
             if((error > 0) && (error != -EINTR) && (TransmissionError == false)) {
                if(error != -ECONNREFUSED) {
-                  cerr << "WARNING: RTPSender::timerEvent() - Transmission error #"
-                       << error << ": " << strerror(error) << endl;
+                  std::cerr << "WARNING: RTPSender::timerEvent() - Transmission error #"
+                            << error << ": " << strerror(error) << std::endl;
                }
                TransmissionError = true;
                break;
@@ -414,8 +413,8 @@ printf("send: %d\n",bytesData);
          if(pendingTimerEvent(0)) {
             // There is a new timer event -> Skip rest of this frame!
 #ifdef DEBUG
-            cerr << "NOTE: RTPSender::timerEvent() - Pending timer -> "
-                 << "Skipping rest of frame!" << endl;
+            std::cerr << "NOTE: RTPSender::timerEvent() - Pending timer -> "
+                      << "Skipping rest of frame!" << std::endl;
 #endif
             break;
          }

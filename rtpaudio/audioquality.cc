@@ -154,7 +154,7 @@ card8 AudioQuality::setBits(const card8 bits) {
          return(Bits);
       }
    }
-   cerr << "WARNING: AudioQuality::setBits() - Invalid bits " << bits << endl;
+   std::cerr << "WARNING: AudioQuality::setBits() - Invalid bits " << bits << std::endl;
    Bits = 16;
    return(Bits);
 }
@@ -168,7 +168,7 @@ card8 AudioQuality::setChannels(const card8 channels) {
          return(Channels);
       }
    }
-   cerr << "WARNING: AudioQuality::setChannels() - Invalid channels " << channels << endl;
+   std::cerr << "WARNING: AudioQuality::setChannels() - Invalid channels " << channels << std::endl;
    Channels = 16;
    return(Channels);
 }
@@ -182,7 +182,7 @@ card16 AudioQuality::setSamplingRate(const card16 rate) {
          return(SamplingRate);
       }
    }
-   cerr << "WARNING: AudioQuality::setSamplingRate() - Invalid rate " << rate << endl;
+   std::cerr << "WARNING: AudioQuality::setSamplingRate() - Invalid rate " << rate << std::endl;
    SamplingRate = 44100;
    return(SamplingRate);
 }
@@ -194,8 +194,8 @@ card16 AudioQuality::setByteOrder(const card16 byteOrder) {
       ByteOrder = byteOrder;
    }
    else {
-      cerr << "WARNING: AudioQuality::setByteOrder() - Invalid value "
-           << byteOrder << "!" << endl;
+      std::cerr << "WARNING: AudioQuality::setByteOrder() - Invalid value "
+                << byteOrder << "!" << std::endl;
       ByteOrder = BYTE_ORDER;
    }
    return(ByteOrder);
@@ -295,7 +295,7 @@ AudioQuality AudioQuality::operator--(int)
 // ###### Increase sampling rate ############################################
 void AudioQuality::increase(const cardinal steps)
 {
-   for(cardinal i = 0;i < min(steps,QualityLevels);i++) {
+   for(cardinal i = 0;i < std::min(steps,QualityLevels);i++) {
       (*this)++;
    }
 }
@@ -304,14 +304,14 @@ void AudioQuality::increase(const cardinal steps)
 // ###### Decrease sampling rate ############################################
 void AudioQuality::decrease(const cardinal steps)
 {
-   for(cardinal i = 0;i < min(steps,QualityLevels);i++) {
+   for(cardinal i = 0;i < std::min(steps,QualityLevels);i++) {
       (*this)--;
    }
 }
 
 
 // ###### "<<"-operator #####################################################
-ostream& operator<<(ostream& os, const AudioQualityInterface& quality)
+std::ostream& operator<<(std::ostream& os, const AudioQualityInterface& quality)
 {
    char  string[64];
    char* byteOrder = "";
@@ -342,9 +342,9 @@ ostream& operator<<(ostream& os, const AudioQualityInterface& quality)
 AudioQuality operator+(const AudioQualityInterface& q1, const AudioQualityInterface& q2)
 {
    AudioQuality quality;
-   quality.setSamplingRate(max(q1.getSamplingRate(),q2.getSamplingRate()));
-   quality.setChannels(max(q1.getChannels(),q2.getChannels()));
-   quality.setBits(max(q1.getBits(),q2.getBits()));
+   quality.setSamplingRate(std::max(q1.getSamplingRate(),q2.getSamplingRate()));
+   quality.setChannels(std::max(q1.getChannels(),q2.getChannels()));
+   quality.setBits(std::max(q1.getBits(),q2.getBits()));
    return(quality);
 }
 
@@ -353,9 +353,9 @@ AudioQuality operator+(const AudioQualityInterface& q1, const AudioQualityInterf
 AudioQuality operator-(const AudioQualityInterface& q1, const AudioQualityInterface& q2)
 {
    AudioQuality quality;
-   quality.setSamplingRate(min(q1.getSamplingRate(),q2.getSamplingRate()));
-   quality.setChannels(min(q1.getChannels(),q2.getChannels()));
-   quality.setBits(min(q1.getBits(),q2.getBits()));
+   quality.setSamplingRate(std::min(q1.getSamplingRate(),q2.getSamplingRate()));
+   quality.setChannels(std::min(q1.getChannels(),q2.getChannels()));
+   quality.setBits(std::min(q1.getBits(),q2.getBits()));
    return(quality);
 }
 

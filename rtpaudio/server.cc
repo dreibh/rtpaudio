@@ -70,7 +70,7 @@ void initAll(const char*              directory,
 {
    rtcpServerSocket = new Socket(Socket::IP,Socket::UDP,useSCTP ? Socket::SCTP : Socket::Default);
    if(rtcpServerSocket == NULL) {
-      cerr << "ERROR: Server::initAll() - Out of memory!" << endl;
+      std::cerr << "ERROR: Server::initAll() - Out of memory!" << std::endl;
       cleanUp(1);
    }
    if(useSCTP) {
@@ -78,7 +78,7 @@ void initAll(const char*              directory,
 
       memset((char*)&events, 0 ,sizeof(events));
       if(rtcpServerSocket->setSocketOption(IPPROTO_SCTP, SCTP_EVENTS, &events, sizeof(events)) < 0) {
-         cerr << "WARNING: AudioClient::play() - SCTP_EVENTS failed!" << endl;
+         std::cerr << "WARNING: AudioClient::play() - SCTP_EVENTS failed!" << std::endl;
       }
       sctp_initmsg init;
       init.sinit_num_ostreams   = 1;
@@ -86,7 +86,7 @@ void initAll(const char*              directory,
       init.sinit_max_attempts   = 0;
       init.sinit_max_init_timeo = 60;
       if(rtcpServerSocket->setSocketOption(IPPROTO_SCTP,SCTP_INITMSG,(char*)&init,sizeof(init)) < 0) {
-         cerr << "WARNING: AudioServer::newClient() - Unable to set SCTP_INITMSG parameters!" << endl;
+         std::cerr << "WARNING: AudioServer::newClient() - Unable to set SCTP_INITMSG parameters!" << std::endl;
       }
    }
    for(cardinal i = 0;i < localAddresses;i++) {
@@ -95,7 +95,7 @@ void initAll(const char*              directory,
    if(rtcpServerSocket->bindx((const SocketAddress**)localAddressArray,
                               localAddresses,
                               SCTP_BINDX_ADD_ADDR) == false) {
-      cerr << "ERROR: Server::initAll() - Unable to bind socket!" << endl;
+      std::cerr << "ERROR: Server::initAll() - Unable to bind socket!" << std::endl;
       cleanUp(1);
    }
    for(cardinal i = 0;i < localAddresses;i++) {
@@ -103,29 +103,29 @@ void initAll(const char*              directory,
    }
    server = new AudioServer(localAddressArray,localAddresses,qosManager,maxPacketSize,useSCTP);
    if(server == NULL) {
-      cerr << "ERROR: Server::initAll() - Out of memory!" << endl;
+      std::cerr << "ERROR: Server::initAll() - Out of memory!" << std::endl;
       cleanUp(1);
    }
    server->setDefaultTimeout(timeout);
    server->setLossScalability(lossScalability);
    rtcpReceiver = new RTCPReceiver(server,rtcpServerSocket);
    if(rtcpReceiver == NULL) {
-      cerr << "ERROR: Server::initAll() - Out of memory!" << endl;
+      std::cerr << "ERROR: Server::initAll() - Out of memory!" << std::endl;
       cleanUp(1);
    }
    if(server->start() == false) {
-      cerr << "ERROR: Server::initAll() - Unable to start server thread!" << endl;
+      std::cerr << "ERROR: Server::initAll() - Unable to start server thread!" << std::endl;
       cleanUp(1);
    }
    if(rtcpReceiver->start() == false) {
-      cerr << "ERROR: Server::initAll() - Unable to start RTCP receiver thread!" << endl;
+      std::cerr << "ERROR: Server::initAll() - Unable to start RTCP receiver thread!" << std::endl;
       cleanUp(1);
    }
 
    // ====== Change directory ===============================================
    if(directory != NULL) {
       if(chdir(directory) != 0) {
-         cerr << "ERROR: Server::initAll() - Unable to change directory!" << endl;
+         std::cerr << "ERROR: Server::initAll() - Unable to change directory!" << std::endl;
          cleanUp(1);
       }
    }
@@ -152,7 +152,7 @@ void cleanUp(const cardinal exitCode)
       delete qosManager;
    }  ??????????�   */
    if(exitCode == 0) {
-      cout << "Terminated!" << endl;
+      std::cout << "Terminated!" << std::endl;
    }
    exit(exitCode);
 }
@@ -200,9 +200,9 @@ int main(int argc, char* argv[])
                      if(name == "PORT") {
                         int portNumber;
                         if(sscanf(value.getData(),"%d",&portNumber) != 1) {
-                           cerr << "ERROR: Bad port setting, "
-                                   "line " << line << "!" << endl;
-                           cerr << "       Syntax: Port = <number>" << endl;
+                           std::cerr << "ERROR: Bad port setting, "
+                                   "line " << line << "!" << std::endl;
+                           std::cerr << "       Syntax: Port = <number>" << std::endl;
                            exit(1);
                         }
                         port = (card16)portNumber;
@@ -210,9 +210,9 @@ int main(int argc, char* argv[])
                      else if(name == "TIMEOUT") {
                         int timeoutValue;
                         if(sscanf(value.getData(),"%d",&timeoutValue) != 1) {
-                           cerr << "ERROR: Bad timeout setting, "
-                                   "line " << line << "!" << endl;
-                           cerr << "       Syntax: Timeout = <seconds>" << endl;
+                           std::cerr << "ERROR: Bad timeout setting, "
+                                        "line " << line << "!" << std::endl;
+                           std::cerr << "       Syntax: Timeout = <seconds>" << std::endl;
                            exit(1);
                         }
                         timeout = 1000000 * (card64)timeoutValue;
@@ -220,9 +220,9 @@ int main(int argc, char* argv[])
                      else if(name == "MAX PACKET SIZE") {
                         int size;
                         if(sscanf(value.getData(),"%d",&size) != 1) {
-                           cerr << "ERROR: Bad maximum packet size setting, "
-                                   "line " << line << "!" << endl;
-                           cerr << "       Syntax: Max Packet Size = <Bytes>" << endl;
+                           std::cerr << "ERROR: Bad maximum packet size setting, "
+                                        "line " << line << "!" << std::endl;
+                           std::cerr << "       Syntax: Max Packet Size = <Bytes>" << std::endl;
                            exit(1);
                         }
                         maxPacketSize = (cardinal)size;
@@ -233,9 +233,9 @@ int main(int argc, char* argv[])
                      else if(name == "DISABLE QOS MANAGER") {
                         int off;
                         if(sscanf(value.getData(),"%d",&off) != 1) {
-                           cerr << "ERROR: Bad QoS manager setting, "
-                                   "line " << line << "!" << endl;
-                           cerr << "       Syntax: Disable QoS Manager = <0|1>" << endl;
+                           std::cerr << "ERROR: Bad QoS manager setting, "
+                                        "line " << line << "!" << std::endl;
+                           std::cerr << "       Syntax: Disable QoS Manager = <0|1>" << std::endl;
                            exit(1);
                         }
                         disableQM = (off != 0) ? true : false;
@@ -243,9 +243,9 @@ int main(int argc, char* argv[])
                      else if(name == "QOS MANAGER") {
                         int on;
                         if(sscanf(value.getData(),"%d",&on) != 1) {
-                           cerr << "ERROR: Bad QoS manager setting, "
-                                   "line " << line << "!" << endl;
-                           cerr << "       Syntax: QoS Manager = <0|1>" << endl;
+                           std::cerr << "ERROR: Bad QoS manager setting, "
+                                   "line " << line << "!" << std::endl;
+                           std::cerr << "       Syntax: QoS Manager = <0|1>" << std::endl;
                            exit(1);
                         }
                         disableQM = (on != 0) ? false : true;
@@ -253,9 +253,9 @@ int main(int argc, char* argv[])
                      else if(name == "LOSS SCALABILITY") {
                         int on;
                         if(sscanf(value.getData(),"%d",&on) != 1) {
-                           cerr << "ERROR: Bad loss scalability setting, "
-                                   "line " << line << "!" << endl;
-                           cerr << "       Syntax: Loss Scalability = <0|1>" << endl;
+                           std::cerr << "ERROR: Bad loss scalability setting, "
+                                        "line " << line << "!" << std::endl;
+                           std::cerr << "       Syntax: Loss Scalability = <0|1>" << std::endl;
                            exit(1);
                         }
                         lossScalability = (on != 0) ? true : false;
@@ -263,9 +263,9 @@ int main(int argc, char* argv[])
                      else if(name == "FORCE IPV4") {
                         int on;
                         if(sscanf(value.getData(),"%d",&on) != 1) {
-                           cerr << "ERROR: Bad force IPv4 setting, "
-                                   "line " << line << "!" << endl;
-                           cerr << "       Syntax: Force IPv4 = <0|1>" << endl;
+                           std::cerr << "ERROR: Bad force IPv4 setting, "
+                                        "line " << line << "!" << std::endl;
+                           std::cerr << "       Syntax: Force IPv4 = <0|1>" << std::endl;
                            exit(1);
                         }
                         optForceIPv4 = (on != 0) ? true : false;
@@ -273,17 +273,17 @@ int main(int argc, char* argv[])
                      else if(name == "SCTP") {
                         int on;
                         if(sscanf(value.getData(),"%d",&on) != 1) {
-                           cerr << "ERROR: Bad SCTP setting, "
-                                   "line " << line << "!" << endl;
-                           cerr << "       Syntax: SCTP = <0|1>" << endl;
+                           std::cerr << "ERROR: Bad SCTP setting, "
+                                        "line " << line << "!" << std::endl;
+                           std::cerr << "       Syntax: SCTP = <0|1>" << std::endl;
                            exit(1);
                         }
                         optUseSCTP = (on != 0) ? true : false;
                      }
                      else {
-                        cerr << "ERROR: Unknown option <"
-                             << name << " = " << value << ">, "
-                                "line " << line << "!" << endl;
+                        std::cerr << "ERROR: Unknown option <"
+                                  << name << " = " << value << ">, "
+                                  "line " << line << "!" << std::endl;
                         exit(1);
                      }
                   }
@@ -307,7 +307,7 @@ int main(int argc, char* argv[])
             if(localAddressArray == NULL) {
                localAddressArray = SocketAddress::newAddressList(SCTP_MAXADDRESSES);
                if(localAddressArray == NULL) {
-                  cerr << "ERROR: Out of memory!" << endl;
+                  std::cerr << "ERROR: Out of memory!" << std::endl;
                   exit(1);
                }
             }
@@ -315,13 +315,13 @@ int main(int argc, char* argv[])
                                                    SocketAddress::PF_HidePort,
                                                    &argv[i][7]);
             if(localAddressArray[localAddresses] == NULL) {
-               cerr << "ERROR: Argument #" << i << " is an invalid address!" << endl;
+               std::cerr << "ERROR: Argument #" << i << " is an invalid address!" << std::endl;
                exit(1);
             }
             localAddresses++;
          }
          else {
-            cerr << "ERROR: Too many local addresses!" << endl;
+            std::cerr << "ERROR: Too many local addresses!" << std::endl;
             exit(1);
          }
       }
@@ -335,18 +335,18 @@ int main(int argc, char* argv[])
       else if(!(strcasecmp(argv[i],"-enable-ls")))       lossScalability = true;
       else if(!(strncasecmp(argv[i],"-directory=",11)))  directory = String(&argv[i][11]);
       else {
-         cerr << "Usage: " << argv[0] << " {-port=port} {-directory=path} {-manager=host:port} {-local=host} {-timeout=secs} {-maxpktsize=bytes} {-disable-qm|-enable-qm} {-disable-ls|-enable-ls} {-force-ipv4|-use-ipv6}" << endl;
+         std::cerr << "Usage: " << argv[0] << " {-port=port} {-directory=path} {-manager=host:port} {-local=host} {-timeout=secs} {-maxpktsize=bytes} {-disable-qm|-enable-qm} {-disable-ls|-enable-ls} {-force-ipv4|-use-ipv6}" << std::endl;
          exit(1);
       }
    }
    if(optForceIPv4) {
       if(InternetAddress::UseIPv6 == true) {
          InternetAddress::UseIPv6 = false;
-         cerr << "NOTE: IPv6 support disabled!" << endl;
+         std::cerr << "NOTE: IPv6 support disabled!" << std::endl;
       }
    }
    if(port < 1024) {
-      cerr << "ERROR: Invalid port number!" << endl;
+      std::cerr << "ERROR: Invalid port number!" << std::endl;
       exit(1);
    }
    if(localAddressArray == NULL) {
@@ -355,24 +355,24 @@ int main(int argc, char* argv[])
                localAddressArray,
                localAddresses,
                Socket::GLAF_HideBroadcast|Socket::GLAF_HideMulticast|Socket::GLAF_HideAnycast)) {
-            cerr << "ERROR: Cannot obtain local addresses!" << endl;
+            std::cerr << "ERROR: Cannot obtain local addresses!" << std::endl;
             exit(1);
          }
          if(localAddresses < 1) {
-            cerr << "ERROR: No valid local addresses have been found?!" << endl
-                 << "       Check your network interface configuration!" << endl;
+            std::cerr << "ERROR: No valid local addresses have been found?!" << std::endl
+                      << "       Check your network interface configuration!" << std::endl;
             exit(1);
          }
       }
       else {
          localAddressArray = SocketAddress::newAddressList(SCTP_MAXADDRESSES);
          if(localAddressArray == NULL) {
-            cerr << "ERROR: Out of memory!" << endl;
+            std::cerr << "ERROR: Out of memory!" << std::endl;
             exit(1);
          }
          localAddressArray[0] = new InternetAddress(port);
          if(localAddressArray[0] == NULL) {
-            cerr << "ERROR: Out of memory!" << endl;
+            std::cerr << "ERROR: Out of memory!" << std::endl;
             exit(1);
          }
          localAddresses = 1;
@@ -397,7 +397,7 @@ int main(int argc, char* argv[])
       /*
       qosManager = new QoSManager();
       if(qosManager == NULL) {
-         cerr << "ERROR: Server::main() - Out of memory!" << endl;
+         std::cerr << "ERROR: Server::main() - Out of memory!" << std::endl;
          cleanUp(1);
       }
       ??????
@@ -422,31 +422,31 @@ int main(int argc, char* argv[])
 
 
    // ====== Print status ===================================================
-   cout << "RTP Audio Server - Copyright (C) 1999-2002 Thomas Dreibholz" << endl;
-   cout << "-----------------------------------------------------------" << endl;
-   cout << endl;
-   cout << "Version:          " << __DATE__ << ", " << __TIME__ << endl;
+   std::cout << "RTP Audio Server - Copyright (C) 1999-2007 Thomas Dreibholz" << std::endl;
+   std::cout << "-----------------------------------------------------------" << std::endl;
+   std::cout << std::endl;
+   std::cout << "Version:          " << __DATE__ << ", " << __TIME__ << std::endl;
    if(optUseSCTP) {
-      cout << "SCTP:             on" << endl;
+      std::cout << "SCTP:             on" << std::endl;
    }
    else {
-      cout << "SCTP:             off" << endl;
+      std::cout << "SCTP:             off" << std::endl;
    }
    localAddressArray[0]->setPrintFormat(SocketAddress::PF_Address|SocketAddress::PF_HidePort);
-   cout << "Local Addresses:  " << *(localAddressArray[0]) << endl;
+   std::cout << "Local Addresses:  " << *(localAddressArray[0]) << std::endl;
    for(cardinal i = 1;i < localAddresses;i++) {
       localAddressArray[i]->setPrintFormat(SocketAddress::PF_Address|SocketAddress::PF_HidePort);
-      cout << "                  " << *(localAddressArray[i]) << endl;
+      std::cout << "                  " << *(localAddressArray[i]) << std::endl;
    }
-   cout << "Server Port:      " << port << endl;
+   std::cout << "Server Port:      " << port << std::endl;
    char str[32];
    snprintf((char*)&str,sizeof(str),"$%08x",server->getOurSSRC());
-   cout << "Server SSRC:      " << str << endl;
-   cout << "Client Timeout:   " << (timeout / 1000000) << " [s]" << endl;
-   cout << "Input Directory:  " << directory << endl;
-   cout << "Max Packet Size:  " << maxPacketSize << endl;
-   cout << "Loss Scalability: " << (lossScalability ? "on" : "off") << endl;
-   cout << endl;
+   std::cout << "Server SSRC:      " << str << std::endl;
+   std::cout << "Client Timeout:   " << (timeout / 1000000) << " [s]" << std::endl;
+   std::cout << "Input Directory:  " << directory << std::endl;
+   std::cout << "Max Packet Size:  " << maxPacketSize << std::endl;
+   std::cout << "Loss Scalability: " << (lossScalability ? "on" : "off") << std::endl;
+   std::cout << std::endl;
 
 
    // ====== Main loop ======================================================

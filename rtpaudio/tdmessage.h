@@ -1,15 +1,17 @@
 /*
- *  $Id: tdmessage.h,v 1.2 2002/08/16 16:24:51 dreibh Exp $
+ *  $Id: tdmessage.h 1008 2006-03-10 09:56:56Z dreibh $
  *
- * SCTP implementation according to RFC 2960.
- * Copyright (C) 1999-2002 by Thomas Dreibholz
+ * SocketAPI implementation for the sctplib.
+ * Copyright (C) 1999-2006 by Thomas Dreibholz
  *
- * Realized in co-operation between Siemens AG
- * and University of Essen, Institute of Computer Networking Technology.
+ * Realized in co-operation between
+ * - Siemens AG
+ * - University of Essen, Institute of Computer Networking Technology
+ * - University of Applied Sciences, Muenster
  *
  * Acknowledgement
- * This work was partially funded by the Bundesministerium für Bildung und
- * Forschung (BMBF) of the Federal Republic of Germany (Förderkennzeichen 01AK045).
+ * This work was partially funded by the Bundesministerium fuer Bildung und
+ * Forschung (BMBF) of the Federal Republic of Germany (Foerderkennzeichen 01AK045).
  * The authors alone are responsible for the contents.
  *
  * This library is free software; you can redistribute it and/or
@@ -26,6 +28,7 @@
  *
  * Contact: discussion@sctp.de
  *          dreibh@exp-math.uni-essen.de
+ *          tuexen@fh-muenster.de
  *
  * Purpose: Socket Message
  *
@@ -162,17 +165,26 @@ template<const size_t size> class SocketMessage
 /**
   * Wrapper for CMSG_SPACE macro.
   */
+#if (SYSTEM == OS_SOLARIS)
+#define CSpace(payload) (_CMSG_DATA_ALIGN(sizeof(struct cmsghdr)) + _CMSG_DATA_ALIGN(payload))
+#else
 #define CSpace(payload) CMSG_SPACE(payload)
+#endif
+
+/**
+  * Wrapper for CMSG_LEN macro.
+  */
+
+#if (SYSTEM == OS_SOLARIS)
+#define CLength(l) (_CMSG_DATA_ALIGN(sizeof(struct cmsghdr)) + (l))
+#else
+#define CLength(l) CMSG_LEN(l)
+#endif
 
 /**
   * Wrapper for CMSG_DATA macro.
   */
 inline static char* CData(const cmsghdr* cmsg);
-
-/**
-  * Wrapper for CMSG_LEM macro.
-  */
-inline static const cardinal CLength(const cmsghdr* cmsg);
 
 /**
   * Wrapper for CMSG_FIRSTHDR macro.

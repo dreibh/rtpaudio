@@ -103,7 +103,7 @@ double GenericFrameSizeScalability::getPayloadFrameSizeScaleFactorForDelayAndSiz
       return(1.0);
    }
    else if(minFrameSize != maxFrameSize) {
-      return((double)(min(frameSize,maxFrameSize) - minFrameSize) /
+      return((double)(std::min(frameSize,maxFrameSize) - minFrameSize) /
                 (double)(maxFrameSize - minFrameSize));
    }
    return(0.0);

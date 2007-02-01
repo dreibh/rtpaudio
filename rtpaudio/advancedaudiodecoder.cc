@@ -64,8 +64,8 @@ AdvancedAudioDecoder::AdvancedAudioDecoder(AudioWriterInterface* device)
    }
 
 #ifdef DEBUG
-   cout << "AdvancedAudioBufferSize              = " << FrameBufferSize << " Frames" << endl;
-   cout << "AdvancedAudioBufferCleanUpDifference = " << BufferCleanUpDifference << endl;
+   std::cout << "AdvancedAudioBufferSize              = " << FrameBufferSize << " Frames" << std::endl;
+   std::cout << "AdvancedAudioBufferCleanUpDifference = " << BufferCleanUpDifference << std::endl;
 #endif
 }
 
@@ -115,7 +115,7 @@ void AdvancedAudioDecoder::reset()
       SeqNumber[i].reset();
    }
 
-   multiset<FrameNodeItem>::iterator frameIterator = FrameSet.begin();
+   std::multiset<FrameNodeItem>::iterator frameIterator = FrameSet.begin();
    while(frameIterator != FrameSet.end()) {
       FrameNode* node = (*frameIterator).Node;
       deleteFragments(&node->FragmentSetLU);
@@ -295,7 +295,7 @@ bool AdvancedAudioDecoder::checkNextPacket(DecoderPacket* decoderPacket)
       return(false);
    }
 #ifdef DEBUG
-//   cout << "Layer #" << decoderPacket->Layer << ", Seq-#" << decoderPacket->SequenceNumber << endl;
+//   std::cout << "Layer #" << decoderPacket->Layer << ", Seq-#" << decoderPacket->SequenceNumber << std::endl;
 #endif
 
    // ====== Verify sequence number =========================================
@@ -303,14 +303,14 @@ bool AdvancedAudioDecoder::checkNextPacket(DecoderPacket* decoderPacket)
       SeqNumber[decoderPacket->Layer].validate((card64)decoderPacket->SequenceNumber);
    if(valid >= SeqNumValidator::Invalid) {
 #ifdef DEBUG
-      cout << "Dropped packet of layer #" << decoderPacket->Layer << "!" << endl;
+      std::cout << "Dropped packet of layer #" << decoderPacket->Layer << "!" << std::endl;
 #endif
       return(false);
    }
    if(valid == SeqNumValidator::Jumped) {
       reset();
 #ifdef DEBUG
-      cout << "Sequence number made jump => Reset!" << endl;
+      std::cout << "Sequence number made jump => Reset!" << std::endl;
 #endif
    }
 
@@ -322,7 +322,7 @@ bool AdvancedAudioDecoder::checkNextPacket(DecoderPacket* decoderPacket)
 void AdvancedAudioDecoder::handleNextPacket(const DecoderPacket* decoderPacket)
 {
    if(!running()) {
-      cerr << "WARNING: AdvancedAudioDecoder::handleNextPacket() - Output thread is not running!" << endl;
+      std::cerr << "WARNING: AdvancedAudioDecoder::handleNextPacket() - Output thread is not running!" << std::endl;
       return;
    }
 
@@ -338,7 +338,7 @@ void AdvancedAudioDecoder::handleNextPacket(const DecoderPacket* decoderPacket)
       memcpy((void*)&fragment->Data,(void*)&packet->Data,decoderPacket->Length - sizeof(AdvancedAudioPacket));
 
       synchronized();
-      multiset<FrameNodeItem>::iterator found = FrameSet.begin();
+      std::multiset<FrameNodeItem>::iterator found = FrameSet.begin();
       while(found != FrameSet.end()) {
          if((*found).Position == packet->Position) {
             break;
@@ -374,11 +374,11 @@ void AdvancedAudioDecoder::handleNextPacket(const DecoderPacket* decoderPacket)
       if((packet->Flags & (AdvancedAudioPacket::AAF_ChannelLeft|AdvancedAudioPacket::AAF_ByteUpper)) ==
             (AdvancedAudioPacket::AAF_ChannelLeft|AdvancedAudioPacket::AAF_ByteUpper)) {
          if(node->FragmentSetLU.find(packet->Fragment) == node->FragmentSetLU.end()) {
-            node->FragmentSetLU.insert(pair<const card16,FrameFragment*>(packet->Fragment,fragment));
+            node->FragmentSetLU.insert(std::pair<const card16,FrameFragment*>(packet->Fragment,fragment));
          }
          else {
 #ifdef DEBUG
-            cout << "Received duplicate LU" << endl;
+            std::cout << "Received duplicate LU" << std::endl;
 #endif
             delete fragment;
          }
@@ -386,11 +386,11 @@ void AdvancedAudioDecoder::handleNextPacket(const DecoderPacket* decoderPacket)
       else if((packet->Flags & (AdvancedAudioPacket::AAF_ChannelLeft|AdvancedAudioPacket::AAF_ByteLower)) ==
             (AdvancedAudioPacket::AAF_ChannelLeft|AdvancedAudioPacket::AAF_ByteLower)) {
          if(node->FragmentSetLL.find(packet->Fragment) == node->FragmentSetLL.end()) {
-            node->FragmentSetLL.insert(pair<const card16,FrameFragment*>(packet->Fragment,fragment));
+            node->FragmentSetLL.insert(std::pair<const card16,FrameFragment*>(packet->Fragment,fragment));
          }
          else {
 #ifdef DEBUG
-            cout << "Received duplicate LL" << endl;
+            std::cout << "Received duplicate LL" << std::endl;
 #endif
             delete fragment;
          }
@@ -398,11 +398,11 @@ void AdvancedAudioDecoder::handleNextPacket(const DecoderPacket* decoderPacket)
       else if((packet->Flags & (AdvancedAudioPacket::AAF_ChannelRight|AdvancedAudioPacket::AAF_ByteUpper)) ==
             (AdvancedAudioPacket::AAF_ChannelRight|AdvancedAudioPacket::AAF_ByteUpper)) {
          if(node->FragmentSetRU.find(packet->Fragment) == node->FragmentSetRU.end()) {
-            node->FragmentSetRU.insert(pair<const card16,FrameFragment*>(packet->Fragment,fragment));
+            node->FragmentSetRU.insert(std::pair<const card16,FrameFragment*>(packet->Fragment,fragment));
          }
          else {
 #ifdef DEBUG
-            cout << "Received duplicate RU" << endl;
+            std::cout << "Received duplicate RU" << std::endl;
 #endif
             delete fragment;
          }
@@ -410,11 +410,11 @@ void AdvancedAudioDecoder::handleNextPacket(const DecoderPacket* decoderPacket)
       else if((packet->Flags & (AdvancedAudioPacket::AAF_ChannelRight|AdvancedAudioPacket::AAF_ByteLower)) ==
             (AdvancedAudioPacket::AAF_ChannelRight|AdvancedAudioPacket::AAF_ByteLower)) {
          if(node->FragmentSetRL.find(packet->Fragment) == node->FragmentSetRL.end()) {
-            node->FragmentSetRL.insert(pair<const card16,FrameFragment*>(packet->Fragment,fragment));
+            node->FragmentSetRL.insert(std::pair<const card16,FrameFragment*>(packet->Fragment,fragment));
          }
          else {
 #ifdef DEBUG
-            cout << "Received duplicate RL" << endl;
+            std::cout << "Received duplicate RL" << std::endl;
 #endif
             delete fragment;
          }
@@ -424,7 +424,7 @@ void AdvancedAudioDecoder::handleNextPacket(const DecoderPacket* decoderPacket)
          Media.translate();
       }
       else {
-         cerr << "WARNING: AdvancedAudioDecoder::handleNextPacket() - Bad Fragment!" << endl;
+         std::cerr << "WARNING: AdvancedAudioDecoder::handleNextPacket() - Bad Fragment!" << std::endl;
       }
       unsynchronized();
    }
@@ -465,7 +465,7 @@ void AdvancedAudioDecoder::timerEvent()
    synchronized();
 
    // ====== Check, if buffer has to be cleaned up ==========================
-   multiset<FrameNodeItem>::iterator frameIterator = FrameSet.begin();
+   std::multiset<FrameNodeItem>::iterator frameIterator = FrameSet.begin();
    card64 minPosition = (card64)-1;
    card64 maxPosition = 0;
    cardinal count     = 0;
@@ -486,8 +486,8 @@ void AdvancedAudioDecoder::timerEvent()
       const card64 diff = maxPosition - minPosition;
       if(diff > BufferCleanUpDifference) {
 #ifdef DEBUG
-         cout << "Buffer clean-up necessary - difference is "
-              << diff << "." << endl;
+         std::cout << "Buffer clean-up necessary - difference is "
+              << diff << "." << std::endl;
 #endif
          frameIterator = FrameSet.begin();
          while(frameIterator != FrameSet.end()) {
@@ -531,15 +531,15 @@ void AdvancedAudioDecoder::timerEvent()
       FrameFragment* fragmentRU = NULL;
       FrameFragment* fragmentRL = NULL;
       cardinal pos       = 0;
-      cardinal fragments = max( max(node->FragmentSetLU.size(),node->FragmentSetRU.size()),
-                                max(node->FragmentSetLL.size(),node->FragmentSetRL.size()) );
+      cardinal fragments = std::max( std::max(node->FragmentSetLU.size(),node->FragmentSetRU.size()),
+                                     std::max(node->FragmentSetLL.size(),node->FragmentSetRL.size()) );
       for(cardinal fragmentNumber = 0; fragmentNumber < fragments;fragmentNumber++) {
          // ====== Left audio channel, upper 8 bits =========================
          fragmentLU = getFragment(&node->FragmentSetLU,fragmentNumber);
          if(fragmentLU == NULL) {
             fragmentLU = getFragment(&node->FragmentSetRU,fragmentNumber);
 #ifdef DEBUG
-            if(fragmentLU != NULL) cout << "Repaired LU using RU" << endl;
+            if(fragmentLU != NULL) std::cout << "Repaired LU using RU" << std::endl;
 #endif
          }
 
@@ -550,7 +550,7 @@ void AdvancedAudioDecoder::timerEvent()
             if((fragmentLL == NULL) && (fragmentLU == getFragment(&node->FragmentSetRU,fragmentNumber))) {
                fragmentLL = getFragment(&node->FragmentSetRL,fragmentNumber);
 #ifdef DEBUG
-               if(fragmentLL != NULL) cout << "Repaired LL using RL (LU==RU)" << endl;
+               if(fragmentLL != NULL) std::cout << "Repaired LL using RL (LU==RU)" << std::endl;
 #endif
             }
          }
@@ -563,7 +563,7 @@ void AdvancedAudioDecoder::timerEvent()
             if(fragmentRU == NULL) {
                fragmentRU = fragmentLU;
 #ifdef DEBUG
-               if(fragmentRU != NULL) cout << "Repaired RU using LU" << endl;
+               if(fragmentRU != NULL) std::cout << "Repaired RU using LU" << std::endl;
 #endif
             }
 
@@ -573,7 +573,7 @@ void AdvancedAudioDecoder::timerEvent()
                if((fragmentRL == NULL) && (fragmentRU == fragmentLU)) {
                   fragmentRL = fragmentLL;
 #ifdef DEBUG
-                  if(fragmentRL != NULL) cout << "Repaired RL using LL (RU==LU)" << endl;
+                  if(fragmentRL != NULL) std::cout << "Repaired RL using LL (RU==LU)" << std::endl;
 #endif
                }
             }
@@ -593,17 +593,17 @@ void AdvancedAudioDecoder::timerEvent()
          // ====== Print debug information ==================================
 #ifdef DEBUG
          if(fragmentLU == NULL) {
-            cerr << "Missing LU" << endl;
+            std::cerr << "Missing LU" << std::endl;
          }
          if((node->Bits > 8) && (fragmentLL == NULL)) {
-            cerr << "Missing LL" << endl;
+            std::cerr << "Missing LL" << std::endl;
          }
          if(node->Channels > 1) {
             if(fragmentRU == NULL) {
-               cerr << "Missing RU" << endl;
+               std::cerr << "Missing RU" << std::endl;
             }
             if((node->Bits > 12) && (fragmentRL == NULL)) {
-               cerr << "Missing RL" << endl;
+               std::cerr << "Missing RL" << std::endl;
             }
          }
 #endif
@@ -612,7 +612,7 @@ void AdvancedAudioDecoder::timerEvent()
          // ====== Join data into frame buffer ==============================
          if(length > 0) {
             if(length >= AdvancedAudioPacket::AdvancedAudioFrameSize) {
-               cerr << "WARNING: Sum of fragments > FrameSize?!" << endl;
+               std::cerr << "WARNING: Sum of fragments > FrameSize?!" << std::endl;
                break;
             }
 
@@ -739,10 +739,10 @@ void AdvancedAudioDecoder::timerEvent()
 
 
 // ###### Delete all entries of a FrameFragment set #########################
-void AdvancedAudioDecoder::deleteFragments(multimap<const card16,FrameFragment*>* set)
+void AdvancedAudioDecoder::deleteFragments(std::multimap<const card16,FrameFragment*>* set)
 {
    if(set != NULL) {
-      multimap<const card16,FrameFragment*>::iterator fragmentIterator = set->begin();
+      std::multimap<const card16,FrameFragment*>::iterator fragmentIterator = set->begin();
       while(fragmentIterator != set->end()) {
          FrameFragment* fragment = fragmentIterator->second;
          set->erase(fragmentIterator);
@@ -755,10 +755,10 @@ void AdvancedAudioDecoder::deleteFragments(multimap<const card16,FrameFragment*>
 
 // ###### Get fragment from set #############################################
 AdvancedAudioDecoder::FrameFragment* AdvancedAudioDecoder::getFragment(
-                  multimap<const card16, FrameFragment*>* set,
-                  const card16                            fragmentNumber)
+                  std::multimap<const card16, FrameFragment*>* set,
+                  const card16                                 fragmentNumber)
 {
-   multimap<const card16, FrameFragment*>::iterator found =
+   std::multimap<const card16, FrameFragment*>::iterator found =
       set->find(fragmentNumber);
    if(found == set->end()) {
       return(NULL);

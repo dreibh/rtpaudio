@@ -1,15 +1,17 @@
 /*
- *  $Id: tdstrings.cc,v 1.1.1.1 2002/06/17 14:16:47 dreibh Exp $
+ *  $Id: tdstrings.cc 1309 2007-02-01 13:08:01Z dreibh $
  *
- * SCTP implementation according to RFC 2960.
- * Copyright (C) 1999-2002 by Thomas Dreibholz
+ * SocketAPI implementation for the sctplib.
+ * Copyright (C) 1999-2006 by Thomas Dreibholz
  *
- * Realized in co-operation between Siemens AG
- * and University of Essen, Institute of Computer Networking Technology.
+ * Realized in co-operation between
+ * - Siemens AG
+ * - University of Essen, Institute of Computer Networking Technology
+ * - University of Applied Sciences, Muenster
  *
  * Acknowledgement
- * This work was partially funded by the Bundesministerium für Bildung und
- * Forschung (BMBF) of the Federal Republic of Germany (Förderkennzeichen 01AK045).
+ * This work was partially funded by the Bundesministerium fuer Bildung und
+ * Forschung (BMBF) of the Federal Republic of Germany (Foerderkennzeichen 01AK045).
  * The authors alone are responsible for the contents.
  *
  * This library is free software; you can redistribute it and/or
@@ -26,6 +28,7 @@
  *
  * Contact: discussion@sctp.de
  *          dreibh@exp-math.uni-essen.de
+ *          tuexen@fh-muenster.de
  *
  * Purpose: Strings Implementation
  *
@@ -68,7 +71,7 @@ String::String(const char* string, const cardinal length)
       memcpy((void*)&str,string,length);
       str[length] = 0x00;
       setData(stringDuplicate((char*)&str));
-   }   
+   }
    else {
       setData(NULL);
    }
@@ -155,7 +158,7 @@ String String::toUpper() const
 // ###### Get left part of string ###########################################
 String String::left(const cardinal maxChars) const
 {
-   const cardinal len = min(length(),maxChars);
+   const cardinal len = std::min(length(),maxChars);
    char buffer[len + 1];
 
    cardinal i;
@@ -175,7 +178,7 @@ String String::mid(const cardinal start, const cardinal maxChars) const
       return("");
    }
 
-   const cardinal len = min(strlen - start,maxChars);
+   const cardinal len = std::min(strlen - start,maxChars);
    char buffer[len + 1];
 
    cardinal i;
@@ -191,7 +194,7 @@ String String::mid(const cardinal start, const cardinal maxChars) const
 String String::right(const cardinal maxChars) const
 {
    const cardinal strlen = length();
-   const cardinal len    = min(strlen,maxChars);
+   const cardinal len    = std::min(strlen,maxChars);
    char buffer[len + 1];
 
    cardinal i,j;
@@ -240,7 +243,7 @@ bool String::scanSetting(String& s1, String& s2) const
 
 
 // ###### "<<"-operator #####################################################
-ostream& operator<<(ostream& os, const String& string)
+std::ostream& operator<<(std::ostream& os, const String& string)
 {
    const char* data = string.getData();
    if(data) {

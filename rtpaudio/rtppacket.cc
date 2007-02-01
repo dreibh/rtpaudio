@@ -47,22 +47,22 @@ RTPPacket::RTPPacket()
 
 
 // ###### Output operator ###################################################
-ostream& operator<<(ostream& os, const RTPPacket& packet)
+std::ostream& operator<<(std::ostream& os, const RTPPacket& packet)
 {
-  cout << "RTPPacket:: {\n";
-  cout << "\tVersion      : " << packet.getVersion()        << "\n";
-  cout << "\tPadding      : " << packet.getPadding()        << "\n";
-  cout << "\tExtension    : " << packet.getExtension()      << "\n";
-  cout << "\tCSRC Count   : " << packet.getCSRCCount()      << "\n";
-  cout << "\tMarker       : " << packet.getMarker()         << "\n";
-  cout << "\tPayload Type : " << packet.getPayloadType()    << "\n";
-  cout << "\tSequence Num : " << packet.getSequenceNumber() << "\n";
-  cout << "\tTimestamp    : " << packet.getTimeStamp()      << "\n";
-  cout << "\tSSRC         : " << packet.getSSRC()           << "\n";
-  cout << "\tCSRC         : ";
+  std::cout << "RTPPacket:: {\n";
+  std::cout << "\tVersion      : " << packet.getVersion()        << "\n";
+  std::cout << "\tPadding      : " << packet.getPadding()        << "\n";
+  std::cout << "\tExtension    : " << packet.getExtension()      << "\n";
+  std::cout << "\tCSRC Count   : " << packet.getCSRCCount()      << "\n";
+  std::cout << "\tMarker       : " << packet.getMarker()         << "\n";
+  std::cout << "\tPayload Type : " << packet.getPayloadType()    << "\n";
+  std::cout << "\tSequence Num : " << packet.getSequenceNumber() << "\n";
+  std::cout << "\tTimestamp    : " << packet.getTimeStamp()      << "\n";
+  std::cout << "\tSSRC         : " << packet.getSSRC()           << "\n";
+  std::cout << "\tCSRC         : ";
   for(card8 i = 0;i < packet.getCSRCCount();i++) {
-     cout << packet.getCSRC(i) << "  ";
+     std::cout << packet.getCSRC(i) << "  ";
   }
-  cout << "}" << endl;
+  std::cout << "}" << std::endl;
   return(os);
 }

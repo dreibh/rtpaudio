@@ -117,10 +117,10 @@ double AbstractQoSDescription::getResources(ResourceUtilizationPoint& rup) const
 // ###### Set resources ######################################################
 double AbstractQoSDescription::setResources(const ResourceUtilizationPoint& rup)
 {
-   card64 bandwidth[max(rup.Layers,getLayers())];
+   card64 bandwidth[std::max(rup.Layers,getLayers())];
    setFrameRate(rup.FrameRate);
    cardinal i;
-   for(i = 0;i < min(rup.Layers,getLayers());i++) {
+   for(i = 0;i < std::min(rup.Layers,getLayers());i++) {
       AbstractLayerDescription* ald = getLayer(i);
       ald->setBandwidth(FrameRate,rup.LayerBandwidthInfo[i].BytesPerSecond);
       ald->setBufferDelay(rup.LayerBandwidthInfo[i].BufferDelay);

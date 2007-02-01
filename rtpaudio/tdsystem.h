@@ -1,5 +1,5 @@
 /*
- *  $Id: tdsystem.h 1008 2006-03-10 09:56:56Z dreibh $
+ *  $Id: tdsystem.h 1309 2007-02-01 13:08:01Z dreibh $
  *
  * SocketAPI implementation for the sctplib.
  * Copyright (C) 1999-2006 by Thomas Dreibholz
@@ -83,10 +83,6 @@
 #include <iostream>
 
 
-// gcc3.1 and new STL define all standard functions in namespace std!
-// using namespace std;
-
-
 // In socket.cc: CMSG_NXTHDR: (__cmsg_nxthdr) is not found,
 // if compiled with -O0 -> extern inline definition required.
 #if !defined __USE_EXTERN_INLINES
@@ -135,22 +131,6 @@
 #elif (SYSTEM == OS_SOLARIS)
  #include <inttypes.h>
  #include <arpa/nameser_compat.h>
-#endif
-
-
-// ###### sctplib versions ###################################################
-//#include <sctp.h>
-//#define SCTPLIB_VERSION ((SCTP_MAJOR_VERSION << 16) | SCTP_MINOR_VERSION)
-//#define SCTPLIB_1_0_0_PRE19 19
-//#define SCTPLIB_1_0_0_PRE20 20
-//#define SCTPLIB_1_0_0       0x10000
-
-
-#ifndef max
-#define max(a, b) ((a) < (b) ? (b) : (a))
-#endif
-#ifndef min
-#define min(a, b) ((a) > (b) ? (b) : (a))
 #endif
 
 

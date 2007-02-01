@@ -1,31 +1,39 @@
 /*
- *  $Id: ringbuffer.cc,v 1.2 2002/08/16 16:24:51 dreibh Exp $
+ *  $Id: ringbuffer.cc 1309 2007-02-01 13:08:01Z dreibh $
  *
- * SCTP implementation according to RFC 2960.
- * Copyright (C) 1999-2001 by Thomas Dreibholz
+ * SocketAPI implementation for the sctplib.
+ * Copyright (C) 1999-2003 by Thomas Dreibholz
  *
- * Realized in co-operation between Siemens AG
- * and University of Essen, Institute of Computer Networking Technology.
+ * Realized in co-operation between
+ * - Siemens AG
+ * - University of Essen, Institute of Computer Networking Technology
+ * - University of Applied Sciences, Muenster
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
+ * Acknowledgement
+ * This work was partially funded by the Bundesministerium fuer Bildung und
+ * Forschung (BMBF) of the Federal Republic of Germany (Foerderkennzeichen 01AK045).
+ * The authors alone are responsible for the contents.
  *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * There are two mailinglists BytesStored at www.sctp.de which should be used for
- * any discussion related to this implementation.
+ * There are two mailinglists available at http://www.sctp.de which should be
+ * used for any discussion related to this implementation.
  *
  * Contact: discussion@sctp.de
  *          dreibh@exp-math.uni-essen.de
+ *          tuexen@fh-muenster.de
  *
  * Purpose: Ring Buffer Implementation
  *
@@ -44,7 +52,7 @@
 
 // ###### Constructor #######################################################
 RingBuffer::RingBuffer()
-   : Condition("RingBufferCondition", NULL, true)
+   : Condition("RingBufferCondition", NULL)
 {
    Buffer = NULL;
 }
@@ -107,7 +115,7 @@ ssize_t RingBuffer::write(char*        data,
    cardinal copy2 = 0;
    if(BytesStored < BufferSize) {
       if(WriteEnd >= WriteStart) {
-         copy1 = min(length, BufferSize - WriteEnd);
+         copy1 =std:: min(length, BufferSize - WriteEnd);
          memcpy(&Buffer[WriteEnd],data,copy1);
          WriteEnd += copy1;
          if(WriteEnd >= BufferSize) {
@@ -117,8 +125,7 @@ ssize_t RingBuffer::write(char*        data,
          printf("write #1: we=%d ws=%d   c1=%d\n",WriteEnd,WriteStart,copy1);
 #endif
       }
-      copy2 = min(length - copy1,
-                  WriteStart);
+      copy2 = std::min(length - copy1, WriteStart);
       if(copy2 > 0) {
          memcpy(&Buffer[WriteEnd],&data[copy1],copy2);
          WriteEnd += copy2;
@@ -153,7 +160,7 @@ ssize_t RingBuffer::read(char*        data,
    cardinal copy2 = 0;
    if(BytesStored > 0) {
       if(WriteStart >= WriteEnd) {
-         copy1 = min(length, BufferSize - WriteStart);
+         copy1 = std::min(length, BufferSize - WriteStart);
          memcpy(data,&Buffer[WriteStart],copy1);
          memset(&Buffer[WriteStart],'-',copy1);
          WriteStart += copy1;
@@ -164,7 +171,7 @@ ssize_t RingBuffer::read(char*        data,
          printf("read #1: we=%d ws=%d   c1=%d\n",WriteEnd,WriteStart,copy1);
 #endif
       }
-      copy2 = min(length - copy1, WriteEnd - WriteStart);
+      copy2 = std::min(length - copy1, WriteEnd - WriteStart);
       if(copy2 > 0) {
          memcpy(&data[copy1],&Buffer[WriteStart],copy2);
 #ifdef DEBUG
@@ -177,7 +184,7 @@ ssize_t RingBuffer::read(char*        data,
       }
 
       if(copy1 + copy2 > BytesStored) {
-         cerr << "INTERNAL ERROR: RingBuffer::read() - Corrupt structures!" << endl;
+         std::cerr << "INTERNAL ERROR: RingBuffer::read() - Corrupt structures!" << std::endl;
          exit(1);
       }
 

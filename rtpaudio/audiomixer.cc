@@ -43,7 +43,7 @@ AudioMixer::AudioMixer(int mixerChannel, const char* name)
    Channel = mixerChannel;
    Device = open(name,O_RDWR);
    if(Device < 0) {
-      cerr << "WARNING: Unable to open AudioMixer " << name << "." << endl;
+      std::cerr << "WARNING: Unable to open AudioMixer " << name << "." << std::endl;
    }
 }
 

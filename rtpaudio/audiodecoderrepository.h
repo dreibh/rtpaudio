@@ -248,9 +248,9 @@ class AudioDecoderRepository : virtual public DecoderRepositoryInterface,
 
    // ====== Private data ===================================================
    private:
-   multimap<const card16,AudioDecoderInterface*> Repository;
-   AudioDecoderInterface*                        Decoder;
-   bool                                          AutoDelete;
+   std::multimap<const card16,AudioDecoderInterface*> Repository;
+   AudioDecoderInterface*                             Decoder;
+   bool                                               AutoDelete;
 };
 
 

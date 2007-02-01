@@ -80,7 +80,7 @@ void TrafficShaper::flush()
    synchronized();
 
    // ====== Flush buffer ===================================================
-   deque<TrafficShaperPacket>::iterator iterator = Queue.begin();
+   std::deque<TrafficShaperPacket>::iterator iterator = Queue.begin();
    while(iterator != Queue.end()) {
       const TrafficShaperPacket& packet = *iterator;
       delete packet.Data;
@@ -102,7 +102,7 @@ ssize_t TrafficShaper::write(const void*    buffer,
    InternetFlow destination;
    SenderSocket->getPeerAddress(destination);
    if(destination.isNull()) {
-      cerr << "WARNING: TrafficShaper::write() - Peer address is null!" << endl;
+      std::cerr << "WARNING: TrafficShaper::write() - Peer address is null!" << std::endl;
       return(0);
    }
    return(addPacket(buffer,length,seqNum,destination,0,TSC_Write));
@@ -119,7 +119,7 @@ ssize_t TrafficShaper::send(const void*    buffer,
    InternetFlow destination;
    SenderSocket->getPeerAddress(destination);
    if(destination.isNull()) {
-      cerr << "WARNING: TrafficShaper::send() - Peer address is null!" << endl;
+      std::cerr << "WARNING: TrafficShaper::send() - Peer address is null!" << std::endl;
       return(0);
    }
    if(trafficClass != 0x00) {
@@ -158,8 +158,8 @@ ssize_t TrafficShaper::addPacket(const void*    data,
 {
    // ====== Check for error ================================================
    if((bytes > 0) && (Bandwidth == 0)) {
-      cerr << "ERROR: TrafficShaper::addPacket() - Bandwidth is zero!" << endl;
-      cerr << bytes << " to " << destination << endl;
+      std::cerr << "ERROR: TrafficShaper::addPacket() - Bandwidth is zero!" << std::endl;
+      std::cerr << bytes << " to " << destination << std::endl;
       exit(1);
    }
 
@@ -194,18 +194,18 @@ ssize_t TrafficShaper::addPacket(const void*    data,
    if(delay > (card64)BufferDelay) {
 #ifdef PRINT_EXCEEDS
       // ====== Print information ===========================================
-      cerr << "WARNING: TrafficShaper::addPacket() - Delay limit exceeded!" << endl;
-      cerr << "         Delay is " << delay << ", limit is " << BufferDelay << "." << endl;
-      cerr << "Buffer contents:" << endl;
-      deque<TrafficShaperPacket>::iterator iterator = Queue.begin();
+      std::cerr << "WARNING: TrafficShaper::addPacket() - Delay limit exceeded!" << std::endl;
+      std::cerr << "         Delay is " << delay << ", limit is " << BufferDelay << "." << std::endl;
+      std::cerr << "Buffer contents:" << std::endl;
+      std::deque<TrafficShaperPacket>::iterator iterator = Queue.begin();
       while(iterator != Queue.end()) {
          const TrafficShaperPacket& packet = *iterator;
-         cerr << "   => " << packet.SendTimeStamp << ", " << packet.PayloadSize << endl;
+         std::cerr << "   => " << packet.SendTimeStamp << ", " << packet.PayloadSize << std::endl;
          iterator++;
       }
-      cerr << "   Tried to add " << bytes << " bytes, "
+      std::cerr << "   Tried to add " << bytes << " bytes, "
               "required: " << time << " [s]" << "  "
-              "avaiable: " << (delay - BufferDelay) << " [s]." << endl;
+              "avaiable: " << (delay - BufferDelay) << " [s]." << std::endl;
 #endif
 
       // ====== Flush buffer ================================================
@@ -238,7 +238,7 @@ bool TrafficShaper::refreshBuffer(const card8 trafficClass,
 
 
    // ====== Refresh buffer =================================================
-   deque<TrafficShaperPacket>::iterator iterator = Queue.begin();
+   std::deque<TrafficShaperPacket>::iterator iterator = Queue.begin();
    while(iterator != Queue.end()) {
 
       // ====== Get packet data =============================================
@@ -257,8 +257,8 @@ bool TrafficShaper::refreshBuffer(const card8 trafficClass,
       const card64 delay = packet.SendTimeStamp - now;
       if(delay > (card64)BufferDelay) {
 #ifdef PRINT_EXCEEDS
-         cerr << "WARNING: TrafficShaper::refreshBuffer() - Flush necessary!"
-              << endl;
+         std::cerr << "WARNING: TrafficShaper::refreshBuffer() - Flush necessary!"
+              << std::endl;
 #endif
          flush();
          flushed = true;
@@ -285,7 +285,7 @@ void TrafficShaper::sendAll()
    sort(Queue.begin(),Queue.end());
 
    // ====== Check all packets for reached send time ========================
-   deque<TrafficShaperPacket>::iterator iterator = Queue.begin();
+   std::deque<TrafficShaperPacket>::iterator iterator = Queue.begin();
    while(iterator != Queue.end()) {
       const TrafficShaperPacket& packet = *iterator;
 
@@ -307,7 +307,7 @@ void TrafficShaper::sendAll()
                                     packet.Destination.getTrafficClass());
              break;
             default:
-               cerr << "WARNING: TrafficShaper::sendAll() - Invalid TSC command?!" << endl;
+               std::cerr << "WARNING: TrafficShaper::sendAll() - Invalid TSC command?!" << std::endl;
              break;
          }
          if(packet.SeqNum != (cardinal)-1) {
@@ -341,7 +341,7 @@ TrafficShaperSingleton::TrafficShaperSingleton()
 TrafficShaperSingleton::~TrafficShaperSingleton()
 {
    stop();
-   vector<TrafficShaper*>::iterator iterator = ShaperSet.begin();
+   std::vector<TrafficShaper*>::iterator iterator = ShaperSet.begin();
    while(iterator != ShaperSet.end()) {
       ShaperSet.erase(iterator);
       iterator = ShaperSet.begin();
@@ -368,7 +368,7 @@ void TrafficShaperSingleton::removeTrafficShaper(TrafficShaper* ts)
 {
    synchronized();
 
-   vector<TrafficShaper*>::iterator iterator = ShaperSet.begin();
+   std::vector<TrafficShaper*>::iterator iterator = ShaperSet.begin();
    while(iterator != ShaperSet.end()) {
       if(*iterator == ts) {
          ShaperSet.erase(iterator);
@@ -390,7 +390,7 @@ void TrafficShaperSingleton::removeTrafficShaper(TrafficShaper* ts)
 void TrafficShaperSingleton::timerEvent()
 {
    synchronized();
-   vector<TrafficShaper*>::iterator iterator = ShaperSet.begin();
+   std::vector<TrafficShaper*>::iterator iterator = ShaperSet.begin();
    while(iterator != ShaperSet.end()) {
       (*iterator)->sendAll();
       iterator++;

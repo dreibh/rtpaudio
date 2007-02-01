@@ -264,9 +264,9 @@ class AudioEncoderRepository : virtual public EncoderRepositoryInterface,
 
    // ====== Private data ===================================================
    private:
-   multimap<const card16,AudioEncoderInterface*> Repository;
-   AudioEncoderInterface*                        Encoder;
-   bool                                          AutoDelete;
+   std::multimap<const card16,AudioEncoderInterface*> Repository;
+   AudioEncoderInterface*                             Encoder;
+   bool                                               AutoDelete;
 };
 
 

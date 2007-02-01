@@ -77,15 +77,15 @@ AudioClient::AudioClient(SocketAddress**       localAddressArray,
    SimpleAudioDecoder* simpleAudioDecoder     = new SimpleAudioDecoder(audioOutput);
    AdvancedAudioDecoder* advancedAudioDecoder = new AdvancedAudioDecoder(audioOutput);
    if((simpleAudioDecoder == NULL) || (advancedAudioDecoder == NULL)) {
-      cerr << "ERROR: AudioClient::AudioClient() - Out of memory!" << endl;
+      std::cerr << "ERROR: AudioClient::AudioClient() - Out of memory!" << std::endl;
       exit(1);
    }
    bool a1 = Decoders.addDecoder(advancedAudioDecoder);
    bool a2 = Decoders.addDecoder(simpleAudioDecoder);
-   DecoderSet.insert(pair<const cardinal,AudioDecoderInterface*>(0,advancedAudioDecoder));
-   DecoderSet.insert(pair<const cardinal,AudioDecoderInterface*>(1,simpleAudioDecoder));
+   DecoderSet.insert(std::pair<const cardinal,AudioDecoderInterface*>(0,advancedAudioDecoder));
+   DecoderSet.insert(std::pair<const cardinal,AudioDecoderInterface*>(1,simpleAudioDecoder));
    if((!a1) || (!a2)) {
-      cerr << "ERROR: AudioClient::AudioClient() - Out of memory!" << endl;
+      std::cerr << "ERROR: AudioClient::AudioClient() - Out of memory!" << std::endl;
       exit(1);
    }
    Decoders.activate();
@@ -100,7 +100,7 @@ AudioClient::~AudioClient()
 
    // ====== Delete decoders ================================================
    while(DecoderSet.begin() != DecoderSet.end()) {
-      multimap<const cardinal,AudioDecoderInterface*>::iterator decoderIterator =
+      std::multimap<const cardinal,AudioDecoderInterface*>::iterator decoderIterator =
          DecoderSet.begin();
       AudioDecoderInterface* decoder = decoderIterator->second;
       DecoderSet.erase(decoderIterator);
@@ -121,7 +121,7 @@ void AudioClient::change(const char* mediaName)
       sendCommand(false);
    }
    else {
-      cerr << "ERROR: AudioClient::change() - No connection!" << endl;
+      std::cerr << "ERROR: AudioClient::change() - No connection!" << std::endl;
    }
 }
 
@@ -161,15 +161,15 @@ bool AudioClient::play(const char* server,
       // ====== Create sockets ==============================================
       SenderSocket.create(Socket::IP,Socket::UDP,useSCTP ? Socket::SCTP : Socket::Default);
       if(!SenderSocket.ready()) {
-         cerr << "ERROR: AudioClient::play() - "
-                 "Unable to bind socket for RTCPSender!" << endl;
+         std::cerr << "ERROR: AudioClient::play() - "
+                 "Unable to bind socket for RTCPSender!" << std::endl;
          stop();
          return(false);
       }
       ReceiverSocket.create(Socket::IP,Socket::UDP,useSCTP ? Socket::SCTP : Socket::Default);
       if(!ReceiverSocket.ready()) {
-         cerr << "ERROR: AudioClient::play() - "
-                 "Unable to bind socket for RTPReceiver!" << endl;
+         std::cerr << "ERROR: AudioClient::play() - "
+                 "Unable to bind socket for RTPReceiver!" << std::endl;
          stop();
          return(false);
       }
@@ -178,7 +178,7 @@ bool AudioClient::play(const char* server,
                                   (const SocketAddress**)LocalAddressArray,
                                   LocalAddresses,
                                   SCTP_BINDX_ADD_ADDR)) {
-         cerr << "ERROR: AudioClient::play() - Unable to bind sockets!" << endl;
+         std::cerr << "ERROR: AudioClient::play() - Unable to bind sockets!" << std::endl;
          stop();
          return(false);
       }
@@ -190,7 +190,7 @@ bool AudioClient::play(const char* server,
 
          memset((char*)&events, 0 ,sizeof(events));
          if(SenderSocket.setSocketOption(IPPROTO_SCTP, SCTP_EVENTS, &events, sizeof(events)) < 0) {
-            cerr << "WARNING: AudioClient::play() - SCTP_EVENTS failed!" << endl;
+            std::cerr << "WARNING: AudioClient::play() - SCTP_EVENTS failed!" << std::endl;
          }
          sctp_initmsg init;
          init.sinit_num_ostreams   = 1;
@@ -198,7 +198,7 @@ bool AudioClient::play(const char* server,
          init.sinit_max_attempts   = 0;
          init.sinit_max_init_timeo = 60;
          if(SenderSocket.setSocketOption(IPPROTO_SCTP,SCTP_INITMSG,(char*)&init,sizeof(init)) < 0) {
-            cerr << "WARNING: AudioClient::play() - Unable to set SCTP_INITMSG parameters!" << endl;
+            std::cerr << "WARNING: AudioClient::play() - Unable to set SCTP_INITMSG parameters!" << std::endl;
          }
       }
 
@@ -208,7 +208,7 @@ bool AudioClient::play(const char* server,
       if(Flow.getFlowLabel() != 0) {
          if(SenderSocket.connect(Flow,AudioClientDefaultTrafficClass) == 0) {
             if(SenderSocket.connect(ServerAddress,AudioClientDefaultTrafficClass) == false) {
-               cerr << "ERROR: AudioClient::play() - Unable to connect socket for RTCPSender!" << endl;
+               std::cerr << "ERROR: AudioClient::play() - Unable to connect socket for RTCPSender!" << std::endl;
                stop();
                return(false);
             }
@@ -216,7 +216,7 @@ bool AudioClient::play(const char* server,
       }
       else {
          if(SenderSocket.connect(ServerAddress,AudioClientDefaultTrafficClass) == false) {
-            cerr << "ERROR: AudioClient::play() - Unable to connect socket for RTCPSender!" << endl;
+            std::cerr << "ERROR: AudioClient::play() - Unable to connect socket for RTCPSender!" << std::endl;
             stop();
             return(false);
          }
@@ -226,12 +226,12 @@ bool AudioClient::play(const char* server,
       // ====== Create RTPReceiver ==========================================
       Receiver = new RTPReceiver(&Decoders,&ReceiverSocket);
       if(Receiver == NULL) {
-         cerr << "ERROR: AudioClient::play() - Out of memory!" << endl;
+         std::cerr << "ERROR: AudioClient::play() - Out of memory!" << std::endl;
          stop();
          return(false);
       }
       if(Receiver->start() == false) {
-         cerr << "ERROR: AudioClient::play() - Unable to start RTP receiver thread!" << endl;
+         std::cerr << "ERROR: AudioClient::play() - Unable to start RTP receiver thread!" << std::endl;
          stop();
          return(false);
       }
@@ -240,7 +240,7 @@ bool AudioClient::play(const char* server,
       // ====== Create RTCPSender ===========================================
       Sender = new RTCPSender(OurSSRC,&SenderSocket,Receiver,3000);
       if(Sender == NULL) {
-         cerr << "ERROR: AudioClient::play() - Out of memory!" << endl;
+         std::cerr << "ERROR: AudioClient::play() - Out of memory!" << std::endl;
          stop();
          return(false);
       }
@@ -258,7 +258,7 @@ bool AudioClient::play(const char* server,
       char cname[300];
       snprintf((char*)&cname,sizeof(cname),"%s@%s",user,host);
       if(Sender->addSDESItem(RTCP_SDES_CNAME,cname) == false) {
-         cerr << "ERROR: AudioClient::play() - Out of memory!" << endl;
+         std::cerr << "ERROR: AudioClient::play() - Out of memory!" << std::endl;
          stop();
          return(false);
       }
@@ -271,7 +271,7 @@ bool AudioClient::play(const char* server,
       Sender->sendSDES();
 
       if(Sender->start() == false) {
-         cerr << "ERROR: AudioClient::play() - Unable to start RTCP sender thread!" << endl;
+         std::cerr << "ERROR: AudioClient::play() - Unable to start RTCP sender thread!" << std::endl;
          stop();
          return(false);
       }
@@ -279,22 +279,21 @@ bool AudioClient::play(const char* server,
       sendCommand();
 
       // ====== Get client's local address =====================================
-//
       // OurPort = receiverAddress.getPort();
       OurPort = 0;
 
       // ====== Print information ==============================================
 #ifdef DEBUG
-      cout << "Connecting to audio server at " << ServerAddress << "." << endl;
+      std::cout << "Connecting to audio server at " << ServerAddress << "." << std::endl;
       char str[128];
       if(SenderSocket.getSendFlowLabel()) {
          snprintf((char*)&str,sizeof(str),"$%05x, traffic class $%02x.",
                  SenderSocket.getSendFlowLabel(),SenderSocket.getSendTrafficClass());
-         cout << "   => IPv6 flow label is " << str << endl;
+         std::cout << "   => IPv6 flow label is " << str << std::endl;
       }
       else if(SenderSocket.getSendTrafficClass()) {
          snprintf((char*)&str,sizeof(str),"$%02x.",SenderSocket.getSendTrafficClass());
-         cout << "   => TOS is " << str << endl;
+         std::cout << "   => TOS is " << str << std::endl;
       }
 #endif
    }
@@ -357,7 +356,7 @@ void AudioClient::sendCommand(const bool updateRestartPosition)
       app.translate();
       Sender->sendApp("HELO",(void *)&app,sizeof(AudioClientAppPacket));
       if(Sender->addSDESItem(RTCP_SDES_PRIV,(char*)&app,sizeof(AudioClientAppPacket)) == false) {
-         cerr << "ERROR: Unable to add SDES - Out of memory!" << endl;
+         std::cerr << "ERROR: Unable to add SDES - Out of memory!" << std::endl;
       }
    }
 }
@@ -377,7 +376,7 @@ card64 AudioClient::getPosition()
             AudioClientAppPacket app = Status;
             app.translate();
             if(Sender->addSDESItem(RTCP_SDES_PRIV,(char*)&app,sizeof(AudioClientAppPacket)) == false) {
-               cerr << "ERROR: Unable to add SDES - Out of memory!" << endl;
+               std::cerr << "ERROR: Unable to add SDES - Out of memory!" << std::endl;
             }
          }
       }
@@ -390,7 +389,7 @@ card64 AudioClient::getPosition()
 // ###### Set encoder #######################################################
 void AudioClient::setEncoding(const cardinal index)
 {
-   multimap<const cardinal,AudioDecoderInterface*>::iterator decoderIterator =
+   std::multimap<const cardinal,AudioDecoderInterface*>::iterator decoderIterator =
       DecoderSet.find(index);
    if(decoderIterator != DecoderSet.end()) {
       AudioDecoderInterface* decoder = decoderIterator->second;
@@ -542,7 +541,7 @@ String AudioClient::getOurAddressString(const InternetAddress::PrintFormat forma
 // ###### Get encoding name #################################################
 const char* AudioClient::getEncodingName(const cardinal index)
 {
-   multimap<const cardinal,AudioDecoderInterface*>::iterator decoderIterator =
+   std::multimap<const cardinal,AudioDecoderInterface*>::iterator decoderIterator =
       DecoderSet.find(index);
    if(decoderIterator != DecoderSet.end()) {
       AudioDecoderInterface* decoder = decoderIterator->second;

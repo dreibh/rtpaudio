@@ -417,25 +417,25 @@ class AudioClient : virtual public AdjustableAudioQualityInterface
    static const card64 RestartPositionUpdateDelay = 5000000;
 
 
-   AudioWriterInterface*                           AudioOutput;
-   RTPReceiver*                                    Receiver;
-   RTCPSender*                                     Sender;
-   Socket                                          SenderSocket;
-   Socket                                          ReceiverSocket;
-   InternetFlow                                    Flow;
-   InternetAddress                                 ServerAddress;
-   cardinal                                        LocalAddresses;
-   SocketAddress**                                 LocalAddressArray;
-   card16                                          OurPort;
-   card32                                          OurSSRC;
+   AudioWriterInterface*                                AudioOutput;
+   RTPReceiver*                                         Receiver;
+   RTCPSender*                                          Sender;
+   Socket                                               SenderSocket;
+   Socket                                               ReceiverSocket;
+   InternetFlow                                         Flow;
+   InternetAddress                                      ServerAddress;
+   cardinal                                             LocalAddresses;
+   SocketAddress**                                      LocalAddressArray;
+   card16                                               OurPort;
+   card32                                               OurSSRC;
 
-   multimap<const cardinal,AudioDecoderInterface*> DecoderSet;
-   AudioDecoderRepository                          Decoders;
+   std::multimap<const cardinal,AudioDecoderInterface*> DecoderSet;
+   AudioDecoderRepository                               Decoders;
 
-   AudioClientAppPacket                            Status;
-   card64                                          OldPosition;
-   card64                                          ChangeTimeStamp;
-   bool                                            IsPlaying;
+   AudioClientAppPacket                                 Status;
+   card64                                               OldPosition;
+   card64                                               ChangeTimeStamp;
+   bool                                                 IsPlaying;
 };
 
 

@@ -161,12 +161,12 @@ class RTCPSender : public TimedThread
    void timerEvent();
    double computeTransmissionInterval();
 
-   SocketAddress*                                   ReceiverAddress;
-   Socket*                                          SenderSocket;
-   RTPReceiver*                                     Receiver;
-   card32                                           SSRC;
-   multimap<const card8,RTCPSourceDescriptionItem*> SDESItemSet;
-   Randomizer                                       Random;
+   SocketAddress*                                        ReceiverAddress;
+   Socket*                                               SenderSocket;
+   RTPReceiver*                                          Receiver;
+   card32                                                SSRC;
+   std::multimap<const card8,RTCPSourceDescriptionItem*> SDESItemSet;
+   Randomizer                                            Random;
 
    bool    Initial;         // True, if application has not yet sent an RTCP packet
    bool    WeSent;          // True, if data sent since 2nd previous RTCP report

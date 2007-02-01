@@ -44,8 +44,8 @@ void ConstantBitrateFrameSizeScalability::initConstantBitrateFrameSizeScalabilit
                                              const double   scaleFactor)
 {
    if((scaleFactor < 0.0) || (scaleFactor > 1.0)) {
-      cerr << "ERROR: ConstantBitrateFrameSizeScalability::initConstantBitratePayloadFrameSizeScalability() - " << endl
-           << "Invalid parameter " << scaleFactor << "!" << endl;
+      std::cerr << "ERROR: ConstantBitrateFrameSizeScalability::initConstantBitratePayloadFrameSizeScalability() - " << std::endl
+                << "Invalid parameter " << scaleFactor << "!" << std::endl;
       exit(1);
    }
 

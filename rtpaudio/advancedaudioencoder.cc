@@ -373,8 +373,8 @@ cardinal AdvancedAudioEncoder::getNextPacket(EncoderPacket* encoderPacket)
 
    // ====== Get payload data ===============================================
    if(FrameBufferPosLU < FrameBufferSizeLU) {
-      bytes = min(encoderPacket->MaxLength - sizeof(AdvancedAudioPacket),
-                  FrameBufferSizeLU - FrameBufferPosLU);
+      bytes = std::min(encoderPacket->MaxLength - sizeof(AdvancedAudioPacket),
+                       FrameBufferSizeLU - FrameBufferPosLU);
       encoderPacket->Layer = FrameLayerLU;
       for(cardinal i = 0;i < bytes;i++) {
          packet->Data[i] = FrameBufferLU[FrameBufferPosLU++];
@@ -384,8 +384,8 @@ cardinal AdvancedAudioEncoder::getNextPacket(EncoderPacket* encoderPacket)
       FrameFragmentLU++;
    }
    else if(FrameBufferPosRU < FrameBufferSizeRU) {
-      bytes = min(encoderPacket->MaxLength - sizeof(AdvancedAudioPacket),
-                  FrameBufferSizeRU - FrameBufferPosRU);
+      bytes = std::min(encoderPacket->MaxLength - sizeof(AdvancedAudioPacket),
+                       FrameBufferSizeRU - FrameBufferPosRU);
       encoderPacket->Layer = FrameLayerRU;
       for(cardinal i = 0;i < bytes;i++) {
          packet->Data[i] = FrameBufferRU[FrameBufferPosRU++];
@@ -395,8 +395,8 @@ cardinal AdvancedAudioEncoder::getNextPacket(EncoderPacket* encoderPacket)
       FrameFragmentRU++;
    }
    else if(FrameBufferPosLL < FrameBufferSizeLL) {
-      bytes = min(encoderPacket->MaxLength - sizeof(AdvancedAudioPacket),
-                  FrameBufferSizeLL - FrameBufferPosLL);
+      bytes = std::min(encoderPacket->MaxLength - sizeof(AdvancedAudioPacket),
+                       FrameBufferSizeLL - FrameBufferPosLL);
       encoderPacket->Layer = FrameLayerLL;
       for(cardinal i = 0;i < bytes;i++) {
          packet->Data[i] = FrameBufferLL[FrameBufferPosLL++];
@@ -406,8 +406,8 @@ cardinal AdvancedAudioEncoder::getNextPacket(EncoderPacket* encoderPacket)
       FrameFragmentLL++;
    }
    else if(FrameBufferPosRL < FrameBufferSizeRL) {
-      bytes = min(encoderPacket->MaxLength - sizeof(AdvancedAudioPacket),
-                  FrameBufferSizeRL - FrameBufferPosRL);
+      bytes = std::min(encoderPacket->MaxLength - sizeof(AdvancedAudioPacket),
+                       FrameBufferSizeRL - FrameBufferPosRL);
       encoderPacket->Layer = FrameLayerRL;
       for(cardinal i = 0;i < bytes;i++) {
          packet->Data[i] = FrameBufferRL[FrameBufferPosRL++];
@@ -428,8 +428,8 @@ cardinal AdvancedAudioEncoder::getNextPacket(EncoderPacket* encoderPacket)
          bytes = sizeof(MediaInfo);
       }
       else {
-         cerr << "WARNING: AdvancedAudioEncoder::getNextPacket() - "
-              << "Packet size too low for media info!" << endl;
+         std::cerr << "WARNING: AdvancedAudioEncoder::getNextPacket() - "
+                   << "Packet size too low for media info!" << std::endl;
       }
    }
 

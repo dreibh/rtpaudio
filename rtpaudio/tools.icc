@@ -1,15 +1,17 @@
 /*
- *  $Id: tools.icc,v 1.2 2002/08/16 16:24:51 dreibh Exp $
+ *  $Id: tools.icc 1309 2007-02-01 13:08:01Z dreibh $
  *
- * SCTP implementation according to RFC 2960.
- * Copyright (C) 1999-2002 by Thomas Dreibholz
+ * SocketAPI implementation for the sctplib.
+ * Copyright (C) 1999-2006 by Thomas Dreibholz
  *
- * Realized in co-operation between Siemens AG
- * and University of Essen, Institute of Computer Networking Technology.
+ * Realized in co-operation between
+ * - Siemens AG
+ * - University of Essen, Institute of Computer Networking Technology
+ * - University of Applied Sciences, Muenster
  *
  * Acknowledgement
- * This work was partially funded by the Bundesministerium fr Bildung und
- * Forschung (BMBF) of the Federal Republic of Germany (F�derkennzeichen 01AK045).
+ * This work was partially funded by the Bundesministerium fuer Bildung und
+ * Forschung (BMBF) of the Federal Republic of Germany (Foerderkennzeichen 01AK045).
  * The authors alone are responsible for the contents.
  *
  * This library is free software; you can redistribute it and/or
@@ -26,6 +28,7 @@
  *
  * Contact: discussion@sctp.de
  *          dreibh@exp-math.uni-essen.de
+ *          tuexen@fh-muenster.de
  *
  * Purpose: Tools Implementation
  *
@@ -41,23 +44,11 @@
 #include <errno.h>
 
 
-
 // Use system's byteswap functions
 #if (SYSTEM == OS_Linux)
 #define USE_BYTESWAP
 #endif
 
-
-// ###### Get system error description ######################################
-inline const char* getSysErrorDesc(const int error)
-{
-   if((error < 0) || (error >= sys_nerr)) {
-      return("Unknown error code");
-   }
-   else {
-      return(sys_errlist[error]);
-   }
-}
 
 
 // ###### Calculate the current time in milliseconds from 01-Jan-1970 #######
@@ -84,15 +75,12 @@ inline void debug(const char* string)
 
 #if __BYTE_ORDER == __BIG_ENDIAN
 
-
 // No byteorder translation for big endian necessary!
 inline card16 translate16(const card16 x) { return(x); }
 inline card32 translate32(const card32 x) { return(x); }
 inline card64 translate64(const card64 x) { return(x); }
 
-
-#elif __BYTE_ORDER == __LITTLE_ENDIAN
-
+#elif  __BYTE_ORDER == __LITTLE_ENDIAN
 
 #ifdef USE_BYTESWAP
 #include <byteswap.h>
@@ -267,6 +255,8 @@ template<class T> cardinal removeDuplicates(T*             array,
    }
    return(counter);
 }
+
+
 
 
 #endif

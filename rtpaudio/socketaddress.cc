@@ -1,15 +1,17 @@
 /*
- *  $Id: socketaddress.cc,v 1.3 2002/08/16 16:24:51 dreibh Exp $
+ *  $Id: socketaddress.cc 1309 2007-02-01 13:08:01Z dreibh $
  *
- * SCTP implementation according to RFC 2960.
- * Copyright (C) 1999-2002 by Thomas Dreibholz
+ * SocketAPI implementation for the sctplib.
+ * Copyright (C) 1999-2006 by Thomas Dreibholz
  *
- * Realized in co-operation between Siemens AG
- * and University of Essen, Institute of Computer Networking Technology.
+ * Realized in co-operation between
+ * - Siemens AG
+ * - University of Essen, Institute of Computer Networking Technology
+ * - University of Applied Sciences, Muenster
  *
  * Acknowledgement
- * This work was partially funded by the Bundesministerium für Bildung und
- * Forschung (BMBF) of the Federal Republic of Germany (Förderkennzeichen 01AK045).
+ * This work was partially funded by the Bundesministerium fuer Bildung und
+ * Forschung (BMBF) of the Federal Republic of Germany (Foerderkennzeichen 01AK045).
  * The authors alone are responsible for the contents.
  *
  * This library is free software; you can redistribute it and/or
@@ -26,6 +28,7 @@
  *
  * Contact: discussion@sctp.de
  *          dreibh@exp-math.uni-essen.de
+ *          tuexen@fh-muenster.de
  *
  * Purpose: Socket Address Implementation
  *
@@ -55,7 +58,7 @@ SocketAddress** SocketAddress::newAddressList(const cardinal entries)
    SocketAddress** list = new SocketAddress*[entries + 1];
    if(list == NULL) {
 #ifndef DISABLE_WARNINGS
-      cerr << "SocketAddress::newAddressList() - Out of memory!" << endl;
+      std::cerr << "SocketAddress::newAddressList() - Out of memory!" << std::endl;
 #endif
       return(NULL);
    }
@@ -124,8 +127,8 @@ SocketAddress* SocketAddress::createSocketAddress(const integer family)
        break;
       default:
 #ifndef DISABLE_WARNINGS
-          cerr << "ERROR: SocketAddress::createSocketAddress(family) - "
-                  "Unknown address family " << family << "!" << endl;
+          std::cerr << "ERROR: SocketAddress::createSocketAddress(family) - "
+                       "Unknown address family " << family << "!" << std::endl;
 #endif
        break;
    }
@@ -147,7 +150,7 @@ SocketAddress* SocketAddress::createSocketAddress(const cardinal flags,
    }
    if(internetAddress == NULL) {
 #ifndef DISABLE_WARNINGS
-      cerr << "ERROR: SocketAddress::createSocketAddress(name) - Out of memory!" << endl;
+      std::cerr << "ERROR: SocketAddress::createSocketAddress(name) - Out of memory!" << std::endl;
 #endif
    }
    if(internetAddress->isValid()) {
@@ -160,7 +163,7 @@ SocketAddress* SocketAddress::createSocketAddress(const cardinal flags,
    UnixAddress* unixAddress = new UnixAddress(name);
    if(unixAddress == NULL) {
 #ifndef DISABLE_WARNINGS
-      cerr << "ERROR: SocketAddress::createSocketAddress(name) - Out of memory!" << endl;
+      std::cerr << "ERROR: SocketAddress::createSocketAddress(name) - Out of memory!" << std::endl;
 #endif
    }
    if(unixAddress->isValid()) {
@@ -182,7 +185,7 @@ SocketAddress* SocketAddress::createSocketAddress(const cardinal flags,
    InternetAddress* internetAddress = new InternetAddress(name,port);
    if(internetAddress == NULL) {
 #ifndef DISABLE_WARNINGS
-      cerr << "ERROR: SocketAddress::createSocketAddress(name,port) - Out of memory!" << endl;
+      std::cerr << "ERROR: SocketAddress::createSocketAddress(name,port) - Out of memory!" << std::endl;
 #endif
    }
    if(internetAddress->isValid()) {
@@ -205,7 +208,7 @@ SocketAddress* SocketAddress::createSocketAddress(const cardinal  flags,
             InternetAddress* internetAddress = new InternetAddress(address,length);
             if(internetAddress == NULL) {
 #ifndef DISABLE_WARNINGS
-               cerr << "ERROR: SocketAddress::createSocketAddress(sockaddr) - Out of memory!" << endl;
+               std::cerr << "ERROR: SocketAddress::createSocketAddress(sockaddr) - Out of memory!" << std::endl;
 #endif
             }
             if(internetAddress->isValid()) {
@@ -218,7 +221,7 @@ SocketAddress* SocketAddress::createSocketAddress(const cardinal  flags,
             UnixAddress* unixAddress = new UnixAddress(address,length);
             if(unixAddress == NULL) {
 #ifndef DISABLE_WARNINGS
-               cerr << "ERROR: SocketAddress::createSocketAddress(sockaddr) - Out of memory!" << endl;
+               std::cerr << "ERROR: SocketAddress::createSocketAddress(sockaddr) - Out of memory!" << std::endl;
 #endif
             }
             if(unixAddress->isValid()) {
@@ -229,8 +232,8 @@ SocketAddress* SocketAddress::createSocketAddress(const cardinal  flags,
        break;
       default:
 #ifndef DISABLE_WARNINGS
-          cerr << "ERROR: SocketAddress::createSocketAddress(sockaddr) - "
-                  "Unknown address family " << address->sa_family << "!" << endl;
+          std::cerr << "ERROR: SocketAddress::createSocketAddress(sockaddr) - "
+                       "Unknown address family " << address->sa_family << "!" << std::endl;
 #endif
        break;
    }

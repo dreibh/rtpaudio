@@ -49,8 +49,8 @@
 // Globals
 AudioWriterInterface* audioOutput = NULL;
 AudioClient*          client      = NULL;
-ofstream*             gpScript    = NULL;
-ofstream*             gpData      = NULL;
+std::ofstream*        gpScript    = NULL;
+std::ofstream*        gpData      = NULL;
 
 
 // ###### Clean up ##########################################################
@@ -61,7 +61,7 @@ void cleanUp(const cardinal exitCode = 0)
    if(audioOutput != NULL)
       delete audioOutput;
    if(exitCode == 0)
-      cout << "Terminated!" << endl;
+      std::cout << "Terminated!" << std::endl;
    exit(exitCode);
 }
 
@@ -83,23 +83,23 @@ void initGNUplot(const char*    prefix,
       infoString = infoString + " " + (String)info;
    }
 
-   gpScript = new ofstream(scriptName.getData());
+   gpScript = new std::ofstream(scriptName.getData());
    if(gpScript != NULL) {
       if(gpScript->good()) {
-         gpData = new ofstream(dataName.getData());
+         gpData = new std::ofstream(dataName.getData());
          if(gpData != NULL) {
             if(gpData->good()) {
-               *gpScript << "set terminal postscript enhanced color dashed" << endl;
-               *gpScript << "set encoding iso_8859_1" << endl;
+               *gpScript << "set terminal postscript enhanced color dashed" << std::endl;
+               *gpScript << "set encoding iso_8859_1" << std::endl;
                for(cardinal i = 1;i < 33;i++) {
-                  *gpScript << "set linestyle " << i << " lt " << i << " lw 5" << endl;
+                  *gpScript << "set linestyle " << i << " lt " << i << " lw 5" << std::endl;
                }
-               *gpScript << "set grid" << endl;
+               *gpScript << "set grid" << std::endl;
 
-               *gpScript << "set title \"RTP Audio Client " << address << " - Bytes Received\" \"Times-Roman,14\"" << endl;
-               *gpScript << "set timestamp \"" << infoString << "\" 0,0 \"Times-Roman,12\"" << endl;
-               *gpScript << "set ylabel \"Bytes [1]\"" << endl;
-               *gpScript << "set xlabel \"Time [s]\"" << endl;
+               *gpScript << "set title \"RTP Audio Client " << address << " - Bytes Received\" \"Times-Roman,14\"" << std::endl;
+               *gpScript << "set timestamp \"" << infoString << "\" 0,0 \"Times-Roman,12\"" << std::endl;
+               *gpScript << "set ylabel \"Bytes [1]\"" << std::endl;
+               *gpScript << "set xlabel \"Time [s]\"" << std::endl;
                *gpScript << "plot \"" << dataName << "\" using 1:"
                          << 1 + (layers + 1) << " title "
                          << "\"Total\" with lines ls 1";
@@ -108,12 +108,12 @@ void initGNUplot(const char*    prefix,
                             << 1 + (i + 1) << " title "
                             << "\"Layer #" << i << "\" with lines ls " << (i + 2);
                }
-               *gpScript << endl;
+               *gpScript << std::endl;
 
-               *gpScript << "set title \"RTP Audio Client " << address << " - Packets Received\" \"Times-Roman,14\"" << endl;
-               *gpScript << "set timestamp \"" << infoString << "\" 0,0 \"Times-Roman,12\"" << endl;
-               *gpScript << "set ylabel \"Packets [1]\"" << endl;
-               *gpScript << "set xlabel \"Time [s]\"" << endl;
+               *gpScript << "set title \"RTP Audio Client " << address << " - Packets Received\" \"Times-Roman,14\"" << std::endl;
+               *gpScript << "set timestamp \"" << infoString << "\" 0,0 \"Times-Roman,12\"" << std::endl;
+               *gpScript << "set ylabel \"Packets [1]\"" << std::endl;
+               *gpScript << "set xlabel \"Time [s]\"" << std::endl;
                *gpScript << "plot \"" << dataName << "\" using 1:"
                          << 1 + 2 * (layers + 1) << " title "
                          << "\"Total\" with lines ls 1";
@@ -122,12 +122,12 @@ void initGNUplot(const char*    prefix,
                             << 1 + (layers + 1) + (i + 1) << " title "
                             << "\"Layer #" << i << "\" with lines ls " << (i + 2);
                }
-               *gpScript << endl;
+               *gpScript << std::endl;
 
-               *gpScript << "set title \"RTP Audio Client " << address << " - Packets Lost\" \"Times-Roman,14\"" << endl;
-               *gpScript << "set timestamp \"" << infoString << "\" 0,0 \"Times-Roman,12\"" << endl;
-               *gpScript << "set ylabel \"Packets Lost [1]\"" << endl;
-               *gpScript << "set xlabel \"Time [s]\"" << endl;
+               *gpScript << "set title \"RTP Audio Client " << address << " - Packets Lost\" \"Times-Roman,14\"" << std::endl;
+               *gpScript << "set timestamp \"" << infoString << "\" 0,0 \"Times-Roman,12\"" << std::endl;
+               *gpScript << "set ylabel \"Packets Lost [1]\"" << std::endl;
+               *gpScript << "set xlabel \"Time [s]\"" << std::endl;
                *gpScript << "plot \"" << dataName << "\" using 1:"
                          << 1 + 3 * (layers + 1) << " title "
                          << "\"Total\" with lines ls 1";
@@ -136,12 +136,12 @@ void initGNUplot(const char*    prefix,
                             << 1 + 2 * (layers + 1) + (i + 1) << " title "
                             << "\"Layer #" << i << "\" with lines ls " << (i + 2);
                }
-               *gpScript << endl;
+               *gpScript << std::endl;
 
-               *gpScript << "set title \"RTP Audio Client " << address << " - Fraction Lost\" \"Times-Roman,14\"" << endl;
-               *gpScript << "set timestamp \"" << infoString << "\" 0,0 \"Times-Roman,12\"" << endl;
-               *gpScript << "set ylabel \"Fraction Lost [%]\"" << endl;
-               *gpScript << "set xlabel \"Time [s]\"" << endl;
+               *gpScript << "set title \"RTP Audio Client " << address << " - Fraction Lost\" \"Times-Roman,14\"" << std::endl;
+               *gpScript << "set timestamp \"" << infoString << "\" 0,0 \"Times-Roman,12\"" << std::endl;
+               *gpScript << "set ylabel \"Fraction Lost [%]\"" << std::endl;
+               *gpScript << "set xlabel \"Time [s]\"" << std::endl;
                *gpScript << "plot \"" << dataName << "\" using 1:"
                          << 1 + 4 * (layers + 1) << " title "
                          << "\"Total\" with lines ls 1";
@@ -150,12 +150,12 @@ void initGNUplot(const char*    prefix,
                             << 1 + 3 * (layers + 1) + (i + 1) << " title "
                             << "\"Layer #" << i << "\" with lines ls " << (i + 2);
                }
-               *gpScript << endl;
+               *gpScript << std::endl;
 
-               *gpScript << "set title \"RTP Audio Client " << address << " - Interarrival Jitter\" \"Times-Roman,14\"" << endl;
-               *gpScript << "set timestamp \"" << infoString << "\" 0,0 \"Times-Roman,12\"" << endl;
-               *gpScript << "set ylabel \"Interarrival Jitter [us]\"" << endl;
-               *gpScript << "set xlabel \"Time [s]\"" << endl;
+               *gpScript << "set title \"RTP Audio Client " << address << " - Interarrival Jitter\" \"Times-Roman,14\"" << std::endl;
+               *gpScript << "set timestamp \"" << infoString << "\" 0,0 \"Times-Roman,12\"" << std::endl;
+               *gpScript << "set ylabel \"Interarrival Jitter [us]\"" << std::endl;
+               *gpScript << "set xlabel \"Time [s]\"" << std::endl;
                *gpScript << "plot \"" << dataName << "\" using 1:"
                          << 1 + 5 * (layers + 1) << " title "
                          << "\"Average\" with lines ls 1";
@@ -164,17 +164,17 @@ void initGNUplot(const char*    prefix,
                             << 1 + 4 * (layers + 1) + (i + 1) << " title "
                             << "\"Layer #" << i << "\" with lines ls " << (i + 2);
                }
-               *gpScript << endl;
+               *gpScript << std::endl;
                return;
             }
             else {
-               cerr << "ERROR: Unable to create data file " << dataName << "!" << endl;
+               std::cerr << "ERROR: Unable to create data file " << dataName << "!" << std::endl;
             }
             delete gpData;
          }
       }
       else {
-         cerr << "ERROR: Unable to create script file " << scriptName << "!" << endl;
+         std::cerr << "ERROR: Unable to create script file " << scriptName << "!" << std::endl;
       }
       delete gpScript;
    }
@@ -187,8 +187,8 @@ int main(int argc, char* argv[])
 {
    // ===== Check arguments =================================================
    if(argc < 2) {
-      cerr << "Usage: " << argv[0] << endl
-           << "[URL] {-local=host{:Port}} {-debug} {-null} {-encoding=number} {-prefix=name} {-info=infostring} {-force-ipv4}" << endl;
+      std::cerr << "Usage: " << argv[0] << std::endl
+           << "[URL] {-local=host{:Port}} {-debug} {-null} {-encoding=number} {-prefix=name} {-info=infostring} {-force-ipv4}" << std::endl;
       exit(0);
    }
    bool            optAudioDebug = false;
@@ -215,7 +215,7 @@ int main(int argc, char* argv[])
             if(localAddressArray == NULL) {
                localAddressArray = SocketAddress::newAddressList(SCTP_MAXADDRESSES);
                if(localAddressArray == NULL) {
-                  cerr << "ERROR: Out of memory!" << endl;
+                  std::cerr << "ERROR: Out of memory!" << std::endl;
                   exit(1);
                }
             }
@@ -223,13 +223,13 @@ int main(int argc, char* argv[])
                                                    SocketAddress::PF_HidePort,
                                                    &argv[i][7]);
             if(localAddressArray[localAddresses] == NULL) {
-               cerr << "ERROR: Argument #" << i << " is an invalid address!" << endl;
+               std::cerr << "ERROR: Argument #" << i << " is an invalid address!" << std::endl;
                exit(1);
             }
             localAddresses++;
          }
          else {
-            cerr << "ERROR: Too many local addresses!" << endl;
+            std::cerr << "ERROR: Too many local addresses!" << std::endl;
             exit(1);
          }
       }
@@ -241,13 +241,13 @@ int main(int argc, char* argv[])
       else if(!(strcasecmp(argv[i],"-mono")))           stereo    = false;
       else if(!(strncasecmp(argv[i],"-encoding=",10)))  encoding  = atol(&argv[i][10]);
       else if(argv[i][0] == '-') {
-         cerr << "Wrong parameter: " << argv[i] << endl;
+         std::cerr << "Wrong parameter: " << argv[i] << std::endl;
       }
    }
    if(optForceIPv4) {
       if(InternetAddress::UseIPv6 == true) {
          InternetAddress::UseIPv6 = false;
-         cerr << "NOTE: IPv6 support disabled!" << endl;
+         std::cerr << "NOTE: IPv6 support disabled!" << std::endl;
       }
    }
    if(localAddressArray == NULL) {
@@ -256,24 +256,24 @@ int main(int argc, char* argv[])
                localAddressArray,
                localAddresses,
                Socket::GLAF_HideBroadcast|Socket::GLAF_HideMulticast|Socket::GLAF_HideAnycast)) {
-            cerr << "ERROR: Cannot obtain local addresses!" << endl;
+            std::cerr << "ERROR: Cannot obtain local addresses!" << std::endl;
             exit(1);
          }
          if(localAddresses < 1) {
-            cerr << "ERROR: No valid local addresses have been found?!" << endl
-                 << "       Check your network interface configuration!" << endl;
+            std::cerr << "ERROR: No valid local addresses have been found?!" << std::endl
+                 << "       Check your network interface configuration!" << std::endl;
             exit(1);
          }
       }
       else {
          localAddressArray = SocketAddress::newAddressList(SCTP_MAXADDRESSES);
          if(localAddressArray == NULL) {
-            cerr << "ERROR: Out of memory!" << endl;
+            std::cerr << "ERROR: Out of memory!" << std::endl;
             exit(1);
          }
          localAddressArray[0] = new InternetAddress(0);
          if(localAddressArray[0] == NULL) {
-            cerr << "ERROR: Out of memory!" << endl;
+            std::cerr << "ERROR: Out of memory!" << std::endl;
             exit(1);
          }
          localAddresses = 1;
@@ -287,13 +287,13 @@ int main(int argc, char* argv[])
    String path;
    bool ok = scanURL(argv[1],protocol,host,path);
    if((ok == false) || (protocol != "rtpa")) {
-      cerr << "ERROR: Invalid URL! Check URL and try again." << endl;
-      cerr << "       Example: rtpa://gaffel:7500/Test.list" << endl;
+      std::cerr << "ERROR: Invalid URL! Check URL and try again." << std::endl;
+      std::cerr << "       Example: rtpa://gaffel:7500/Test.list" << std::endl;
       cleanUp(1);
    }
    InternetAddress serverAddress(host);
    if(!serverAddress.isValid()) {
-      cerr << "ERROR: Invalid server address! Check URL and try again." << endl;
+      std::cerr << "ERROR: Invalid server address! Check URL and try again." << std::endl;
       cleanUp(1);
    }
 
@@ -307,12 +307,12 @@ int main(int argc, char* argv[])
    else {
       audioOutput = new AudioDevice();
       if((audioOutput != NULL) && (!audioOutput->ready())) {
-         cerr << "WARNING: Unable to open audio device - Using AudioNull!" << endl;
+         std::cerr << "WARNING: Unable to open audio device - Using AudioNull!" << std::endl;
          audioOutput = new AudioNull();
       }
    }
    if(audioOutput == NULL) {
-      cerr << "ERROR: Client::main() - Out of memory!" << endl;
+      std::cerr << "ERROR: Client::main() - Out of memory!" << std::endl;
       cleanUp(1);
    }
 
@@ -320,7 +320,7 @@ int main(int argc, char* argv[])
    // ====== Initialize Audio client ========================================
    client = new AudioClient(localAddressArray,localAddresses,audioOutput);
    if(client == NULL) {
-      cerr << "ERROR: Client::main() - Out of memory!" << endl;
+      std::cerr << "ERROR: Client::main() - Out of memory!" << std::endl;
       cleanUp(1);
    }
 
@@ -343,7 +343,7 @@ int main(int argc, char* argv[])
    // ====== Start playing ==================================================
    ok = client->play(host.getData(),path.getData(),optUseSCTP);
    if(ok == false) {
-      cerr << "ERROR: Client::main() - AudioClient::play() failed!" << endl;
+      std::cerr << "ERROR: Client::main() - AudioClient::play() failed!" << std::endl;
       cleanUp(1);
    }
 #ifndef FAST_BREAK
@@ -357,30 +357,30 @@ int main(int argc, char* argv[])
 
 
    // ====== Print status ===================================================
-   cout << "RTP Audio Client - Copyright (C) 1999-2002 Thomas Dreibholz" << endl;
-   cout << "-----------------------------------------------------------" << endl;
-   cout << endl;
-   cout << "Version:         " << __DATE__ << ", " << __TIME__ << endl;
+   std::cout << "RTP Audio Client - Copyright (C) 1999-2002 Thomas Dreibholz" << std::endl;
+   std::cout << "-----------------------------------------------------------" << std::endl;
+   std::cout << std::endl;
+   std::cout << "Version:         " << __DATE__ << ", " << __TIME__ << std::endl;
    if(optUseSCTP) {
-      cout << "SCTP:            on" << endl;
+      std::cout << "SCTP:            on" << std::endl;
    }
    else {
-      cout << "SCTP:            off" << endl;
+      std::cout << "SCTP:            off" << std::endl;
    }
    localAddressArray[0]->setPrintFormat(SocketAddress::PF_Address|SocketAddress::PF_HidePort);
-   cout << "Local Addresses: " << *(localAddressArray[0]) << endl;
+   std::cout << "Local Addresses: " << *(localAddressArray[0]) << std::endl;
    for(cardinal i = 1;i < localAddresses;i++) {
       localAddressArray[i]->setPrintFormat(SocketAddress::PF_Address|SocketAddress::PF_HidePort);
-      cout << "                 " << *(localAddressArray[i]) << endl;
+      std::cout << "                 " << *(localAddressArray[i]) << std::endl;
    }
-   cout << "Server Address:  " << client->getServerAddressString() << endl;
-   cout << endl;
+   std::cout << "Server Address:  " << client->getServerAddressString() << std::endl;
+   std::cout << std::endl;
    char str[32];
    snprintf((char*)&str,sizeof(str),"$%08x",client->getOurSSRC());
-   cout << "Client SSRC:     " << str << endl;
-   cout << "Media Name:      " << path << endl;
-   cout << "Layers:          " << layers << endl;
-   cout << endl;
+   std::cout << "Client SSRC:     " << str << std::endl;
+   std::cout << "Media Name:      " << path << std::endl;
+   std::cout << "Layers:          " << layers << std::endl;
+   std::cout << std::endl;
 
 
    // ====== Main loop ======================================================
@@ -408,7 +408,7 @@ int main(int argc, char* argv[])
             }
           break;
          default:
-            cerr << endl << "Encoder error while playing: #" << (int)error << "." << endl;
+            std::cerr << std::endl << "Encoder error while playing: #" << (int)error << "." << std::endl;
             goto cleanUp;
           break;
       }
@@ -496,7 +496,7 @@ int main(int argc, char* argv[])
          avgJitter /= (double)currentLayers;
          *gpData << avgJitter;
 
-         *gpData << endl;
+         *gpData << std::endl;
       }
 
 

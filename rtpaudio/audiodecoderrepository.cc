@@ -46,7 +46,7 @@ AudioDecoderRepository::~AudioDecoderRepository()
    }
    if(AutoDelete) {
       while(Repository.begin() != Repository.end()) {
-         multimap<const card16,AudioDecoderInterface*>::iterator decoderIterator =
+         std::multimap<const card16,AudioDecoderInterface*>::iterator decoderIterator =
             Repository.begin();
          Decoder = decoderIterator->second;
          Repository.erase(decoderIterator);
@@ -60,10 +60,10 @@ AudioDecoderRepository::~AudioDecoderRepository()
 // ###### Add decoder to repository #########################################
 bool AudioDecoderRepository::addDecoder(AudioDecoderInterface* decoder)
 {
-   multimap<const card16,AudioDecoderInterface*>::iterator decoderIterator =
+   std::multimap<const card16,AudioDecoderInterface*>::iterator decoderIterator =
       Repository.find(decoder->getTypeID());
    if(decoderIterator == Repository.end()) {
-      Repository.insert(pair<const card16,AudioDecoderInterface*>
+      Repository.insert(std::pair<const card16,AudioDecoderInterface*>
                            (decoder->getTypeID(),decoder));
       if(Decoder == NULL) {
          Decoder = decoder;
@@ -77,13 +77,13 @@ bool AudioDecoderRepository::addDecoder(AudioDecoderInterface* decoder)
 // ###### Remove decoder from repository ####################################
 void AudioDecoderRepository::removeDecoder(AudioDecoderInterface* decoder)
 {
-   multimap<const card16,AudioDecoderInterface*>::iterator decoderIterator =
+   std::multimap<const card16,AudioDecoderInterface*>::iterator decoderIterator =
       Repository.find(decoder->getTypeID());
    if(decoderIterator != Repository.end()) {
       Repository.erase(decoderIterator);
       decoder->deactivate();
       if(Decoder == decoder) {
-         multimap<const card16,AudioDecoderInterface*>::iterator firstDecoder =
+         std::multimap<const card16,AudioDecoderInterface*>::iterator firstDecoder =
             Repository.begin();
          if(firstDecoder != Repository.end()) {
             Decoder = firstDecoder->second;
@@ -103,7 +103,7 @@ void AudioDecoderRepository::removeDecoder(AudioDecoderInterface* decoder)
 bool AudioDecoderRepository::selectDecoderForTypeID(const card16 typeID)
 {
    if((Decoder == NULL) || (typeID != Decoder->getTypeID())) {
-      multimap<const card16,AudioDecoderInterface*>::iterator decoderIterator =
+      std::multimap<const card16,AudioDecoderInterface*>::iterator decoderIterator =
          Repository.find(typeID);
       if(decoderIterator != Repository.end()) {
           AudioDecoderInterface* decoder = decoderIterator->second;

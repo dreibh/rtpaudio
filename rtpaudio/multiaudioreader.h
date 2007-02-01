@@ -153,9 +153,9 @@ class MultiAudioReader : public AudioReaderInterface,
    };
 
 
-   AudioReaderInterface*                         Reader;
-   multimap<const card64, ReaderEntry>           ReaderSet;
-   multimap<const card64, ReaderEntry>::iterator ReaderIterator;
+   AudioReaderInterface*                              Reader;
+   std::multimap<const card64, ReaderEntry>           ReaderSet;
+   std::multimap<const card64, ReaderEntry>::iterator ReaderIterator;
 
    MediaError Error;
    card64     Position;

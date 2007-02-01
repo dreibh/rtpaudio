@@ -247,8 +247,8 @@ class RTCPAbstractServer : public TimedThread
    void timerEvent();
 
 
-   card64                           DefaultTimeout;
-   multimap<const cardinal,Client*> ClientSet;
+   card64                                DefaultTimeout;
+   std::multimap<const cardinal,Client*> ClientSet;
 };
 
 

@@ -36,13 +36,13 @@ void BandwidthInfo::reset()
 
 
 // ###### Output operator ###################################################
-ostream& operator<<(ostream& os, const BandwidthInfo& bi)
+std::ostream& operator<<(std::ostream& os, const BandwidthInfo& bi)
 {
-   os << "   BytesPerSecond   = " << bi.BytesPerSecond   << endl;
-   os << "   PacketsPerSecond = " << bi.PacketsPerSecond << endl;
-   os << "   BufferDelay      = " << bi.BufferDelay      << endl;
-   os << "   MaxTransferDelay = " << bi.MaxTransferDelay / 1000.0 << " [ms]" << endl;
-   os << "   MaxLossRate      = " << bi.MaxLossRate      << endl;
-   os << "   MaxJitter        = " << bi.MaxJitter        << endl;
+   os << "   BytesPerSecond   = " << bi.BytesPerSecond   << std::endl;
+   os << "   PacketsPerSecond = " << bi.PacketsPerSecond << std::endl;
+   os << "   BufferDelay      = " << bi.BufferDelay      << std::endl;
+   os << "   MaxTransferDelay = " << bi.MaxTransferDelay / 1000.0 << " [ms]" << std::endl;
+   os << "   MaxLossRate      = " << bi.MaxLossRate      << std::endl;
+   os << "   MaxJitter        = " << bi.MaxJitter        << std::endl;
    return(os);
 }

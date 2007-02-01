@@ -814,7 +814,7 @@ void QClient::timerEvent()
       QString jString;
       card64  totalLost = 0;
 
-      for(cardinal i = 0;i < min(layers,(cardinal)3);i++) {
+      for(cardinal i = 0;i < std::min(layers,(cardinal)3);i++) {
          if(i > 0) {
             flString += " / ";
             jString  += " / ";
@@ -1036,7 +1036,7 @@ void QClient::clearBookmarks()
 // ###### Load bookmarks ####################################################
 void QClient::loadBookmarks()
 {
-   ifstream is("qclient-bookmarks");
+   std::ifstream is("qclient-bookmarks");
    if(is.good()) {
       clearBookmarks();
       while(!is.eof()) {
@@ -1053,15 +1053,15 @@ void QClient::loadBookmarks()
 // ###### Save bookmarks ####################################################
 void QClient::saveBookmarks()
 {
-   ofstream os("qclient-bookmarks");
+   std::ofstream os("qclient-bookmarks");
    if(os.good()) {
-      os << "# -- QClient 1.00 bookmarks file --" << endl;
-      os << "# This is an automatically generated file." << endl;
-      os << "# It will be read and overwritten. Do *not* edit!" << endl;
-      os << "#" << endl;
+      os << "# -- QClient 1.00 bookmarks file --" << std::endl;
+      os << "# This is an automatically generated file." << std::endl;
+      os << "# It will be read and overwritten. Do *not* edit!" << std::endl;
+      os << "#" << std::endl;
       String* url = URLList.last();
       while(url != NULL) {
-         os << *url << endl;
+         os << *url << std::endl;
          url = URLList.prev();
       }
    }
@@ -1175,19 +1175,19 @@ int main(int argc, char* argv[])
       else if(!(strncasecmp(argv[i],"-url=",5)))      defaultURL     = &argv[i][5];
       else if(!(strncasecmp(argv[i],"-local=hostname",7))) local     = &argv[i][7];
       else {
-         cerr << "Usage: " << argv[0] << endl
-              << " {-url=URL} {[+/-]debug} {[+/-]null} {[+/-]device} {[+/-]analyzer} {[+/-]mixer} {-force-ipv4} {-local=hostname{:port}}" << endl;
+         std::cerr << "Usage: " << argv[0] << std::endl
+              << " {-url=URL} {[+/-]debug} {[+/-]null} {[+/-]device} {[+/-]analyzer} {[+/-]mixer} {-force-ipv4} {-local=hostname{:port}}" << std::endl;
          exit(0);
       }
    }
    if(optForceIPv4) {
       if(InternetAddress::UseIPv6 == true) {
          InternetAddress::UseIPv6 = false;
-         cerr << "NOTE: IPv6 support disabled!" << endl;
+         std::cerr << "NOTE: IPv6 support disabled!" << std::endl;
       }
    }
    if((optUseSCTP) && (local == NULL)) {
-      cerr << "ERROR: No local hostname given but required for SCTP!" << endl;
+      std::cerr << "ERROR: No local hostname given but required for SCTP!" << std::endl;
       exit(1);
    }
    if((optAudioDebug == 0) && (optAudioNull == 0) && (optAudioDevice == 0)) {
@@ -1243,7 +1243,7 @@ int main(int argc, char* argv[])
       mixer = new AudioMixer();
       CHECK_PTR(mixer);
       if(mixer->ready() == false) {
-         cerr << "WARNING: Audio mixer not ready => Disabling mixer!" << endl;
+         std::cerr << "WARNING: Audio mixer not ready => Disabling mixer!" << std::endl;
          delete mixer;
          mixer = NULL;
       }

@@ -55,9 +55,9 @@ AudioDevice::AudioDevice(const char* name)
 
    DeviceFD = open(name,O_WRONLY);
    if(DeviceFD < 0) {
-      cerr << "************************************************************" << endl;
-      cerr << "WARNING: AudioDevice::AudioDevice() - Unable to open device!" << endl;
-      cerr << "************************************************************" << endl;
+      std::cerr << "************************************************************" << std::endl;
+      std::cerr << "WARNING: AudioDevice::AudioDevice() - Unable to open device!" << std::endl;
+      std::cerr << "************************************************************" << std::endl;
       return;
    }
 
@@ -66,23 +66,23 @@ AudioDevice::AudioDevice(const char* name)
 
    // ====== Initialize audio device ========================================
    if(ioctl(DeviceFD,SNDCTL_DSP_GETCAPS,&DeviceCapabilities) < 0) {
-      cerr << "WARNING: AudioDevice::AudioDevice() - "
-              "ioctl SNDCTL_DSP_GETCAPS failed!" << endl;
+      std::cerr << "WARNING: AudioDevice::AudioDevice() - "
+              "ioctl SNDCTL_DSP_GETCAPS failed!" << std::endl;
       return;
    }
    if(ioctl(DeviceFD,SNDCTL_DSP_GETFMTS,&DeviceFormats) < 0) {
-      cerr << "WARNING: AudioDevice::AudioDevice() - "
-              "ioctl SNDCTL_DSP_GETFMTS failed!" << endl;
+      std::cerr << "WARNING: AudioDevice::AudioDevice() - "
+              "ioctl SNDCTL_DSP_GETFMTS failed!" << std::endl;
       return;
    }
    if(ioctl(DeviceFD,SNDCTL_DSP_GETBLKSIZE,&DeviceBlockSize) < 0) {
-      cerr << "WARNING: AudioDevice::AudioDevice() - "
-              "ioctl SNDCTL_DSP_GETBLKSIZE failed!" << endl;
+      std::cerr << "WARNING: AudioDevice::AudioDevice() - "
+              "ioctl SNDCTL_DSP_GETBLKSIZE failed!" << std::endl;
       return;
    }
    if(ioctl(DeviceFD,SNDCTL_DSP_NONBLOCK,0) < 0) {
-      cerr << "WARNING: AudioDevice::AudioDevice() - "
-              "ioctl SNDCTL_DSP_NONBLOCK failed!" << endl;
+      std::cerr << "WARNING: AudioDevice::AudioDevice() - "
+              "ioctl SNDCTL_DSP_NONBLOCK failed!" << std::endl;
       return;
    }
 
@@ -110,19 +110,19 @@ AudioDevice::AudioDevice(const char* name)
       format          = AFMT_S16_LE;
    }
    else if(DeviceFormats & AFMT_U8) {
-      cerr << "NOTE: AudioDevice::AudioDevice() - "
-              "Your audio device seems not to support 16 bits!" << endl;
+      std::cerr << "NOTE: AudioDevice::AudioDevice() - "
+              "Your audio device seems not to support 16 bits!" << std::endl;
       DeviceBits      = 8;
       DeviceByteOrder = BYTE_ORDER;
       format = AFMT_U8;
    }
    else {
-      cerr << "ERROR: AudioDevice::AudioDevice() - "
-           << "Your audio device does not support S16 or U8 format?!?!" << endl;
+      std::cerr << "ERROR: AudioDevice::AudioDevice() - "
+           << "Your audio device does not support S16 or U8 format?!?!" << std::endl;
    }
    if(ioctl(DeviceFD,SNDCTL_DSP_SETFMT,&format) < 0) {
-      cerr << "WARNING: AudioDevice::AudioDevice() - "
-              "ioctl SNDCTL_DSP_SETFMT failed!" << endl;
+      std::cerr << "WARNING: AudioDevice::AudioDevice() - "
+              "ioctl SNDCTL_DSP_SETFMT failed!" << std::endl;
       return;
    }
 
@@ -130,8 +130,8 @@ AudioDevice::AudioDevice(const char* name)
    // ====== Get device buffer information ==================================
    audio_buf_info abinfo;
    if(ioctl(DeviceFD,SNDCTL_DSP_GETOSPACE,&abinfo) < 0) {
-      cerr << "WARNING: AudioDevice::AudioDevice() - "
-              "ioctl SNDCTL_DSP_GETOSPACE failed!" << endl;
+      std::cerr << "WARNING: AudioDevice::AudioDevice() - "
+              "ioctl SNDCTL_DSP_GETOSPACE failed!" << std::endl;
       return;
    }
    DeviceOSpace       = abinfo.bytes;
@@ -147,24 +147,24 @@ AudioDevice::AudioDevice(const char* name)
 
    // ====== Print results ==================================================
 #ifdef DEBUG
-   cout << "AudioDevice:" << endl;
-   cout << "   DeviceSamplingRate = " << DeviceSamplingRate << endl;
-   cout << "   DeviceBits         = " << (cardinal)DeviceBits << endl;
-   cout << "   DeviceChannels     = " << (cardinal)DeviceChannels << endl;
-   cout << "   DeviceByteOrder    = " << ((DeviceByteOrder == LITTLE_ENDIAN) ? "Little Endian" : "Big Endian") << endl;
-   cout << "   DeviceFragmentSize = " << DeviceFragmentSize << endl;
-   cout << "   DeviceOSpace       = " << DeviceOSpace
-        << " = " << AudioQuality(DeviceSamplingRate,DeviceBits,DeviceChannels).bytesToTime(DeviceOSpace) << " [s]" << endl;
-   cout << "   Capabilities       = ";
-   if(DeviceCapabilities & DSP_CAP_REALTIME) cout << "<Real-time> ";
-   if(DeviceCapabilities & DSP_CAP_BATCH)    cout << "<Batch> ";
-   if(DeviceCapabilities & DSP_CAP_DUPLEX)   cout << "<Duplex> ";
-   if(DeviceCapabilities & DSP_CAP_TRIGGER)  cout << "<Trigger> ";
-   if(DeviceCapabilities & DSP_CAP_MMAP)     cout << "<MMap> ";
-   cout << endl;
-   cout << "RingBuffer:" << endl;
-   cout << "   ResizeThreshold    = " << ResizeThreshold
-        << " = " << AudioQuality(DeviceSamplingRate,DeviceBits,DeviceChannels).bytesToTime(ResizeThreshold) << " [s]" << endl;
+   std::cout << "AudioDevice:" << std::endl;
+   std::cout << "   DeviceSamplingRate = " << DeviceSamplingRate << std::endl;
+   std::cout << "   DeviceBits         = " << (cardinal)DeviceBits << std::endl;
+   std::cout << "   DeviceChannels     = " << (cardinal)DeviceChannels << std::endl;
+   std::cout << "   DeviceByteOrder    = " << ((DeviceByteOrder == LITTLE_ENDIAN) ? "Little Endian" : "Big Endian") << std::endl;
+   std::cout << "   DeviceFragmentSize = " << DeviceFragmentSize << std::endl;
+   std::cout << "   DeviceOSpace       = " << DeviceOSpace
+        << " = " << AudioQuality(DeviceSamplingRate,DeviceBits,DeviceChannels).bytesToTime(DeviceOSpace) << " [s]" << std::endl;
+   std::cout << "   Capabilities       = ";
+   if(DeviceCapabilities & DSP_CAP_REALTIME) std::cout << "<Real-time> ";
+   if(DeviceCapabilities & DSP_CAP_BATCH)    std::cout << "<Batch> ";
+   if(DeviceCapabilities & DSP_CAP_DUPLEX)   std::cout << "<Duplex> ";
+   if(DeviceCapabilities & DSP_CAP_TRIGGER)  std::cout << "<Trigger> ";
+   if(DeviceCapabilities & DSP_CAP_MMAP)     std::cout << "<MMap> ";
+   std::cout << std::endl;
+   std::cout << "RingBuffer:" << std::endl;
+   std::cout << "   ResizeThreshold    = " << ResizeThreshold
+        << " = " << AudioQuality(DeviceSamplingRate,DeviceBits,DeviceChannels).bytesToTime(ResizeThreshold) << " [s]" << std::endl;
 #endif
 
 
@@ -172,11 +172,11 @@ AudioDevice::AudioDevice(const char* name)
    SyncCount = 0;
    IsReady = Buffer.init(RingBufferSize);
    if(IsReady == false) {
-      cerr << "ERROR: AudioDevice::AudioDevice() - Ring buffer initialization failed!" << endl;
+      std::cerr << "ERROR: AudioDevice::AudioDevice() - Ring buffer initialization failed!" << std::endl;
    }
    IsReady = start();
    if(IsReady == false) {
-      cerr << "ERROR: AudioDevice::AudioDevice() - Copy thread startup failed!" << endl;
+      std::cerr << "ERROR: AudioDevice::AudioDevice() - Copy thread startup failed!" << std::endl;
    }
    Thread::delay(1500000);
 }
@@ -242,8 +242,8 @@ card8 AudioDevice::setChannels(const card8 channels) {
       sync();
       IsReady = (ioctl(DeviceFD,SNDCTL_DSP_CHANNELS,&arg) >= 0);
       if(!IsReady) {
-         cerr << "WARNING: AudioDevice::setChannels() - IOCTL error <"
-              << sys_errlist[errno] << ">" << endl;
+         std::cerr << "WARNING: AudioDevice::setChannels() - IOCTL error <"
+              << strerror(errno) << ">" << std::endl;
       }
       else {
          DeviceChannels = arg;
@@ -265,8 +265,8 @@ card16 AudioDevice::setSamplingRate(const card16 rate) {
       sync();
       IsReady = (ioctl(DeviceFD,SNDCTL_DSP_SPEED,&arg) >= 0);
       if(!IsReady) {
-         cerr << "WARNING: AudioDevice::plingRate() - IOCTL error <"
-              << sys_errlist[errno] << ">" << endl;
+         std::cerr << "WARNING: AudioDevice::plingRate() - IOCTL error <"
+              << strerror(errno) << ">" << std::endl;
       }
       else {
          DeviceSamplingRate = arg;
@@ -315,8 +315,8 @@ void AudioDevice::sync()
    Buffer.flush();
    IsReady = (ioctl(DeviceFD,SNDCTL_DSP_RESET,0) >= 0);
    if(!IsReady) {
-      cerr << "WARNING: AudioDevice::sync() - IOCTL error <"
-           << sys_errlist[errno] << ">" << endl;
+      std::cerr << "WARNING: AudioDevice::sync() - IOCTL error <"
+           << strerror(errno) << ">" << std::endl;
       return;
    }
    SyncCount++;
@@ -364,8 +364,8 @@ bool AudioDevice::write(const void* data, const size_t length)
    const size_t bytes = Buffer.bytesReadable();
    if(bytes >= ResizeThreshold) {
 #ifdef DEBUG
-      printTimeStamp(cout);
-      cout << "Content resize: " << bytes << " -> ";
+      printTimeStamp(std::cout);
+      std::cout << "Content resize: " << bytes << " -> ";
 #endif
       char resizeBuffer[bytes];
       if(Buffer.read((char*)&resizeBuffer,bytes) == (ssize_t)bytes) {
@@ -379,10 +379,10 @@ bool AudioDevice::write(const void* data, const size_t length)
             }
          }
 #ifdef DEBUG
-         cout << out << endl;
+         std::cout << out << std::endl;
 #endif
          if(Buffer.write((char*)&resizeBuffer,out) != (ssize_t)out) {
-            cerr << "ERROR: RingBuffer write error!" << endl;
+            std::cerr << "ERROR: RingBuffer write error!" << std::endl;
          }
       }
    }

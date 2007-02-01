@@ -39,7 +39,7 @@ void ResourceUtilizationPoint::reset()
 
 
 // ###### Output operator ###################################################
-ostream& operator<<(ostream& os, const ResourceUtilizationPoint& rup)
+std::ostream& operator<<(std::ostream& os, const ResourceUtilizationPoint& rup)
 {
    char str[300 + (RTPConstants::RTPMaxQualityLayers * 64)];
    char lstr[64];

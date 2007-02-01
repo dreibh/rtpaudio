@@ -80,7 +80,7 @@ RTCPSender::~RTCPSender()
 
    // ====== Delete SDES item list ==========================================
    while(SDESItemSet.begin() != SDESItemSet.end()) {
-       multimap<const card8,RTCPSourceDescriptionItem*>::iterator sdesIterator =
+       std::multimap<const card8,RTCPSourceDescriptionItem*>::iterator sdesIterator =
           SDESItemSet.begin();
        RTCPSourceDescriptionItem* item = sdesIterator->second;
        SDESItemSet.erase(sdesIterator);
@@ -93,8 +93,8 @@ RTCPSender::~RTCPSender()
 void RTCPSender::timerEvent()
 {
    if(SenderSocket == NULL) {
-      cerr << "ERROR: RTCPSender::timerEvent() - RTCPSender is uninitialized!"
-           << endl;
+      std::cerr << "ERROR: RTCPSender::timerEvent() - RTCPSender is uninitialized!"
+                << std::endl;
       return;
    }
 
@@ -169,7 +169,7 @@ bool RTCPSender::addSDESItem(const card8 type,
    removeSDESItem(type);
 
    // ====== Add new packet =================================================
-   SDESItemSet.insert(pair<const card8,RTCPSourceDescriptionItem*>(type,packet));
+   SDESItemSet.insert(std::pair<const card8,RTCPSourceDescriptionItem*>(type,packet));
 
    unsynchronized();
    return(true);
@@ -180,7 +180,7 @@ bool RTCPSender::addSDESItem(const card8 type,
 void RTCPSender::removeSDESItem(const card8 type)
 {
    synchronized();
-   multimap<const card8,RTCPSourceDescriptionItem*>::iterator sdesIterator =
+   std::multimap<const card8,RTCPSourceDescriptionItem*>::iterator sdesIterator =
       SDESItemSet.find(type);
    if(sdesIterator != SDESItemSet.end()) {
        RTCPSourceDescriptionItem* item = sdesIterator->second;
@@ -207,7 +207,7 @@ integer RTCPSender::sendSDES()
          cardinal bytes = sizeof(RTCPSourceDescription);
          char*    adr   = (char*)&sdes->Chunk[0].Item[0];
 
-         multimap<const card8,RTCPSourceDescriptionItem*>::iterator sdesIterator =
+         std::multimap<const card8,RTCPSourceDescriptionItem*>::iterator sdesIterator =
             SDESItemSet.begin();
          while(sdesIterator != SDESItemSet.end()) {
             RTCPSourceDescriptionItem* item = sdesIterator->second;
@@ -245,7 +245,7 @@ integer RTCPSender::sendReport()
       Receiver->synchronized();
 
       // ====== Get report data from SourceStateInfos =======================
-      const cardinal layers = min(Receiver->getLayers(),RTPConstants::RTPMaxQualityLayers);
+      const cardinal layers = std::min(Receiver->getLayers(),RTPConstants::RTPMaxQualityLayers);
       cardinal length       = sizeof(RTCPReceiverReport);
       length += layers * sizeof(RTCPReceptionReportBlock);
 
@@ -267,26 +267,26 @@ integer RTCPSender::sendReport()
       Receiver->unsynchronized();
 
 /*
-      cout << "RTCPReceiverReport" << endl;
-      cout << "   RTCP Common Header:" << endl;
-      cout << "      Version     = " << report->getVersion()    << endl;
-      cout << "      Padding     = " << report->getPadding()    << endl;
-      cout << "      Count       = " << report->getCount()      << endl;
-      cout << "      Packet Type = " << (cardinal)report->getPacketType() << endl;
-      cout << "      Length      = " << report->getLength()     << endl;
-      cout << "   RTCP Report:" << endl;
-      cout << "      SSRC = " << report->getSSRC() << endl;
+      std::cout << "RTCPReceiverReport" << std::endl;
+      std::cout << "   RTCP Common Header:" << std::endl;
+      std::cout << "      Version     = " << report->getVersion()    << std::endl;
+      std::cout << "      Padding     = " << report->getPadding()    << std::endl;
+      std::cout << "      Count       = " << report->getCount()      << std::endl;
+      std::cout << "      Packet Type = " << (cardinal)report->getPacketType() << std::endl;
+      std::cout << "      Length      = " << report->getLength()     << std::endl;
+      std::cout << "   RTCP Report:" << std::endl;
+      std::cout << "      SSRC = " << report->getSSRC() << std::endl;
       for(cardinal i = 0;i < layers;i++) {
-         cout << "   RTCP Receiver Report #" << i << ":" << endl;
-         cout << "      SSRC            = " << report->rr[i].getSSRC()         << endl;
-         cout << "      Fraction Lost   = " << report->rr[i].getFractionLost() << endl;
-         cout << "      Packets Lost    = " << report->rr[i].getPacketsLost()  << endl;
-         cout << "      Last Seq Number = " << report->rr[i].getLastSeqNum()   << endl;
-         cout << "      Interar. Jitter = " << report->rr[i].getJitter()       << endl;
-         cout << "      LSR             = " << report->rr[i].getLSR()          << endl;
-         cout << "      DLSR            = " << report->rr[i].getDLSR()         << endl;
+         std::cout << "   RTCP Receiver Report #" << i << ":" << std::endl;
+         std::cout << "      SSRC            = " << report->rr[i].getSSRC()         << std::endl;
+         std::cout << "      Fraction Lost   = " << report->rr[i].getFractionLost() << std::endl;
+         std::cout << "      Packets Lost    = " << report->rr[i].getPacketsLost()  << std::endl;
+         std::cout << "      Last Seq Number = " << report->rr[i].getLastSeqNum()   << std::endl;
+         std::cout << "      Interar. Jitter = " << report->rr[i].getJitter()       << std::endl;
+         std::cout << "      LSR             = " << report->rr[i].getLSR()          << std::endl;
+         std::cout << "      DLSR            = " << report->rr[i].getDLSR()         << std::endl;
       }
-      cout << endl;
+      std::cout << std::endl;
 */
 
       return(SenderSocket->send((void*)report,length,

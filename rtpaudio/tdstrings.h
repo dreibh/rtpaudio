@@ -1,15 +1,17 @@
 /*
- *  $Id: tdstrings.h,v 1.1.1.1 2002/06/17 14:16:47 dreibh Exp $
+ *  $Id: tdstrings.h 1309 2007-02-01 13:08:01Z dreibh $
  *
- * SCTP implementation according to RFC 2960.
- * Copyright (C) 1999-2002 by Thomas Dreibholz
+ * SocketAPI implementation for the sctplib.
+ * Copyright (C) 1999-2006 by Thomas Dreibholz
  *
- * Realized in co-operation between Siemens AG
- * and University of Essen, Institute of Computer Networking Technology.
+ * Realized in co-operation between
+ * - Siemens AG
+ * - University of Essen, Institute of Computer Networking Technology
+ * - University of Applied Sciences, Muenster
  *
  * Acknowledgement
- * This work was partially funded by the Bundesministerium fr Bildung und
- * Forschung (BMBF) of the Federal Republic of Germany (F�derkennzeichen 01AK045).
+ * This work was partially funded by the Bundesministerium fuer Bildung und
+ * Forschung (BMBF) of the Federal Republic of Germany (Foerderkennzeichen 01AK045).
  * The authors alone are responsible for the contents.
  *
  * This library is free software; you can redistribute it and/or
@@ -26,6 +28,7 @@
  *
  * Contact: discussion@sctp.de
  *          dreibh@exp-math.uni-essen.de
+ *          tuexen@fh-muenster.de
  *
  * Purpose: Strings Implementation
  *

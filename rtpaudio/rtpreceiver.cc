@@ -83,8 +83,8 @@ RTPReceiver::~RTPReceiver()
 void RTPReceiver::run()
 {
    if(Decoder == NULL) {
-      cerr << "ERROR: RTPReceiver::run() - RTPReceiver is uninitialized!"
-           << endl;
+      std::cerr << "ERROR: RTPReceiver::run() - RTPReceiver is uninitialized!"
+                << std::endl;
       return;
    }
 
@@ -99,7 +99,7 @@ void RTPReceiver::run()
       // ====== Verify RTP packet ===========================================
       if(packet.getVersion() != RTPConstants::RTPVersion) {
 #ifdef DEBUG
-         cerr << "RTP packet: Invalid version " << packet.getVersion() << endl;
+         std::cerr << "RTP packet: Invalid version " << packet.getVersion() << std::endl;
 #endif
          continue;
       }
@@ -159,9 +159,9 @@ void RTPReceiver::run()
                   }
                }
                else {
-                  cerr << "WARNING: RTPReceiver::run() - decoderPacket.Layer >= decoderPacket.Layers: "
+                  std::cerr << "WARNING: RTPReceiver::run() - decoderPacket.Layer >= decoderPacket.Layers: "
                        << decoderPacket.Layer << " >= " << decoderPacket.Layers
-                       << "!" << endl;
+                       << "!" << std::endl;
                }
             }
          }

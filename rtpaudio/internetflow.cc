@@ -38,8 +38,6 @@
 #include "internetaddress.h"
 #include "internetflow.h"
 
-#include "tdin6.h"
-
 
 
 // ###### Constructor #######################################################

@@ -38,6 +38,7 @@
 #include "trafficclassvalues.h"
 
 
+#include <set>
 #include <deque>
 #include <vector>
 
@@ -88,8 +89,8 @@ class TrafficShaperSingleton : public TimedThread
    void timerEvent();
 
 
-   vector<TrafficShaper*> ShaperSet;
-   cardinal               UserCount;
+   std::vector<TrafficShaper*> ShaperSet;
+   cardinal                    UserCount;
 };
 
 
@@ -279,14 +280,14 @@ class TrafficShaper : public Synchronizable
    friend class TrafficShaperSingleton;
 
 
-   static TrafficShaperSingleton Singleton;
-   deque<TrafficShaperPacket>    Queue;
-   Socket*                       SenderSocket;
-   card64                        SendTimeStamp;
-   card64                        Bandwidth;
-   double                        BufferDelay;
-   integer                       LastError;
-   cardinal                      LastSeqNum;
+   static TrafficShaperSingleton   Singleton;
+   std::deque<TrafficShaperPacket> Queue;
+   Socket*                         SenderSocket;
+   card64                          SendTimeStamp;
+   card64                          Bandwidth;
+   double                          BufferDelay;
+   integer                         LastError;
+   cardinal                        LastSeqNum;
 };
 
 

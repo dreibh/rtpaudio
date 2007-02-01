@@ -90,7 +90,7 @@ AudioServer::~AudioServer()
 void AudioServer::outOfMemoryWarning()
 {
    printTimeStamp();
-   cerr << "*** Out of memory! ***" << endl;
+   std::cerr << "*** Out of memory! ***" << std::endl;
 }
 
 
@@ -119,14 +119,14 @@ void* AudioServer::newClient(Client* client, const char* cname)
    user->SenderSocket.create(Socket::IP,Socket::UDP,
                              (integer)(UseSCTP ? Socket::SCTP : Socket::Default));
    if(!user->SenderSocket.ready()) {
-      cerr << "WARNING: AudioServer::newClient() - Unable to create socket!" << endl;
+      std::cerr << "WARNING: AudioServer::newClient() - Unable to create socket!" << std::endl;
       deleteClient(client,DeleteReason_Error);
       return(NULL);
    }
    if(user->SenderSocket.bindx((const SocketAddress**)LocalAddressArray,
                                LocalAddresses,
                                SCTP_BINDX_ADD_ADDR) == false) {
-      cerr << "WARNING: AudioServer::newClient() - Unable to bind socket!" << endl;
+      std::cerr << "WARNING: AudioServer::newClient() - Unable to bind socket!" << std::endl;
       deleteClient(client,DeleteReason_Error);
       return(NULL);
    }
@@ -135,7 +135,7 @@ void* AudioServer::newClient(Client* client, const char* cname)
 
       memset((char*)&events, 0 ,sizeof(events));
       if(user->SenderSocket.setSocketOption(IPPROTO_SCTP, SCTP_EVENTS, &events, sizeof(events)) < 0) {
-         cerr << "WARNING: AudioClient::play() - SCTP_EVENTS failed!" << endl;
+         std::cerr << "WARNING: AudioClient::play() - SCTP_EVENTS failed!" << std::endl;
       }
       sctp_initmsg init;
       init.sinit_num_ostreams   = 1;
@@ -143,14 +143,14 @@ void* AudioServer::newClient(Client* client, const char* cname)
       init.sinit_max_attempts   = 0;
       init.sinit_max_init_timeo = 60;
       if(user->SenderSocket.setSocketOption(IPPROTO_SCTP,SCTP_INITMSG,(char*)&init,sizeof(init)) < 0) {
-         cerr << "WARNING: AudioServer::newClient() - Unable to set SCTP_INITMSG parameters!" << endl;
+         std::cerr << "WARNING: AudioServer::newClient() - Unable to set SCTP_INITMSG parameters!" << std::endl;
       }
    }
    user->Flow = user->SenderSocket.allocFlow(client->ClientAddress);
    if(user->Flow.getFlowLabel() != 0) {
       if(user->SenderSocket.connect(user->Flow,AudioServerDefaultTrafficClass) == false) {
          if(user->SenderSocket.connect(client->ClientAddress,AudioServerDefaultTrafficClass) == false) {
-            cerr << "WARNING: AudioServer::newClient() - Unable to flow-connect to client!" << endl;
+            std::cerr << "WARNING: AudioServer::newClient() - Unable to flow-connect to client!" << std::endl;
             deleteClient(client,DeleteReason_Error);
             return(NULL);
          }
@@ -158,7 +158,7 @@ void* AudioServer::newClient(Client* client, const char* cname)
    }
    else {
       if(user->SenderSocket.connect(client->ClientAddress,AudioServerDefaultTrafficClass) == false) {
-         cerr << "WARNING: AudioServer::newClient() - Unable to connect to client!" << endl;
+         std::cerr << "WARNING: AudioServer::newClient() - Unable to connect to client!" << std::endl;
          deleteClient(client,DeleteReason_Error);
          return(NULL);
       }
@@ -198,7 +198,7 @@ void* AudioServer::newClient(Client* client, const char* cname)
 */
 
    UserSetSync.synchronized();
-   UserSet.insert(pair<const cardinal,User*>(user->StreamIdentifier,user));
+   UserSet.insert(std::pair<const cardinal,User*>(user->StreamIdentifier,user));
    UserSetSync.unsynchronized();
 
    // ====== Start RTPSender ================================================
@@ -212,20 +212,20 @@ void* AudioServer::newClient(Client* client, const char* cname)
    printTimeStamp();
    char str[300];
    snprintf((char*)&str,sizeof(str),"New member $%08x added.",client->SSRC);
-   cout << str << endl;
+   std::cout << str << std::endl;
    InternetAddress sourceAddress;
    user->SenderSocket.getSocketAddress(sourceAddress);
    sourceAddress.setPrintFormat(InternetAddress::PF_Address);
-   cout << "   CNAME:               " << cname << endl;
-   cout << "   Source Address:      " << sourceAddress << endl;
-   cout << "   Destination Address: " << (InternetAddress)client->ClientAddress << endl;
+   std::cout << "   CNAME:               " << cname << std::endl;
+   std::cout << "   Source Address:      " << sourceAddress << std::endl;
+   std::cout << "   Destination Address: " << (InternetAddress)client->ClientAddress << std::endl;
    if(user->SenderSocket.getSendFlowLabel() != 0) {
       snprintf((char*)&str,sizeof(str),"$%05x",user->SenderSocket.getSendFlowLabel());
-      cout << "   Flow Label:          " << str << endl;
+      std::cout << "   Flow Label:          " << str << std::endl;
    }
    snprintf((char*)&str,sizeof(str),"$%02x",user->SenderSocket.getSendTrafficClass());
-   cout << "   Traffic Class:       " << str << endl;
-   cout << "   => We have " << getMembers() + 1 << " member(s) now!" << endl;
+   std::cout << "   Traffic Class:       " << str << std::endl;
+   std::cout << "   => We have " << getMembers() + 1 << " member(s) now!" << std::endl;
 #endif
    return((void*)user);
 }
@@ -240,7 +240,7 @@ void AudioServer::deleteClient(Client* client, const DeleteReason reason)
    if(user != NULL) {
       if(user->StreamIdentifier != 0) {
          UserSetSync.synchronized();
-         multimap<const cardinal,User*>::iterator found =
+         std::multimap<const cardinal,User*>::iterator found =
             UserSet.find(user->StreamIdentifier);
          UserSet.erase(found);
          UserSetSync.unsynchronized();
@@ -248,7 +248,7 @@ void AudioServer::deleteClient(Client* client, const DeleteReason reason)
       /* ????
          if(QoSMgr != NULL) {
 #ifdef QOSMGR_DEBUG
-            cout << "Close stream " << user->StreamIdentifier << endl;
+            std::cout << "Close stream " << user->StreamIdentifier << std::endl;
 #endif
             QoSMgr->closeStream(user->StreamIdentifier);
          }
@@ -269,23 +269,23 @@ void AudioServer::deleteClient(Client* client, const DeleteReason reason)
    printTimeStamp();
    snprintf((char*)&str,sizeof(str),"$%08x",client->SSRC);
 
-   cout << str << " removed";
+   std::cout << str << " removed";
    switch(reason) {
       case DeleteReason_Timeout:
-         cout << " due to timeout!" << endl;
+         std::cout << " due to timeout!" << std::endl;
        break;
       case DeleteReason_Shutdown:
-         cout << " due to server shutdown!" << endl;
+         std::cout << " due to server shutdown!" << std::endl;
         break;
       case DeleteReason_Error:
-         cout << " due to transmission error!" << endl;
+         std::cout << " due to transmission error!" << std::endl;
         break;
       default:
-         cout << "." << endl;
+         std::cout << "." << std::endl;
         break;
    }
    if(reason != DeleteReason_Shutdown) {
-      cout << "   => We have " << getMembers() - 1 << " member(s) now!" << endl;
+      std::cout << "   => We have " << getMembers() - 1 << " member(s) now!" << std::endl;
    }
 #endif
 }
@@ -318,8 +318,8 @@ void AudioServer::userCommand(const Client*               client,
             char str[128];
             printTimeStamp();
             snprintf((char*)&str,sizeof(str),"$%08x",client->SSRC);
-            cout << str << " loading media <" << (const char*)&app->MediaName
-                 << ">." << endl;
+            std::cout << str << " loading media <" << (const char*)&app->MediaName
+                 << ">." << std::endl;
 #endif
          if(user->Reader.openMedia((char*)&app->MediaName)) {
             user->Reader.setPosition(app->RestartPosition);
@@ -334,8 +334,8 @@ void AudioServer::userCommand(const Client*               client,
          char str[128];
          printTimeStamp();
          snprintf((char*)&str,sizeof(str),"$%08x",client->SSRC);
-         cout << str << " changing media to <" << (const char*)&app->MediaName
-              << ">." << endl;
+         std::cout << str << " changing media to <" << (const char*)&app->MediaName
+              << ">." << std::endl;
 #endif
          user->Reader.closeMedia();
          if(user->Reader.openMedia((char*)&app->MediaName)) {
@@ -362,8 +362,8 @@ void AudioServer::userCommand(const Client*               client,
    else {
       char str[32];
       snprintf((char*)&str,sizeof(str),"$%04x",app->Encoding);
-      cerr << "WARNING: AudioServer::userCommand() - Unsupported Encoding #"
-           << str << " requested!" << endl;
+      std::cerr << "WARNING: AudioServer::userCommand() - Unsupported Encoding #"
+           << str << " requested!" << std::endl;
    }
 
 
@@ -387,7 +387,7 @@ void AudioServer::userCommand(const Client*               client,
                      printTimeStamp();
                      char str[128];
                      snprintf((char*)&str,sizeof(str),"$%08x resumed due to increased user bandwidth!",client->SSRC);
-                     cout << str << endl;
+                     std::cout << str << std::endl;
 #endif
                      user->Sender.setPause(false);
                   }
@@ -401,7 +401,7 @@ void AudioServer::userCommand(const Client*               client,
                      printTimeStamp();
                      char str[128];
                      snprintf((char*)&str,sizeof(str),"$%08x paused due to user bandwidth limit!",client->SSRC);
-                     cout << str << endl;
+                     std::cout << str << std::endl;
 #endif
                      user->Sender.setPause(true);
                   }
@@ -453,8 +453,8 @@ void AudioServer::sdesMessage(const Client*  client,
    }
 /*
    else {
-      cerr << "NOTE: AudioServer::sdesMessage() - Unsupported SDES type: "
-           << (cardinal)type << endl;
+      std::cerr << "NOTE: AudioServer::sdesMessage() - Unsupported SDES type: "
+           << (cardinal)type << std::endl;
    }
 */
 }
@@ -474,13 +474,13 @@ void AudioServer::receiverReport(const Client*                   client,
                                  const RTCPReceptionReportBlock* report,
                                  const cardinal                  layer)
 {
+/*
    User* user = (User*)client->UserData;
 
-/*
    if(LossScalability == true) {
       if(QoSMgr != NULL) {
 #ifdef QOSMGR_DEBUG
-         cout << "Loss rate in layer #" << layer << ": " << report->getFractionLost() << endl;
+         std::cout << "Loss rate in layer #" << layer << ": " << report->getFractionLost() << std::endl;
 #endif
          // QoSMgr->setFractionLost(user->StreamIdentifier,report->getFractionLost(),layer);
          QoSMgr->setReport(user->StreamIdentifier,report,layer);

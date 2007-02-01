@@ -223,8 +223,8 @@ cardinal SimpleAudioEncoder::getNextPacket(EncoderPacket* encoderPacket)
    if(FrameBufferPos < FrameBufferSize) {
 
       // ====== Ensure correct alignment of data ============================
-      cardinal bytes = min(encoderPacket->MaxLength - sizeof(SimpleAudioPacket),
-                           FrameBufferSize - FrameBufferPos);
+      cardinal bytes = std::min(encoderPacket->MaxLength - sizeof(SimpleAudioPacket),
+                                FrameBufferSize - FrameBufferPos);
       if(packet->Bits == 12) {
          if(packet->Channels == 2)
             bytes = bytes - (bytes % 6);
@@ -255,8 +255,8 @@ cardinal SimpleAudioEncoder::getNextPacket(EncoderPacket* encoderPacket)
          return(sizeof(MediaInfo) + sizeof(SimpleAudioPacket));
       }
       else {
-         cerr << "WARNING: SimpleAudioEncoder::getNextPacket() - "
-              << "Packet size too low for media info!" << endl;
+         std::cerr << "WARNING: SimpleAudioEncoder::getNextPacket() - "
+              << "Packet size too low for media info!" << std::endl;
       }
    }
    return(0);

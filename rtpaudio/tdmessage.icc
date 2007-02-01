@@ -1,15 +1,17 @@
 /*
- *  $Id: tdmessage.icc,v 1.2 2002/08/16 16:24:51 dreibh Exp $
+ *  $Id: tdmessage.icc 1309 2007-02-01 13:08:01Z dreibh $
  *
- * SCTP implementation according to RFC 2960.
- * Copyright (C) 1999-2002 by Thomas Dreibholz
+ * SocketAPI implementation for the sctplib.
+ * Copyright (C) 1999-2006 by Thomas Dreibholz
  *
- * Realized in co-operation between Siemens AG
- * and University of Essen, Institute of Computer Networking Technology.
+ * Realized in co-operation between
+ * - Siemens AG
+ * - University of Essen, Institute of Computer Networking Technology
+ * - University of Applied Sciences, Muenster
  *
  * Acknowledgement
- * This work was partially funded by the Bundesministerium für Bildung und
- * Forschung (BMBF) of the Federal Republic of Germany (Förderkennzeichen 01AK045).
+ * This work was partially funded by the Bundesministerium fuer Bildung und
+ * Forschung (BMBF) of the Federal Republic of Germany (Foerderkennzeichen 01AK045).
  * The authors alone are responsible for the contents.
  *
  * This library is free software; you can redistribute it and/or
@@ -26,6 +28,7 @@
  *
  * Contact: discussion@sctp.de
  *          dreibh@exp-math.uni-essen.de
+ *          tuexen@fh-muenster.de
  *
  * Purpose: Message Inlines
  *
@@ -56,7 +59,7 @@ template<const size_t size> inline SocketMessage<size>::SocketMessage()
 template<const size_t size> inline void SocketMessage<size>::clear()
 {
    Header.msg_name       = NULL;
-   Header.msg_namelen    = NULL;
+   Header.msg_namelen    = 0;
    Header.msg_iov        = NULL;
    Header.msg_iovlen     = 0;
    Header.msg_control    = (char*)&Control;
@@ -103,7 +106,7 @@ template<const size_t size> inline void SocketMessage<size>::setControl(const si
 {
    Header.msg_control = (char*)&Control;
    if(controlsize > size) {
-      cerr << "WARNING: SocketMessage<" << size << ">:setControl() - Size too large!" << endl;
+      std::cerr << "WARNING: SocketMessage<" << size << ">:setControl() - Size too large!" << std::endl;
       Header.msg_controllen = size;
       return;
    }
@@ -125,7 +128,7 @@ template<const size_t size> inline char* SocketMessage<size>::addHeader(
    const cardinal length = payload + sizeof(cmsghdr);
 
    if(Header.msg_controllen + length > size) {
-      cerr << "WARNING: SocketMessage<" << size << ">:addHeader() - Too much control data!" << endl;
+      std::cerr << "WARNING: SocketMessage<" << size << ">:addHeader() - Too much control data!" << std::endl;
       return(NULL);
    }
 
@@ -164,20 +167,13 @@ inline static char* CData(const cmsghdr* cmsg)
 }
 
 
-// ###### Wrapper for CMSG_LEN ##############################################
-inline static const cardinal CLength(const cmsghdr* cmsg)
-{
-   return((cardinal)CMSG_LEN(cmsg));
-}
-
-
 // ###### Wrapper for CMSG_FIRSTHDR #########################################
 inline static cmsghdr* CFirst(const msghdr* header)
 {
    if(header->msg_controllen > 0) {
       return(CMSG_FIRSTHDR((msghdr*)header));
    }
-   return(NULL);   
+   return(NULL);
 }
 
 

@@ -163,7 +163,7 @@ void QAudioMixer::update()
       }
 
       if(Mixer->setVolume(left,right) == false) {
-         cerr << "WARNING: QAudioMixer::update() - Error doing AudioMixer::setVolume()!" << endl;
+         std::cerr << "WARNING: QAudioMixer::update() - Error doing AudioMixer::setVolume()!" << std::endl;
       }
 
       char str[32];

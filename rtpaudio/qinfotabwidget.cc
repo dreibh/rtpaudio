@@ -137,7 +137,7 @@ bool QInfoTabWidget::update(const QString& id, const QString& value)
       infoWidget = InfoWidgetList.next();
    }
    if(count == 0) {
-      cerr << "QInfoTabWidget::update() - Unknown ID " << id << "!" << endl;
+      std::cerr << "QInfoTabWidget::update() - Unknown ID " << id << "!" << std::endl;
       return(false);
    }
    return(true);

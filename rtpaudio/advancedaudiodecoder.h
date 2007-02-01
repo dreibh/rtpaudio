@@ -221,18 +221,18 @@ class AdvancedAudioDecoder : public AudioDecoderInterface,
    };
 
    struct FrameNode {
-      card64                               Position;
-      card64                               MaxPosition;
-      cardinal                             FrameSize;
-      card16                               SamplingRate;
-      card8                                Channels;
-      card8                                Bits;
-      card8                                ErrorCode;
-      card8                                pad;
-      multimap<const card16,FrameFragment*> FragmentSetLL;
-      multimap<const card16,FrameFragment*> FragmentSetRL;
-      multimap<const card16,FrameFragment*> FragmentSetLU;
-      multimap<const card16,FrameFragment*> FragmentSetRU;
+      card64                                     Position;
+      card64                                     MaxPosition;
+      cardinal                                   FrameSize;
+      card16                                     SamplingRate;
+      card8                                      Channels;
+      card8                                      Bits;
+      card8                                      ErrorCode;
+      card8                                      pad;
+      std::multimap<const card16,FrameFragment*> FragmentSetLL;
+      std::multimap<const card16,FrameFragment*> FragmentSetRL;
+      std::multimap<const card16,FrameFragment*> FragmentSetLU;
+      std::multimap<const card16,FrameFragment*> FragmentSetRU;
    };
 
    struct FrameNodeItem {
@@ -244,11 +244,11 @@ class AdvancedAudioDecoder : public AudioDecoderInterface,
       }
    };
 
-   card64 checkFragmentSeqNum(multimap<const card16,FrameFragment*>* set,
-                              const card64                           last) const;
-   void deleteFragments(multimap<const card16,FrameFragment*>* set);
-   FrameFragment* getFragment(multimap<const card16, FrameFragment*>* set,
-                              const card16                            fragmentNumber);
+   card64 checkFragmentSeqNum(std::multimap<const card16,FrameFragment*>* set,
+                              const card64                                last) const;
+   void deleteFragments(std::multimap<const card16,FrameFragment*>* set);
+   FrameFragment* getFragment(std::multimap<const card16, FrameFragment*>* set,
+                              const card16                                 fragmentNumber);
 
 
    static const cardinal FrameBufferSize =
@@ -260,18 +260,18 @@ class AdvancedAudioDecoder : public AudioDecoderInterface,
          AdvancedAudioPacket::AdvancedAudioFramesPerSecond;
 
 
-   multiset<FrameNodeItem> FrameSet;
-   AudioWriterInterface*   Device;
-   AudioQuality            WantedQuality;
-   card64                  Position;
-   card64                  MaxPosition;
+   std::multiset<FrameNodeItem> FrameSet;
+   AudioWriterInterface*        Device;
+   AudioQuality                 WantedQuality;
+   card64                       Position;
+   card64                       MaxPosition;
 
-   SeqNumValidator SeqNumber[AdvancedAudioPacket::AdvancedAudioMaxQualityLayers];
-   MediaInfo       Media;
-   card16          AudioSamplingRate;
-   card8           AudioBits;
-   card8           AudioChannels;
-   card8           ErrorCode;
+   SeqNumValidator              SeqNumber[AdvancedAudioPacket::AdvancedAudioMaxQualityLayers];
+   MediaInfo                    Media;
+   card16                       AudioSamplingRate;
+   card8                        AudioBits;
+   card8                        AudioChannels;
+   card8                        ErrorCode;
 };
 
 

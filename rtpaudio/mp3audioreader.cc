@@ -46,7 +46,7 @@
           seterrorcode(SOUND_ERROR_OK);
         }
 
-s        return (totalframe != 0);
+        return (totalframe != 0);
       }
 
    by
@@ -302,7 +302,7 @@ bool MP3AudioReader::readNextFrame()
    // Check for error code
    int error = MP3Decoder->geterrorcode();
    if((error < -1) || (error > 0)) {
-      cerr << "WARNING: Mpegtoraw errorcode #" << error << endl;
+      std::cerr << "WARNING: Mpegtoraw errorcode #" << error << std::endl;
       return(false);
    }
 
@@ -317,8 +317,8 @@ cardinal MP3AudioReader::getNextBlock(void* buffer, const cardinal blockSize)
       cardinal readLength = blockSize;
       char*    dest       = (char*)buffer;
       if((blockSize % (getBitsPerSample() / 8)) != 0) {
-         cerr << "WARNING: MP3AudioReader::getNextBlock() - Unaligned blockSize value "
-              << blockSize << "!" << endl;
+         std::cerr << "WARNING: MP3AudioReader::getNextBlock() - Unaligned blockSize value "
+                   << blockSize << "!" << std::endl;
          return(0);
       }
 
@@ -329,7 +329,7 @@ cardinal MP3AudioReader::getNextBlock(void* buffer, const cardinal blockSize)
 
       // Read data into user's buffer
       while(ok == true) {
-          const cardinal len = min(readLength,BufferSize - BufferPos);
+          const cardinal len = std::min(readLength,BufferSize - BufferPos);
           memcpy(dest,(void*)((long)&Buffer + (long)BufferPos),len);
 
           dest       += len;
@@ -377,7 +377,7 @@ bool MP3AudioReader::setsoundtype(int stereo, int samplesize, int speed)
 // ###### Soundplayer: set8bitmode ##########################################
 void MP3AudioReader::set8bitmode()
 {
-   cout << "MP3AudioReader::set8bitmode() - Implement me!" << endl;
+   std::cout << "MP3AudioReader::set8bitmode() - Implement me!" << std::endl;
 }
 
 

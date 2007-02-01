@@ -57,12 +57,12 @@ void MediaInfo::translate() {
 
 
 // ###### Output operator ###################################################
-ostream& operator<<(ostream& os, const MediaInfo& mi)
+std::ostream& operator<<(std::ostream& os, const MediaInfo& mi)
 {
-   cout << "StartTimeStamp = " << mi.StartTimeStamp << endl;
-   cout << "EndTimeStamp   = " << mi.EndTimeStamp   << endl;
-   cout << "Title          = \"" << mi.Title << "\"" << endl;
-   cout << "Artist         = \"" << mi.Artist << "\"" << endl;
-   cout << "Comment        = \"" << mi.Comment << "\"" << endl;
+   std::cout << "StartTimeStamp = " << mi.StartTimeStamp << std::endl;
+   std::cout << "EndTimeStamp   = " << mi.EndTimeStamp   << std::endl;
+   std::cout << "Title          = \"" << mi.Title << "\"" << std::endl;
+   std::cout << "Artist         = \"" << mi.Artist << "\"" << std::endl;
+   std::cout << "Comment        = \"" << mi.Comment << "\"" << std::endl;
    return(os);
 }

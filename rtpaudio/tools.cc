@@ -1,15 +1,17 @@
 /*
- *  $Id: tools.cc,v 1.2 2002/08/16 16:24:51 dreibh Exp $
+ *  $Id: tools.cc 1309 2007-02-01 13:08:01Z dreibh $
  *
- * SCTP implementation according to RFC 2960.
- * Copyright (C) 1999-2002 by Thomas Dreibholz
+ * SocketAPI implementation for the sctplib.
+ * Copyright (C) 1999-2006 by Thomas Dreibholz
  *
- * Realized in co-operation between Siemens AG
- * and University of Essen, Institute of Computer Networking Technology.
+ * Realized in co-operation between
+ * - Siemens AG
+ * - University of Essen, Institute of Computer Networking Technology
+ * - University of Applied Sciences, Muenster
  *
  * Acknowledgement
- * This work was partially funded by the Bundesministerium für Bildung und
- * Forschung (BMBF) of the Federal Republic of Germany (Förderkennzeichen 01AK045).
+ * This work was partially funded by the Bundesministerium fuer Bildung und
+ * Forschung (BMBF) of the Federal Republic of Germany (Foerderkennzeichen 01AK045).
  * The authors alone are responsible for the contents.
  *
  * This library is free software; you can redistribute it and/or
@@ -26,6 +28,7 @@
  *
  * Contact: discussion@sctp.de
  *          dreibh@exp-math.uni-essen.de
+ *          tuexen@fh-muenster.de
  *
  * Purpose: Tools Implementation
  *
@@ -105,7 +108,7 @@ bool scanURL(const String& location,
       return(false);
    }
    host = url.left(p2);
-   
+
    // ====== Get path =======================================================
    path = url.mid(p2 + 1);
 
@@ -116,7 +119,7 @@ bool scanURL(const String& location,
 
 
 // ###### Print time stamp ##################################################
-void printTimeStamp(ostream& os)
+void printTimeStamp(std::ostream& os)
 {
    char str[128];
    const card64 microTime = getMicroTime();

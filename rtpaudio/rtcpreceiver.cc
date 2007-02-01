@@ -73,8 +73,8 @@ RTCPReceiver::~RTCPReceiver()
 void RTCPReceiver::run()
 {
    if(ReceiverSocket == NULL) {
-      cerr << "ERROR: RTCPReceiver::run() - RTCPReceiver is uninitialized!"
-           << endl;
+      std::cerr << "ERROR: RTCPReceiver::run() - RTCPReceiver is uninitialized!"
+                << std::endl;
       return;
    }
 
@@ -86,7 +86,7 @@ void RTCPReceiver::run()
          ReceiverSocket->receiveFrom((char*)&packetData,sizeof(packetData),flow,0);
       if(receivedPacketSize < (ssize_t)sizeof(RTCPCommonHeader)) {
          if(receivedPacketSize > 0) {
-            cerr << "WARNING: RTCPReceiver::run() - Received bad RTCP header" << endl;
+            std::cerr << "WARNING: RTCPReceiver::run() - Received bad RTCP header" << std::endl;
          }
          continue;
       }
@@ -96,24 +96,24 @@ void RTCPReceiver::run()
       RTCPCommonHeader* header  = (RTCPCommonHeader*)&packetData;
       const cardinal packetSize = header->getLength();
 /*
-      cout << "RTCP Common Header\n";
-      cout << "   Version     : " << (cardinal)header->getVersion()    << "\n";
-      cout << "   Padding     : " << (cardinal)header->getPadding()    << "\n";
-      cout << "   Count       : " << (cardinal)header->getCount()      << "\n";
-      cout << "   Packet Type : " << (cardinal)header->getPacketType() << "\n";
-      cout << "   Length      : " << (cardinal)header->getLength()     << endl;
+      std::cout << "RTCP Common Header\n";
+      std::cout << "   Version     : " << (cardinal)header->getVersion()    << "\n";
+      std::cout << "   Padding     : " << (cardinal)header->getPadding()    << "\n";
+      std::cout << "   Count       : " << (cardinal)header->getCount()      << "\n";
+      std::cout << "   Packet Type : " << (cardinal)header->getPacketType() << "\n";
+      std::cout << "   Length      : " << (cardinal)header->getLength()     << std::endl;
 */
       if(receivedPacketSize < (integer)packetSize) {
 #ifdef DEBUG
-         cerr << "RTCP packet: receivedPacketSize < packetSize: "
-              << receivedPacketSize << " <=> " << packetSize << endl;
+         std::cerr << "RTCP packet: receivedPacketSize < packetSize: "
+              << receivedPacketSize << " <=> " << packetSize << std::endl;
 #endif
          continue;
       }
 
       if(header->getVersion() != RTPConstants::RTPVersion) {
 #ifdef DEBUG
-         cerr << "RTCP packet: Invalid RTP version: " << header->getVersion() << endl;
+         std::cerr << "RTCP packet: Invalid RTP version: " << header->getVersion() << std::endl;
 #endif
          continue;
       }
@@ -125,7 +125,7 @@ void RTCPReceiver::run()
       } while((r < rend) && (r->getVersion() == RTPConstants::RTPVersion));
       if(r != rend) {
 #ifdef DEBUG
-         cerr << "RTCP packet: Length check failed!" << endl;
+         std::cerr << "RTCP packet: Length check failed!" << std::endl;
 #endif
          continue;
       }
@@ -157,7 +157,7 @@ void RTCPReceiver::run()
                   }
                   else {
 #ifdef DEBUG
-                     cerr << "RTCP packet: Invalid receiver report length!" << endl;
+                     std::cerr << "RTCP packet: Invalid receiver report length!" << std::endl;
 #endif
                      break;
                   }
@@ -188,7 +188,7 @@ void RTCPReceiver::run()
                   }
                   else {
 #ifdef DEBUG
-                     cerr << "RTCP packet: Invalid sender report length!" << endl;
+                     std::cerr << "RTCP packet: Invalid sender report length!" << std::endl;
 #endif
                      break;
                   }
@@ -252,8 +252,8 @@ void RTCPReceiver::run()
          default:
             receivedPacketSize = 0;
 #ifdef DEBUG
-            cerr << "RTCP packet: Unknown SDES type "
-                 << header->getPacketType() << endl;
+            std::cerr << "RTCP packet: Unknown SDES type "
+                      << header->getPacketType() << std::endl;
 #endif
           break;
 

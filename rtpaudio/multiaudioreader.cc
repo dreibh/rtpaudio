@@ -80,7 +80,7 @@ bool MultiAudioReader::openMedia(const char* name)
    Error = ME_BadMedia;
    FILE* inputFD = fopen(name,"r");
    if(inputFD == NULL) {
-      cerr << "WARNING: Unable to open input file <" << name << ">!" << endl;
+      std::cerr << "WARNING: Unable to open input file <" << name << ">!" << std::endl;
       return(false);
    }
 
@@ -130,8 +130,8 @@ bool MultiAudioReader::openMedia(const char* name)
                      overwriteSettings = true;
                   }
                   else {
-                     cerr << "WARNING: MultiAudioReader::openMedia() - Unknown option <"
-                          << name << " = " << value << ">!" << endl;
+                     std::cerr << "WARNING: MultiAudioReader::openMedia() - Unknown option <"
+                               << name << " = " << value << ">!" << std::endl;
                   }
                }
              }
@@ -159,13 +159,13 @@ bool MultiAudioReader::openMedia(const char* name)
                      readerEntry.Artist  = artist;
                      readerEntry.Comment = comment;
                   }
-                  ReaderSet.insert(pair<const card64, ReaderEntry>
+                  ReaderSet.insert(std::pair<const card64, ReaderEntry>
                                       (MaxPosition,readerEntry));
                   MaxPosition += reader->getMaxPosition();
                }
                else {
-                  cerr << "WARNING: MultiAudioReader::openMedia() - Unable to load <"
-                       << name << ">" << endl;
+                  std::cerr << "WARNING: MultiAudioReader::openMedia() - Unable to load <"
+                            << name << ">" << std::endl;
                }
                title   = "";
                artist  = "";
@@ -182,7 +182,7 @@ bool MultiAudioReader::openMedia(const char* name)
 
    // ###### Initialize AudioReader #########################################
    if(ReaderSet.size() > 0) {
-      multimap<const card64, ReaderEntry>::iterator firstReader =
+      std::multimap<const card64, ReaderEntry>::iterator firstReader =
          ReaderSet.begin();
       Reader = firstReader->second.Reader;
 
@@ -337,8 +337,8 @@ AudioReaderInterface* MultiAudioReader::getAudioReader(const char*    name,
       delete multireader;
    }
    else {
-      cerr << "WARNING: MultiAudioReader::getAudioReader() - Recursion level too high!"
-           << endl;
+      std::cerr << "WARNING: MultiAudioReader::getAudioReader() - Recursion level too high!"
+                << std::endl;
    }
 
    return(NULL);

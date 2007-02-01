@@ -114,8 +114,8 @@ cardinal AudioConverter(const AudioQualityInterface& from,
    const cardinal outputBytesPerSecond = to.getBytesPerSecond();
    cardinal required = (cardinal)ceil(((double)inputLength * (double)outputBytesPerSecond) / (double)inputBytesPerSecond);
    if(outputLength < (cardinal)required) {
-      cerr << "WARNING: AudioConverter() - Output buffer too small: "
-           << outputLength << " < " << required << "!" << endl;
+      std::cerr << "WARNING: AudioConverter() - Output buffer too small: "
+                << outputLength << " < " << required << "!" << std::endl;
       return(0);
    }
    if(from == to) {
@@ -239,12 +239,12 @@ cardinal AudioConverter(const AudioQualityInterface& from,
    cardinal a,b;
    float    c;
    if((getConvParams(from.getSamplingRate(),to.getSamplingRate(),a,b,c)) == false) {
-      cerr << "WARNING: AudioConverter: Unable to convert rate "
-           << a << " to " << b << "!" << endl;
+      std::cerr << "WARNING: AudioConverter: Unable to convert rate "
+                << a << " to " << b << "!" << std::endl;
       return(length);
    }
 
-   // cout << "a=" << a << " b=" << b << " c=" << c << endl;
+   // std::cout << "a=" << a << " b=" << b << " c=" << c << std::endl;
 
    // ====== Convert sampling rate ==========================================
    if((a != 1) || (b != 1)) {

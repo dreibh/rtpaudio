@@ -174,7 +174,7 @@ bool SpectrumAnalyzer::write(const void* dataPtr, const size_t totalLength)
       cardinal    length = totalLength;
       const void* data   = dataPtr;
       while(length > 0) {
-         cardinal size = min(length,((FFTPoints * getBitsPerSample()) / 8) - InputBufferPos);
+         cardinal size = std::min(length,((FFTPoints * getBitsPerSample()) / 8) - InputBufferPos);
          memcpy((void*)&InputBuffer[InputBufferPos],data,size);
          InputBufferPos += size;
 

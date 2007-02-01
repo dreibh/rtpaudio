@@ -1,15 +1,17 @@
 /*
- *  $Id: condition.h,v 1.3 2002/08/16 16:24:51 dreibh Exp $
+ *  $Id: condition.h 1309 2007-02-01 13:08:01Z dreibh $
  *
- * SCTP implementation according to RFC 2960.
- * Copyright (C) 1999-2002 by Thomas Dreibholz
+ * SocketAPI implementation for the sctplib.
+ * Copyright (C) 1999-2006 by Thomas Dreibholz
  *
- * Realized in co-operation between Siemens AG
- * and University of Essen, Institute of Computer Networking Technology.
+ * Realized in co-operation between
+ * - Siemens AG
+ * - University of Essen, Institute of Computer Networking Technology
+ * - University of Applied Sciences, Muenster
  *
  * Acknowledgement
- * This work was partially funded by the Bundesministerium für Bildung und
- * Forschung (BMBF) of the Federal Republic of Germany (Förderkennzeichen 01AK045).
+ * This work was partially funded by the Bundesministerium fuer Bildung und
+ * Forschung (BMBF) of the Federal Republic of Germany (Foerderkennzeichen 01AK045).
  * The authors alone are responsible for the contents.
  *
  * This library is free software; you can redistribute it and/or
@@ -26,8 +28,7 @@
  *
  * Contact: discussion@sctp.de
  *          dreibh@exp-math.uni-essen.de
-
-
+ *          tuexen@fh-muenster.de
  *
  * Purpose: Condition
  *
@@ -62,8 +63,7 @@ class Condition : public Synchronizable
      * @param recursive true to make condition's mutex recursive; false otherwise (default for Condition!).
      */
    Condition(const char* name            = "Condition",
-             Condition*  parentCondition = NULL,
-             const bool  recursive       = false);
+             Condition*  parentCondition = NULL);
 
    /**
      * Destructor.
@@ -76,13 +76,13 @@ class Condition : public Synchronizable
      * Fire condition: One thread waiting for this variable will be
      * resumed.
      */
-   inline void signal();
+   void signal();
 
    /**
      * Broadcast condition: All threads waiting for this variable will be
      * resumed.
      */
-   inline void broadcast();
+   void broadcast();
 
    /**
      * Check, if condition has been fired. This call will reset
@@ -103,7 +103,7 @@ class Condition : public Synchronizable
    /**
      * Wait for condition without timeout.
      */
-   inline void wait();
+   void wait();
 
    /**
      * Wait for condition with timeout.
@@ -132,9 +132,10 @@ class Condition : public Synchronizable
 
    // ====== Private data ===================================================
    private:
-   set<Condition*> ParentSet;
-   pthread_cond_t  ConditionVariable;
-   bool            Fired;
+   std::set<Condition*> ParentSet;
+   pthread_cond_t       ConditionVariable;
+   bool                 Fired;
+   bool                 Valid;
 };
 
 

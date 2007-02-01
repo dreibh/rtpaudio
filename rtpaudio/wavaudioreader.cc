@@ -78,7 +78,7 @@ bool WavAudioReader::openMedia(const char* name)
    Error = ME_BadMedia;
    InputFD = fopen(name,"r");
    if(InputFD == NULL) {
-      cerr << "WARNING: Unable to open input file <" << name << ">!" << endl;
+      std::cerr << "WARNING: Unable to open input file <" << name << ">!" << std::endl;
       return(false);
    }
 
@@ -102,8 +102,8 @@ bool WavAudioReader::openMedia(const char* name)
          setChannels(Format.Channels);
 
          if((getBits() != 8) && (getBits() != 16)) {
-            cerr << "WavAudioReader::openMedia() - Bad format in file " << name
-                 << "!" << endl;
+            std::cerr << "WavAudioReader::openMedia() - Bad format in file " << name
+                 << "!" << std::endl;
             return(false);
          }
 
@@ -128,7 +128,7 @@ bool WavAudioReader::openMedia(const char* name)
 bool WavAudioReader::getChunk(RIFF_Chunk& chunk) {
    int32 result = fread((void *)&chunk,sizeof(RIFF_Chunk),1,InputFD);
    if(result != 1) {
-      cerr << "WavAudioReader::getChunk() - read error!" << endl;
+      std::cerr << "WavAudioReader::getChunk() - read error!" << std::endl;
       return(false);
    }
    return(true);
@@ -203,8 +203,8 @@ cardinal WavAudioReader::getNextBlock(void* buffer, const cardinal blockSize)
    if((InputFD != NULL) && (Error < ME_UnrecoverableError)) {
       if(Position + blockSize <= MaxPosition) {
          if((blockSize % (getBitsPerSample() / 8)) != 0) {
-            cerr << "WARNING: WavAudioReader::getNextBlock() - Unaligned blockSize value "
-                 << blockSize << "!" << endl;
+            std::cerr << "WARNING: WavAudioReader::getNextBlock() - Unaligned blockSize value "
+                 << blockSize << "!" << std::endl;
             return(0);
          }
          int32 result = fread((void *)buffer,blockSize,1,InputFD);
@@ -212,7 +212,7 @@ cardinal WavAudioReader::getNextBlock(void* buffer, const cardinal blockSize)
             Position += blockSize;
             return(blockSize);
          }
-         cerr << "WARNING: WavAudioReader::getNextBlock() - Read error!" << endl;
+         std::cerr << "WARNING: WavAudioReader::getNextBlock() - Read error!" << std::endl;
       }
       else {
          Error = ME_EOF;

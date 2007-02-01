@@ -331,7 +331,7 @@ class AudioQuality : virtual public AdjustableAudioQualityInterface
 /**
   * Implementation of << operator.
   */
-ostream& operator<<(ostream& out, const AudioQualityInterface& quality);
+std::ostream& operator<<(std::ostream& out, const AudioQualityInterface& quality);
 
 /**
   * Implementation of + operator.

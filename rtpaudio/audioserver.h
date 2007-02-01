@@ -219,15 +219,15 @@ class AudioServer : public RTCPAbstractServer
 
    // ====== Private data ===================================================
    private:
-   cardinal                       LocalAddresses;
-   SocketAddress**                LocalAddressArray;
-   BandwidthManager*              QoSMgr;
-   multimap<const cardinal,User*> UserSet;
-   Synchronizable                 UserSetSync;
-   cardinal                       MaxPacketSize;
-   card32                         OurSSRC;
-   bool                           LossScalability;
-   bool                           UseSCTP;
+   cardinal                            LocalAddresses;
+   SocketAddress**                     LocalAddressArray;
+   BandwidthManager*                   QoSMgr;
+   std::multimap<const cardinal,User*> UserSet;
+   Synchronizable                      UserSetSync;
+   cardinal                            MaxPacketSize;
+   card32                              OurSSRC;
+   bool                                LossScalability;
+   bool                                UseSCTP;
 };
 
 

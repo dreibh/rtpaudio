@@ -178,7 +178,7 @@ class MultiAudioWriter : virtual public AudioWriterInterface,
 
    // ====== Internal data ==================================================
    private:
-   multiset<AudioWriterInterface*> WriterSet;
+   std::multiset<AudioWriterInterface*> WriterSet;
 
    card16 AudioSamplingRate;
    card8  AudioBits;
