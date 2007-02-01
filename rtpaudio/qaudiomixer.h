@@ -63,9 +63,9 @@ class QAudioMixer : public QMainWindow
      * @param parent Parent widget.
      * @param name Widget name.
      */
-   QAudioMixer(Coral::AudioMixer* mixer,
-               QWidget*           parent = NULL,
-               const char*        name   = NULL);
+   QAudioMixer(AudioMixer* mixer,
+               QWidget*    parent = NULL,
+               const char* name   = NULL);
 
    /**
      * Destructor.
@@ -110,14 +110,14 @@ class QAudioMixer : public QMainWindow
    void update();
 
 
-   integer            VolumeSetting;
-   integer            BalanceSetting;
+   integer      VolumeSetting;
+   integer      BalanceSetting;
 
-   Coral::AudioMixer* Mixer;
-   QPushButton*       Mute;
-   QSlider*           Balance;
-   QSlider*           Volume;
-   QLabel*            Values;
+   AudioMixer*  Mixer;
+   QPushButton* Mute;
+   QSlider*     Balance;
+   QSlider*     Volume;
+   QLabel*      Values;
 };
 
 

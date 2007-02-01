@@ -32,9 +32,6 @@
 #include "audioquality.h"
 
 
-namespace Coral {
-
-
 // ###### Constructor #######################################################
 AudioEncoderRepository::AudioEncoderRepository()
 {
@@ -57,7 +54,7 @@ AudioEncoderRepository::~AudioEncoderRepository()
          delete Encoder;
       }
    }
-   Encoder = NULL;   
+   Encoder = NULL;
 }
 
 
@@ -131,9 +128,9 @@ EncoderInterface* AudioEncoderRepository::getCurrentEncoder() const
 {
    return((EncoderInterface*)Encoder);
 }
-   
 
-// ###### Get pointer to current audio encoder ##############################   
+
+// ###### Get pointer to current audio encoder ##############################
 AudioEncoderInterface* AudioEncoderRepository::getCurrentAudioEncoder() const
 {
    return(Encoder);
@@ -141,7 +138,7 @@ AudioEncoderInterface* AudioEncoderRepository::getCurrentAudioEncoder() const
 
 
 
-/* 
+/*
 #############################################################################
 ###### State Pattern: Method calls                                     ######
 #############################################################################
@@ -211,6 +208,3 @@ card16 AudioEncoderRepository::setSamplingRate(const card16 rate)
 
 card16 AudioEncoderRepository::setByteOrder(const card16 byteOrder)
    { return(Encoder->setByteOrder(byteOrder)); }
-
-
-}

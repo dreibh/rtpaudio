@@ -29,9 +29,6 @@
 #include "rtcppacket.h"
 
 
-namespace Coral {
-
-
 class BandwidthManager
 {
    public:
@@ -100,9 +97,6 @@ class BandwidthManager
    virtual void bufferFlushEvent(ManagedStreamInterface* stream,
                                  const cardinal          layer) = 0;
 };
-
-
-}
 
 
 #endif

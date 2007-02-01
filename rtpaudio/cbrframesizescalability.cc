@@ -24,9 +24,6 @@
 #include "cbrframesizescalability.h"
 
 
-namespace Coral {
-
-
 // ###### Constructor #######################################################
 ConstantBitrateFrameSizeScalability::ConstantBitrateFrameSizeScalability()
 {
@@ -110,7 +107,4 @@ cardinal ConstantBitrateFrameSizeScalability::getMaxBufferDelay(
                                                  const double frameRate) const
 {
    return(1);
-}
-
-
 }

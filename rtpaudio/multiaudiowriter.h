@@ -35,11 +35,7 @@
 #include "audiowriterinterface.h"
 #include "synchronizable.h"
 
-
 #include <set>
-
-
-namespace Coral {
 
 
 /**
@@ -64,7 +60,7 @@ class MultiAudioWriter : virtual public AudioWriterInterface,
      * Destructor.
      */
    ~MultiAudioWriter();
-   
+
 
    // ====== MultiAudioWriter functions =====================================
    /**
@@ -79,7 +75,7 @@ class MultiAudioWriter : virtual public AudioWriterInterface,
      * Remove AudioWriterInterface object from writer set.
      */
    void removeWriter(AudioWriterInterface* writer);
-   
+
 
    // ====== AudioQualityInterface implementation ===========================
    /**
@@ -125,7 +121,7 @@ class MultiAudioWriter : virtual public AudioWriterInterface,
      * @see AudioQualityInterface#setBits
      */
    card8 setBits(const card8 bits);
-   
+
    /**
      * setChannels() Implementation of AudioQualityInterface.
      *
@@ -189,9 +185,6 @@ class MultiAudioWriter : virtual public AudioWriterInterface,
    card8  AudioChannels;
    card16 AudioByteOrder;
 };
-
-
-}
 
 
 #endif

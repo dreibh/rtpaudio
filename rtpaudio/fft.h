@@ -35,9 +35,6 @@
 #include "audiowriterinterface.h"
 
 
-namespace Coral {
-
-
 /**
   * This class does fast fourier transformation.
   *
@@ -85,9 +82,6 @@ class FastFourierTransformation {
    integer  *br1,*br2;
    integer  HRplus,HRminus,HIplus,HIminus;
 };
-
-
-}
 
 
 #endif

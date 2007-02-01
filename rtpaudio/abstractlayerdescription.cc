@@ -23,9 +23,6 @@
 #include "abstractlayerdescription.h"
 
 
-namespace Coral {
-
-
 // Use frame count empirical envelope approximation
 #define USE_FRAMECOUNT_APPROXIMATION
 
@@ -301,7 +298,4 @@ cardinal AbstractLayerDescription::setBufferDelay(const cardinal bufferDelay)
       BufferDelay = bufferDelay;
    }
    return(BufferDelay);
-}
-
-
 }

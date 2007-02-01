@@ -34,9 +34,6 @@
 #include "tools.h"
 
 
-namespace Coral {
-
-
 // ###### Constructor #######################################################
 SimpleAudioDecoder::SimpleAudioDecoder(AudioWriterInterface* device)
    : Synchronizable("SimpleAudioDecoder")
@@ -64,7 +61,7 @@ SimpleAudioDecoder::~SimpleAudioDecoder()
    deactivate();
 }
 
-   
+
 // ###### Activate decoder ##################################################
 void SimpleAudioDecoder::activate()
 {
@@ -273,7 +270,4 @@ void SimpleAudioDecoder::handleNextPacket(const DecoderPacket* decoderPacket)
    }
 
    unsynchronized();
-}
-
-
 }

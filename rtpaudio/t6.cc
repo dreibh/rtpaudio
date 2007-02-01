@@ -3,9 +3,6 @@
 #include "audioquality.h"
 
 
-using namespace Coral;
-
-
 class ConstantBitrateAudioFrameSizeScalability : public ConstantBitrateFrameSizeScalability
 {
    public:

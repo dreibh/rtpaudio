@@ -49,9 +49,6 @@
 #include <stdio.h>
 
 
-namespace Coral {
-
-
 // Debug mode: Display some information on UDP connections.
 // #define DEBUG
 
@@ -594,7 +591,4 @@ card8 AudioClient::setBits(const card8 bits)
 card16 AudioClient::setByteOrder(const card16 byteOrder)
 {
    return(BYTE_ORDER);
-}
-
-
 }

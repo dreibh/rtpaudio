@@ -36,11 +36,7 @@
 #include "audioquality.h"
 #include "string.h"
 
-
 #include <map>
-
-
-namespace Coral {
 
 
 /**
@@ -166,9 +162,6 @@ class MultiAudioReader : public AudioReaderInterface,
    card64     MaxPosition;
    cardinal   Level;
 };
-
-
-}
 
 
 #endif

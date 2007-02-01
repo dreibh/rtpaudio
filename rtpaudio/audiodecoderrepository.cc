@@ -31,9 +31,6 @@
 #include "audiodecoderrepository.h"
 
 
-namespace Coral {
-
-
 // ###### Constructor #######################################################
 AudioDecoderRepository::AudioDecoderRepository()
 {
@@ -56,7 +53,7 @@ AudioDecoderRepository::~AudioDecoderRepository()
          delete Decoder;
       }
    }
-   Decoder = NULL;   
+   Decoder = NULL;
 }
 
 
@@ -130,16 +127,16 @@ DecoderInterface* AudioDecoderRepository::getCurrentDecoder() const
 {
    return((DecoderInterface*)Decoder);
 }
-   
+
 
 // ###### Get pointer to current audio decoder ##############################
 AudioDecoderInterface* AudioDecoderRepository::getCurrentAudioDecoder() const
 {
    return(Decoder);
 }
-      
 
-/* 
+
+/*
 #############################################################################
 ###### State Pattern: Method calls                                     ######
 #############################################################################
@@ -201,6 +198,3 @@ card64 AudioDecoderRepository::getPosition() const
 
 card64 AudioDecoderRepository::getMaxPosition() const
    { return(Decoder->getMaxPosition()); }
-
-
-}

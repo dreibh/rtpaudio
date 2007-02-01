@@ -31,9 +31,6 @@
 #include "rtcpsender.h"
 
 
-namespace Coral {
-
-
 // ###### Constructor #######################################################
 RTCPSender::RTCPSender()
    : TimedThread(1000000,"RTCPSender")
@@ -380,7 +377,4 @@ double RTCPSender::computeTransmissionInterval()
    t = t / COMPENSATION;
 
    return t;
-}
-
-
 }

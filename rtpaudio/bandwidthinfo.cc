@@ -23,9 +23,6 @@
 #include "bandwidthinfo.h"
 
 
-namespace Coral {
-
-
 // ###### Reset #############################################################
 void BandwidthInfo::reset()
 {
@@ -48,7 +45,4 @@ ostream& operator<<(ostream& os, const BandwidthInfo& bi)
    os << "   MaxLossRate      = " << bi.MaxLossRate      << endl;
    os << "   MaxJitter        = " << bi.MaxJitter        << endl;
    return(os);
-}
-
-
 }

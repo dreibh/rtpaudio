@@ -46,9 +46,6 @@
 //#include "qosmanager.h"
 
 
-using namespace Coral;
-
-
 #define SCTP_MAXADDRESSES 20
 
 
@@ -1590,7 +1587,7 @@ puts("X4");
       delete qosManager; ????
    }
    */
-puts("X5");   
+puts("X5");
    if(exitCode == 0) {
       cout << "Terminated!" << endl;
    }

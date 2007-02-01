@@ -49,13 +49,10 @@
 #include "qspectrumanalyzer.h"
 
 
-using namespace Coral;
-
-
 // ###### Constructor #######################################################
-QSpectrumAnalyzer::QSpectrumAnalyzer(Coral::SpectrumAnalyzer* analyzer,
-                                     QWidget*                 parent,
-                                     const char*              name)
+QSpectrumAnalyzer::QSpectrumAnalyzer(SpectrumAnalyzer* analyzer,
+                                     QWidget*          parent,
+                                     const char*       name)
    : QMainWindow(parent,name)
 {
    Analyzer = analyzer;

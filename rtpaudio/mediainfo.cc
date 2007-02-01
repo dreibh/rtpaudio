@@ -32,9 +32,6 @@
 #include "tools.h"
 
 
-namespace Coral {
-
-
 // ###### Constructor #######################################################
 MediaInfo::MediaInfo()
 {
@@ -68,7 +65,4 @@ ostream& operator<<(ostream& os, const MediaInfo& mi)
    cout << "Artist         = \"" << mi.Artist << "\"" << endl;
    cout << "Comment        = \"" << mi.Comment << "\"" << endl;
    return(os);
-}
-
-
 }

@@ -39,9 +39,6 @@
 #include "audioquality.h"
 
 
-namespace Coral {
-
-
 /**
   * This class is an simple audio decoder. It does no error correction or
   * redundant transmission.
@@ -61,7 +58,7 @@ class SimpleAudioDecoder : public AudioDecoderInterface,
      * @param audioWriter AudioReaderInterface for the audio output.
      */
    SimpleAudioDecoder(AudioWriterInterface* audioWriter);
-   
+
    /**
      * Destructor.
      */
@@ -75,14 +72,14 @@ class SimpleAudioDecoder : public AudioDecoderInterface,
      * @see DecoderInterface#getTypeID
      */
    const card16 getTypeID() const;
-   
+
    /**
      * getTypeName implementation of DecoderInterface.
      *
      * @see DecoderInterface#getTypeName
      */
    const char* getTypeName() const;
-   
+
    /**
      * activate() implementation of DecoderInterface.
      *
@@ -117,14 +114,14 @@ class SimpleAudioDecoder : public AudioDecoderInterface,
      * @see DecoderInterface#getErrorCode
      */
    card8 getErrorCode() const;
-   
+
    /**
      * getPosition() implementation of DecoderInterface.
      *
      * @see DecoderInterface#getPosition
      */
    card64 getPosition() const;
-   
+
    /**
      * getMaxPosition() implementation of DecoderInterface.
      *
@@ -222,9 +219,6 @@ class SimpleAudioDecoder : public AudioDecoderInterface,
    card8                 AudioChannels;
    card8                 ErrorCode;
 };
-
-
-}
 
 
 #endif

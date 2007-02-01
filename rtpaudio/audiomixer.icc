@@ -34,16 +34,10 @@
 #include "audiomixer.h"
 
 
-namespace Coral {
-
-
 // ###### Check, if mixer is ready ##########################################
 bool AudioMixer::ready() const
 {
    return(Device >= 0);
-}
-
-
 }
 
 

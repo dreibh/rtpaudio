@@ -35,9 +35,6 @@
 #include "rtppacket.h"
 
 
-namespace Coral {
-
-
 /**
   * Definition of RTCP message types.
   */
@@ -792,9 +789,6 @@ class RTCPApp : public RTCPCommonHeader
    char   Name[4];
    char   Data[0];
 };
-
-
-}
 
 
 #include "rtcppacket.icc"

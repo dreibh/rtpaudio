@@ -32,9 +32,6 @@
 #include "rtcpabstractserver.h"
 
 
-namespace Coral {
-
-
 // ###### Constructor #######################################################
 RTCPAbstractServer::RTCPAbstractServer()
    : TimedThread(1000000,"RTCPAbstractServer")
@@ -135,7 +132,7 @@ void RTCPAbstractServer::receivedSenderReport(
 void RTCPAbstractServer::receivedBye(const InternetFlow flow,
                                      const card32       source,
                                      const DeleteReason reason)
-{ 
+{
    synchronized();
    multimap<const cardinal,Client*>::iterator found = ClientSet.find(source);
    if(found != ClientSet.end()) {
@@ -156,7 +153,7 @@ void RTCPAbstractServer::receivedApp(const InternetFlow flow,
                                      const char*        name,
                                      const void*        data,
                                      const card32       dataLength)
-{ 
+{
    synchronized();
    Client* client = findClient(source,flow);
    if(client) {
@@ -236,10 +233,7 @@ void RTCPAbstractServer::timerEvent()
          receivedBye(client->ClientAddress, client->SSRC, DeleteReason_Error);
       }
       clientIterator++;
-   }   
+   }
 
    unsynchronized();
-}
-
-
 }

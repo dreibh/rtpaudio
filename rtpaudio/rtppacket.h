@@ -35,7 +35,6 @@
 #include "tdsocket.h"
 
 
-namespace Coral {
 namespace RTPConstants {
 
 
@@ -76,7 +75,7 @@ const double RTPMicroSecondsPerTimeStamp = 1000.0 / 16.0;
 /**
   * Maximum number of layers in one stream.
   * Note: This is *not* a constant of RFC 1889 but a limit for the
-  * Coral RTP classes!
+  * RTP classes!
   */
 const cardinal RTPMaxQualityLayers = 4;
 
@@ -85,7 +84,7 @@ const cardinal RTPMaxQualityLayers = 4;
 /**
   * Maximum number of layers in one stream.
   * Note: This is *not* a constant of RFC 1889 but a limit for the
-  * Coral RTP classes!
+  * RTP classes!
   */
 const cardinal RTPMaxQualityLayers = 16;
 
@@ -93,10 +92,6 @@ const cardinal RTPMaxQualityLayers = 16;
 
 
 }
-}
-
-
-namespace Coral {
 
 
 /**
@@ -290,7 +285,7 @@ class RTPPacket
    /**
      * Output operator.
      */
-   friend ostream& operator<<(ostream& os, const RTPPacket& packet);
+   friend std::ostream& operator<<(std::ostream& os, const RTPPacket& packet);
 
 
    // ====== Private data ===================================================
@@ -318,9 +313,6 @@ class RTPPacket
    card32 CSRC[16];                 // Contributing Source (CSRC) identifiers
    char   Data[RTPConstants::RTPMaxPayloadLimit];    // Payload data
 };
-
-
-}
 
 
 #include "rtppacket.icc"

@@ -34,9 +34,6 @@
 #include "tools.h"
 
 
-namespace Coral {
-
-
 /**
   * Definition of encoder errors.
   */
@@ -138,10 +135,7 @@ class MediaInfo
 /**
   * Output operator.
   */
-ostream& operator<<(ostream& os, const MediaInfo& mi);
-
-
-}
+std::ostream& operator<<(std::ostream& os, const MediaInfo& mi);
 
 
 #endif

@@ -36,9 +36,6 @@
 #include "audioquality.h"
 
 
-namespace Coral {
-
-
 /**
   * This class defines the packet format for the advanced audio encoder.
   *
@@ -48,7 +45,7 @@ namespace Coral {
   *
   * @see AdvancedAudioEncoder
   * @see AdvancedAudioDecoder
-  */            
+  */
 class AdvancedAudioPacket
 {
    // ====== Constructor ====================================================
@@ -71,7 +68,7 @@ class AdvancedAudioPacket
      */
    void reset();
 
- 
+
    // ====== Constants and static members ===================================
    /**
      * Type ID for Advanced Audio Encoding.
@@ -230,7 +227,7 @@ class AdvancedAudioPacket
       AAF_ByteLower    = (1 << 3),
       AAF_MediaInfo    = (1 << 4)
    };
-   
+
    /**
      * Fragment number.
      */
@@ -238,13 +235,10 @@ class AdvancedAudioPacket
 
    /**
      * Packet data.
-     */   
+     */
    char Data[0];
 };
 
 
-}
-
-
 #endif
-            
+

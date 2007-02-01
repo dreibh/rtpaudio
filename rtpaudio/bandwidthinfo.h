@@ -26,9 +26,6 @@
 #include "tdsystem.h"
 
 
-namespace Coral {
-
-
 /**
   * This is a description of bandwidth requirements.
   *
@@ -92,10 +89,7 @@ struct BandwidthInfo
 /**
   * Operator "<<".
   */
-ostream& operator<<(ostream& os, const BandwidthInfo& bi);
-
-
-}
+std::ostream& operator<<(std::ostream& os, const BandwidthInfo& bi);
 
 
 #include "bandwidthinfo.icc"

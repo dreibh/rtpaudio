@@ -33,9 +33,6 @@
 #include "mp3audioreader.h"
 
 
-namespace Coral {
-
-
 // ###### Constructor #######################################################
 MultiAudioReader::MultiAudioReader(const char* name, const cardinal level)
    : AudioQuality(0,0,0)
@@ -58,7 +55,7 @@ MultiAudioReader::~MultiAudioReader()
 
 // ###### Close file ########################################################
 void MultiAudioReader::closeMedia()
-{   
+{
    // Delete AudioReaders
    while(ReaderSet.begin() != ReaderSet.end()) {
       ReaderIterator               = ReaderSet.begin();
@@ -67,7 +64,7 @@ void MultiAudioReader::closeMedia()
       delete reader;
       ReaderSet.erase(ReaderIterator);
    }
-   
+
    Reader      = NULL;
    Error       = ME_NoMedia;
    Position    = 0;
@@ -165,7 +162,7 @@ bool MultiAudioReader::openMedia(const char* name)
                   ReaderSet.insert(pair<const card64, ReaderEntry>
                                       (MaxPosition,readerEntry));
                   MaxPosition += reader->getMaxPosition();
-               }         
+               }
                else {
                   cerr << "WARNING: MultiAudioReader::openMedia() - Unable to load <"
                        << name << ">" << endl;
@@ -176,7 +173,7 @@ bool MultiAudioReader::openMedia(const char* name)
                overwriteSettings = false;
             }
             break;
-         }                         
+         }
       }
       result = fgets((char*)&str,256,inputFD);
    }
@@ -287,7 +284,7 @@ cardinal MultiAudioReader::getNextBlock(void* buffer, const cardinal blockSize)
 {
    if((Reader != NULL) && (Error < ME_UnrecoverableError)) {
       cardinal result = Reader->getNextBlock(buffer,blockSize);
-      
+
       // ====== Move to next AudioReader ====================================
       if(result < blockSize) {
          ReaderIterator++;
@@ -319,7 +316,7 @@ AudioReaderInterface* MultiAudioReader::getAudioReader(const char*    name,
                                                        const cardinal level)
 {
    // ====== Try to load file with WAV reader ===============================
-   WavAudioReader* wavreader = new WavAudioReader(name);   
+   WavAudioReader* wavreader = new WavAudioReader(name);
    if(wavreader->ready())
       return(wavreader);
    delete wavreader;
@@ -342,10 +339,7 @@ AudioReaderInterface* MultiAudioReader::getAudioReader(const char*    name,
    else {
       cerr << "WARNING: MultiAudioReader::getAudioReader() - Recursion level too high!"
            << endl;
-   } 
+   }
 
-   return(NULL);   
-}
-
-
+   return(NULL);
 }

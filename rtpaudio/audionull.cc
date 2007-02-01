@@ -35,9 +35,6 @@
 #include <sys/time.h>
 
 
-namespace Coral {
-
-
 // ###### Constructor #######################################################
 AudioNull::AudioNull()
    : AudioQuality(44100,16,2)
@@ -68,7 +65,4 @@ void AudioNull::sync()
 bool AudioNull::write(const void* data, const size_t length)
 {
    return(true);
-}
-
-
 }

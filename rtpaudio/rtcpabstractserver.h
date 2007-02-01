@@ -37,11 +37,7 @@
 #include "internetflow.h"
 #include "sourcestateinfo.h"
 
-
 #include <map>
-
-
-namespace Coral {
 
 
 /**
@@ -184,7 +180,7 @@ class RTCPAbstractServer : public TimedThread
      */
    inline cardinal getMembers();
 
-   
+
    // ====== Settings =======================================================
    /**
      * Get the default timeout in microseconds, after which a client is
@@ -244,9 +240,9 @@ class RTCPAbstractServer : public TimedThread
                     const DeleteReason reason);
 
    Client* findClient(const card32 source, const InternetFlow flow);
-   
 
-   // ====== Private data ===================================================      
+
+   // ====== Private data ===================================================
    private:
    void timerEvent();
 
@@ -254,9 +250,6 @@ class RTCPAbstractServer : public TimedThread
    card64                           DefaultTimeout;
    multimap<const cardinal,Client*> ClientSet;
 };
-
-
-}
 
 
 #include "rtcpabstractserver.icc"

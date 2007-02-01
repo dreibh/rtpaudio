@@ -36,9 +36,6 @@
 #include "breakdetector.h"
 
 
-using namespace Coral;
-
-
 const cardinal DefaultPause      = 500;
 const cardinal DefaultThreads    = 12;
 char*          DefaultServer     = "localhost:7500";
@@ -84,14 +81,14 @@ class VerificationClientThread : public Thread
 
    Randomizer   Random;
    AudioNull    OutputDevice;
-   AudioClient* Client; 
+   AudioClient* Client;
 
    card32       SSRC;
    card64       Position;
    AudioQuality Quality;
    const char*  Encoding;
 
-   cardinal     ID; 
+   cardinal     ID;
    const char*  Server;
    const char*  Media;
    cardinal     MediaCount;
@@ -221,7 +218,7 @@ void VerificationClientThread::selectEncoding()
    snprintf((char*)&str,sizeof(str),
             "Select encoding: %s.",Client->getEncodingName(index));
    writeLog((char*)&str);
-   
+
    Client->setEncoding(index);
 }
 

@@ -38,9 +38,6 @@
 #include "rtcpabstractserver.h"
 
 
-namespace Coral {
-
-
 /**
   * This class implements an RTCP receiver based on Thread.
   *
@@ -67,7 +64,7 @@ class RTCPReceiver : public Thread
      * @param server RTCPAbstractServer.
      * @param receiverSocket Socket to receive RTCP packets from.
      */
-   RTCPReceiver(RTCPAbstractServer* server,   
+   RTCPReceiver(RTCPAbstractServer* server,
                 Socket*             receiverSocket);
 
    /**
@@ -97,9 +94,6 @@ class RTCPReceiver : public Thread
    RTCPAbstractServer* Server;
    double              AverageRTCPSize; // Average compound RTCP packet size
 };
-
-
-}
 
 
 #endif

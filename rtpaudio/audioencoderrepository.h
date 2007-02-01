@@ -36,11 +36,7 @@
 #include "encoderrepositoryinterface.h"
 #include "audioencoderinterface.h"
 
-
 #include <map>
-
-
-namespace Coral {
 
 
 /**
@@ -52,20 +48,20 @@ namespace Coral {
   */
 class AudioEncoderRepository : virtual public EncoderRepositoryInterface,
                                virtual public AudioEncoderInterface
-{ 
+{
    // ====== Constructor/Destructor =========================================
    public:
    /**
      * Constructor.
      */
    AudioEncoderRepository();
-   
+
    /**
      * Destructor.
      */
    ~AudioEncoderRepository();
-   
-   
+
+
    // ====== Repository functionality =======================================
    /**
      * Add audio encoder to repository.
@@ -74,34 +70,34 @@ class AudioEncoderRepository : virtual public EncoderRepositoryInterface,
      * @return true, if encoder has been added; false, if not.
      */
    bool addEncoder(AudioEncoderInterface* encoder);
-   
+
    /**
      * Remove audio encoder from repository.
      *
      * @param encoder Audio encoder to be removed.
      */
    void removeEncoder(AudioEncoderInterface* encoder);
-   
+
    /**
      * selectEncoderForTypeID() implementation of EncoderRepositoryInterface.
      *
      * @see EncoderRepositoryInterface#selectEncoderForTypeID
      */
    bool selectEncoderForTypeID(const card16 typeID);
-   
+
    /**
      * Set AutoDelete mode. If true, all encoders will be deleted with delete
      * operator by the destructor.
      */
    inline void setAutoDelete(const bool on);
-   
+
    /**
      * getCurrentEncoder() implementation of EncoderRepositoryInterface.
      *
      * @see EncoderRepositoryInterface#getCurrentEncoder
      */
    EncoderInterface* getCurrentEncoder() const;
-   
+
    /**
      * Get AudioEncoderInterface of the current encoder.
      *
@@ -117,14 +113,14 @@ class AudioEncoderRepository : virtual public EncoderRepositoryInterface,
      * @see EncoderInterface#getTypeID
      */
    const card16 getTypeID() const;
-   
+
    /**
      * getTypeName implementation of EncoderInterface.
      *
      * @see EncoderInterface#getTypeName
      */
    const char* getTypeName() const;
-   
+
    /**
      * activate() implementation of EncoderInterface.
      *
@@ -170,7 +166,7 @@ class AudioEncoderRepository : virtual public EncoderRepositoryInterface,
    cardinal getNextPacket(EncoderPacket* encoderPacket);
 
 
-   
+
    // ====== AudioEncoderInterface implementation ===========================
    /**
      * getSamplingRate() implementation of AudioEncoderInterface
@@ -200,7 +196,7 @@ class AudioEncoderRepository : virtual public EncoderRepositoryInterface,
      * @see AudioEncoderInterface#getByteOrder
      */
    card16 getByteOrder() const;
-   
+
 
    /**
      * getBytesPerSecond() implementation of AudioEncoderInterface.
@@ -214,7 +210,7 @@ class AudioEncoderRepository : virtual public EncoderRepositoryInterface,
      *
      * @see AudioEncoderInterface#getBitsPerSample
      */
-   cardinal getBitsPerSample() const;   
+   cardinal getBitsPerSample() const;
 
 
    /**
@@ -272,9 +268,6 @@ class AudioEncoderRepository : virtual public EncoderRepositoryInterface,
    AudioEncoderInterface*                        Encoder;
    bool                                          AutoDelete;
 };
-
-
-}
 
 
 #include "audioencoderrepository.icc"

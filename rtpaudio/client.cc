@@ -36,11 +36,7 @@
 #include "audioquality.h"
 #include "strings.h"
 
-
 #include <fstream>
-
-
-using namespace Coral;
 
 
 #define SCTP_MAXADDRESSES 20
@@ -94,7 +90,7 @@ void initGNUplot(const char*    prefix,
          if(gpData != NULL) {
             if(gpData->good()) {
                *gpScript << "set terminal postscript enhanced color dashed" << endl;
-               *gpScript << "set encoding iso_8859_1" << endl; 
+               *gpScript << "set encoding iso_8859_1" << endl;
                for(cardinal i = 1;i < 33;i++) {
                   *gpScript << "set linestyle " << i << " lt " << i << " lw 5" << endl;
                }
@@ -423,7 +419,7 @@ int main(int argc, char* argv[])
 #endif
 
 
-      // ====== Print information ===========================================      
+      // ====== Print information ===========================================
       const card64 position = client->getPosition();
       const card64 seconds  = position / PositionStepsPerSecond;
       card64 bytes[layers];

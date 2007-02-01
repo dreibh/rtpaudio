@@ -8,8 +8,8 @@
  * and University of Essen, Institute of Computer Networking Technology.
  *
  * Acknowledgement
- * This work was partially funded by the Bundesministerium für Bildung und
- * Forschung (BMBF) of the Federal Republic of Germany (Förderkennzeichen 01AK045).
+ * This work was partially funded by the Bundesministerium fr Bildung und
+ * Forschung (BMBF) of the Federal Republic of Germany (Fï¿½derkennzeichen 01AK045).
  * The authors alone are responsible for the contents.
  *
  * This library is free software; you can redistribute it and/or
@@ -235,7 +235,7 @@ template<class T> cardinal removeDuplicates(T*             array,
   *
   * @param os Output stream.
   */
-void printTimeStamp(ostream& os = cout);
+void printTimeStamp(std::ostream& os = std::cout);
 
 
 #ifdef USE_EFENCE
@@ -249,13 +249,13 @@ extern Synchronizable MemoryManagementLock;
 
 /**
   * operator new() replacement for usage with libefence.
-  */ 
+  */
 void* operator new(size_t size) throw (std::bad_alloc);
 
 
 /**
   * operator delete() replacement for usage with libefence.
-  */ 
+  */
 void operator delete(void* ptr) throw ();
 
 

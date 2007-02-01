@@ -34,9 +34,6 @@
 #include "trafficshaper.h"
 
 
-namespace Coral {
-
-
 // ###### Set socket ########################################################
 inline void TrafficShaper::setSocket(Socket* socket)
 {
@@ -82,9 +79,6 @@ inline cardinal TrafficShaper::getLastSeqNum() const
    const cardinal lastSeqNum = LastSeqNum;
    ((TrafficShaper*)this)->unsynchronized();
    return(lastSeqNum);
-}
-
-
 }
 
 

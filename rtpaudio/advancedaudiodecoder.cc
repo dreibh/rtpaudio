@@ -41,9 +41,6 @@
 // #define DEBUG
 
 
-namespace Coral {
-
-
 // ###### Constructor #######################################################
 AdvancedAudioDecoder::AdvancedAudioDecoder(AudioWriterInterface* device)
    : TimedThread(10000,
@@ -109,7 +106,7 @@ void AdvancedAudioDecoder::reset()
    AudioBits           = 0;
    AudioSamplingRate   = 0;
    Position            = 0;
-   MaxPosition         = 0;       
+   MaxPosition         = 0;
    ErrorCode           = 0;
    WantedQuality       = AudioQuality::HighestQuality;
    Media.reset();
@@ -124,11 +121,11 @@ void AdvancedAudioDecoder::reset()
       deleteFragments(&node->FragmentSetLU);
       deleteFragments(&node->FragmentSetRU);
       deleteFragments(&node->FragmentSetLL);
-      deleteFragments(&node->FragmentSetRL);                        
+      deleteFragments(&node->FragmentSetRL);
       delete node;
       FrameSet.erase(frameIterator);
       frameIterator = FrameSet.begin();
-   }        
+   }
 
    unsynchronized();
 }
@@ -428,8 +425,8 @@ void AdvancedAudioDecoder::handleNextPacket(const DecoderPacket* decoderPacket)
       }
       else {
          cerr << "WARNING: AdvancedAudioDecoder::handleNextPacket() - Bad Fragment!" << endl;
-      }                  
-      unsynchronized();        
+      }
+      unsynchronized();
    }
 
    // ====== Handle encoder errors ==========================================
@@ -624,12 +621,12 @@ void AdvancedAudioDecoder::timerEvent()
                   for(cardinal i = 0;i < length;i++) {
                      frameBuffer[pos++] = (fragmentLU == NULL) ? 0 : fragmentLU->Data[i];
                      frameBuffer[pos++] = (fragmentRU == NULL) ? 0 : fragmentRU->Data[i];
-                  }            
+                  }
                }
                else {
                   for(cardinal i = 0;i < length;i++) {
                      frameBuffer[pos++] = (fragmentLU == NULL) ? 0 : fragmentLU->Data[i];
-                  }                 
+                  }
                }
             }
             else if(node->Bits <= 12) {
@@ -687,7 +684,7 @@ void AdvancedAudioDecoder::timerEvent()
                      frameBuffer[pos++] = (fragmentLU == NULL) ? 0 : fragmentLU->Data[i];
                      frameBuffer[pos++] = (fragmentRL == NULL) ? 0 : fragmentRL->Data[i];
                      frameBuffer[pos++] = (fragmentRU == NULL) ? 0 : fragmentRU->Data[i];
-                  }            
+                  }
                }
                else {
                   for(cardinal i = 0;i < length;i++) {
@@ -752,7 +749,7 @@ void AdvancedAudioDecoder::deleteFragments(multimap<const card16,FrameFragment*>
          delete fragment;
          fragmentIterator = set->begin();
       }
-   }   
+   }
 }
 
 
@@ -767,7 +764,4 @@ AdvancedAudioDecoder::FrameFragment* AdvancedAudioDecoder::getFragment(
       return(NULL);
    }
    return(found->second);
-}
-
-
 }

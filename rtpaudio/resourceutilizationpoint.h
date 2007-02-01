@@ -29,9 +29,6 @@
 #include "trafficclassvalues.h"
 
 
-namespace Coral {
-
-
 class StreamDescription;
 
 
@@ -219,11 +216,7 @@ class ResourceUtilizationPoint
 /**
   * Output operator.
   */
-ostream& operator<<(ostream& os, const ResourceUtilizationPoint& rup);
-
-
-
-}
+std::ostream& operator<<(std::ostream& os, const ResourceUtilizationPoint& rup);
 
 
 #include "resourceutilizationpoint.icc"

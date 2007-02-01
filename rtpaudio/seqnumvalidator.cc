@@ -33,9 +33,6 @@
 #include "tools.h"
 
 
-namespace Coral {
-
-
 // ###### Constructor #######################################################
 SeqNumValidator::SeqNumValidator(const cardinal minSequential,
                                  const cardinal maxMisorder,
@@ -66,7 +63,7 @@ void SeqNumValidator::reset()
    ReceivedPrior = 0;
    ExpectedPrior = 0;
    Uninitialized = true;
-   init(sequenceNumber);   
+   init(sequenceNumber);
 }
 
 
@@ -162,13 +159,13 @@ SeqNumValidator::ValidationResult SeqNumValidator::validate(const card64 sequenc
 double SeqNumValidator::calculateFractionLost()
 {
    if(Uninitialized)
-      return(0);        
+      return(0);
 
    const card64 expected          = (Cycles + MaxSeq) - BaseSeq + 1;
    const card64 expected_interval = expected - ExpectedPrior;
    const card64 Received_interval = Received - ReceivedPrior;
 
-   ExpectedPrior = expected;  
+   ExpectedPrior = expected;
    ReceivedPrior = Received;
 
    card64 lost_interval = expected_interval - Received_interval;
@@ -179,7 +176,4 @@ double SeqNumValidator::calculateFractionLost()
       FractionLost = (double)lost_interval / (double)expected_interval;
 
    return(FractionLost);
-}
-
-
 }

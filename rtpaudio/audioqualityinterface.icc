@@ -34,9 +34,6 @@
 #include "audioqualityinterface.h"
 
 
-namespace Coral {
-
-
 // ###### "=="-operator #####################################################
 inline int AudioQualityInterface::operator==(const AudioQualityInterface& quality) const
 {
@@ -100,9 +97,6 @@ inline void AdjustableAudioQualityInterface::setQuality(const AudioQualityInterf
    setBits(quality.getBits());
    setChannels(quality.getChannels());
    setByteOrder(quality.getByteOrder());
-}
-
-
 }
 
 

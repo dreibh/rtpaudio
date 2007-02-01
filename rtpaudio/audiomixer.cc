@@ -37,9 +37,6 @@
 #include <sys/soundcard.h>
 
 
-namespace Coral {
-
-
 // ###### Constructor #######################################################
 AudioMixer::AudioMixer(int mixerChannel, const char* name)
 {
@@ -82,7 +79,4 @@ bool AudioMixer::setVolume(const card8 left, const card8 right)
    if(r > 100) r = 100;
    int volume = left + (r << 8);
    return(ioctl(Device,MIXER_WRITE(Channel),&volume) >= 0);
-}
-
-
 }

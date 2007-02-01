@@ -27,9 +27,6 @@
 #include "abstractqosdescription.h"
 
 
-namespace Coral {
-
-
 /**
   * This is an interface for a bandwidth-managed stream.
   *
@@ -74,9 +71,6 @@ class ManagedStreamInterface
      */
    virtual void unlock() = 0;
 };
-
-
-}
 
 
 #endif

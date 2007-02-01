@@ -35,9 +35,6 @@
 #include "tools.h"
 
 
-namespace Coral {
-
-
 // ###### Calculate header size for RTP packet ##############################
 inline cardinal RTPPacket::calculateHeaderSize() const
 {
@@ -196,9 +193,6 @@ inline void RTPPacket::setSSRC(const card32 ssrc)
 inline void RTPPacket::setCSRC(const cardinal index, const card32 csrc)
 {
    CSRC[index] = translate32(csrc);
-}
-
-
 }
 
 

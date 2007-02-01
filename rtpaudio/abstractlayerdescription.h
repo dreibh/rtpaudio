@@ -28,9 +28,6 @@
 #include "internetflow.h"
 
 
-namespace Coral {
-
-
 /**
   * This class contains a layer's QoS requirements.
   * Important node: All frames sizes in this class are *raw* frame sizes, the
@@ -516,9 +513,6 @@ class AbstractLayerDescription : virtual public FrameSizeScalabilityInterface
    InternetAddress Source;
    InternetFlow    Destination;
 };
-
-
-}
 
 
 #include "abstractlayerdescription.icc"

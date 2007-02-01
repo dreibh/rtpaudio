@@ -26,9 +26,6 @@
 #include "tdsystem.h"
 
 
-namespace Coral {
-
-
 /**
   * This class is an interface for frame rate scalability.
   *
@@ -134,9 +131,6 @@ class FrameRateScalabilityInterface
      */
    virtual double getFrameRateUtilizationWeight(const double frameRate) const = 0;
 };
-
-
-}
 
 
 #endif

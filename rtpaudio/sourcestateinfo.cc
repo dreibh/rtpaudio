@@ -30,9 +30,6 @@
 #include "sourcestateinfo.h"
 
 
-namespace Coral {
-
-
 #define RTP_SEQ_MOD        (1 << 16)
 #define RTP_MAX_DROPOUT    3000
 #define RTP_MAX_MISORDER   100
@@ -69,7 +66,4 @@ card32 SourceStateInfo::calculateDLSR() const
       const card32 dlsr = (card32)(delay * (65536.0 / 1000000.0));
       return(dlsr);
    }
-}
-
-
 }

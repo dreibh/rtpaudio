@@ -32,9 +32,6 @@
 #include "randomizer.h"
 
 
-namespace Coral {
-
-
 // ###### Constants #########################################################
 static const card16 _ValidRatesTable[] = {
    4410,   6615,  8820, 11025,
@@ -336,7 +333,7 @@ ostream& operator<<(ostream& os, const AudioQualityInterface& quality)
             quality.getBits(),
             byteOrder,
             (quality.getChannels() == 1) ? "Mono" : "Stereo");
-   os << string;                                            
+   os << string;
    return(os);
 }
 
@@ -370,7 +367,7 @@ AudioQuality operator-(const AudioQualityInterface& q1, const cardinal bytesPerS
    while(quality.getBytesPerSecond() > bytesPerSecond) {
       if(quality == AudioQuality::LowestQuality) {
          return(AudioQuality(0,0,0));
-      }                     
+      }
       quality--;
    }
    return(quality);
@@ -400,7 +397,4 @@ AudioQuality AudioQuality::getRandomQuality(Randomizer* randomizer)
    return(AudioQuality(ValidRatesTable[rateIndex],
                        ValidBitsTable[bitsIndex],
                        ValidChannelsTable[channelsIndex]));
-}
-
-
 }

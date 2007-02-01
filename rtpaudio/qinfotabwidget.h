@@ -47,9 +47,6 @@
 #include <qlist.h>
 
 
-namespace Coral {
-
-
 /**
   * This structure describes a single info string for QInfoWidget
   * and QInfoTabWidget.
@@ -215,9 +212,6 @@ class QInfoTabWidget : public QTabWidget
    private:
    QList<QInfoWidget> InfoWidgetList;
 };
-
-
-}
 
 
 #endif

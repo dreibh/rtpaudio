@@ -35,9 +35,6 @@
 #include "audiowriterinterface.h"
 
 
-namespace Coral {
-
-
 /**
   * This class implements AudioWriterInterface for the audio debugger.
   *
@@ -53,13 +50,13 @@ class AudioDebug : virtual public AudioWriterInterface
      * Constructor.
      */
    AudioDebug();
-   
+
    /**
      * Destructor.
      */
    ~AudioDebug();
 
-    
+
    // ====== AudioQualityInterface implementation ===========================
    /**
      * getSamplingRate() Implementation of AudioQualityInterface.
@@ -119,7 +116,7 @@ class AudioDebug : virtual public AudioWriterInterface
      * @see AdjustableAudioQualityInterface#setBits
      */
    card8 setBits(const card8 bits);
-   
+
    /**
      * setChannels() Implementation of AdjustableAudioQualityInterface.
      *
@@ -157,8 +154,8 @@ class AudioDebug : virtual public AudioWriterInterface
      * @see AudioWriterInterface#write
      */
    bool write(const void* data, const size_t length);
-   
-   
+
+
    // ====== Internal data ==================================================
    private:
    card64   LastWriteTimeStamp;
@@ -171,9 +168,6 @@ class AudioDebug : virtual public AudioWriterInterface
    card8    AudioBits;
    card16   AudioByteOrder;
 };
-
-
-}
 
 
 #endif

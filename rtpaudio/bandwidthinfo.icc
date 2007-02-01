@@ -27,9 +27,6 @@
 #include "bandwidthinfo.h"
 
 
-namespace Coral {
-
-
 // ###### Operator "==" #####################################################
 inline int BandwidthInfo::operator==(const BandwidthInfo& bi) const
 {
@@ -49,9 +46,6 @@ inline int BandwidthInfo::operator==(const BandwidthInfo& bi) const
 inline int BandwidthInfo::operator!=(const BandwidthInfo& bi) const
 {
    return(!(*this == bi));
-}
-
-
 }
 
 

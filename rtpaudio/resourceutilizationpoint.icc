@@ -27,9 +27,6 @@
 #include "resourceutilizationpoint.h"
 
 
-namespace Coral {
-
-
 // ###### Operator "==" #####################################################
 inline int ResourceUtilizationPoint::operator==(const ResourceUtilizationPoint& rup) const
 {
@@ -94,9 +91,6 @@ inline integer ResourceUtilizationPoint::ccw(
       return(+1);
    }
    return(0);
-}
-
-
 }
 
 

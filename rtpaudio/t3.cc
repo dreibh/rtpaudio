@@ -1,8 +1,6 @@
 #include "internetaddress.h"
 #include "tdsocket.h"
 
-using namespace Coral;
-
 int main(int argc, char** argv)
 {
    Socket sock(Socket::IP,SOCK_STREAM,IPPROTO_SCTP);

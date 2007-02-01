@@ -38,9 +38,6 @@
 #include "audioquality.h"
 
 
-namespace Coral {
-
-
 /**
   * This class is an simple audio encoder. It does no error correction or
   * redundant transmission.
@@ -48,7 +45,7 @@ namespace Coral {
   * @short   Simple Audio Encoder
   * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
   * @version 1.0
-  */            
+  */
 class SimpleAudioEncoder : public AudioEncoderInterface,
                            public AudioQuality
 {
@@ -60,7 +57,7 @@ class SimpleAudioEncoder : public AudioEncoderInterface,
      * @param audioReader AudioReaderInterface for the audio input.
      */
    SimpleAudioEncoder(AudioReaderInterface* audioReader);
-   
+
    /**
      * Destructor.
      */
@@ -74,7 +71,7 @@ class SimpleAudioEncoder : public AudioEncoderInterface,
      * @see EncoderInterface#getTypeID
      */
    const card16 getTypeID() const;
-   
+
    /**
      * getTypeName implementation of EncoderInterface.
      *
@@ -126,7 +123,7 @@ class SimpleAudioEncoder : public AudioEncoderInterface,
      */
    cardinal getNextPacket(EncoderPacket* encoderPacket);
 
-   
+
    // ====== Settings ========================================================
    /**
      * getQoSDescription() implementation of EncoderInterface.
@@ -164,9 +161,6 @@ class SimpleAudioEncoder : public AudioEncoderInterface,
    cardinal     SendError;
    card8        ErrorCode;
 };
-
-
-}
 
 
 #endif

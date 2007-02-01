@@ -31,9 +31,6 @@
 #include "wavaudioreader.h"
 
 
-namespace Coral {
-
-
 // ###### Constructor #######################################################
 WavAudioReader::WavAudioReader(const char* name)
    : AudioQuality(0,0,0,LITTLE_ENDIAN)
@@ -75,7 +72,7 @@ void WavAudioReader::closeMedia()
 
 // ###### Open new file #####################################################
 bool WavAudioReader::openMedia(const char* name)
-{      
+{
    // ###### Open file ######################################################
    closeMedia();
    Error = ME_BadMedia;
@@ -99,7 +96,7 @@ bool WavAudioReader::openMedia(const char* name)
          StartPosition = ftell(InputFD);
          EndPosition   = chunk.Length;
          MaxPosition   = EndPosition - StartPosition;
-         
+
          setSamplingRate(Format.SamplesPerSec);
          setBits((8 * Format.AvgBytesPerSec) / (Format.SamplesPerSec * Format.Channels));
          setChannels(Format.Channels);
@@ -122,7 +119,7 @@ bool WavAudioReader::openMedia(const char* name)
       else {
          fseek(InputFD,chunk.Length,SEEK_CUR);
       }
-   }   
+   }
    return(false);
 }
 
@@ -191,7 +188,7 @@ void WavAudioReader::setPosition(const card64 position)
 {
    if((InputFD != NULL) && (Error < ME_UnrecoverableError)) {
       Position = ((position / (PositionStepsPerSecond / 1000)) * getBytesPerSecond()) / 1000;
-   
+
       // Avoid misaligned position!
       Position -= (Position % 4);
 
@@ -222,7 +219,4 @@ cardinal WavAudioReader::getNextBlock(void* buffer, const cardinal blockSize)
       }
    }
    return(0);
-}
-
-
 }

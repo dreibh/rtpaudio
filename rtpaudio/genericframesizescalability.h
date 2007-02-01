@@ -28,9 +28,6 @@
 #include "framesizescalabilityinterface.h"
 
 
-namespace Coral {
-
-
 /**
   * This class is a generic implementation of FrameSizeScalabilityInterface.
   * It provides basic functionality for subclasses.
@@ -124,9 +121,6 @@ class GenericFrameSizeScalability : virtual public FrameSizeScalabilityInterface
    cardinal getPrevBufferDelayForDelay(const double frameRate,
                                        const cardinal bufferDelay) const;
 };
-
-
-}
 
 
 #endif

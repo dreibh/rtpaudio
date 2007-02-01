@@ -35,9 +35,6 @@
 #include "rtpreceiver.h"
 
 
-namespace Coral {
-
-
 // ###### Get current position ##############################################
 inline card64 RTPReceiver::getPosition() const
 {
@@ -161,8 +158,5 @@ inline SourceStateInfo RTPReceiver::getSSI(const cardinal layer) const
 }
 
 
-}
-
-
 #endif
-   
+

@@ -1,8 +1,6 @@
 #include <timedthread.h>
 #include <tools.h>
 
-using namespace Coral;
-
 class X : public TimedThread
 {
    public:

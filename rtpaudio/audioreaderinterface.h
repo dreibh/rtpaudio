@@ -36,9 +36,6 @@
 #include "mediainfo.h"
 
 
-namespace Coral {
-
-
 /**
   * This class is the interface for an audio reader.
   *
@@ -66,7 +63,7 @@ class AudioReaderInterface : virtual public AudioQualityInterface
      * Close media, if opened.
      */
    virtual void closeMedia() = 0;
-   
+
    /**
      * Check, if AudioReader is ready for reading.
      *
@@ -96,7 +93,7 @@ class AudioReaderInterface : virtual public AudioQualityInterface
    virtual card64 getPosition() const = 0;
 
    /**
-     * Get maximum position.   
+     * Get maximum position.
      *
      * @return maximum position in nanoseconds.
      */
@@ -119,9 +116,6 @@ class AudioReaderInterface : virtual public AudioQualityInterface
      */
    virtual cardinal getNextBlock(void* buffer, const cardinal blockSize) = 0;
 };
-
-
-}
 
 
 #endif

@@ -34,16 +34,10 @@
 #include "audioencoderrepository.h"
 
 
-namespace Coral {
-
-
 // ###### Set AudoDelete mode ###############################################
 inline void AudioEncoderRepository::setAutoDelete(const bool on)
 {
    AutoDelete = on;
-}
-
-
 }
 
 

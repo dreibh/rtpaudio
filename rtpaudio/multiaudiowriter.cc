@@ -35,9 +35,6 @@
 #include <sys/time.h>
 
 
-namespace Coral {
-
-
 // ###### Constructor #######################################################
 MultiAudioWriter::MultiAudioWriter()
    : Synchronizable("MultiAudioWriter")
@@ -140,7 +137,7 @@ card8 MultiAudioWriter::setChannels(const card8 channels) {
 // ###### Set sampling rate #################################################
 card16 MultiAudioWriter::setSamplingRate(const card16 rate) {
    synchronized();
-   AudioSamplingRate = rate;  
+   AudioSamplingRate = rate;
 
    multiset<AudioWriterInterface*>::iterator writerIterator = WriterSet.begin();
    while(writerIterator != WriterSet.end()) {
@@ -222,7 +219,4 @@ bool MultiAudioWriter::write(const void* data, const size_t length)
 
    unsynchronized();
    return(true);
-}
-
-
 }

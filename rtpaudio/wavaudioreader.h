@@ -36,9 +36,6 @@
 #include "audioquality.h"
 
 
-namespace Coral {
-
-
 /**
   * This class is a reader for WAV audio files.
   *
@@ -129,7 +126,7 @@ class WavAudioReader : public AudioReaderInterface,
      */
    cardinal getNextBlock(void* buffer, const cardinal blockSize);
 
-  
+
    // ====== Private data ===================================================
    private:
    struct RIFF_Header {
@@ -161,9 +158,6 @@ class WavAudioReader : public AudioReaderInterface,
    card64      Position;
    card64      MaxPosition;
 };
-
-
-}
 
 
 #endif

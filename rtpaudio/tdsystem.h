@@ -84,7 +84,7 @@
 
 
 // gcc3.1 and new STL define all standard functions in namespace std!
-using namespace std;
+// using namespace std;
 
 
 // In socket.cc: CMSG_NXTHDR: (__cmsg_nxthdr) is not found,
@@ -144,6 +144,14 @@ using namespace std;
 //#define SCTPLIB_1_0_0_PRE19 19
 //#define SCTPLIB_1_0_0_PRE20 20
 //#define SCTPLIB_1_0_0       0x10000
+
+
+#ifndef max
+#define max(a, b) ((a) < (b) ? (b) : (a))
+#endif
+#ifndef min
+#define min(a, b) ((a) > (b) ? (b) : (a))
+#endif
 
 
 // ###### Type definitions ##################################################

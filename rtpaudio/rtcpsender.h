@@ -38,11 +38,7 @@
 #include "rtpreceiver.h"
 #include "randomizer.h"
 
-
 #include <map>
-
-
-namespace Coral {
 
 
 /**
@@ -132,7 +128,7 @@ class RTCPSender : public TimedThread
      * @return Bytes sent.
      *
      * @see addSDESItem
-     */   
+     */
    integer sendSDES();
 
    /**
@@ -179,9 +175,6 @@ class RTCPSender : public TimedThread
    double  RTCPBandwidth;   // Bandwidth for RTCP in octets/second
    double  AverageRTCPSize; // Average compound RTCP packet size
 };
-
-
-}
 
 
 #endif

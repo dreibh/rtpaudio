@@ -40,9 +40,6 @@
 #include <qlist.h>
 
 
-using namespace Coral;
-
-
 // ###### Constructor #######################################################
 QInfoWidget::QInfoWidget(const InfoTable* table,
                          QWidget*         parent,

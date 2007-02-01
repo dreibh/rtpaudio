@@ -34,9 +34,6 @@
 #include "tools.h"
 
 
-namespace Coral {
-
-
 // ###### Constructor #######################################################
 AdvancedAudioEncoder::AdvancedAudioEncoder(AudioReaderInterface* audioReader)
 {
@@ -57,7 +54,7 @@ AdvancedAudioEncoder::AdvancedAudioEncoder(AudioReaderInterface* audioReader)
    setSamplingRate(AudioQuality::HighestSamplingRate);
    setChannels(2);
    setBits(16);
-      
+
    NetworkQualityDecrement = 0;
    TotalByteRateLimit      = (card64)-1;
    ByteRateLimitL1         = (card64)-1;
@@ -189,7 +186,7 @@ bool AdvancedAudioEncoder::prepareNextFrame(const cardinal headerSize,
    if(ErrorCode == ME_OutOfMemory) {
       return(false);
    }
- 
+
    // ====== Calculate frame parameters =====================================
    FrameBufferPosLL  = 0;
    FrameBufferPosRL  = 0;
@@ -358,7 +355,7 @@ bool AdvancedAudioEncoder::prepareNextFrame(const cardinal headerSize,
 
 // ###### Get next packet from current frame ################################
 cardinal AdvancedAudioEncoder::getNextPacket(EncoderPacket* encoderPacket)
-{ 
+{
    // ====== Create packet ==================================================
    cardinal bytes = 0;
    AdvancedAudioPacket* packet = (AdvancedAudioPacket*)encoderPacket->Buffer;
@@ -438,10 +435,7 @@ cardinal AdvancedAudioEncoder::getNextPacket(EncoderPacket* encoderPacket)
 
    if(bytes > 0) {
       packet->translate();
-      return(bytes + sizeof(AdvancedAudioPacket));      
+      return(bytes + sizeof(AdvancedAudioPacket));
    }
    return(0);
-}
-
-
 }

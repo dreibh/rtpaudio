@@ -31,9 +31,6 @@
 #include "audiowriterinterface.h"
 
 
-namespace Coral {
-
-
 // ###### Constructor #######################################################
 AudioWriterInterface::~AudioWriterInterface()
 {
@@ -45,7 +42,4 @@ cardinal AudioWriterInterface::getCurrentCapacity()
 {
    // Unlimited.
    return((cardinal)-1);
-}
-
-
 }

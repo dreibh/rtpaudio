@@ -76,9 +76,9 @@ class QSpectrumAnalyzer : public QMainWindow
      * @param parent Parent widget.
      * @param name Widget name.
      */
-   QSpectrumAnalyzer(Coral::SpectrumAnalyzer* analyzer,
-                     QWidget*                 parent = NULL,
-                     const char*              name   = NULL);
+   QSpectrumAnalyzer(SpectrumAnalyzer* analyzer,
+                     QWidget*          parent = NULL,
+                     const char*       name   = NULL);
 
    /**
      * Destructor.
@@ -139,20 +139,20 @@ class QSpectrumAnalyzer : public QMainWindow
    void showSpectrum(QWidget*        paintWidget,
                      const cardinal* array);
 
-   static const cardinal    Bars         = 70;   // Number of bars
-   static const cardinal    AverageSteps = 10;   // Number of bars per average line
-   static const cardinal    BarColors    = 12;   // Number of colors per bar
-   cardinal                 ArrayL[Bars];
-   cardinal                 ArrayR[Bars];
+   static const cardinal Bars         = 70;   // Number of bars
+   static const cardinal AverageSteps = 10;   // Number of bars per average line
+   static const cardinal BarColors    = 12;   // Number of colors per bar
+   cardinal              ArrayL[Bars];
+   cardinal              ArrayR[Bars];
 
-   cardinal                 Max;
-   QWidget*                 PaintWidget1;
-   QWidget*                 PaintWidget2;
-   QCheckBox*               Average;
-   QPushButton*             Pause;
-   QTimer*                  Timer;
-   card16                   Timing;
-   Coral::SpectrumAnalyzer* Analyzer;
+   cardinal              Max;
+   QWidget*              PaintWidget1;
+   QWidget*              PaintWidget2;
+   QCheckBox*            Average;
+   QPushButton*          Pause;
+   QTimer*               Timer;
+   card16                Timing;
+   SpectrumAnalyzer*     Analyzer;
 };
 
 

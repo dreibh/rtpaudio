@@ -36,9 +36,6 @@
 #include "decoderinterface.h"
 
 
-namespace Coral {
-
-
 /**
   * This class is a repository for decoders.
   *
@@ -49,7 +46,7 @@ namespace Coral {
 class DecoderRepositoryInterface : virtual public DecoderInterface
 {
    // ====== Select another decoder =========================================
-   public: 
+   public:
    /**
      * Select the decoder with the given TypeID to be the current decoder
      * of the repository.
@@ -59,17 +56,14 @@ class DecoderRepositoryInterface : virtual public DecoderInterface
      * false otherwise.
      */
    virtual bool selectDecoderForTypeID(const card16 typeID) = 0;
-   
+
    /**
      * Get DecoderInterface of the current decoder.
      *
-     * @return Current decoder's DecoderInterface.     
+     * @return Current decoder's DecoderInterface.
      */
    virtual DecoderInterface* getCurrentDecoder() const = 0;
 };
-
-
-}
 
 
 #endif

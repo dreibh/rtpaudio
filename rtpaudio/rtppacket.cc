@@ -31,9 +31,6 @@
 #include "rtppacket.h"
 
 
-namespace Coral {
-
-
 // ###### Constructor #######################################################
 RTPPacket::RTPPacket()
 {
@@ -68,7 +65,4 @@ ostream& operator<<(ostream& os, const RTPPacket& packet)
   }
   cout << "}" << endl;
   return(os);
-}
-
-
 }

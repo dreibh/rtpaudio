@@ -29,9 +29,6 @@
 #include "genericframesizescalability.h"
 
 
-namespace Coral {
-
-
 /**
   * This class is an implementation of FrameSizeScalabilityInterface.
   * Important node: All frames sizes in this class are payload frame sizes!
@@ -132,9 +129,6 @@ class ConstantBitrateFrameSizeScalability
    cardinal MinFrameSize;
    cardinal MaxFrameSize;
 };
-
-
-}
 
 
 #endif

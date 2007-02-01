@@ -3,8 +3,6 @@
 #include <ringbuffer.h>
 #include <thread.h>
 
-using namespace Coral;
-
 
 /*
 class RingBuffer : public Synchronizable

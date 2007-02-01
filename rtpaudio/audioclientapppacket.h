@@ -34,9 +34,6 @@
 // #include <linux/ip.h>
 
 
-namespace Coral {
-
-
 // ###### IPv6 Traffic Class Settings #######################################
 /**
   * Default traffic class/TOS for RTP data connection from server to client.
@@ -60,8 +57,8 @@ const card8 AudioClientDefaultTrafficClass = 0x00;
   * @version 1.0
   *
   * @see AudioClient
-  * @see AudioServer 
-  */            
+  * @see AudioServer
+  */
 class AudioClientAppPacket
 {
    // ====== Constructor ====================================================
@@ -84,7 +81,7 @@ class AudioClientAppPacket
      */
    void reset();
 
- 
+
    // ====== Constants ======================================================
    /**
      * Packet ID for AudioClient RTCP APP message.
@@ -136,7 +133,7 @@ class AudioClientAppPacket
 
    /**
      * Number of audio channels.
-     */  
+     */
    card8 Channels;
 
    /**
@@ -156,7 +153,7 @@ class AudioClientAppPacket
 
    /**
      * Start position in nanoseconds or 0xffff...ff, if unused.
-     */   
+     */
    card64 StartPosition;
 
    /**
@@ -169,9 +166,6 @@ class AudioClientAppPacket
      */
    char MediaName[128];
 };
-
-
-}
 
 
 #endif

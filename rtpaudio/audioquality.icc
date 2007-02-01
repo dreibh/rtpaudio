@@ -34,9 +34,6 @@
 #include "audioquality.h"
 
 
-namespace Coral {
-
-
 // ###### Check, if quality is highest quality ##############################
 inline bool AudioQuality::isHighest() const
 {
@@ -67,9 +64,6 @@ inline size_t AudioQuality::timeToBytes(const card64 microseconds) const
 {
    const card64 bps = (card64)getBytesPerSecond();
    return((size_t)((bps * microseconds) / 1000000));
-}
-
-
 }
 
 

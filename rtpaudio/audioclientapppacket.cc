@@ -32,9 +32,6 @@
 #include "tools.h"
 
 
-namespace Coral {
-
-
 // ###### Constructor #######################################################
 AudioClientAppPacket::AudioClientAppPacket()
 {
@@ -73,7 +70,4 @@ void AudioClientAppPacket::translate()
    StartPosition   = translate64(StartPosition);
    RestartPosition = translate64(RestartPosition);
    BandwidthLimit  = translate32(BandwidthLimit);
-}
-
-
 }

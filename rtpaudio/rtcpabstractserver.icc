@@ -34,9 +34,6 @@
 #include "rtcpabstractserver.h"
 
 
-namespace Coral {
-
-
 // ###### Get number of members #############################################
 inline cardinal RTCPAbstractServer::getMembers()
 {
@@ -58,9 +55,6 @@ inline card64 RTCPAbstractServer::getDefaultTimeout() const
 inline void RTCPAbstractServer::setDefaultTimeout(const card64 timeout)
 {
    DefaultTimeout = timeout;
-}
-
-
 }
 
 

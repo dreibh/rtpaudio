@@ -31,13 +31,7 @@
 #include "decoderinterface.h"
 
 
-namespace Coral {
-
-
-// ###### Destructor ########################################################  
+// ###### Destructor ########################################################
 DecoderInterface::~DecoderInterface()
 {
-}
-
-
 }

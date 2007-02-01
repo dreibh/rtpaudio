@@ -26,9 +26,6 @@
 #include "abstractqosdescription.h"
 
 
-namespace Coral {
-
-
 // ###### Initialization ####################################################
 inline void AbstractQoSDescription::initDescription(const double frameRate)
 {
@@ -183,9 +180,6 @@ inline void AbstractQoSDescription::setSessionPriority(const int8 priority)
 inline int8 AbstractQoSDescription::getSessionPriority() const
 {
    return(SessionPriority);
-}
-
-
 }
 
 

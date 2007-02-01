@@ -31,13 +31,7 @@
 #include "encoderinterface.h"
 
 
-namespace Coral {
-
-
 // ###### Destructor ########################################################
 EncoderInterface::~EncoderInterface()
 {
-}
-
-
 }

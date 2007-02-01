@@ -31,9 +31,6 @@
 #include "rtcppacket.h"
 
 
-namespace Coral {
-
-
 // ##########################################################################
 // #### RTCP Common Header                                               ####
 // ##########################################################################
@@ -89,7 +86,7 @@ void RTCPSenderReport::init(const card32 syncSource, const card8 count)
 RTCPReceiverReport::RTCPReceiverReport() { }
 RTCPReceiverReport::RTCPReceiverReport(const card32 syncSource,
                                        const card8 count)
-{ 
+{
    init(syncSource,count);
 }
 
@@ -145,7 +142,7 @@ void RTCPReceptionReportBlock::init(const card32 ssrc)
 // ###### Contructors #######################################################
 RTCPSourceDescription::RTCPSourceDescription() { }
 RTCPSourceDescription::RTCPSourceDescription(const card8 count)
-{ 
+{
    init(count);
 }
 
@@ -193,7 +190,7 @@ void RTCPBye::init(const card8 count)
 // ###### Contructors #######################################################
 RTCPApp::RTCPApp() { }
 RTCPApp::RTCPApp(const card8 subtype)
-{ 
+{
    init(subtype);
 }
 
@@ -206,7 +203,4 @@ void RTCPApp::init(const card8 subtype)
   C  = subtype;
   PT = RTCP_APP;
   setLength(sizeof(*this));
-}
-
-
 }

@@ -44,11 +44,7 @@
 
 #include "audioclientapppacket.h"
 
-
 #include <map>
-
-
-namespace Coral {
 
 
 /**
@@ -153,7 +149,7 @@ class AudioServer : public RTCPAbstractServer
      * newClient() implementation of RTCPAbstractServer.
      *
      * @see RTCPAbstractServer#newClient
-     */     
+     */
    void* newClient(RTCPAbstractServer::Client* client, const char* cname);
 
    /**
@@ -174,7 +170,7 @@ class AudioServer : public RTCPAbstractServer
      * appMessage() implementation of RTCPAbstractServer.
      *
      * @see RTCPAbstractServer#appMessage
-     */     
+     */
    void appMessage(const RTCPAbstractServer::Client* client,
                    const char*                       name,
                    const void*                       data,
@@ -184,7 +180,7 @@ class AudioServer : public RTCPAbstractServer
      * sdesMessage() implementation of RTCPAbstractServer.
      *
      * @see RTCPAbstractServer#sdesMessage
-     */     
+     */
    void sdesMessage(const RTCPAbstractServer::Client* client,
                     const card8                       type,
                     const char*                       data,
@@ -194,7 +190,7 @@ class AudioServer : public RTCPAbstractServer
      * receiverReport() implementation of RTCPAbstractServer.
      *
      * @see RTCPAbstractServer#receiverReport
-     */     
+     */
    void receiverReport(const RTCPAbstractServer::Client* client,
                        const RTCPReceptionReportBlock*   report,
                        const cardinal                    layer);
@@ -233,9 +229,6 @@ class AudioServer : public RTCPAbstractServer
    bool                           LossScalability;
    bool                           UseSCTP;
 };
-
-
-}
 
 
 #include "audioserver.icc"

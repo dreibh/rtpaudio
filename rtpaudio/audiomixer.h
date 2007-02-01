@@ -36,9 +36,6 @@
 #include <sys/soundcard.h>
 
 
-namespace Coral {
-
-
 /**
   * This class is an interface to an audio mixer.
   *
@@ -96,8 +93,6 @@ class AudioMixer
    int Device;
    int Channel;
 };
-
-}
 
 
 #include "audiomixer.icc"

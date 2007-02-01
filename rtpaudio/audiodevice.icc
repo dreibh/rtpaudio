@@ -34,9 +34,6 @@
 #include "audiodevice.h"
 
 
-namespace Coral {
-
-
 // ###### Get number of sync() calls ########################################
 inline cardinal AudioDevice::getSyncCount() const
 {
@@ -48,9 +45,6 @@ inline cardinal AudioDevice::getSyncCount() const
 inline void AudioDevice::resetSyncCount()
 {
    SyncCount = 0;
-}
-
-
 }
 
 

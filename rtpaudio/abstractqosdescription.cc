@@ -23,9 +23,6 @@
 #include "abstractqosdescription.h"
 
 
-namespace Coral {
-
-
 // Print resulting resource/utilization list after calculation
 // #define PRINT_LIST
 
@@ -143,8 +140,8 @@ void AbstractQoSDescription::calculateBandwidthInfo(const cardinal layer,
                                                     BandwidthInfo& bandwidthInfo) const
 {
    if(layer >= getLayers()) {
-      cerr << "WARNING: AbstractQoSDescription::calculateBandwidthInfo() - " << endl
-           << "Invalid parameter " << layer << "!" << endl;
+      std::cerr << "WARNING: AbstractQoSDescription::calculateBandwidthInfo() - " << std::endl
+                << "Invalid parameter " << layer << "!" << std::endl;
       return;
    }
 
@@ -191,11 +188,10 @@ double AbstractQoSDescription::calculateUtilizationForLayerBandwidths(
             break;
          }
          else if(frameSize > 0) {
-            cerr << "WARNING: AbstractQoSDescription::calculateUtilizationForLayerBandwidths() - "
-                    "Senseless allocation to extension layer?!" << endl
-                 << "Frame size " << frameSize << " for layer " << i << "." << endl
-                 << "Minimum is " << ald->getMinFrameSize(frameRate) << "!" << endl;
-exit(1); // ???????????????????????????
+            std::cerr << "WARNING: AbstractQoSDescription::calculateUtilizationForLayerBandwidths() - "
+                    "Senseless allocation to extension layer?!" << std::endl
+                      << "Frame size " << frameSize << " for layer " << i << "." << std::endl
+                      << "Minimum is " << ald->getMinFrameSize(frameRate) << "!" << std::endl;
          }
       }
       else {
@@ -225,8 +221,8 @@ void AbstractQoSDescription::calculateMaxUtilizationForBandwidthArray(
                                 ResourceUtilizationPoint* rupArray,
                                 const cardinal            points) const
 {
-   cerr << "WARNING: AbstractQoSDescription::calculateMaxUtilizationForBandwidthArray() - "
-           "Needs to be overloaded..." << endl;
+   std::cerr << "WARNING: AbstractQoSDescription::calculateMaxUtilizationForBandwidthArray() - "
+                "Needs to be overloaded..." << std::endl;
 
 }
 
@@ -344,13 +340,13 @@ cardinal AbstractQoSDescription::calculateResourceUtilizationList(
    // printf("min=%Ld  max=%Ld\n",minBandwidth,maxBandwidth);
 
    if(calculateMaxUtilizationForBandwidth(minBandwidth,rup[0]) < 0.0) {
-      cerr << "WARNING: AbstractQoSDescription::calculateResourceUtilizationList() - "
-              "Empty resource/utilization list for minimum bandwidth?!" << endl;
+      std::cerr << "WARNING: AbstractQoSDescription::calculateResourceUtilizationList() - "
+                   "Empty resource/utilization list for minimum bandwidth?!" << std::endl;
       return(0);
    }
    if(calculateMaxUtilizationForBandwidth(maxBandwidth,rup[1]) < 0.0) {
-      cerr << "WARNING: AbstractQoSDescription::calculateResourceUtilizationList() - "
-              "Empty resource/utilization list for maximum bandwidth?!" << endl;
+      std::cerr << "WARNING: AbstractQoSDescription::calculateResourceUtilizationList() - "
+                   "Empty resource/utilization list for maximum bandwidth?!" << std::endl;
       return(0);
    }
 
@@ -397,35 +393,35 @@ cardinal AbstractQoSDescription::calculateResourceUtilizationList(
 
    // ====== Verify result ==================================================
 #ifdef PRINT_LIST
-   cout << "Calculated resource/Utilization list:"<< endl;
+   std::cout << "Calculated resource/Utilization list:" << std::endl;
       for(cardinal i = 0;i < count;i++) {
-      cout << rup[i] << endl;
+      std::cout << rup[i] << std::endl;
    }
 #endif
    card64 bandwidth = 0;
    for(cardinal i = 0;i < count;i++) {
       if((rup[i].Utilization < 0.0) || (rup[i].Utilization > 1.0)) {
-         cerr << "INTERNAL ERROR: AbstractQoSDescription::calculateResourceUtilizationList() - "
-                 "Resulting utilization out of range [0,1]!" << endl;
+         std::cerr << "INTERNAL ERROR: AbstractQoSDescription::calculateResourceUtilizationList() - "
+                      "Resulting utilization out of range [0,1]!" << std::endl;
          exit(1);
       }
       if(rup[i].Bandwidth < bandwidth) {
-         cerr << "INTERNAL ERROR: AbstractQoSDescription::calculateResourceUtilizationList() - "
-                 "Senseless bandwidth settings in resource/utilization list!" << endl;
+         std::cerr << "INTERNAL ERROR: AbstractQoSDescription::calculateResourceUtilizationList() - "
+                      "Senseless bandwidth settings in resource/utilization list!" << std::endl;
          exit(1);
       }
       if((i < count - 1) &&
          (rup[i].Utilization == rup[i + 1].Utilization) &&
          (rup[i].Bandwidth   == rup[i + 1].Bandwidth) &&
          (rup[i].FrameRate   == rup[i + 1].FrameRate)) {
-         cerr << "INTERNAL ERROR: AbstractQoSDescription::calculateResourceUtilizationList() - "
-                 "Duplicate points in list?!" << endl;
+         std::cerr << "INTERNAL ERROR: AbstractQoSDescription::calculateResourceUtilizationList() - "
+                      "Duplicate points in list?!" << std::endl;
          exit(1);
       }
    }
    if(rup[count - 1].Utilization < 1.0) {
-      cerr << "INTERNAL ERROR: AbstractQoSDescription::calculateResourceUtilizationList() - "
-              "Maximum utilization < 1.0?!" << endl;
+      std::cerr << "INTERNAL ERROR: AbstractQoSDescription::calculateResourceUtilizationList() - "
+                   "Maximum utilization < 1.0?!" << std::endl;
       exit(1);
    }
 
@@ -440,7 +436,7 @@ cardinal AbstractQoSDescription::calculateResourceUtilizationList(
 
 
 // ###### Output operator ###################################################
-ostream& operator<<(ostream& os, const AbstractQoSDescription& aqd)
+std::ostream& operator<<(std::ostream& os, const AbstractQoSDescription& aqd)
 {
    // ====== Get resources ==================================================
    const double frameRate = aqd.getFrameRate() ;
@@ -451,29 +447,29 @@ ostream& operator<<(ostream& os, const AbstractQoSDescription& aqd)
    // ====== Print AbstractQoSDescription ===================================
    os << "Bandwidth        = " << aqd.getMinBandwidth() << " <= "
                                << rup.Bandwidth << " <= "
-                               << aqd.getMaxBandwidth()   << endl;
-   os << "TotalUtilization = " << rup.Utilization * 100.0 << " [%]" << endl;
-   os << "Layers           = " << aqd.getLayers() << endl;
+                               << aqd.getMaxBandwidth()   << std::endl;
+   os << "TotalUtilization = " << rup.Utilization * 100.0 << " [%]" << std::endl;
+   os << "Layers           = " << aqd.getLayers() << std::endl;
 
 
    // ====== Print FrameRateScalability =====================================
-   os << "Frame Rate:" << endl;
+   os << "Frame Rate:" << std::endl;
    os << "   FrameRate        = " << aqd.getMinFrameRate() << " <= "
                                << frameRate             << " <= "
-                               << aqd.getMaxFrameRate() << endl;
-   os << "   Scalability Cls. = " << aqd.getFrameRateScalabilityClass() << endl;
+                               << aqd.getMaxFrameRate() << std::endl;
+   os << "   Scalability Cls. = " << aqd.getFrameRateScalabilityClass() << std::endl;
    os << "   Properties       = ";
    if(aqd.isFrameRateScalable()) os << "<Scalable> "; else os << "<Non-scalable> ";
-   os << endl;
+   os << std::endl;
    os << "   Scale Factor     = " << aqd.getFrameRateScaleFactor() * 100.0
-                               << " [%]" << endl;
-   os << "   PrevFrameRate    = " << aqd.getPrevFrameRate() << endl;
-   os << "   NextFrameRate    = " << aqd.getNextFrameRate() << endl;
+                               << " [%]" << std::endl;
+   os << "   PrevFrameRate    = " << aqd.getPrevFrameRate() << std::endl;
+   os << "   NextFrameRate    = " << aqd.getNextFrameRate() << std::endl;
 
 
    // ====== Print AbstractLayerDescriptions ================================
    for(cardinal i = 0;i < aqd.getLayers();i++) {
-      os << "Layer #" << i << " Frame Size:" << endl;
+      os << "Layer #" << i << " Frame Size:" << std::endl;
       const AbstractLayerDescription* ald = aqd.getLayer(i);
       cardinal frameSize = ald->bandwidthToFrameSize(frameRate,ald->getBandwidth());
       if(frameSize > ald->getMaxFrameSize(frameRate)) {
@@ -485,35 +481,32 @@ ostream& operator<<(ostream& os, const AbstractQoSDescription& aqd)
                                      << ald->getMinPayloadFrameSizeForDelay(frameRate,ald->getBufferDelay()) << " <= "
                                      << ald->rawToPayload(frameRate,frameSize,ald->getBufferDelay())    << " <= "
                                      << ald->getMaxPayloadFrameSizeForDelay(frameRate,ald->getBufferDelay()) << ")"
-                                     << endl;
-      os << "   BytesPerSecond   = " << ald->getBandwidth()           << endl;
+                                     << std::endl;
+      os << "   BytesPerSecond   = " << ald->getBandwidth()           << std::endl;
       os << "   PacketsPerSecond = " << ald->getPacketRate(frameRate) << " ("
                                      << ald->getPacketCountForSize(frameRate,frameSize)
-                                     << " per frame)" << endl;
-      os << "   Souce            = " << ald->getSource() << endl;
-      os << "   Destination      = " << ald->getDestination() << endl;
-      os << "   Scalability Cls. = " << ald->getFrameSizeScalabilityClass() << endl;
+                                     << " per frame)" << std::endl;
+      os << "   Souce            = " << ald->getSource() << std::endl;
+      os << "   Destination      = " << ald->getDestination() << std::endl;
+      os << "   Scalability Cls. = " << ald->getFrameSizeScalabilityClass() << std::endl;
       os << "   Properties       = ";
       if(ald->isFrameSizeScalable()) os << "<Scalable> "; else os << "<Non-scalable> ";
       if(ald->isVariableBitrate())   os << "<VBR> ";      else os << "<CBR> ";
-      os << endl;
+      os << std::endl;
       os << "   Scale Factor     = " << ald->getFrameSizeScaleFactorForSize(frameRate,frameSize) * 100.0
-                                     << " [%]" << endl;
+                                     << " [%]" << std::endl;
       os << "   PrevFrameSize    = " << ald->getPrevFrameSizeForSize(frameRate,frameSize) << " (Payload: "
-                                     << ald->rawToPayload(frameRate,(cardinal)ald->getPrevFrameSizeForSize(frameRate,frameSize),ald->getBufferDelay()) << ")" << endl;
+                                     << ald->rawToPayload(frameRate,(cardinal)ald->getPrevFrameSizeForSize(frameRate,frameSize),ald->getBufferDelay()) << ")" << std::endl;
       os << "   NextFrameSize    = " << ald->getNextFrameSizeForSize(frameRate,frameSize) << " (Payload: "
-                                     << ald->rawToPayload(frameRate,(cardinal)ald->getNextFrameSizeForSize(frameRate,frameSize),ald->getBufferDelay()) << ")" << endl;
+                                     << ald->rawToPayload(frameRate,(cardinal)ald->getNextFrameSizeForSize(frameRate,frameSize),ald->getBufferDelay()) << ")" << std::endl;
       os << "   PeakFrameSize    = " << ald->getPeakFrameSizeForSize(frameRate,frameSize) << " (Payload: "
                                      << ald->rawToPayload(frameRate,ald->getPeakFrameSizeForSize(frameRate,frameSize),ald->getBufferDelay())
-                                     << ")" << endl;
+                                     << ")" << std::endl;
 
-      os << "   BufferDelay      = " << ald->getBufferDelay()   << " [Frame(s)]" << endl;
-      os << "   MaxTransferDelay = " << ald->getMaxTransferDelay()    << " [ms]" << endl;
-      os << "   MaxLossRate      = " << ald->getMaxLossRate() * 100.0 << " [%]"  << endl;
-      os << "   MaxJitter        = " << ald->getMaxJitter()           << " [ms]" << endl;
+      os << "   BufferDelay      = " << ald->getBufferDelay()   << " [Frame(s)]" << std::endl;
+      os << "   MaxTransferDelay = " << ald->getMaxTransferDelay()    << " [ms]" << std::endl;
+      os << "   MaxLossRate      = " << ald->getMaxLossRate() * 100.0 << " [%]"  << std::endl;
+      os << "   MaxJitter        = " << ald->getMaxJitter()           << " [ms]" << std::endl;
    }
    return(os);
-}
-
-
 }

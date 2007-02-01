@@ -34,9 +34,6 @@
 #include "randomizer.h"
 
 
-namespace Coral {
-
-
 // Debug mode: Print corrupted RTP packets
 #define DEBUG
 
@@ -94,7 +91,7 @@ void RTPReceiver::run()
    RTPPacket     packet;
    integer       bytes;
    InternetFlow  flow;
- 
+
    for(;;) {
       // ====== Read an RTP packet ==========================================
       bytes = ReceiverSocket->receiveFrom(&packet,sizeof(RTPPacket),flow);
@@ -132,7 +129,7 @@ void RTPReceiver::run()
          decoderPacket.Layer          = (cardinal)-1;
          decoderPacket.Layers         = (cardinal)-1;
 
-         // ====== Paket ist RTP-Paket für den Decoder ======================
+         // ====== Paket ist RTP-Paket fr den Decoder ======================
          if(Decoder->checkNextPacket(&decoderPacket) == true) {
             // Check, if packet's layer number is valid. ==
             if(decoderPacket.Layers <= RTPConstants::RTPMaxQualityLayers) {
@@ -186,7 +183,4 @@ void RTPReceiver::run()
          unsynchronized();
       }
    }
-}
-
-
 }

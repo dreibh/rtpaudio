@@ -24,9 +24,6 @@
 #include "resourceutilizationpoint.h"
 
 
-namespace Coral {
-
-
 // ###### Reset #############################################################
 void ResourceUtilizationPoint::reset()
 {
@@ -201,7 +198,4 @@ cardinal ResourceUtilizationPoint::mergeResourceUtilizationLists(
 
    sortResourceUtilizationList(destination,0,pos - 1);
    return(pos);
-}
-
-
 }

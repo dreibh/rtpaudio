@@ -1,8 +1,6 @@
 #include <tdsocket.h>
 #include <thread.h>
 
-using namespace Coral;
-
 int main (int argc, const char * argv[])
 {
    InternetAddress local("127.0.0.1:8888");

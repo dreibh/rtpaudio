@@ -35,9 +35,6 @@
 #include "tools.h"
 
 
-namespace Coral {
-
-
 // ##########################################################################
 // #### RTCP Common Header                                               ####
 // ##########################################################################
@@ -125,7 +122,7 @@ inline card32 RTCPReport::getSSRC() const
 }
 
 
-// ###### Set SSRC ########################################################## 
+// ###### Set SSRC ##########################################################
 inline void RTCPReport::setSSRC(const card32 syncSource)
 {
    SSRC = translate32(syncSource);
@@ -198,14 +195,14 @@ inline void RTCPSenderInfoBlock::setRTPTimeStamp(const card32 timeStamp)
 
 // ###### Set packets sent ##################################################
 inline void RTCPSenderInfoBlock::setPacketsSent(const card32 packets)
-{ 
+{
    PacketsSent = translate32(packets);
 }
 
 
 // ###### Set octets sent ###################################################
 inline void RTCPSenderInfoBlock::setOctetsSent(const card32 octets)
-{ 
+{
    OctetsSent = translate32(octets);
 }
 
@@ -217,42 +214,42 @@ inline void RTCPSenderInfoBlock::setOctetsSent(const card32 octets)
 
 // ###### Get SSRC ##########################################################
 inline card32 RTCPReceptionReportBlock::getSSRC() const
-{ 
+{
    return(translate32(SSRC));
 }
 
 
 // ###### Get fraction lost #################################################
 inline double RTCPReceptionReportBlock::getFractionLost() const
-{ 
+{
    return((double)Fraction / 256.0);
 }
 
 
 // ###### Get packets lost ##################################################
 inline card32 RTCPReceptionReportBlock::getPacketsLost() const
-{ 
+{
    return(translate32(Lost));
 }
 
 
 // ###### Get last sequence number ##########################################
 inline card32 RTCPReceptionReportBlock::getLastSeqNum() const
-{ 
+{
    return(translate32(LastSeq));
 }
 
 
 // ###### Get jitter ########################################################
 inline card32 RTCPReceptionReportBlock::getJitter() const
-{ 
+{
    return(translate32(Jitter));
 }
 
 
 // ###### Get LSR ###########################################################
 inline card32 RTCPReceptionReportBlock::getLSR() const
-{ 
+{
    return(translate32(LSR));
 }
 
@@ -266,21 +263,21 @@ inline card32 RTCPReceptionReportBlock::getDLSR() const
 
 // ###### Set SSRC ##########################################################
 inline void RTCPReceptionReportBlock::setSSRC(const card32 syncSource)
-{ 
+{
    SSRC = translate32(syncSource);
 }
 
 
 // ###### Set fraction lost #################################################
 inline void RTCPReceptionReportBlock::setFractionLost(const double fraction)
-{ 
+{
    Fraction = (card8)(256.0 * fraction);
 }
 
 
 // ###### Set packets lost ##################################################
 inline void RTCPReceptionReportBlock::setPacketsLost(const card32 lost)
-{ 
+{
    Lost = translate32(lost);
 }
 
@@ -294,7 +291,7 @@ inline void RTCPReceptionReportBlock::setLastSeqNum(const card32 lastSeq)
 
 // ###### Set jitter ########################################################
 inline void RTCPReceptionReportBlock::setJitter(const card32 jitter)
-{ 
+{
    Jitter = translate32(jitter);
 }
 
@@ -308,7 +305,7 @@ inline void RTCPReceptionReportBlock::setLSR(const card32 lsr)
 
 // ###### Set DLSR ##########################################################
 inline void RTCPReceptionReportBlock::setDLSR(const card32 dlsr)
-{ 
+{
    DLSR = translate32(dlsr);
 }
 
@@ -327,14 +324,14 @@ inline void RTCPReceptionReportBlock::setDLSR(const card32 dlsr)
 
 // ###### Get packet's source ###############################################
 inline card32 RTCPBye::getSource(const cardinal index) const
-{ 
+{
    return(translate32(Source[index]));
 }
 
 
 // ###### Set packet's source ###############################################
 inline void RTCPBye::setSource(const cardinal index, const card32 source)
-{ 
+{
    Source[index] = translate32(source);
 }
 
@@ -346,21 +343,21 @@ inline void RTCPBye::setSource(const cardinal index, const card32 source)
 
 // ###### Get packet's source ###############################################
 inline card32 RTCPApp::getSource() const
-{ 
+{
    return(translate32(Source));
 }
 
 
 // ###### Get message's name ################################################
 inline char* RTCPApp::getName()
-{ 
+{
    return(Name);
 }
 
 
 // ###### Get pointer to message's data #####################################
 inline char* RTCPApp::getData()
-{ 
+{
    return(&Data[0]);
 }
 
@@ -369,9 +366,6 @@ inline char* RTCPApp::getData()
 inline void RTCPApp::setSource(const card32 source)
 {
    Source = translate32(source);
-}
-
-
 }
 
 

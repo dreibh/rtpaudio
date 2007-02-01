@@ -31,9 +31,6 @@
 #define RTPSENDER_ICC
 
 
-namespace Coral {
-
-
 // ###### Set pause mode ####################################################
 inline void RTPSender::setPause(const bool on)
 {
@@ -81,7 +78,7 @@ inline card64 RTPSender::getBytesSent() const
 }
 
 
-// ###### Reset bytes sent ##################################################   
+// ###### Reset bytes sent ##################################################
 inline void RTPSender::resetBytesSent()
 {
    BytesSent = 0;
@@ -97,8 +94,8 @@ inline card64 RTPSender::getPacketsSent() const
    return(packets);
 }
 
-   
-// ###### Reset packets sent ################################################   
+
+// ###### Reset packets sent ################################################
 inline void RTPSender::resetPacketsSent()
 {
    PacketsSent = 0;
@@ -115,8 +112,5 @@ inline bool RTPSender::transmissionErrorDetected()
    return(error);
 }
 
-
-}
-      
 
 #endif

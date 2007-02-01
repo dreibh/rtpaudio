@@ -40,9 +40,6 @@
 #include <map>
 
 
-namespace Coral {
-
-
 /**
   * This class is a repository for audio decoders.
   *
@@ -52,7 +49,7 @@ namespace Coral {
   */
 class AudioDecoderRepository : virtual public DecoderRepositoryInterface,
                                virtual public AudioDecoderInterface
-{ 
+{
    public:
    // ====== Constructor/Destructor =========================================
    /**
@@ -64,7 +61,7 @@ class AudioDecoderRepository : virtual public DecoderRepositoryInterface,
      * Destructor.
      */
    ~AudioDecoderRepository();
-   
+
 
    // ====== Repository functionality =======================================
    /**
@@ -74,34 +71,34 @@ class AudioDecoderRepository : virtual public DecoderRepositoryInterface,
      * @return true, if decoder has been added; false, if not.
      */
    bool addDecoder(AudioDecoderInterface* decoder);
-   
+
    /**
      * Remove audio decoder from repository.
      *
      * @param decoder Audio decoder to be removed.
      */
    void removeDecoder(AudioDecoderInterface* decoder);
-   
+
    /**
      * selectDecoderForTypeID() implementation of DecoderRepositoryInterface.
      *
      * @see DecoderRepositoryInterface#selectDecoderForTypeID
      */
    bool selectDecoderForTypeID(const card16 typeID);
-   
+
    /**
      * Set AutoDelete mode. If true, all decoders will be deleted with delete
      * operator by the destructor.
      */
    inline void setAutoDelete(const bool on);
-   
+
    /**
      * getCurrentDecoder() implementation of DecoderRepositoryInterface.
      *
      * @see DecoderRepositoryInterface#getCurrentDecoder
      */
    DecoderInterface* getCurrentDecoder() const;
-   
+
    /**
      * Get AudioDecoderInterface of the current decoder.
      *
@@ -117,14 +114,14 @@ class AudioDecoderRepository : virtual public DecoderRepositoryInterface,
      * @see DecoderInterface#getTypeID
      */
    const card16 getTypeID() const;
-   
+
    /**
      * getTypeName implementation of DecoderInterface.
      *
      * @see DecoderInterface#getTypeName
      */
    const char* getTypeName() const;
-   
+
    /**
      * activate() implementation of DecoderInterface.
      *
@@ -159,14 +156,14 @@ class AudioDecoderRepository : virtual public DecoderRepositoryInterface,
      * @see DecoderInterface#getErrorCode
      */
    card8 getErrorCode() const;
-   
+
    /**
      * getPosition() implementation of DecoderInterface.
      *
      * @see DecoderInterface#getPosition
      */
    card64 getPosition() const;
-   
+
    /**
      * getMaxPosition() implementation of DecoderInterface.
      *
@@ -249,15 +246,12 @@ class AudioDecoderRepository : virtual public DecoderRepositoryInterface,
    void setWantedQuality(const AudioQualityInterface& wantedQuality);
 
 
-   // ====== Private data ===================================================   
+   // ====== Private data ===================================================
    private:
    multimap<const card16,AudioDecoderInterface*> Repository;
    AudioDecoderInterface*                        Decoder;
    bool                                          AutoDelete;
 };
-
-
-}
 
 
 #include "audiodecoderrepository.icc"

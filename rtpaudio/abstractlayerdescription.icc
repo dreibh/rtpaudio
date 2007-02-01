@@ -26,9 +26,6 @@
 #include "abstractlayerdescription.h"
 
 
-namespace Coral {
-
-
 // Debug options
 // #define VERBOSE_BANDWIDTH_TO_BANDWIDTH
 
@@ -461,9 +458,6 @@ inline void AbstractLayerDescription::setSource(const InternetAddress& source)
 inline void AbstractLayerDescription::setDestination(const InternetFlow& destination)
 {
    Destination = destination;
-}
-
-
 }
 
 

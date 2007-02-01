@@ -8,8 +8,8 @@
  * and University of Essen, Institute of Computer Networking Technology.
  *
  * Acknowledgement
- * This work was partially funded by the Bundesministerium für Bildung und
- * Forschung (BMBF) of the Federal Republic of Germany (Förderkennzeichen 01AK045).
+ * This work was partially funded by the Bundesministerium fr Bildung und
+ * Forschung (BMBF) of the Federal Republic of Germany (Fï¿½derkennzeichen 01AK045).
  * The authors alone are responsible for the contents.
  *
  * This library is free software; you can redistribute it and/or
@@ -66,7 +66,7 @@ class String
      * Constructor for a copy of a string.
      *
      * @param string String to be copied.
-     */  
+     */
    String(const char* string);
 
    /**
@@ -140,14 +140,14 @@ class String
      * Get uppercase string from string.
      *
      * @return Uppercase string.
-     */   
+     */
    String toUpper() const;
 
    /**
      * Get lowercase string from string.
      *
      * @return Lowercase string.
-     */   
+     */
    String toLower() const;
 
    /**
@@ -297,7 +297,7 @@ class String
 /**
   * Implementation of << operator.
   */
-ostream& operator<<(ostream& out, const String& string);
+std::ostream& operator<<(std::ostream& out, const String& string);
 
 /**
   * Implementation of + operator.

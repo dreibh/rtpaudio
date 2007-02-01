@@ -33,9 +33,6 @@
 #include "tools.h"
 
 
-namespace Coral {
-
-
 // Debug mode: Print corrupted RTCP packets
 #define DEBUG
 
@@ -264,7 +261,4 @@ void RTCPReceiver::run()
       unsynchronized();
       AverageRTCPSize = (1.0/16.0) * receivedPacketSize + (15.0/16.0) * AverageRTCPSize;
    }
-}
-
-
 }

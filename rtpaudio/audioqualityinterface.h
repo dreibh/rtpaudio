@@ -34,9 +34,6 @@
 #include "tdsystem.h"
 
 
-namespace Coral {
-
-
 /**
   * This class is an interface for getting audio quality.
   *
@@ -188,9 +185,6 @@ class AdjustableAudioQualityInterface : virtual public AudioQualityInterface
      */
    inline void setQuality(const AudioQualityInterface& quality);
 };
-
-
-}
 
 
 #include "audioqualityinterface.icc"

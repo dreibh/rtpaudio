@@ -32,9 +32,6 @@
 #include "tools.h"
 
 
-namespace Coral {
-
-
 // ###### Encoding name #####################################################
 const char AdvancedAudioPacket::AdvancedAudioTypeName[] =
    "Advanced Audio Encoding";
@@ -262,7 +259,4 @@ cardinal AdvancedAudioPacket::calculateFrameSize(const cardinal inputBytesPerSec
 {
    return((inputBytesPerSecond * inputFrameSize) /
           AudioQuality::HighestQuality.getBytesPerSecond());
-}
-
-
 }

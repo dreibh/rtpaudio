@@ -44,9 +44,6 @@
 #include "mpegsound.h"
 
 
-namespace Coral {
-
-
 /**
   * This class is a reader for MP3 audio files.
   *
@@ -167,9 +164,6 @@ class MP3AudioReader : public Soundplayer,
 
    char                      Buffer[RAWDATASIZE * sizeof(short int)];
 };
-
-
-}
 
 
 #endif

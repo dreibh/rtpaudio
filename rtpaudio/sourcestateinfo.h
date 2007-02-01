@@ -36,9 +36,6 @@
 #include "seqnumvalidator.h"
 
 
-namespace Coral {
-
-
 /**
   * This class manages the source state information of an RTP receiver to
   * be transmitted by a RTCPSender.
@@ -50,10 +47,10 @@ namespace Coral {
   *
   * @see RTPReceiver
   * @see RTCPSender
-  */            
+  */
 class SourceStateInfo : public SeqNumValidator,
                         public Synchronizable
-{  
+{
    // ====== Constructor ====================================================
    public:
    /**
@@ -61,14 +58,14 @@ class SourceStateInfo : public SeqNumValidator,
      */
    SourceStateInfo();
 
-  
+
    // ====== Reset ==========================================================
    /**
      * Reset.
      */
    void reset();
 
-   
+
    // ====== Status functions ===============================================
    /**
      * Get SSRC.
@@ -104,21 +101,18 @@ class SourceStateInfo : public SeqNumValidator,
      * @return SSRC.
      */
    inline void setSSRC(card32 ssrc);
-   
-   
+
+
    // ====== Private data ===================================================
    private:
    card64 LSRUpdateTimeStamp;             // Timestamp of last setLSR() call
 
    card32 ReceivedPrior;                  // Packet received at last interval
-   card32 ExpectedPrior;                  // Packet expected at last interval 
+   card32 ExpectedPrior;                  // Packet expected at last interval
    card32 FractionLost;                   // Fraction lost
    card32 SSRC;                           // Data source identifier
    card32 LSR;                            // Last SR packet from this source
 };
-
-
-}
 
 
 #include "sourcestateinfo.icc"

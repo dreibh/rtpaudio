@@ -41,9 +41,6 @@
 #include "bandwidthmanager.h"
 
 
-namespace Coral {
-
-
 /**
   * This class implements an RTP sender based on TimedThread.
   *
@@ -246,9 +243,6 @@ class RTPSender : virtual public ManagedStreamInterface,
    TrafficShaper Shaper[RTPConstants::RTPMaxQualityLayers];
 #endif
 };
-
-
-}
 
 
 #include "rtpsender.icc"

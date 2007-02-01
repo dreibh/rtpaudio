@@ -41,9 +41,6 @@
 #include <netinet/ip6.h>
 
 
-using namespace Coral;
-
-
 // ###### Print information on given quality #################################
 void printQualityInfoAAE(const card16   samplingRate,
                          const card8    bits,
@@ -57,7 +54,7 @@ void printQualityInfoAAE(const card16   samplingRate,
    pkt.getTransportInfo(ti,headerSize,maxPacketSize,quality,quality);
    ti.TotalBytesPerSecondLimit   = (card64)-1;
    ti.TotalPacketsPerSecondLimit = (card32)-1;
-   ti.TotalFramesPerSecondLimit  = (card32)-1;    
+   ti.TotalFramesPerSecondLimit  = (card32)-1;
    cout << quality << ":" << endl;
    cout << ti.CurrentSetting;
 }
@@ -76,7 +73,7 @@ void printQualityInfoSAE(const card16   samplingRate,
    pkt.getTransportInfo(ti,headerSize,maxPacketSize,quality,quality);
    ti.TotalBytesPerSecondLimit   = (card64)-1;
    ti.TotalPacketsPerSecondLimit = (card32)-1;
-   ti.TotalFramesPerSecondLimit  = (card32)-1;    
+   ti.TotalFramesPerSecondLimit  = (card32)-1;
    cout << ti.CurrentSetting;
 }
 
@@ -130,11 +127,11 @@ void printTransportInfos(const cardinal maxPacketSize)
    b.getTransportInfo(tia,headerSize,maxPacketSize,quality,quality);
    tia.TotalBytesPerSecondLimit   = (card64)-1;
    tia.TotalPacketsPerSecondLimit = (card32)-1;
-   tia.TotalFramesPerSecondLimit  = (card32)-1;    
+   tia.TotalFramesPerSecondLimit  = (card32)-1;
    a.getTransportInfo(tib,headerSize,maxPacketSize,quality,quality);
    tib.TotalBytesPerSecondLimit   = (card64)-1;
    tib.TotalPacketsPerSecondLimit = (card32)-1;
-   tib.TotalFramesPerSecondLimit  = (card32)-1;    
+   tib.TotalFramesPerSecondLimit  = (card32)-1;
    cout << "Simple Audio Encoding:" << endl << endl << tia << endl << endl;
    cout << "Advanced Audio Encoding:" << endl << endl << tib << endl;
 }

@@ -8,8 +8,8 @@
  * and University of Essen, Institute of Computer Networking Technology.
  *
  * Acknowledgement
- * This work was partially funded by the Bundesministerium für Bildung und
- * Forschung (BMBF) of the Federal Republic of Germany (Förderkennzeichen 01AK045).
+ * This work was partially funded by the Bundesministerium fr Bildung und
+ * Forschung (BMBF) of the Federal Republic of Germany (Fï¿½derkennzeichen 01AK045).
  * The authors alone are responsible for the contents.
  *
  * This library is free software; you can redistribute it and/or
@@ -50,7 +50,7 @@
   * @short   Socket Address
   * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
   * @version 1.0
-  */            
+  */
 class SocketAddress
 {
    // ====== Destructor =====================================================
@@ -236,7 +236,7 @@ class SocketAddress
      * @param length Length of buffer.
      * @param type Socket address type, e.g. AF_INET or AF_INET6.
      * @return Length of written sockaddr structure.
-     */            
+     */
    virtual cardinal getSystemAddress(sockaddr*       buffer,
                                      const socklen_t length,
                                      const cardinal  type = AF_UNSPEC) const = 0;
@@ -286,14 +286,14 @@ class SocketAddress
    cardinal Format;
 
 
-   friend inline ostream& operator<<(ostream& os, const SocketAddress& sa);
+   friend inline std::ostream& operator<<(std::ostream& os, const SocketAddress& sa);
 };
 
 
 /**
   * Output operator.
   */
-inline ostream& operator<<(ostream& os, const SocketAddress& sa);
+inline std::ostream& operator<<(std::ostream& os, const SocketAddress& sa);
 
 
 #include "socketaddress.icc"

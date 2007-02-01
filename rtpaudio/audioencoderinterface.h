@@ -36,9 +36,6 @@
 #include "audioqualityinterface.h"
 
 
-namespace Coral {
-
-
 /**
   * This class is the interface for an audio encoder.
   *
@@ -50,9 +47,6 @@ class AudioEncoderInterface : virtual public EncoderInterface,
                               virtual public AdjustableAudioQualityInterface
 {
 };
-
-
-}
 
 
 #endif

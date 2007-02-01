@@ -36,9 +36,6 @@
 // #define PRINT_EXCEEDS
 
 
-namespace Coral {
-
-
 // ###### TrafficShaper singleton object ####################################
 TrafficShaperSingleton TrafficShaper::Singleton;
 
@@ -207,8 +204,8 @@ ssize_t TrafficShaper::addPacket(const void*    data,
          iterator++;
       }
       cerr << "   Tried to add " << bytes << " bytes, "
-              "required: " << time << " [µs]" << "  "
-              "avaiable: " << (delay - BufferDelay) << " [µs]." << endl;
+              "required: " << time << " [s]" << "  "
+              "avaiable: " << (delay - BufferDelay) << " [s]." << endl;
 #endif
 
       // ====== Flush buffer ================================================
@@ -399,7 +396,4 @@ void TrafficShaperSingleton::timerEvent()
       iterator++;
    }
    unsynchronized();
-}
-
-
 }

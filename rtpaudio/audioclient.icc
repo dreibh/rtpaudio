@@ -35,9 +35,6 @@
 #include "audioclient.h"
 
 
-namespace Coral {
-
-
 // ###### Check, if client is playing #######################################
 inline bool AudioClient::playing() const
 {
@@ -56,7 +53,7 @@ inline card8 AudioClient::getIPVersion() const
 inline card64 AudioClient::getMaxPosition() const
 {
    if(IsPlaying) return(Decoders.getMaxPosition());
-   return(0);   
+   return(0);
 }
 
 
@@ -80,7 +77,7 @@ inline card64 AudioClient::getPacketsReceived(const cardinal layer) const
 inline card8 AudioClient::getErrorCode() const
 {
    if(IsPlaying) return(Decoders.getErrorCode());
-   return(0);   
+   return(0);
 }
 
 
@@ -152,9 +149,6 @@ inline card8 AudioClient::getTrafficClass(const cardinal layer) const
 inline cardinal AudioClient::getLayers() const
 {
    return(Receiver->getLayers());
-}
-
-
 }
 
 

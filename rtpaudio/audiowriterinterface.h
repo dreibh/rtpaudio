@@ -35,9 +35,6 @@
 #include "audioqualityinterface.h"
 
 
-namespace Coral {
-
-
 /**
   * This class is the interface for an audio writer.
   *
@@ -52,7 +49,7 @@ class AudioWriterInterface : virtual public AdjustableAudioQualityInterface
      * Virtual destructor.
      */
    virtual ~AudioWriterInterface();
-   
+
    /**
      * Check, if AudioWriter is ready for writing.
      *
@@ -82,9 +79,6 @@ class AudioWriterInterface : virtual public AdjustableAudioQualityInterface
      */
    virtual cardinal getCurrentCapacity();
 };
-
-
-}
 
 
 #endif

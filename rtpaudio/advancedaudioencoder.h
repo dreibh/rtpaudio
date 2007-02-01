@@ -37,9 +37,6 @@
 #include "audioquality.h"
 
 
-namespace Coral {
-
-
 /**
   * This class is an advanced audio encoder. It does error correction by
   * using nearly redundant data of left and right channel to "reconstruct"
@@ -48,7 +45,7 @@ namespace Coral {
   * @short   Advanced Audio Encoder
   * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
   * @version 1.0
-  */            
+  */
 class AdvancedAudioEncoder : public AudioEncoderInterface,
                              public AudioQuality
 {
@@ -60,7 +57,7 @@ class AdvancedAudioEncoder : public AudioEncoderInterface,
      * @param audioReader AudioReaderInterface for the audio input.
      */
    AdvancedAudioEncoder(AudioReaderInterface* audioReader);
-   
+
    /**
      * Destructor.
      */
@@ -74,7 +71,7 @@ class AdvancedAudioEncoder : public AudioEncoderInterface,
      * @see EncoderInterface#getTypeID
      */
    const card16 getTypeID() const;
-   
+
    /**
      * getTypeName implementation of EncoderInterface.
      *
@@ -118,7 +115,7 @@ class AdvancedAudioEncoder : public AudioEncoderInterface,
    bool prepareNextFrame(const cardinal headerSize,
                          const cardinal maxPacketSize,
                          const cardinal flags);
-   
+
    /**
      * getNextPacket() implementation of EncoderInterface.
      *
@@ -176,18 +173,15 @@ class AdvancedAudioEncoder : public AudioEncoderInterface,
 
    integer      MediaInfoCounter;
 
-   card64       TotalByteRateLimit;   
+   card64       TotalByteRateLimit;
    card64       ByteRateLimitL1;
-   card64       ByteRateLimitL2;   
+   card64       ByteRateLimitL2;
    card64       ByteRateLimitL3;
    cardinal     NetworkQualityDecrement;
    cardinal     SendError;
    cardinal     SentError;
    card8        ErrorCode;
 };
-
-
-}
 
 
 #endif

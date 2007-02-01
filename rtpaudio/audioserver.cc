@@ -61,10 +61,6 @@
 // #define TC_TEST
 
 
-
-namespace Coral {
-
-
 // ###### Constructor #######################################################
 AudioServer::AudioServer(SocketAddress**          localAddressArray,
                          const cardinal           localAddresses,
@@ -497,7 +493,4 @@ void AudioServer::receiverReport(const Client*                   client,
 
    ?????????????????????????????????
 */
-}
-
-
 }

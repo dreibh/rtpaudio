@@ -32,11 +32,7 @@
 #include "rtcpsender.h"
 #include "randomizer.h"
 
-
 #include <signal.h>
-
-
-namespace Coral {
 
 
 // Debug mode: Print some debug information
@@ -428,7 +424,4 @@ printf("send: %d\n",bytesData);
    }
 
    unsynchronized();
-}
-
-
 }

@@ -41,9 +41,6 @@
 #include "audioserver.h"
 
 
-using namespace Coral;
-
-
 #define SCTP_MAXADDRESSES 20
 
 

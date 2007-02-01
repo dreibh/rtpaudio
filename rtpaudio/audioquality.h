@@ -36,9 +36,6 @@
 #include "audioqualityinterface.h"
 
 
-namespace Coral {
-
-
 /**
   * This class manages audio quality.
   *
@@ -54,7 +51,7 @@ class AudioQuality : virtual public AdjustableAudioQualityInterface
      * Default constructor.
      */
    AudioQuality();
-   
+
    /**
      * Constructor for new AudioQuality object with given quality
      *
@@ -135,7 +132,7 @@ class AudioQuality : virtual public AdjustableAudioQualityInterface
      * @see AdjustableAudioQualityInterface#setBits
      */
    card8 setBits(const card8 bits);
-   
+
    /**
      * setChannels() Implementation of AdjustableAudioQualityInterface.
      *
@@ -172,7 +169,7 @@ class AudioQuality : virtual public AdjustableAudioQualityInterface
      * is given by QualityLevels constant.
      *
      * @param steps Number of steps.
-     */     
+     */
    void increase(const cardinal steps);
 
    /**
@@ -180,7 +177,7 @@ class AudioQuality : virtual public AdjustableAudioQualityInterface
      * is given by QualityLevels constant.
      *
      * @param steps Number of steps.
-     */     
+     */
    void decrease(const cardinal setps);
 
 
@@ -188,14 +185,14 @@ class AudioQuality : virtual public AdjustableAudioQualityInterface
      * Set sampling rate to next lower value.
      *
      * @return true, if sampling rate has been set; false, if it was already lowest.
-     */     
+     */
    bool prevSamplingRate();
 
    /**
      * Set sampling rate to next higher value.
      *
      * @return true, if sampling rate has been set; false, if it was already highest.
-     */     
+     */
    bool nextSamplingRate();
 
 
@@ -351,9 +348,6 @@ AudioQuality operator-(const AudioQualityInterface& q1, const AudioQualityInterf
   * Limits resulting audio quality by a given byte rate.
   */
 AudioQuality operator-(const AudioQualityInterface& q1, const cardinal bytesPerSecond);
-
-
-}
 
 
 #include "audioquality.icc"

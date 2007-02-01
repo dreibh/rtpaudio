@@ -66,9 +66,6 @@
 #include "qinfotabwidget.h"
 
 
-using namespace Coral;
-
-
 /**
   * Transmission status info table #1 entries.
   */

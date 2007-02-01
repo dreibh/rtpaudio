@@ -34,9 +34,6 @@
 #include "audioconverter.h"
 
 
-namespace Coral {
-
-
 // ###### Constructor #######################################################
 SimpleAudioEncoder::SimpleAudioEncoder(AudioReaderInterface* audioReader)
 {
@@ -263,7 +260,4 @@ cardinal SimpleAudioEncoder::getNextPacket(EncoderPacket* encoderPacket)
       }
    }
    return(0);
-}
-
-
 }

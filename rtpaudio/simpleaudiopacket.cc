@@ -32,9 +32,6 @@
 #include "tools.h"
 
 
-namespace Coral {
-
-
 // ###### Encoding name #####################################################
 const char SimpleAudioPacket::SimpleAudioTypeName[] = "Simple Audio Encoding";
 
@@ -112,7 +109,4 @@ cardinal SimpleAudioPacket::calculateFrameSize(const cardinal inputBytesPerSecon
 {
    return((inputBytesPerSecond * inputFrameSize) /
           AudioQuality::HighestQuality.getBytesPerSecond());
-}
-
-
 }

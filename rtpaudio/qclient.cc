@@ -64,9 +64,6 @@
 #include "qclient.h"
 
 
-using namespace Coral;
-
-
 // ###### Constructor #######################################################
 QClient::QClient(AudioWriterInterface* audioOutput,
                  const char*           receiverName,

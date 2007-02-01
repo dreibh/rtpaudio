@@ -36,9 +36,6 @@
 #include "mediainfo.h"
 
 
-namespace Coral {
-
-
 /**
   * This structure contains packet information for handleNextPacket() call.
   *
@@ -126,7 +123,7 @@ class DecoderInterface
      * @return Decoder's type ID.
      */
    virtual const card16 getTypeID() const = 0;
-   
+
    /**
      * Get the decoder's name.
      *
@@ -141,13 +138,13 @@ class DecoderInterface
      * Usage example: Start an decoder thread.
      */
    virtual void activate() = 0;
-   
+
    /**
      * Deactivate the decoder.
      * Usage example: Stop an decoder thread.
      */
    virtual void deactivate() = 0;
-   
+
    /**
      * Reset the decoder.
      * Usage example: Reset an decoder thread.
@@ -190,24 +187,21 @@ class DecoderInterface
      * @return Error code
      */
    virtual card8 getErrorCode() const = 0;
-   
+
    /**
      * Get current position in nanoseconds.
      *
      * @return Position in nanoseconds.
      */
    virtual card64 getPosition() const = 0;
-   
+
    /**
      * Get maximum position in nanoseconds.
      *
      * @return Maximum position in nanoseconds.
-     */                    
+     */
    virtual card64 getMaxPosition() const = 0;
 };
-
-
-}
 
 
 #endif

@@ -34,9 +34,6 @@
 #include "audioserver.h"
 
 
-namespace Coral {
-
-
 // ###### Get client SSRC ###################################################
 inline card32 AudioServer::getOurSSRC() const
 {
@@ -75,9 +72,6 @@ inline cardinal AudioServer::setMaxPacketSize(const cardinal size)
       MaxPacketSize = size;
    }
    return(MaxPacketSize);
-}
-
-
 }
 
 

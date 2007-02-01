@@ -39,9 +39,6 @@
 #include <sys/time.h>
 
 
-namespace Coral {
-
-
 // ###### Constructor #######################################################
 SpectrumAnalyzer::SpectrumAnalyzer()
    : Synchronizable("SpectrumAnalyzer")
@@ -118,7 +115,7 @@ card8 SpectrumAnalyzer::setChannels(const card8 channels) {
 card16 SpectrumAnalyzer::setSamplingRate(const card16 rate) {
    synchronized();
    if(AudioSamplingRate != rate) {
-      AudioSamplingRate = rate;  
+      AudioSamplingRate = rate;
       InputBufferPos    = 0;
    }
    unsynchronized();
@@ -269,7 +266,4 @@ bool SpectrumAnalyzer::getSpectrum(cardinal* left, cardinal* right, const cardin
    InputBufferPos = 0;
    unsynchronized();
    return(true);
-}
-
-
 }

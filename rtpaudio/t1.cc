@@ -1,7 +1,5 @@
 #include <tdsocket.h>
 
-using namespace Coral;
-
 int main (int argc, const char * argv[])
 {
    Socket sock(AF_INET,SOCK_STREAM,IPPROTO_SCTP);

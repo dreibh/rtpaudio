@@ -35,9 +35,6 @@
 #include "audioquality.h"
 
 
-namespace Coral {
-
-
 /**
   * Audio quality converter. Convert quality from a given value to a given
   * value. Note: The "from" value must be greater than or equal to the "to"
@@ -91,9 +88,6 @@ bool getConvParams(const     cardinal in,
                    cardinal& a,
                    cardinal& b,
                    float&    c);
-
-
-}
 
 
 #endif

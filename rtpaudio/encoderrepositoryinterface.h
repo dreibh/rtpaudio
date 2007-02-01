@@ -36,9 +36,6 @@
 #include "encoderinterface.h"
 
 
-namespace Coral {
-
-
 /**
   * This class is a repository for encoders.
   *
@@ -49,7 +46,7 @@ namespace Coral {
 class EncoderRepositoryInterface : virtual public EncoderInterface
 {
    // ====== Select another encoder =========================================
-   public: 
+   public:
    /**
      * Select the encoder with the given TypeID to be the current encoder
      * of the repository.
@@ -59,17 +56,14 @@ class EncoderRepositoryInterface : virtual public EncoderInterface
      * false otherwise.
      */
    virtual bool selectEncoderForTypeID(const card16 typeID) = 0;
-   
+
    /**
      * Get EncoderInterface of the current encoder.
      *
-     * @return Current encoder's EncoderInterface.     
+     * @return Current encoder's EncoderInterface.
      */
    virtual EncoderInterface* getCurrentEncoder() const = 0;
 };
-
-
-}
 
 
 #endif

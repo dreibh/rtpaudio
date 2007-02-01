@@ -34,10 +34,6 @@
 #include <stdarg.h>
 
 
-namespace Coral {
-
-
-
 /*
    Note: libmpegsound requires a patch to calculate the length of VBR
          MP3s correctly.
@@ -411,14 +407,12 @@ void MP3AudioReader::releasedevice()
 {
 }
 
+
 // ###### Soundplayer: attachdevice() dummy function ########################
 bool MP3AudioReader::attachdevice()
 {
    return true;
 };
-
-
-}
 
 
 // ###### Soundplayer: debug ################################################

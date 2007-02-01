@@ -44,13 +44,10 @@
 #include <qmainwindow.h>
 
 
-using namespace Coral;
-
-
 // ###### Constructor #######################################################
-QAudioMixer::QAudioMixer(Coral::AudioMixer* mixer,
-                         QWidget*           parent,
-                         const char*        name)
+QAudioMixer::QAudioMixer(AudioMixer* mixer,
+                         QWidget*    parent,
+                         const char* name)
    : QMainWindow(parent,name)
 {
    Mixer = mixer;

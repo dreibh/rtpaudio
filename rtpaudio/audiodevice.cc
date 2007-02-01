@@ -37,9 +37,6 @@
 #include <sys/soundcard.h>
 
 
-namespace Coral {
-
-
 // Debug mode: Print debug information.
 #define DEBUG
 
@@ -157,7 +154,7 @@ AudioDevice::AudioDevice(const char* name)
    cout << "   DeviceByteOrder    = " << ((DeviceByteOrder == LITTLE_ENDIAN) ? "Little Endian" : "Big Endian") << endl;
    cout << "   DeviceFragmentSize = " << DeviceFragmentSize << endl;
    cout << "   DeviceOSpace       = " << DeviceOSpace
-        << " = " << AudioQuality(DeviceSamplingRate,DeviceBits,DeviceChannels).bytesToTime(DeviceOSpace) << " [µs]" << endl;
+        << " = " << AudioQuality(DeviceSamplingRate,DeviceBits,DeviceChannels).bytesToTime(DeviceOSpace) << " [s]" << endl;
    cout << "   Capabilities       = ";
    if(DeviceCapabilities & DSP_CAP_REALTIME) cout << "<Real-time> ";
    if(DeviceCapabilities & DSP_CAP_BATCH)    cout << "<Batch> ";
@@ -167,7 +164,7 @@ AudioDevice::AudioDevice(const char* name)
    cout << endl;
    cout << "RingBuffer:" << endl;
    cout << "   ResizeThreshold    = " << ResizeThreshold
-        << " = " << AudioQuality(DeviceSamplingRate,DeviceBits,DeviceChannels).bytesToTime(ResizeThreshold) << " [µs]" << endl;
+        << " = " << AudioQuality(DeviceSamplingRate,DeviceBits,DeviceChannels).bytesToTime(ResizeThreshold) << " [s]" << endl;
 #endif
 
 
@@ -430,7 +427,4 @@ void AudioDevice::run()
       Buffer.wait();
       moveAudioData();
    }
-}
-
-
 }

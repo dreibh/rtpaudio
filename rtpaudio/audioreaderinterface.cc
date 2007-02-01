@@ -31,12 +31,6 @@
 #include "audioreaderinterface.h"
 
 
-namespace Coral {
-
-
 AudioReaderInterface::~AudioReaderInterface()
 {
-}
-
-
 }

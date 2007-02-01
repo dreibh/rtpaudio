@@ -36,9 +36,6 @@
 #include "audioquality.h"
 
 
-namespace Coral {
-
-
 /**
   * This class defines the packet format for the simple audio encoder.
   *
@@ -71,7 +68,7 @@ class SimpleAudioPacket
      */
    void reset();
 
- 
+
    // ====== Constants ======================================================
    /**
      * Type ID for Simple Audio Encoding.
@@ -210,13 +207,10 @@ class SimpleAudioPacket
 
    /**
      * Packet data.
-     */   
+     */
    char Data[0];
 };
 
 
-}
-
-
 #endif
-            
+

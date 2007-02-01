@@ -41,14 +41,9 @@
 #include "tdsocket.h"
 #include "strings.h"
 
-
 #include "audioclientapppacket.h"
 
-
 #include <map>
-
-
-namespace Coral {
 
 
 /**
@@ -222,7 +217,7 @@ class AudioClient : virtual public AdjustableAudioQualityInterface
      */
    inline bool playing() const;
 
-  
+
    /**
      * Get server address string.
      *
@@ -286,7 +281,7 @@ class AudioClient : virtual public AdjustableAudioQualityInterface
      * @see getLayers
      */
    inline card32 getFlowLabel(const cardinal layer = 0) const;
-   
+
    /**
      * Get traffic class of last received packet in given layer.
      *
@@ -295,7 +290,7 @@ class AudioClient : virtual public AdjustableAudioQualityInterface
      *
      * @see getLayers
      */
-   inline card8 getTrafficClass(const cardinal layer = 0) const;   
+   inline card8 getTrafficClass(const cardinal layer = 0) const;
 
    /**
      * Get server SSRC for given layer.
@@ -352,7 +347,7 @@ class AudioClient : virtual public AdjustableAudioQualityInterface
      * @return Encoding name or NULL, if index is too high.
      */
    const char* getEncodingName(const cardinal index);
-   
+
 
    /**
      * Set media position.
@@ -435,16 +430,13 @@ class AudioClient : virtual public AdjustableAudioQualityInterface
    card32                                          OurSSRC;
 
    multimap<const cardinal,AudioDecoderInterface*> DecoderSet;
-   AudioDecoderRepository                          Decoders;   
-   
+   AudioDecoderRepository                          Decoders;
+
    AudioClientAppPacket                            Status;
    card64                                          OldPosition;
    card64                                          ChangeTimeStamp;
    bool                                            IsPlaying;
 };
-
-
-}
 
 
 #include "audioclient.icc"

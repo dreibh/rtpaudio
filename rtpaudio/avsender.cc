@@ -50,13 +50,13 @@
 
 
 // Globals
-Coral::QoSManager* qosManager                     = NULL;
-Coral::CongestionManagerClient* cmClient          = NULL;
+QoSManager*              qosManager        = NULL;
+CongestionManagerClient* cmClient          = NULL;
 
-Coral::Socket*                  rtcpServerSocket  = NULL;
-Coral::InternetAddress*           rtcpServerAddress = NULL;
-Coral::RTCPReceiver*            rtcpReceiver      = NULL;
-Coral::AudioServer*             server            = NULL;
+Socket*                  rtcpServerSocket  = NULL;
+InternetAddress*         rtcpServerAddress = NULL;
+RTCPReceiver*            rtcpReceiver      = NULL;
+AudioServer*             server            = NULL;
 
 ::Socket          RTPSocket;
 ::Socket          RTCPSocket;
@@ -74,7 +74,7 @@ void initAll(const char*& directory,
              const card64 timeout,
              const card16 port)
 {
-   // ====== Initialize Prog4D ==============================================   
+   // ====== Initialize Prog4D ==============================================
    int local_port  = 6000;
    int remote_port = 5000;
 
@@ -128,12 +128,12 @@ void initAll(const char*& directory,
 
 
    // ====== Initialize RTP Audio ===========================================
-   rtcpServerSocket = new Coral::Socket(Coral::Socket::IP,Coral::Socket::UDP);
+   rtcpServerSocket = new Socket(Socket::IP,Socket::UDP);
    if(rtcpServerSocket == NULL) {
       cerr << "ERROR: AVSender::initAll() - Out of memory!" << endl;
       cleanUp(1);
    }
-   rtcpServerAddress = new Coral::InternetAddress(local,port);
+   rtcpServerAddress = new InternetAddress(local,port);
    if(rtcpServerAddress == NULL) {
       cerr << "ERROR: AVSender::initAll() - Out of memory!" << endl;
       cleanUp(1);
@@ -141,14 +141,14 @@ void initAll(const char*& directory,
    if(rtcpServerSocket->bind(*rtcpServerAddress) == false) {
       cerr << "ERROR: AVSender::initAll() - Unable to bind socket!" << endl;
       exit(1);
-   }   
-   server = new Coral::AudioServer(qosManager,1500,cmClient);
+   }
+   server = new AudioServer(qosManager,1500,cmClient);
    if(server == NULL) {
       cerr << "ERROR: AVSender::initAll() - Out of memory!" << endl;
       cleanUp(1);
    }
    server->setDefaultTimeout(timeout);
-   rtcpReceiver = new Coral::RTCPReceiver(server,rtcpServerSocket);
+   rtcpReceiver = new RTCPReceiver(server,rtcpServerSocket);
    if(rtcpReceiver == NULL) {
       cerr << "ERROR: AVSender::initAll() - Out of memory!" << endl;
       cleanUp(1);
@@ -212,7 +212,7 @@ int main(int argc, char* argv[])
    char*  manager      = NULL;
    char*  directory    = NULL;
    card64 timeout      = 10000000;
-   card16 port         = Coral::AudioClientAppPacket::RTPAudioDefaultPort;
+   card16 port         = AudioClientAppPacket::RTPAudioDefaultPort;
    for(cardinal i = 1;i < (cardinal)argc;i++) {
       if(!(strcasecmp(argv[i],"-force-ipv4")))          optForceIPv4 = true;
       else if(!(strncasecmp(argv[i],"-local=",7)))      local        = &argv[i][7];
@@ -228,8 +228,8 @@ int main(int argc, char* argv[])
       }
    }
    if(optForceIPv4) {
-      if(Coral::InternetAddress::UseIPv6 == true) {
-         Coral::InternetAddress::UseIPv6 = false;
+      if(InternetAddress::UseIPv6 == true) {
+         InternetAddress::UseIPv6 = false;
          cerr << "NOTE: IPv6 support disabled!" << endl;
       }
    }
@@ -250,17 +250,17 @@ int main(int argc, char* argv[])
 
    // ====== Initialize QoS manager =========================================
    if(disableQM == false) {
-      qosManager = new Coral::QoSManager();
+      qosManager = new QoSManager();
       if(qosManager == NULL) {
          cerr << "ERROR: AVSender::main() - Out of memory!" << endl;
-         cleanUp(1);  
+         cleanUp(1);
       }
    }
 
 
    // ====== Initialize CongestionManager client ============================
    if(manager) {
-      cmClient = new Coral::CongestionManagerClient(manager);
+      cmClient = new CongestionManagerClient(manager);
       if(!cmClient->ready()) {
          delete cmClient;
          cmClient = NULL;
@@ -275,7 +275,7 @@ int main(int argc, char* argv[])
 
    // ====== Initialize =====================================================
    initAll(directory,local,premote,timeout,port);
-   // Coral::installBreakDetector();
+   // installBreakDetector();
 
 
    // ====== Print status ===================================================
@@ -286,7 +286,7 @@ int main(int argc, char* argv[])
    if(local) {
       cout << "   Server local:    " << local << endl;
    }
-   Coral::InternetAddress address;
+   InternetAddress address;
    rtcpServerSocket->getSocketAddress(address);
    cout << "   Server address:  " << address << endl;
    char str[32];
@@ -304,9 +304,9 @@ int main(int argc, char* argv[])
 
    // ====== Main loop ======================================================
    for(;;) {
-      // if(Coral::breakDetected())
+      // if(breakDetected())
       //   break;
-      Coral::Thread::delay(10000000,true);
+      Thread::delay(10000000,true);
    }
 
 

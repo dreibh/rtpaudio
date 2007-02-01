@@ -42,9 +42,6 @@
 #include <vector>
 
 
-namespace Coral {
-
-
 class TrafficShaper;
 
 
@@ -291,9 +288,6 @@ class TrafficShaper : public Synchronizable
    integer                       LastError;
    cardinal                      LastSeqNum;
 };
-
-
-}
 
 
 #include "trafficshaper.icc"

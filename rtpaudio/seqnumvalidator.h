@@ -34,9 +34,6 @@
 #include "tdsystem.h"
 
 
-namespace Coral {
-
-
 /**
   * This class is a validator for sequence numbers. It is based on the algorithm
   * described in RFC 1889. It can use sequence numbers up to a size of 64 bits.
@@ -45,7 +42,7 @@ namespace Coral {
   * @short   Sequence Number Validator
   * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
   * @version 1.0
-  */            
+  */
 class SeqNumValidator
 {
    // ====== Constructor ====================================================
@@ -153,7 +150,7 @@ class SeqNumValidator
 
    card64   PrevPacketTimeStamp;   // Time stamp of previous packet.
    card64   PrevPacketArrivalTime; // Arrival time of previous packet.
-   double   Jitter;                // Estimated jitter.  
+   double   Jitter;                // Estimated jitter.
    double   FractionLost;          // Fraction lost.
 
    card64   MaxSeq;                // Highest seq. number seen.
@@ -168,9 +165,6 @@ class SeqNumValidator
 
    bool     Uninitialized;         // Waiting for the first valid seq. number.
 };
-
-
-}
 
 
 #include "seqnumvalidator.icc"

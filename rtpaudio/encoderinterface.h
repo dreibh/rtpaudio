@@ -36,9 +36,6 @@
 #include "abstractqosdescription.h"
 
 
-namespace Coral {
-
-
 /**
   * This structure contains packet information for getNextPacket() call.
   *
@@ -106,7 +103,7 @@ class EncoderInterface
      * @return Encoder's type ID.
      */
    virtual const card16 getTypeID() const = 0;
-   
+
    /**
      * Get the encoder's name.
      *
@@ -194,9 +191,6 @@ class EncoderInterface
      */
    virtual void updateQuality(const AbstractQoSDescription* aqd) = 0;
 };
-
-
-}
 
 
 #endif

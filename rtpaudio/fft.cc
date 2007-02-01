@@ -35,9 +35,6 @@
 #include <sys/time.h>
 
 
-namespace Coral {
-
-
 // ###### Constructor #######################################################
 FastFourierTransformation::FastFourierTransformation(const integer fftlen)
 {
@@ -158,7 +155,4 @@ void FastFourierTransformation::fft(int16* buffer) {
 // ###### Get pointer to BitReversed array ##################################
 integer* FastFourierTransformation::getBitReversed() {
   return BitReversed;
-}
-
-
 }

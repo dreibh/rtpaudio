@@ -31,9 +31,6 @@
 #include "audioconverter.h"
 
 
-namespace Coral {
-
-
 // ###### Get aligned length for conversion's result ########################
 cardinal getAlignedLength(const AudioQualityInterface& inputQuality,
                           const AudioQualityInterface& outputQuality,
@@ -50,7 +47,7 @@ cardinal getAlignedLength(const AudioQualityInterface& inputQuality,
       if(outputQuality.getChannels() > 1)
          alignment = 6;
       else
-         alignment = 3;     
+         alignment = 3;
    }
    else if(outputQuality.getBits() == 16) {
       if(outputQuality.getChannels() > 1)
@@ -382,7 +379,4 @@ conversionComplete:
 
    // cout << "out: " << length <<  endl;
    return(length);
-}
-
-
 }

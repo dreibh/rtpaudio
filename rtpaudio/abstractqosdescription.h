@@ -30,9 +30,6 @@
 #include "resourceutilizationpoint.h"
 
 
-namespace Coral {
-
-
 /**
   * This class contains a stream's QoS requirements.
   *
@@ -366,10 +363,7 @@ class AbstractQoSDescription : virtual public FrameRateScalabilityInterface
 /**
   * Output operator.
   */
-ostream& operator<<(ostream& os, const AbstractQoSDescription& aqd);
-
-
-}
+std::ostream& operator<<(std::ostream& os, const AbstractQoSDescription& aqd);
 
 
 #include "abstractqosdescription.icc"

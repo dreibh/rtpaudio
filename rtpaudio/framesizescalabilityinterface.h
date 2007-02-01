@@ -26,9 +26,6 @@
 #include "tdsystem.h"
 
 
-namespace Coral {
-
-
 /**
   * This class is an interface for frame size scalability.
   * Important node: All frames sizes in this class are payload frame sizes!
@@ -227,9 +224,6 @@ class FrameSizeScalabilityInterface
    virtual cardinal getPrevBufferDelayForDelay(const double   frameRate,
                                                const cardinal bufferDelay) const = 0;
 };
-
-
-}
 
 
 #endif

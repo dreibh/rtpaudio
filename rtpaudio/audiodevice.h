@@ -37,9 +37,6 @@
 #include "ringbuffer.h"
 
 
-namespace Coral {
-
-
 /**
   * This class implements AudioWriterInterface for the audio device.
   *
@@ -74,12 +71,12 @@ class AudioDevice : virtual public AudioWriterInterface,
      * @see AudioWriterInterface#sync
      */
    inline cardinal getSyncCount() const;
-   
+
    /**
      * Reset number of times, sync() has been called.
      *
      * @see AudioWriterInterface#sync
-     */   
+     */
    inline void resetSyncCount();
 
 
@@ -142,7 +139,7 @@ class AudioDevice : virtual public AudioWriterInterface,
      * @see AdjustableAudioQualityInterface#setBits
      */
    card8 setBits(const card8 bits);
-   
+
    /**
      * setChannels() Implementation of AdjustableAudioQualityInterface.
      *
@@ -238,9 +235,6 @@ class AudioDevice : virtual public AudioWriterInterface,
    RingBuffer Buffer;
    cardinal   ResizeThreshold;
 };
-
-
-}
 
 
 #include "audiodevice.icc"

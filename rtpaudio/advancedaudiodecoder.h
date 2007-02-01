@@ -44,9 +44,6 @@
 #include <map>
 
 
-namespace Coral {
-
-
 /**
   * This class is an advanced audio decoder. It does error correction by
   * using nearly redundant data of left and right channel to "reconstruct"
@@ -67,7 +64,7 @@ class AdvancedAudioDecoder : public AudioDecoderInterface,
      * @param audioWriter AudioReaderInterface for the audio output.
      */
    AdvancedAudioDecoder(AudioWriterInterface* audioWriter);
-   
+
    /**
      * Destructor.
      */
@@ -81,14 +78,14 @@ class AdvancedAudioDecoder : public AudioDecoderInterface,
      * @see DecoderInterface#getTypeID
      */
    const card16 getTypeID() const;
-   
+
    /**
      * getTypeName implementation of DecoderInterface.
      *
      * @see DecoderInterface#getTypeName
      */
    const char* getTypeName() const;
-   
+
    /**
      * activate() implementation of DecoderInterface.
      *
@@ -123,14 +120,14 @@ class AdvancedAudioDecoder : public AudioDecoderInterface,
      * @see DecoderInterface#getErrorCode
      */
    card8 getErrorCode() const;
-   
+
    /**
      * getPosition() implementation of DecoderInterface.
      *
      * @see DecoderInterface#getPosition
      */
    card64 getPosition() const;
-   
+
    /**
      * getMaxPosition() implementation of DecoderInterface.
      *
@@ -276,9 +273,6 @@ class AdvancedAudioDecoder : public AudioDecoderInterface,
    card8           AudioChannels;
    card8           ErrorCode;
 };
-
-
-}
 
 
 #endif

@@ -37,9 +37,6 @@
 #include "fft.h"
 
 
-namespace Coral {
-
-
 /**
   * This class implements a spectrum analyzer device implementing AudioWriterInterface.
   *
@@ -61,7 +58,7 @@ class SpectrumAnalyzer : virtual public AudioWriterInterface,
      * Destructor.
      */
    ~SpectrumAnalyzer();
-   
+
 
    // ====== AudioQualityInterface implementation ===========================
    /**
@@ -122,7 +119,7 @@ class SpectrumAnalyzer : virtual public AudioWriterInterface,
      * @see AdjustableAudioQualityInterface#setBits
      */
    card8 setBits(const card8 bits);
-   
+
    /**
      * setChannels() Implementation of AdjustableAudioQualityInterface.
      *
@@ -170,7 +167,7 @@ class SpectrumAnalyzer : virtual public AudioWriterInterface,
      * @param right Pointer to spectrum array for right channel.
      * @param bars Number of bars.
      * @return true, if spectrum has been computed; false, if there is not enough input data available.
-     */     
+     */
    bool getSpectrum(cardinal* left, cardinal* right, const cardinal bars);
 
 
@@ -190,9 +187,6 @@ class SpectrumAnalyzer : virtual public AudioWriterInterface,
    card8                      AudioChannels;
    card16                     AudioByteOrder;
 };
-
-
-}
 
 
 #endif

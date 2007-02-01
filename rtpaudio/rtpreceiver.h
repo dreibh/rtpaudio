@@ -40,9 +40,6 @@
 #include "internetflow.h"
 
 
-namespace Coral {
-
-
 /**
   * This class implements an RTP receiver based on Thread.
   *
@@ -118,7 +115,7 @@ class RTPReceiver : public Thread
      * @return Bytes received.
      */
    inline card64 getBytesReceived(const cardinal layer) const;
-      
+
    /**
      * Get number of packets received.
      *
@@ -133,7 +130,7 @@ class RTPReceiver : public Thread
      * @param layer Layer number.
      */
    inline void resetBytesReceived(const cardinal layer);
-   
+
    /**
      * Reset number of packets received.
      *
@@ -147,7 +144,7 @@ class RTPReceiver : public Thread
      * @return Number of layers.
      */
    inline cardinal getLayers() const;
-   
+
    /**
      * Get InternetFlow  of last transmission in a given layer.
      *
@@ -186,9 +183,6 @@ class RTPReceiver : public Thread
    DecoderInterface* Decoder;
    Socket*           ReceiverSocket;
 };
-
-
-}
 
 
 #include "rtpreceiver.icc"

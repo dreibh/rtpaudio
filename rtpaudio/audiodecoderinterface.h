@@ -36,9 +36,6 @@
 #include "audioquality.h"
 
 
-namespace Coral {
-
-
 /**
   * This class is the interface for an audio decoder.
   *
@@ -73,9 +70,6 @@ class AudioDecoderInterface : virtual public DecoderInterface,
      */
    virtual void setWantedQuality(const AudioQualityInterface& wantedQuality) = 0;
 };
-
-
-}
 
 
 #endif

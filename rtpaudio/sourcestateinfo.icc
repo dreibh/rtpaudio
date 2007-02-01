@@ -35,9 +35,6 @@
 #include "tools.h"
 
 
-namespace Coral {
-
-
 // ###### Get SSRC ##########################################################
 inline card32 SourceStateInfo::getSSRC() const
 {
@@ -65,9 +62,6 @@ inline void SourceStateInfo::setLSR(const card32 lsr)
 {
    LSR                = lsr;
    LSRUpdateTimeStamp = getMicroTime();
-}
-
-
 }
 
 

@@ -36,9 +36,6 @@
 #include "audioquality.h"
 
 
-namespace Coral {
-
-
 /**
   * This class implements a dummy AudioWriterInterface.
   *
@@ -84,9 +81,6 @@ class AudioNull : virtual public AudioWriterInterface,
      */
    bool write(const void* data, const size_t length);
 };
-
-
-}
 
 
 #endif

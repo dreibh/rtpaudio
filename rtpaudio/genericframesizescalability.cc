@@ -24,9 +24,6 @@
 #include "genericframesizescalability.h"
 
 
-namespace Coral {
-
-
 // ###### Check, if frame size is valid #####################################
 bool GenericFrameSizeScalability::isValidPayloadFrameSize(
                                      const double   frameRate,
@@ -151,7 +148,4 @@ cardinal GenericFrameSizeScalability::getPrevBufferDelayForDelay(
       return(bufferDelay - 1);
    }
    return(1);
-}
-
-
 }

@@ -37,9 +37,6 @@
 #include <sys/time.h>
 
 
-namespace Coral {
-
-
 // ###### Audio debug constructor ###########################################
 AudioDebug::AudioDebug() {
    setQuality(AudioQuality::HighestQuality);
@@ -158,11 +155,11 @@ bool AudioDebug::write(const void* data, const size_t length)
    const double bytesPerMicroSecond = (double)
       (((cardinal)AudioSamplingRate * (cardinal)AudioChannels * (cardinal)AudioBits) / 8) /
       1000000.0;
-   
+
    if(LastWriteTimeStamp != 0) {
       const card64 delay = now - LastWriteTimeStamp;
       Balance -= (integer)((double)delay * bytesPerMicroSecond);
-      
+
       if((Balance > - 100000) && (Balance < 100000)) {
          if(now - LastPrintTimeStamp > 250000) {
             cout << "out=" << BytesWritten << "  ";
@@ -187,7 +184,4 @@ bool AudioDebug::write(const void* data, const size_t length)
    BytesWritten     += length;
 
    return(true);
-}
-
-
 }

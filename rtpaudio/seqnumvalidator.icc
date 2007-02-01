@@ -34,9 +34,6 @@
 #include "seqnumvalidator.h"
 
 
-namespace Coral {
-
-
 // ###### Get packets received ##############################################
 inline card64 SeqNumValidator::getPacketsReceived() const
 {
@@ -52,7 +49,7 @@ inline card64 SeqNumValidator::getPacketsLost() const
 
    return(((Cycles + (card64)MaxSeq) - (card64)BaseSeq + 1) - Received);
 }
-   
+
 
 // ###### Calculate last sequence number ####################################
 inline card64 SeqNumValidator::getLastSeqNum() const
@@ -87,9 +84,6 @@ inline void SeqNumValidator::init(const card64 sequenceNumber)
    MaxSeq                = sequenceNumber;
    BaseSeq               = sequenceNumber - 1;
    BadSeq                = SeqMod + 1;
-}            
-
-
 }
 
 
