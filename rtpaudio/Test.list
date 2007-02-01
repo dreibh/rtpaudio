@@ -14,7 +14,7 @@ AudioList
 # *artist = <artist> sets the artist string for the next file.
 # *comment = <comment> sets the comment string for the next file.
 
-*directory = /home/dreibh/MP3s
+*directory = MP3s
 
 *title   = Born To Be Wild
 *artist  = Steppenwolf, 1967
@@ -32,7 +32,7 @@ SanFrancisco.mp3
 GoWest.mp3
 
 *title   = Hellraiser
-*artist  = Motörhead, 1992
+*artist  = MotÃ¶rhead, 1992
 *comment = RTP Audio Test MP3 File #4
 Hellraiser.mp3
 

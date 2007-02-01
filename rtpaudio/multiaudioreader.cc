@@ -79,6 +79,7 @@ bool MultiAudioReader::openMedia(const char* name)
    closeMedia();
    Error = ME_BadMedia;
    FILE* inputFD = fopen(name,"r");
+printf("MEDIA=<%s>\n", name);
    if(inputFD == NULL) {
       std::cerr << "WARNING: Unable to open input file <" << name << ">!" << std::endl;
       return(false);

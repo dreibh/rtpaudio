@@ -52,7 +52,7 @@
 
 // ###### Constructor #######################################################
 RingBuffer::RingBuffer()
-   : Condition("RingBufferCondition", NULL)
+   : Condition("RingBufferCondition", NULL, true)
 {
    Buffer = NULL;
 }

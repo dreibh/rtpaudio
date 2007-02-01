@@ -76,7 +76,7 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    : QMainWindow(parent,name)
 {
    // ====== Create AudioClient =============================================
-   Client                 = new AudioClient(NULL,0,audioOutput);
+   Client                 = new AudioClient(audioOutput);
    CHECK_PTR(Client);
    SpectrumAnalyzerWindow = NULL;
    SpectrumAnalyzerDevice = analyzer;
@@ -169,9 +169,9 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    menu->insertItem("&Help",helpMenu);
 
    // ====== Status line ====================================================
-   QLabel* copyright = new QLabel("Copyright (C) 1999-2001 Thomas Dreibholz",centralWidget);
+   QLabel* copyright = new QLabel("Copyright (C) 1999-2007 Thomas Dreibholz",centralWidget);
    CHECK_PTR(copyright);
-   WhatsThis->add(copyright,"RTP Audio Client\nCopyright (C) 1999-2001 Thomas Dreibholz");
+   WhatsThis->add(copyright,"RTP Audio Client\nCopyright (C) 1999-2007 Thomas Dreibholz");
    copyright->setAlignment(AlignRight);
    StatusBar = new QLabel("Welcome to the RTP Audio Client!",centralWidget);
    CHECK_PTR(StatusBar);
@@ -389,7 +389,7 @@ QClient::QClient(AudioWriterInterface* audioOutput,
       }
       else {
          if(Client->getIPVersion() == 6)
-            Location->setText("rtpa://ipv6-localhost:7500/Test.list");
+            Location->setText("rtpa://[::1]:7500/Test.list");
          else
             Location->setText("rtpa://localhost:7500/Test.list");
       }

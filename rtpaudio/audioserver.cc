@@ -62,18 +62,14 @@
 
 
 // ###### Constructor #######################################################
-AudioServer::AudioServer(SocketAddress**          localAddressArray,
-                         const cardinal           localAddresses,
-                         BandwidthManager*        qosManager,
-                         const cardinal           maxPacketSize,
-                         const bool               useSCTP)
+AudioServer::AudioServer(BandwidthManager* qosManager,
+                         const cardinal    maxPacketSize,
+                         const bool        useSCTP)
 {
    Randomizer random;
-   OurSSRC            = random.random32();
-   QoSMgr             = qosManager;
-   UseSCTP            = useSCTP;
-   LocalAddressArray  = localAddressArray;
-   LocalAddresses     = localAddresses;
+   OurSSRC = random.random32();
+   QoSMgr  = qosManager;
+   UseSCTP = useSCTP;
    setMaxPacketSize(maxPacketSize);
    setLossScalability(true);
 }
@@ -97,7 +93,7 @@ void AudioServer::outOfMemoryWarning()
 // ###### Send update to congestion manager #################################
 void AudioServer::managementUpdate(const Client* client, User* user)
 {
-   // ???????????
+   // ???
 }
 
 
@@ -116,35 +112,13 @@ void* AudioServer::newClient(Client* client, const char* cname)
    client->UserData       = user;
 
    // ====== Create and connect sender socket ===============================
-   user->SenderSocket.create(Socket::IP,Socket::UDP,
-                             (integer)(UseSCTP ? Socket::SCTP : Socket::Default));
+   user->SenderSocket.create(Socket::IP,
+                             UseSCTP ? Socket::SeqPacket : Socket::Datagram,
+                             UseSCTP ? Socket::SCTP : Socket::Default);
    if(!user->SenderSocket.ready()) {
       std::cerr << "WARNING: AudioServer::newClient() - Unable to create socket!" << std::endl;
       deleteClient(client,DeleteReason_Error);
       return(NULL);
-   }
-   if(user->SenderSocket.bindx((const SocketAddress**)LocalAddressArray,
-                               LocalAddresses,
-                               SCTP_BINDX_ADD_ADDR) == false) {
-      std::cerr << "WARNING: AudioServer::newClient() - Unable to bind socket!" << std::endl;
-      deleteClient(client,DeleteReason_Error);
-      return(NULL);
-   }
-   if(UseSCTP) {
-      struct sctp_event_subscribe events;
-
-      memset((char*)&events, 0 ,sizeof(events));
-      if(user->SenderSocket.setSocketOption(IPPROTO_SCTP, SCTP_EVENTS, &events, sizeof(events)) < 0) {
-         std::cerr << "WARNING: AudioClient::play() - SCTP_EVENTS failed!" << std::endl;
-      }
-      sctp_initmsg init;
-      init.sinit_num_ostreams   = 1;
-      init.sinit_max_instreams  = 16;
-      init.sinit_max_attempts   = 0;
-      init.sinit_max_init_timeo = 60;
-      if(user->SenderSocket.setSocketOption(IPPROTO_SCTP,SCTP_INITMSG,(char*)&init,sizeof(init)) < 0) {
-         std::cerr << "WARNING: AudioServer::newClient() - Unable to set SCTP_INITMSG parameters!" << std::endl;
-      }
    }
    user->Flow = user->SenderSocket.allocFlow(client->ClientAddress);
    if(user->Flow.getFlowLabel() != 0) {
@@ -184,18 +158,7 @@ void* AudioServer::newClient(Client* client, const char* cname)
    user->Sender.init(OurSSRC,&user->Repository,&user->SenderSocket,MaxPacketSize);
 
    // ====== Add stream to QoS management ===================================
- /* ???????
-   ExtendedTransportInfo streamDescription;
-   user->Sender.getTransportInfo(streamDescription);
-   InternetAddress ourAddress;
-   user->SenderSocket.getSocketAddress(ourAddress);
-   if(QoSMgr != NULL) {
-      user->StreamIdentifier = QoSMgr->getID();
-   }
-   else {
-      user->StreamIdentifier = (integer)user;
-   }
-*/
+   // ???
 
    UserSetSync.synchronized();
    UserSet.insert(std::pair<const cardinal,User*>(user->StreamIdentifier,user));
@@ -245,14 +208,9 @@ void AudioServer::deleteClient(Client* client, const DeleteReason reason)
          UserSet.erase(found);
          UserSetSync.unsynchronized();
 
-      /* ????
-         if(QoSMgr != NULL) {
-#ifdef QOSMGR_DEBUG
-            std::cout << "Close stream " << user->StreamIdentifier << std::endl;
-#endif
-            QoSMgr->closeStream(user->StreamIdentifier);
-         }
-         */
+         // ====== Remove stream from QoS management ========================
+         // ???
+
       }
       user->Sender.stop();
       if(user->Flow.getFlowLabel() != 0) {
@@ -375,7 +333,8 @@ void AudioServer::userCommand(const Client*               client,
        break;
       case AudioClientAppPacket::ACAS_Play:
          {
-/* ????????????????
+            const AbstractQoSDescription* qosDescription = user->Sender.getQoSDescription(0);
+/* ???
             ExtendedTransportInfo ti;
             user->Sender.getTransportInfo(ti,false);
 
@@ -408,7 +367,9 @@ void AudioServer::userCommand(const Client*               client,
                }
             }
 */
-            if((user->ClientPause == true) && (user->UserLimitPause == false) && (user->ManagerLimitPause == false)) {
+            if((user->ClientPause == true) &&
+               (user->UserLimitPause == false) &&
+               (user->ManagerLimitPause == false)) {
                user->ClientPause = false;
                user->Sender.setPause(false);
             }
@@ -474,7 +435,7 @@ void AudioServer::receiverReport(const Client*                   client,
                                  const RTCPReceptionReportBlock* report,
                                  const cardinal                  layer)
 {
-/*
+/* ???
    User* user = (User*)client->UserData;
 
    if(LossScalability == true) {
@@ -490,7 +451,5 @@ void AudioServer::receiverReport(const Client*                   client,
          managementUpdate(client,user);
       }
    }
-
-   ?????????????????????????????????
 */
 }

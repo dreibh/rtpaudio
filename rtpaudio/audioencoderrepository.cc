@@ -159,6 +159,9 @@ void AudioEncoderRepository::deactivate()
 void AudioEncoderRepository::reset()
    { Encoder->reset(); }
 
+double AudioEncoderRepository::getFrameRate() const
+   { return(Encoder->getFrameRate()); }
+
 AbstractQoSDescription* AudioEncoderRepository::getQoSDescription(
                            const cardinal pktHeaderSize,
                            const cardinal pktMaxSize,

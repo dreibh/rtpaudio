@@ -60,13 +60,9 @@ class AudioClient : virtual public AdjustableAudioQualityInterface
    /**
      * Constructor for a new audio client.
      *
-     * @param localAddressArray Local address array to bind RTP/RTCP sockets to.
-     * @param localAddresses Number of local addresses.
      * @param audioOutput AudioWriter to write the output to.
      */
-   AudioClient(SocketAddress**       localAddressArray,
-               const cardinal        localAddresses,
-               AudioWriterInterface* audioOutput);
+   AudioClient(AudioWriterInterface* audioOutput);
 
    /**
      * Destructor.
@@ -424,8 +420,6 @@ class AudioClient : virtual public AdjustableAudioQualityInterface
    Socket                                               ReceiverSocket;
    InternetFlow                                         Flow;
    InternetAddress                                      ServerAddress;
-   cardinal                                             LocalAddresses;
-   SocketAddress**                                      LocalAddressArray;
    card16                                               OurPort;
    card32                                               OurSSRC;
 

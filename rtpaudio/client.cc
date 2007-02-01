@@ -188,7 +188,7 @@ int main(int argc, char* argv[])
    // ===== Check arguments =================================================
    if(argc < 2) {
       std::cerr << "Usage: " << argv[0] << std::endl
-           << "[URL] {-local=host{:Port}} {-debug} {-null} {-encoding=number} {-prefix=name} {-info=infostring} {-force-ipv4}" << std::endl;
+           << "[URL] {-debug} {-null} {-encoding=number} {-prefix=name} {-info=infostring} {-force-ipv4}" << std::endl;
       exit(0);
    }
    bool            optAudioDebug = false;
@@ -201,8 +201,6 @@ int main(int argc, char* argv[])
    integer         rate          = AudioQuality::HighestSamplingRate;
    integer         bits          = AudioQuality::HighestBits;
    bool            stereo        = true;
-   SocketAddress** localAddressArray = NULL;
-   cardinal        localAddresses    = 0;
    for(cardinal i = 1;i < (cardinal)argc;i++) {
       if(!(strcasecmp(argv[i],"-debug")))           optAudioDebug = true;
       else if(!(strcasecmp(argv[i],"-null")))       optAudioNull  = true;
@@ -210,29 +208,6 @@ int main(int argc, char* argv[])
       else if(!(strcasecmp(argv[i],"-use-ipv4")))   optForceIPv4  = false;
       else if(!(strcasecmp(argv[i],"-sctp")))       optUseSCTP    = true;
       else if(!(strcasecmp(argv[i],"-nosctp")))     optUseSCTP    = false;
-      else if(!(strncasecmp(argv[i],"-local=",7))) {
-         if(localAddresses < SCTP_MAXADDRESSES) {
-            if(localAddressArray == NULL) {
-               localAddressArray = SocketAddress::newAddressList(SCTP_MAXADDRESSES);
-               if(localAddressArray == NULL) {
-                  std::cerr << "ERROR: Out of memory!" << std::endl;
-                  exit(1);
-               }
-            }
-            localAddressArray[localAddresses] = SocketAddress::createSocketAddress(
-                                                   SocketAddress::PF_HidePort,
-                                                   &argv[i][7]);
-            if(localAddressArray[localAddresses] == NULL) {
-               std::cerr << "ERROR: Argument #" << i << " is an invalid address!" << std::endl;
-               exit(1);
-            }
-            localAddresses++;
-         }
-         else {
-            std::cerr << "ERROR: Too many local addresses!" << std::endl;
-            exit(1);
-         }
-      }
       else if(!(strncasecmp(argv[i],"-prefix=",8))) prefix        = &argv[i][8];
       else if(!(strncasecmp(argv[i],"-info=",6)))   info          = &argv[i][6];
       else if(!(strncasecmp(argv[i],"-rate=",6)))   rate          = atol(&argv[i][6]);
@@ -250,36 +225,6 @@ int main(int argc, char* argv[])
          std::cerr << "NOTE: IPv6 support disabled!" << std::endl;
       }
    }
-   if(localAddressArray == NULL) {
-      if(optUseSCTP == true) {
-         if(!Socket::getLocalAddressList(
-               localAddressArray,
-               localAddresses,
-               Socket::GLAF_HideBroadcast|Socket::GLAF_HideMulticast|Socket::GLAF_HideAnycast)) {
-            std::cerr << "ERROR: Cannot obtain local addresses!" << std::endl;
-            exit(1);
-         }
-         if(localAddresses < 1) {
-            std::cerr << "ERROR: No valid local addresses have been found?!" << std::endl
-                 << "       Check your network interface configuration!" << std::endl;
-            exit(1);
-         }
-      }
-      else {
-         localAddressArray = SocketAddress::newAddressList(SCTP_MAXADDRESSES);
-         if(localAddressArray == NULL) {
-            std::cerr << "ERROR: Out of memory!" << std::endl;
-            exit(1);
-         }
-         localAddressArray[0] = new InternetAddress(0);
-         if(localAddressArray[0] == NULL) {
-            std::cerr << "ERROR: Out of memory!" << std::endl;
-            exit(1);
-         }
-         localAddresses = 1;
-      }
-   }
-
 
    // ====== Get server address and media name ==============================
    String protocol;
@@ -318,7 +263,7 @@ int main(int argc, char* argv[])
 
 
    // ====== Initialize Audio client ========================================
-   client = new AudioClient(localAddressArray,localAddresses,audioOutput);
+   client = new AudioClient(audioOutput);
    if(client == NULL) {
       std::cerr << "ERROR: Client::main() - Out of memory!" << std::endl;
       cleanUp(1);
@@ -357,7 +302,7 @@ int main(int argc, char* argv[])
 
 
    // ====== Print status ===================================================
-   std::cout << "RTP Audio Client - Copyright (C) 1999-2002 Thomas Dreibholz" << std::endl;
+   std::cout << "RTP Audio Client - Copyright (C) 1999-2007 Thomas Dreibholz" << std::endl;
    std::cout << "-----------------------------------------------------------" << std::endl;
    std::cout << std::endl;
    std::cout << "Version:         " << __DATE__ << ", " << __TIME__ << std::endl;
@@ -366,12 +311,6 @@ int main(int argc, char* argv[])
    }
    else {
       std::cout << "SCTP:            off" << std::endl;
-   }
-   localAddressArray[0]->setPrintFormat(SocketAddress::PF_Address|SocketAddress::PF_HidePort);
-   std::cout << "Local Addresses: " << *(localAddressArray[0]) << std::endl;
-   for(cardinal i = 1;i < localAddresses;i++) {
-      localAddressArray[i]->setPrintFormat(SocketAddress::PF_Address|SocketAddress::PF_HidePort);
-      std::cout << "                 " << *(localAddressArray[i]) << std::endl;
    }
    std::cout << "Server Address:  " << client->getServerAddressString() << std::endl;
    std::cout << std::endl;
@@ -513,6 +452,5 @@ int main(int argc, char* argv[])
 
    // ====== Clean up =======================================================
 cleanUp:
-   SocketAddress::deleteAddressList(localAddressArray);
    cleanUp(0);
 }

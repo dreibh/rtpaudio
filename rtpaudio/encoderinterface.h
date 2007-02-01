@@ -170,6 +170,13 @@ class EncoderInterface
 
    // ====== Settings =======================================================
    /**
+     * Get frame rate.
+     *
+     * @return Frame rate.
+     */
+   virtual double getFrameRate() const = 0;
+
+   /**
      * Get QoS description. Important note: This result is a global pointer,
      * it becomes invalid when encoder is deleted!
      *

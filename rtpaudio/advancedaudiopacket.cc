@@ -219,7 +219,7 @@ AudioQuality AdvancedAudioPacket::calculateQualityForLimits(
          (required1 <= byteRateLimitL1) &&
          (required2 <= byteRateLimitL2) &&
          (required3 <= byteRateLimitL3)) {
-            break;
+         break;
       }
 
 /*

@@ -59,49 +59,29 @@ void cleanUp(const cardinal exitCode = 0);
 
 
 // ###### Initialize ########################################################
-void initAll(const char*     directory,
-             SocketAddress** localAddressArray,
-             const cardinal  localAddresses,
-             const card16    port,
-             const card64    timeout,
-             const cardinal  maxPacketSize,
-             const bool      lossScalability,
-             const bool      useSCTP)
+void initAll(const char*    directory,
+             const card16   port,
+             const card64   timeout,
+             const cardinal maxPacketSize,
+             const bool     lossScalability,
+             const bool     useSCTP)
 {
-   rtcpServerSocket = new Socket(Socket::IP,Socket::UDP,useSCTP ? Socket::SCTP : Socket::Default);
+   const InternetAddress localAddress(port);
+   rtcpServerSocket = new Socket(Socket::IP,
+                                 useSCTP ? Socket::SeqPacket : Socket::Datagram,
+                                 useSCTP ? Socket::SCTP : Socket::Default);
    if(rtcpServerSocket == NULL) {
       std::cerr << "ERROR: Server::initAll() - Out of memory!" << std::endl;
       cleanUp(1);
    }
-   if(useSCTP) {
-      struct sctp_event_subscribe events;
-
-      memset((char*)&events, 0 ,sizeof(events));
-      if(rtcpServerSocket->setSocketOption(IPPROTO_SCTP, SCTP_EVENTS, &events, sizeof(events)) < 0) {
-         std::cerr << "WARNING: AudioClient::play() - SCTP_EVENTS failed!" << std::endl;
-      }
-      sctp_initmsg init;
-      init.sinit_num_ostreams   = 1;
-      init.sinit_max_instreams  = 1;
-      init.sinit_max_attempts   = 0;
-      init.sinit_max_init_timeo = 60;
-      if(rtcpServerSocket->setSocketOption(IPPROTO_SCTP,SCTP_INITMSG,(char*)&init,sizeof(init)) < 0) {
-         std::cerr << "WARNING: AudioServer::newClient() - Unable to set SCTP_INITMSG parameters!" << std::endl;
-      }
-   }
-   for(cardinal i = 0;i < localAddresses;i++) {
-      localAddressArray[i]->setPort(port);
-   }
-   if(rtcpServerSocket->bindx((const SocketAddress**)localAddressArray,
-                              localAddresses,
-                              SCTP_BINDX_ADD_ADDR) == false) {
+   if(rtcpServerSocket->bind(localAddress) == false) {
       std::cerr << "ERROR: Server::initAll() - Unable to bind socket!" << std::endl;
       cleanUp(1);
    }
-   for(cardinal i = 0;i < localAddresses;i++) {
-      localAddressArray[i]->setPort(0);
+   if(useSCTP) {
+      rtcpServerSocket->listen(10);
    }
-   server = new AudioServer(localAddressArray,localAddresses,qosManager,maxPacketSize,useSCTP);
+   server = new AudioServer(qosManager, maxPacketSize, useSCTP);
    if(server == NULL) {
       std::cerr << "ERROR: Server::initAll() - Out of memory!" << std::endl;
       cleanUp(1);
@@ -150,7 +130,8 @@ void cleanUp(const cardinal exitCode)
    /*
    if(qosManager != NULL) {
       delete qosManager;
-   }  ??????????�   */
+   }
+   */
    if(exitCode == 0) {
       std::cout << "Terminated!" << std::endl;
    }
@@ -162,17 +143,15 @@ void cleanUp(const cardinal exitCode)
 int main(int argc, char* argv[])
 {
    // ===== Initialize ======================================================
-   bool   optForceIPv4               = false;
-   bool   optUseSCTP                 = false;
-   bool   lossScalability            = true;
-   bool   disableQM                  = false;
-   char*  manager                    = NULL;
-   cardinal maxPacketSize            = 1500;
-   card64 timeout                    = 10000000;
-   card16 port                       = AudioClientAppPacket::RTPAudioDefaultPort;
-   SocketAddress** localAddressArray = NULL;
-   cardinal        localAddresses    = 0;
-   String          directory;
+   bool   optForceIPv4    = false;
+   bool   optUseSCTP      = false;
+   bool   lossScalability = true;
+   bool   disableQM       = false;
+   char*  manager         = NULL;
+   cardinal maxPacketSize = 1500;
+   card64 timeout         = 10000000;
+   card16 port            = AudioClientAppPacket::RTPAudioDefaultPort;
+   String directory;
 
 
    // ====== Read configuration from file ===================================
@@ -302,29 +281,6 @@ int main(int argc, char* argv[])
       else if(!(strcasecmp(argv[i],"-use-ipv6")))        optForceIPv4 = false;
       else if(!(strcasecmp(argv[i],"-sctp")))            optUseSCTP   = true;
       else if(!(strcasecmp(argv[i],"-nosctp")))          optUseSCTP   = false;
-      else if(!(strncasecmp(argv[i],"-local=",7))) {
-         if(localAddresses < SCTP_MAXADDRESSES) {
-            if(localAddressArray == NULL) {
-               localAddressArray = SocketAddress::newAddressList(SCTP_MAXADDRESSES);
-               if(localAddressArray == NULL) {
-                  std::cerr << "ERROR: Out of memory!" << std::endl;
-                  exit(1);
-               }
-            }
-            localAddressArray[localAddresses] = SocketAddress::createSocketAddress(
-                                                   SocketAddress::PF_HidePort,
-                                                   &argv[i][7]);
-            if(localAddressArray[localAddresses] == NULL) {
-               std::cerr << "ERROR: Argument #" << i << " is an invalid address!" << std::endl;
-               exit(1);
-            }
-            localAddresses++;
-         }
-         else {
-            std::cerr << "ERROR: Too many local addresses!" << std::endl;
-            exit(1);
-         }
-      }
       else if(!(strncasecmp(argv[i],"-port=",6)))        port      = (card16)atol(&argv[i][6]);
       else if(!(strncasecmp(argv[i],"-manager=",9)))     manager   = &argv[i][9];
       else if(!(strncasecmp(argv[i],"-timeout=",9)))     timeout   = 1000000 * (card64)atol(&argv[i][9]);
@@ -335,7 +291,7 @@ int main(int argc, char* argv[])
       else if(!(strcasecmp(argv[i],"-enable-ls")))       lossScalability = true;
       else if(!(strncasecmp(argv[i],"-directory=",11)))  directory = String(&argv[i][11]);
       else {
-         std::cerr << "Usage: " << argv[0] << " {-port=port} {-directory=path} {-manager=host:port} {-local=host} {-timeout=secs} {-maxpktsize=bytes} {-disable-qm|-enable-qm} {-disable-ls|-enable-ls} {-force-ipv4|-use-ipv6}" << std::endl;
+         std::cerr << "Usage: " << argv[0] << " {-port=port} {-directory=path} {-manager=host:port} {-timeout=secs} {-maxpktsize=bytes} {-disable-qm|-enable-qm} {-disable-ls|-enable-ls} {-force-ipv4|-use-ipv6}" << std::endl;
          exit(1);
       }
    }
@@ -348,35 +304,6 @@ int main(int argc, char* argv[])
    if(port < 1024) {
       std::cerr << "ERROR: Invalid port number!" << std::endl;
       exit(1);
-   }
-   if(localAddressArray == NULL) {
-      if(optUseSCTP == true) {
-         if(!Socket::getLocalAddressList(
-               localAddressArray,
-               localAddresses,
-               Socket::GLAF_HideBroadcast|Socket::GLAF_HideMulticast|Socket::GLAF_HideAnycast)) {
-            std::cerr << "ERROR: Cannot obtain local addresses!" << std::endl;
-            exit(1);
-         }
-         if(localAddresses < 1) {
-            std::cerr << "ERROR: No valid local addresses have been found?!" << std::endl
-                      << "       Check your network interface configuration!" << std::endl;
-            exit(1);
-         }
-      }
-      else {
-         localAddressArray = SocketAddress::newAddressList(SCTP_MAXADDRESSES);
-         if(localAddressArray == NULL) {
-            std::cerr << "ERROR: Out of memory!" << std::endl;
-            exit(1);
-         }
-         localAddressArray[0] = new InternetAddress(port);
-         if(localAddressArray[0] == NULL) {
-            std::cerr << "ERROR: Out of memory!" << std::endl;
-            exit(1);
-         }
-         localAddresses = 1;
-      }
    }
    if(timeout < 5000000) {
       timeout = 5000000;
@@ -400,16 +327,12 @@ int main(int argc, char* argv[])
          std::cerr << "ERROR: Server::main() - Out of memory!" << std::endl;
          cleanUp(1);
       }
-      ??????
       */
    }
 
 
    // ====== Initialize =====================================================
-   initAll(directory.getData(),
-           localAddressArray,
-           localAddresses,
-           port,
+   initAll(directory.getData(), port,
            timeout, maxPacketSize, lossScalability,
            optUseSCTP);
 #ifndef FAST_BREAK
@@ -432,12 +355,6 @@ int main(int argc, char* argv[])
    else {
       std::cout << "SCTP:             off" << std::endl;
    }
-   localAddressArray[0]->setPrintFormat(SocketAddress::PF_Address|SocketAddress::PF_HidePort);
-   std::cout << "Local Addresses:  " << *(localAddressArray[0]) << std::endl;
-   for(cardinal i = 1;i < localAddresses;i++) {
-      localAddressArray[i]->setPrintFormat(SocketAddress::PF_Address|SocketAddress::PF_HidePort);
-      std::cout << "                  " << *(localAddressArray[i]) << std::endl;
-   }
    std::cout << "Server Port:      " << port << std::endl;
    char str[32];
    snprintf((char*)&str,sizeof(str),"$%08x",server->getOurSSRC());
@@ -458,7 +375,7 @@ int main(int argc, char* argv[])
       Thread::delay(10000000,true);
    }
 
+
    // ====== Clean up =======================================================
-   SocketAddress::deleteAddressList(localAddressArray);
    cleanUp(0);
 }

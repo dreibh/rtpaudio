@@ -50,21 +50,17 @@
 
 
 // Debug mode: Display some information on UDP connections.
-// #define DEBUG
+#define DEBUG
 
 
 // ###### Constructor #######################################################
-AudioClient::AudioClient(SocketAddress**       localAddressArray,
-                         const cardinal        localAddresses,
-                         AudioWriterInterface* audioOutput)
+AudioClient::AudioClient(AudioWriterInterface* audioOutput)
 {
    // ====== Default Settings ===============================================
    Status.reset();
    Status.Bits         = AudioQuality::HighestBits;
    Status.Channels     = AudioQuality::HighestChannels;
    Status.SamplingRate = AudioQuality::HighestSamplingRate;
-   LocalAddressArray   = localAddressArray;
-   LocalAddresses      = localAddresses;
    OurPort             = 0;
    Sender              = NULL;
    Receiver            = NULL;
@@ -159,47 +155,32 @@ bool AudioClient::play(const char* server,
 
 
       // ====== Create sockets ==============================================
-      SenderSocket.create(Socket::IP,Socket::UDP,useSCTP ? Socket::SCTP : Socket::Default);
+      SenderSocket.create(Socket::IP,
+                          useSCTP ? Socket::Stream : Socket::Datagram,
+                          useSCTP ? Socket::SCTP : Socket::Default);
       if(!SenderSocket.ready()) {
          std::cerr << "ERROR: AudioClient::play() - "
                  "Unable to bind socket for RTCPSender!" << std::endl;
          stop();
          return(false);
       }
-      ReceiverSocket.create(Socket::IP,Socket::UDP,useSCTP ? Socket::SCTP : Socket::Default);
+      ReceiverSocket.create(Socket::IP,
+                            useSCTP ? Socket::Stream : Socket::Datagram,
+                            useSCTP ? Socket::SCTP : Socket::Default);
       if(!ReceiverSocket.ready()) {
          std::cerr << "ERROR: AudioClient::play() - "
                  "Unable to bind socket for RTPReceiver!" << std::endl;
          stop();
          return(false);
       }
-      if(!Socket::bindxSocketPair(SenderSocket,
-                                  ReceiverSocket,
-                                  (const SocketAddress**)LocalAddressArray,
-                                  LocalAddresses,
-                                  SCTP_BINDX_ADD_ADDR)) {
+      InternetAddress localAddress(0);
+      if(!Socket::bindSocketPair(SenderSocket, ReceiverSocket, localAddress)) {
          std::cerr << "ERROR: AudioClient::play() - Unable to bind sockets!" << std::endl;
          stop();
          return(false);
       }
-
-
-      // ====== SCTP Events =================================================
       if(useSCTP) {
-         struct sctp_event_subscribe events;
-
-         memset((char*)&events, 0 ,sizeof(events));
-         if(SenderSocket.setSocketOption(IPPROTO_SCTP, SCTP_EVENTS, &events, sizeof(events)) < 0) {
-            std::cerr << "WARNING: AudioClient::play() - SCTP_EVENTS failed!" << std::endl;
-         }
-         sctp_initmsg init;
-         init.sinit_num_ostreams   = 1;
-         init.sinit_max_instreams  = 16;
-         init.sinit_max_attempts   = 0;
-         init.sinit_max_init_timeo = 60;
-         if(SenderSocket.setSocketOption(IPPROTO_SCTP,SCTP_INITMSG,(char*)&init,sizeof(init)) < 0) {
-            std::cerr << "WARNING: AudioClient::play() - Unable to set SCTP_INITMSG parameters!" << std::endl;
-         }
+         ReceiverSocket.listen(1);
       }
 
 
@@ -244,7 +225,6 @@ bool AudioClient::play(const char* server,
          stop();
          return(false);
       }
-
 
       // ====== Add SDES items ==============================================
       char host[128];
@@ -525,7 +505,7 @@ String AudioClient::getServerAddressString(const InternetAddress::PrintFormat fo
 // ###### Get client address ################################################
 String AudioClient::getOurAddressString(const InternetAddress::PrintFormat format) const
 {
-/* ?????????
+/* ???
    if(IsPlaying) {
       InternetAddress address = OurAddress;
       address.setPrintFormat(format);
@@ -554,7 +534,7 @@ const char* AudioClient::getEncodingName(const cardinal index)
 // ###### Get number of raw bytes per second ################################
 cardinal AudioClient::getRawBytesPerSecond()
 {
-   // ??????????????????????????????
+   // ???
    return(0);
 }
 

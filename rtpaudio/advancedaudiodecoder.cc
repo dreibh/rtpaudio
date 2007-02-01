@@ -43,9 +43,7 @@
 
 // ###### Constructor #######################################################
 AdvancedAudioDecoder::AdvancedAudioDecoder(AudioWriterInterface* device)
-   : TimedThread(10000,
-/*```?????????????????????   4 * (1000000 / AdvancedAudioPacket::AdvancedAudioFramesPerSecond) - 15000, */
-
+   : TimedThread(4 * (1000000 / AdvancedAudioPacket::AdvancedAudioFramesPerSecond) - 15000,
                  "AdvancedAudioDecoder")
 {
    Device            = device;

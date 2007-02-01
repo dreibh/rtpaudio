@@ -126,6 +126,13 @@ class AdvancedAudioEncoder : public AudioEncoderInterface,
 
    // ====== Settings ========================================================
    /**
+     * getFrameRate() implementation of EncoderInterface.
+     *
+     * @return EncoderInterface#getFrameRate
+     */
+   double getFrameRate() const;
+
+   /**
      * getQoSDescription() implementation of EncoderInterface.
      *
      * @see EncoderInterface#getQoSDescription

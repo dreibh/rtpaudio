@@ -81,17 +81,13 @@ class AudioServer : public RTCPAbstractServer
    /**
      * Constructor for new AudioServer.
      *
-     * @param localAddressArray Local address array to bind RTP sender sockets to.
-     * @param localAddresses Number of local addresses.
      * @param maxPacketSize Maximum packet size.
      * @param qosManager QoS manager.
      * @param useSCTP true to use SCTP instead of UDP; false otherwise.
      */
-   AudioServer(SocketAddress**   localAddressArray,
-               const cardinal    localAddresses,
-               BandwidthManager* qosManager       = NULL,
-               const cardinal    maxPacketSize    = 1500,
-               const bool        useSCTP          = false);
+   AudioServer(BandwidthManager* qosManager    = NULL,
+               const cardinal    maxPacketSize = 1500,
+               const bool        useSCTP       = false);
 
    /**
      * Destructor.
@@ -219,8 +215,6 @@ class AudioServer : public RTCPAbstractServer
 
    // ====== Private data ===================================================
    private:
-   cardinal                            LocalAddresses;
-   SocketAddress**                     LocalAddressArray;
    BandwidthManager*                   QoSMgr;
    std::multimap<const cardinal,User*> UserSet;
    Synchronizable                      UserSetSync;

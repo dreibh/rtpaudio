@@ -115,6 +115,13 @@ const char* SimpleAudioEncoder::getTypeName() const
 }
 
 
+// ###### Get frame rate ####################################################
+double SimpleAudioEncoder::getFrameRate() const
+{
+   return(SimpleAudioPacket::SimpleAudioFramesPerSecond);
+}
+
+
 // ###### Get QoS description ################################################
 AbstractQoSDescription* SimpleAudioEncoder::getQoSDescription(
                            const cardinal pktHeaderSize,

@@ -232,15 +232,15 @@ class RTPSender : virtual public ManagedStreamInterface,
    card16        SequenceNumber[RTPConstants::RTPMaxQualityLayers];
 
 
-   void update(const AbstractQoSDescription* aqd);
+   void updateFrameRate(const AbstractQoSDescription* aqd);
 
    BandwidthManager* BandwidthMgr;
    cardinal          Bandwidth[RTPConstants::RTPMaxQualityLayers];
    double            BufferDelay[RTPConstants::RTPMaxQualityLayers];
 
 #ifdef USE_TRAFFICSHAPER
-   TrafficShaper SenderReportBuffer;
-   TrafficShaper Shaper[RTPConstants::RTPMaxQualityLayers];
+   TrafficShaper     SenderReportBuffer;
+   TrafficShaper     Shaper[RTPConstants::RTPMaxQualityLayers];
 #endif
 };
 

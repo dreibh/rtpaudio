@@ -118,7 +118,7 @@ integer RTCPSender::sendBye()
       bye->setLength(sizeof(packet));
 
       return(SenderSocket->send((void*)&packet,sizeof(packet),
-                (SenderSocket->getProtocol() == IPPROTO_SCTP) ? SCTP_UNORDERED : 0));
+                (SenderSocket->getProtocol() == IPPROTO_SCTP) ? SCTP_UNORDERED|MSG_NOSIGNAL : MSG_NOSIGNAL));
    }
    return(0);
 }
@@ -139,7 +139,7 @@ integer RTCPSender::sendApp(const char*    name,
       memcpy(app->getData(),data,dataLength);
 
       return(SenderSocket->send((void *)&packet,sizeof(packet),
-               (SenderSocket->getProtocol() == IPPROTO_SCTP) ? SCTP_UNORDERED : 0));
+               (SenderSocket->getProtocol() == IPPROTO_SCTP) ? SCTP_UNORDERED|MSG_NOSIGNAL : MSG_NOSIGNAL));
    }
    return(0);
 }
@@ -229,10 +229,11 @@ integer RTCPSender::sendSDES()
 
          // ====== Send packet ==============================================
          unsynchronized();
-         return(SenderSocket->send((void*)sdes,bytes,
-                  (SenderSocket->getProtocol() == IPPROTO_SCTP) ? SCTP_UNORDERED : 0));
+         const int result = SenderSocket->send((void*)sdes,bytes,
+                               (SenderSocket->getProtocol() == IPPROTO_SCTP) ? SCTP_UNORDERED|MSG_NOSIGNAL : MSG_NOSIGNAL);
+         return(result);
       }
-   unsynchronized();
+      unsynchronized();
    }
    return(0);
 }
@@ -290,7 +291,7 @@ integer RTCPSender::sendReport()
 */
 
       return(SenderSocket->send((void*)report,length,
-               (SenderSocket->getProtocol() == IPPROTO_SCTP) ? SCTP_UNORDERED : 0));
+               (SenderSocket->getProtocol() == IPPROTO_SCTP) ? SCTP_UNORDERED|MSG_NOSIGNAL : MSG_NOSIGNAL));
    }
    return(0);
 }

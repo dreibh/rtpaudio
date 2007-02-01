@@ -95,18 +95,7 @@ void RTPSender::init(const card32      ssrc,
 #endif
    }
 
-   const AbstractQoSDescription* aqd = getQoSDescription(0);
-   if(aqd != NULL) {
-      update(aqd);
-      delete aqd;
-   }
-
-
-   else {
-   setInterval((card64)(1000000.0 / 35));  //???? HACK!!
-   puts("********************* =?????? FR-HACK!!");
-   }
-
+   updateFrameRate(NULL);
 }
 
 
@@ -145,8 +134,8 @@ AbstractQoSDescription* RTPSender::getQoSDescription(const card64 offset)
             ald->setSource(localAddress);
             ald->setDestination(Flow[i]);
          }
-         update(aqd);
       }
+      updateFrameRate(aqd);
 
       unsynchronized();
       return(aqd);
@@ -168,8 +157,8 @@ void RTPSender::updateQuality(const AbstractQoSDescription* aqd)
          AbstractLayerDescription* ald = aqd->getLayer(i);
          Flow[i] = ald->getDestination();
 
-         Bandwidth[i]    = ald->getBandwidth();
-         BufferDelay[i]  =
+         Bandwidth[i]   = ald->getBandwidth();
+         BufferDelay[i] =
             (cardinal)ceil((double)ald->getBufferDelay() * (1000000.0 / frameRate));
 
 #ifdef USE_TRAFFICSHAPER
@@ -182,7 +171,7 @@ void RTPSender::updateQuality(const AbstractQoSDescription* aqd)
       }
 
       Encoder->updateQuality(aqd);
-      update(aqd);
+      updateFrameRate(aqd);
 
       unsynchronized();
    }
@@ -190,9 +179,15 @@ void RTPSender::updateQuality(const AbstractQoSDescription* aqd)
 
 
 // ###### Update frame rate #################################################
-void RTPSender::update(const AbstractQoSDescription* aqd)
+void RTPSender::updateFrameRate(const AbstractQoSDescription* aqd)
 {
-   const double frameRate = aqd->getFrameRate();
+   double frameRate;
+   if(aqd) {
+      frameRate = aqd->getFrameRate();
+   }
+   else {
+      frameRate = Encoder->getFrameRate();
+   }
    if(frameRate <= 1.0) {
       setInterval(1000000);
       FramesPerSecond = 1;
@@ -249,9 +244,9 @@ void RTPSender::timerEvent()
       report.setOctetsSent(PayloadBytesSent);
       report.setPacketsSent(PayloadPacketsSent);
 #ifdef USE_TRAFFICSHAPER
-      if(SenderReportBuffer.send(&report,sizeof(RTCPSenderReport),(cardinal)-1,(SenderSocket->getProtocol() == IPPROTO_SCTP) ? SCTP_UNORDERED : 0) != sizeof(RTCPSenderReport)) {
+      if(SenderReportBuffer.send(&report,sizeof(RTCPSenderReport),(cardinal)-1,(SenderSocket->getProtocol() == IPPROTO_SCTP) ? SCTP_UNORDERED|MSG_NOSIGNAL : MSG_NOSIGNAL) != sizeof(RTCPSenderReport)) {
 #else
-      if(SenderSocket->send(&report,sizeof(RTCPSenderReport),(SenderSocket->getProtocol() == IPPROTO_SCTP) ? SCTP_UNORDERED : 0) != sizeof(RTCPSenderReport)) {
+      if(SenderSocket->send(&report,sizeof(RTCPSenderReport),(SenderSocket->getProtocol() == IPPROTO_SCTP) ? SCTP_UNORDERED|MSG_NOSIGNAL : MSG_NOSIGNAL) != sizeof(RTCPSenderReport)) {
 #endif
          const integer error = SenderSocket->getLastError();
          if((TransmissionError == false) && (error != EAGAIN) && (error != EINTR)) {
@@ -359,11 +354,10 @@ void RTPSender::timerEvent()
 
             // ====== Send packet without traffic shaper ====================
 #else
-printf("send: %d\n",bytesData);
             const ssize_t sent = SenderSocket->sendTo(
                                     &packet,
                                     packet.calculateHeaderSize() + bytesData,
-                                    (SenderSocket->getProtocol() == IPPROTO_SCTP) ? SCTP_UNORDERED : 0,
+                                    (SenderSocket->getProtocol() == IPPROTO_SCTP) ? SCTP_UNORDERED|MSG_NOSIGNAL : MSG_NOSIGNAL,
                                     Flow[encoderPacket.Layer],
                                     Flow[encoderPacket.Layer].getTrafficClass());
 #endif
@@ -408,7 +402,6 @@ printf("send: %d\n",bytesData);
          }
 
 /*
-??????????????????????????
          // ====== Check for pending timer event ============================
          if(pendingTimerEvent(0)) {
             // There is a new timer event -> Skip rest of this frame!

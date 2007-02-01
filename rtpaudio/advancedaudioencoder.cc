@@ -155,6 +155,13 @@ const char* AdvancedAudioEncoder::getTypeName() const
 }
 
 
+// ###### Get frame rate ####################################################
+double AdvancedAudioEncoder::getFrameRate() const
+{
+   return(AdvancedAudioPacket::AdvancedAudioFramesPerSecond);
+}
+
+
 // ###### Get QoS description ################################################
 AbstractQoSDescription* AdvancedAudioEncoder::getQoSDescription(
                            const cardinal pktHeaderSize,
