@@ -30,6 +30,7 @@
 #include "tdsystem.h"
 #include "trafficshaper.h"
 #include "tools.h"
+#include <algorithm>
 
 
 // Print information
@@ -282,7 +283,7 @@ void TrafficShaper::sendAll()
    synchronized();
 
    // ====== Sort packets (necessary due to different classes!) =============
-   sort(Queue.begin(),Queue.end());
+   std::sort(Queue.begin(),Queue.end());
 
    // ====== Check all packets for reached send time ========================
    std::deque<TrafficShaperPacket>::iterator iterator = Queue.begin();

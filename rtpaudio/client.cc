@@ -376,9 +376,9 @@ int main(int argc, char* argv[])
       const cardinal currentLayers = client->getLayers();
       const card64 now = getMicroTime();
       if(!optAudioDebug) {
-         printf("\x0d%2Ld:%02Ld.%02Ld   [Quality: %d Hz / %d Bit / %s]  [%s]      ",
-                (seconds / 60),(seconds % 60),
-                (position % PositionStepsPerSecond) / (PositionStepsPerSecond / 100),
+         printf("\x0d%2u:%02u.%02u   [Quality: %d Hz / %d Bit / %s]  [%s]      ",
+                (unsigned int)(seconds / 60), (unsigned int)(seconds % 60),
+                (unsigned int)((position % PositionStepsPerSecond) / (PositionStepsPerSecond / 100)),
                 client->getSamplingRate(),
                 client->getBits(),
                 ((client->getChannels() == 2) ? "Stereo" : "Mono"),

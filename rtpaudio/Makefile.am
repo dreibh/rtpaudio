@@ -78,7 +78,8 @@ libbase_a_SOURCES = \
  wavaudioreader.cc wavaudioreader.h
 
 
-INCLUDES = $(all_includes) -I/home/dreibh/src/mp3blaster-3.2.3/mpegsound
+MP3BLASTER = /home/dreibh/src/mp3blaster-3.2.5
+INCLUDES = $(all_includes) -I$(MP3BLASTER)/mpegsound
 
 if BUILD_QT_PROGRAMS
 %.moc.cc: %.h
@@ -100,10 +101,10 @@ endif
 
 
 server_SOURCES = server.cc
-server_LDADD   = libbase.a -lpthread /home/dreibh/src/mp3blaster-3.2.3/mpegsound/libmpegsound.a
+server_LDADD   = libbase.a -lpthread $(sctplib_LIBS) $(socketapi_LIBS) $(glib_LIBS) $(MP3BLASTER)/mpegsound/libmpegsound.a
 
 client_SOURCES = client.cc
-client_LDADD   = libbase.a -lpthread /home/dreibh/src/mp3blaster-3.2.3/mpegsound/libmpegsound.a
+client_LDADD   = libbase.a -lpthread $(sctplib_LIBS) $(socketapi_LIBS) $(glib_LIBS)
 
 
 if BUILD_QT_PROGRAMS
@@ -111,5 +112,5 @@ qclient_MOC      = qclient.moc.cc qinfotabwidget.moc.cc qspectrumanalyzer.moc.cc
 qclient_CXXFLAGS = $(QT_CXXFLAGS)
 qclient_CXXADD   = $(QT_CXXFLAGS)
 qclient_SOURCES  = qclient.cc qinfotabwidget.cc qspectrumanalyzer.cc qaudiomixer.cc   qclient.moc.cc qinfotabwidget.moc.cc qspectrumanalyzer.moc.cc qaudiomixer.moc.cc
-qclient_LDADD    = $(QT_LDADD) libbase.a -lpthread /home/dreibh/src/mp3blaster-3.2.3/mpegsound/libmpegsound.a
+qclient_LDADD    = $(QT_LDADD) libbase.a -lpthread $(sctplib_LIBS) $(socketapi_LIBS) $(glib_LIBS)
 endif

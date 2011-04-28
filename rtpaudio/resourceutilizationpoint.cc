@@ -47,15 +47,15 @@ std::ostream& operator<<(std::ostream& os, const ResourceUtilizationPoint& rup)
    // ====== Print header ===================================================
    const cardinal frameRate = (cardinal)rint(rup.FrameRate * 10.0);
    snprintf((char*)&str, 256,
-            "U=%1.3f B=%7Ld C=%8.0f FR=%2d.%d   (",
-            rup.Utilization, (card64)rup.Bandwidth, rup.BandwidthCost,
+            "U=%1.3f B=%7lld C=%8.0f FR=%2d.%d   (",
+            rup.Utilization, (unsigned long long)rup.Bandwidth, rup.BandwidthCost,
             (unsigned int)frameRate / 10, ((unsigned int)frameRate % 10));
 
    // ====== Print each layer's bandwidth ===================================
    for(cardinal i = 0;i < rup.Layers;i++) {
-      snprintf((char*)&lstr, sizeof(lstr) - 2, "L%d=%7Ld/%02d",
+      snprintf((char*)&lstr, sizeof(lstr) - 2, "L%d=%7lld/%02d",
                (unsigned int)i,
-               (card64)rup.LayerBandwidthInfo[i].BytesPerSecond,
+               (unsigned long long)rup.LayerBandwidthInfo[i].BytesPerSecond,
                (unsigned int)rup.LayerBandwidthInfo[i].BufferDelay);
       if(i < (rup.Layers - 1)) {
          strcat((char*)&lstr,", ");

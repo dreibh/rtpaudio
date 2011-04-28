@@ -1,8 +1,8 @@
 /*
- *  $Id: internetaddress.h 1008 2006-03-10 09:56:56Z dreibh $
+ *  $Id: internetaddress.h 2091 2009-01-15 10:18:23Z dreibh $
  *
  * SocketAPI implementation for the sctplib.
- * Copyright (C) 1999-2006 by Thomas Dreibholz
+ * Copyright (C) 1999-2009 by Thomas Dreibholz
  *
  * Realized in co-operation between
  * - Siemens AG
@@ -14,20 +14,21 @@
  * Forschung (BMBF) of the Federal Republic of Germany (Foerderkennzeichen 01AK045).
  * The authors alone are responsible for the contents.
  *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
- * There are two mailinglists available at http://www.sctp.de which should be
- * used for any discussion related to this implementation.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Contact: discussion@sctp.de
- *          dreibh@exp-math.uni-essen.de
+ *          dreibh@iem.uni-due.de
  *          tuexen@fh-muenster.de
  *
  * Purpose: Internet Address Implementation
@@ -53,7 +54,7 @@
   * This class manages an internet address.
   *
   * @short   Socket Address
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */            
 class InternetAddress : virtual public SocketAddress
@@ -249,27 +250,6 @@ class InternetAddress : virtual public SocketAddress
      * @return true, if the address is loopback address; false otherwise.
      */
    inline bool isLoopback() const;
-
-   /**
-     * Check, if internet address is class A IPv4-compatible or IPv4-mapped.
-     *
-     * @return true or false.
-     */
-   inline bool isClassA() const;
-
-   /**
-     * Check, if internet address is class B IPv4-compatible or IPv4-mapped.
-     *
-     * @return true or false.
-     */
-   inline bool isClassB() const;
-
-   /**
-     * Check, if internet address is class C IPv4-compatible or IPv4-mapped.
-     *
-     * @return true or false.
-     */
-   inline bool isClassC() const;
 
    /**
      * Check, if internet address is link local (IPv6) or 127.x.y.z (IPv4).
@@ -543,7 +523,11 @@ class InternetAddress : virtual public SocketAddress
      * Host address in network byte order. IPv4 addresses are converted to
      * IPv4-mapped IPv6 addresses.
      */
-   card16 Host[8];
+   union {
+      card16   Host16[8];
+      card32   Host32[4];
+      in6_addr Address;
+   } AddrSpec;
 
    /**
      * Port number.
