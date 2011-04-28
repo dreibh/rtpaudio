@@ -418,7 +418,8 @@ void AdvancedAudioDecoder::handleNextPacket(const DecoderPacket* decoderPacket)
          }
       }
       else if((packet->Flags & AdvancedAudioPacket::AAF_MediaInfo) == AdvancedAudioPacket::AAF_MediaInfo) {
-         Media = *((MediaInfo*)&packet->Data[0]);
+         const MediaInfo* mediaInfo = ((const MediaInfo*)&packet->Data[0]);
+         Media = *mediaInfo;
          Media.translate();
       }
       else {

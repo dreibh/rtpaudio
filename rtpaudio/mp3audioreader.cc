@@ -234,7 +234,7 @@ void MP3AudioReader::getMediaInfo(MediaInfo& mediaInfo) const
          comment[30] = 0x00;
       }
 
-      snprintf((char*)&mediaInfo.Title,sizeof(mediaInfo.Title),name);
+      snprintf((char*)&mediaInfo.Title,sizeof(mediaInfo.Title),"%s",name);
       if(year[0] != 0x00) {
          snprintf((char*)&mediaInfo.Artist,sizeof(mediaInfo.Artist),
                   "%s, %s",artist,year);

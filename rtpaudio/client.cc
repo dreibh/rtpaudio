@@ -195,8 +195,8 @@ int main(int argc, char* argv[])
    bool            optAudioNull  = false;
    bool            optForceIPv4  = false;
    bool            optUseSCTP    = false;
+   const char*     info          = "";
    cardinal        encoding      = 0;
-   char*           info          = "";
    char*           prefix        = NULL;
    integer         rate          = AudioQuality::HighestSamplingRate;
    integer         bits          = AudioQuality::HighestBits;

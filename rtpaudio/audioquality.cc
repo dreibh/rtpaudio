@@ -313,8 +313,8 @@ void AudioQuality::decrease(const cardinal steps)
 // ###### "<<"-operator #####################################################
 std::ostream& operator<<(std::ostream& os, const AudioQualityInterface& quality)
 {
-   char  string[64];
-   char* byteOrder = "";
+   char        string[64];
+   const char* byteOrder = "";
    if(quality.getBits() == 16) {
       switch(quality.getByteOrder()) {
          case LITTLE_ENDIAN:

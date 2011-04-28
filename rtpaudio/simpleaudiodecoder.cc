@@ -265,7 +265,8 @@ void SimpleAudioDecoder::handleNextPacket(const DecoderPacket* decoderPacket)
       }
    }
    else if(packet->Flags == SimpleAudioPacket::SAF_MediaInfo) {
-      Media = *((MediaInfo*)&packet->Data[0]);
+      const MediaInfo* mediaInfo = ((const MediaInfo*)&packet->Data[0]);
+      Media = *mediaInfo;
       Media.translate();
    }
 
