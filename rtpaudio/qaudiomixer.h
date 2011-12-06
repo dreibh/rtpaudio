@@ -35,7 +35,7 @@
 #include "audiomixer.h"
 
 
-#include <qapp.h>
+#include <qapplication.h>
 #include <qlayout.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
@@ -61,11 +61,9 @@ class QAudioMixer : public QMainWindow
      *
      * @param mixer AudioMixer object.
      * @param parent Parent widget.
-     * @param name Widget name.
      */
    QAudioMixer(AudioMixer* mixer,
-               QWidget*    parent = NULL,
-               const char* name   = NULL);
+               QWidget*    parent = NULL);
 
    /**
      * Destructor.

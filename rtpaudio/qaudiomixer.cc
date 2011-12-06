@@ -35,7 +35,7 @@
 #include "timedthread.h"
 
 
-#include <qapp.h>
+#include <qapplication.h>
 #include <qlayout.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
@@ -46,52 +46,51 @@
 
 // ###### Constructor #######################################################
 QAudioMixer::QAudioMixer(AudioMixer* mixer,
-                         QWidget*    parent,
-                         const char* name)
-   : QMainWindow(parent,name)
+                         QWidget*    parent)
+   : QMainWindow(parent)
 {
    Mixer = mixer;
 
    // ====== Central widget =================================================
    QWidget* centralWidget = new QWidget(this);
-   CHECK_PTR(centralWidget);
+   Q_CHECK_PTR(centralWidget);
    QVBoxLayout* layout    = new QVBoxLayout(centralWidget);
-   CHECK_PTR(layout);
+   Q_CHECK_PTR(layout);
 
    // ====== New group ======================================================
    QGroupBox* controlGroup = new QGroupBox("AudioMixer",centralWidget);
-   CHECK_PTR(controlGroup);
+   Q_CHECK_PTR(controlGroup);
    layout->addWidget(controlGroup);
    QGridLayout* controlLayout = new QGridLayout(controlGroup,3,3,20,20);
-   CHECK_PTR(controlLayout);
+   Q_CHECK_PTR(controlLayout);
    controlLayout->setColStretch(1,2);
 
    // ====== Balance ========================================================
    QLabel* label1 = new QLabel("Balance:",controlGroup);
-   CHECK_PTR(label1);
+   Q_CHECK_PTR(label1);
    controlLayout->addWidget(label1,0,0);
    Balance = new QSlider(0,100,5,50,QSlider::Horizontal,controlGroup);
-   CHECK_PTR(Balance);
+   Q_CHECK_PTR(Balance);
    Balance->setTickmarks(QSlider::Below);
    Balance->setTickInterval(10);
    controlLayout->addWidget(Balance,0,1);
    QPushButton* center = new QPushButton("Center",controlGroup);
-   CHECK_PTR(center);
+   Q_CHECK_PTR(center);
    controlLayout->addWidget(center,0,2);
    QObject::connect(center,SIGNAL(clicked()),this,SLOT(centerBalance()));
    QObject::connect(Balance,SIGNAL(valueChanged(int)),this,SLOT(balance(int)));
 
    // ====== Volume =========================================================
    QLabel* label2 = new QLabel("Volume:",controlGroup);
-   CHECK_PTR(label2);
+   Q_CHECK_PTR(label2);
    controlLayout->addWidget(label2,1,0);
    Volume = new QSlider(0,100,5,50,QSlider::Horizontal,controlGroup);
-   CHECK_PTR(Volume);
+   Q_CHECK_PTR(Volume);
    Volume->setTickmarks(QSlider::Below);
    Volume->setTickInterval(10);
    controlLayout->addWidget(Volume,1,1);
    Mute = new QPushButton("Mute",controlGroup);
-   CHECK_PTR(Mute);
+   Q_CHECK_PTR(Mute);
    Mute->setToggleButton(true);
    controlLayout->addWidget(Mute,1,2);
    QObject::connect(Mute,SIGNAL(clicked()),this,SLOT(mute()));
@@ -99,10 +98,10 @@ QAudioMixer::QAudioMixer(AudioMixer* mixer,
 
    // ====== Values =========================================================
    QLabel* label3 = new QLabel("Values:",controlGroup);
-   CHECK_PTR(label3);
+   Q_CHECK_PTR(label3);
    controlLayout->addWidget(label3,2,0);
    Values = new QLabel(controlGroup);
-   CHECK_PTR(Values);
+   Q_CHECK_PTR(Values);
    controlLayout->addMultiCellWidget(Values,2,2,1,2);
 
    setCentralWidget(centralWidget);

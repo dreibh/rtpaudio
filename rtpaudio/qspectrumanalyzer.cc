@@ -34,7 +34,7 @@
 #include "timedthread.h"
 
 
-#include <qapp.h>
+#include <qapplication.h>
 #include <qlayout.h>
 #include <qpushbutton.h>
 #include <qbuttongroup.h>
@@ -43,7 +43,6 @@
 #include <qpainter.h>
 #include <qgroupbox.h>
 #include <qcheckbox.h>
-#include <qplatinumstyle.h>
 #include <qmainwindow.h>
 
 #include "qspectrumanalyzer.h"
@@ -51,58 +50,57 @@
 
 // ###### Constructor #######################################################
 QSpectrumAnalyzer::QSpectrumAnalyzer(SpectrumAnalyzer* analyzer,
-                                     QWidget*          parent,
-                                     const char*       name)
-   : QMainWindow(parent,name)
+                                     QWidget*          parent)
+   : QMainWindow(parent)
 {
    Analyzer = analyzer;
    Max      = 1;
 
    // ====== Central widget =================================================
    QWidget* centralWidget = new QWidget(this);
-   CHECK_PTR(centralWidget);
+   Q_CHECK_PTR(centralWidget);
    QGridLayout* layout    = new QGridLayout(centralWidget,1,2);
-   CHECK_PTR(layout);
+   Q_CHECK_PTR(layout);
    layout->setColStretch(0,0);
    layout->setColStretch(1,10);
 
    // ====== Control group ==================================================
    QGroupBox* controlGroup = new QGroupBox("Control",centralWidget);
-   CHECK_PTR(controlGroup);
+   Q_CHECK_PTR(controlGroup);
    layout->addWidget(controlGroup,0,0);
    QVBoxLayout* controlLayout = new QVBoxLayout(controlGroup,20,20);
-   CHECK_PTR(controlLayout);
+   Q_CHECK_PTR(controlLayout);
 
    Pause = new QPushButton("Pause",controlGroup);
-   CHECK_PTR(Pause);
+   Q_CHECK_PTR(Pause);
    Pause->setToggleButton(TRUE);
    Pause->setOn(FALSE);
    controlLayout->addWidget(Pause);
    QObject::connect(Pause,SIGNAL(toggled(bool)),this,SLOT(pause(bool)));
 
    QPushButton* buttonClose = new QPushButton("Close",controlGroup);
-   CHECK_PTR(buttonClose);
+   Q_CHECK_PTR(buttonClose);
    controlLayout->addWidget(buttonClose);
    QObject::connect(buttonClose,SIGNAL(clicked()),this,SLOT(closeWindow()));
 
    Average = new QCheckBox("Average",controlGroup);
-   CHECK_PTR(Average);
+   Q_CHECK_PTR(Average);
    Average->setChecked(TRUE);
    controlLayout->addWidget(Average);
 
    // ====== Timing group ===================================================
    QButtonGroup* radioGroup = new QButtonGroup(controlGroup);
-   CHECK_PTR(radioGroup);
+   Q_CHECK_PTR(radioGroup);
    controlLayout->addWidget(radioGroup);
    QVBoxLayout* radioLayout = new QVBoxLayout(radioGroup,5);
-   CHECK_PTR(radioLayout);
+   Q_CHECK_PTR(radioLayout);
 
    char str[16];
    for(cardinal i = 0;i < sizeof(QSpectrumAnalyzerTimings) / sizeof(card16);i++) {
       snprintf((char*)&str,sizeof(str),
               "%1.2f s",(double)QSpectrumAnalyzerTimings[i] / 1000.0);
       QRadioButton* radio = new QRadioButton(str,radioGroup);
-      CHECK_PTR(radio);
+      Q_CHECK_PTR(radio);
       if(i == 1) {
          radio->setChecked(true);
       }
@@ -112,17 +110,17 @@ QSpectrumAnalyzer::QSpectrumAnalyzer(SpectrumAnalyzer* analyzer,
 
    // ====== Analyzer display ===============================================
    QGroupBox* fourierGroup = new QGroupBox("Fast Fourier Spectrum Analyzer",centralWidget);
-   CHECK_PTR(fourierGroup);
+   Q_CHECK_PTR(fourierGroup);
    layout->addWidget(fourierGroup,0,1);
    QGridLayout* fourierLayout = new QGridLayout(fourierGroup,2,1,20,20);
-   CHECK_PTR(fourierLayout);
+   Q_CHECK_PTR(fourierLayout);
    PaintWidget1 = new QWidget(fourierGroup);
-   CHECK_PTR(PaintWidget1);
+   Q_CHECK_PTR(PaintWidget1);
    PaintWidget1->setMinimumWidth(300);
    PaintWidget1->setMinimumHeight(150);
    fourierLayout->addWidget(PaintWidget1,0,0);
    PaintWidget2 = new QWidget(fourierGroup);
-   CHECK_PTR(PaintWidget2);
+   Q_CHECK_PTR(PaintWidget2);
    PaintWidget2->setMinimumWidth(300);
    PaintWidget2->setMinimumHeight(150);
    fourierLayout->addWidget(PaintWidget2,1,0);
@@ -131,7 +129,7 @@ QSpectrumAnalyzer::QSpectrumAnalyzer(SpectrumAnalyzer* analyzer,
    setCaption("Spectrum Analyzer");
 
    Timer = new QTimer(this);
-   CHECK_PTR(Timer);
+   Q_CHECK_PTR(Timer);
    QObject::connect(Timer,SIGNAL(timeout()),this,SLOT(timerEvent()));
    Timer->start(QSpectrumAnalyzerTimings[1]);
    Timing = QSpectrumAnalyzerTimings[1];

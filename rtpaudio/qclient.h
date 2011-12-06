@@ -40,10 +40,7 @@
 #include "strings.h"
 
 
-#include <qapp.h>
-#if QT_VERSION < 200
-#error ERROR: QT Version 2.00 or better required for QClient!!!
-#endif
+#include <qapplication.h>
 #include <qlayout.h>
 #include <qpushbutton.h>
 #include <qscrollbar.h>
@@ -158,7 +155,6 @@ class QClient : public QMainWindow
      * @param analyzer SpectrumAnalyzer object; default NULL.
      * @param mixer AudioMixer object; default NULL.
      * @param parent Parent QWidget; default NULL.
-     * @param name Widget name; default NULL.
      */
    QClient(AudioWriterInterface* audioOutput,
            const char*           receiverName = NULL,
@@ -166,8 +162,7 @@ class QClient : public QMainWindow
            SpectrumAnalyzer*     analyzer     = NULL,
            AudioMixer*           mixer        = NULL,
            const bool            enableSCTP   = false,
-           QWidget*              parent       = NULL,
-           const char*           name         = NULL);
+           QWidget*              parent       = NULL);
 
    /**
      * Destructor.
@@ -320,28 +315,26 @@ class QClient : public QMainWindow
    QString flowInfoToQString(const card8  trafficClass,
                              const card32 flowLabel) const;
 
-
-   static const integer  MenuIDSpectrumAnalyzer  = 1000;
-   static const integer  MenuIDMixer             = 1001;
-   static const integer  MenuIDLocation          = 9000;
-   static const integer  MenuIDResolver          = 2000;
-   static const integer  MenuIDAutoRepeat        = 2001;
-   static const integer  MenuIDAutoSaveBookmarks = 2002;
-
    static const cardinal LocationCount           = 15;
    static const cardinal DisplayUpdateInterval   = 250;
    static const cardinal EOFRepeatInterval       = 20000 / DisplayUpdateInterval;
    static const cardinal MaxScrollBarUpdateDelay = 4;
    static const cardinal MaxLayerInfo            = 3;
 
+   QAction*              ResolverAction;
+   QAction*              MixerAction;
+   QAction*              SpectrumAnalyzerAction;
+   QAction*              AutoRepeatAction;
+   QAction*              AutoSaveBookmarksAction;
+
    QSpectrumAnalyzer*    SpectrumAnalyzerWindow;
    QAudioMixer*          MixerWindow;
    SpectrumAnalyzer*     SpectrumAnalyzerDevice;
    AudioMixer*           MixerDevice;
 
-   QPopupMenu*     ToolsMenu;
-   QPopupMenu*     URLMenu;
-   QPopupMenu*     SettingsMenu;
+   QMenu*          ToolsMenu;
+   QMenu*          URLMenu;
+   QMenu*          SettingsMenu;
    QLineEdit*      Location;
    QLCDNumber*     Counter;
    QLabel*         TitleLabel;

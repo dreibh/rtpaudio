@@ -31,7 +31,7 @@
 #include "qinfotabwidget.h"
 
 
-#include <qapp.h>
+#include <qapplication.h>
 #include <qlayout.h>
 #include <qpushbutton.h>
 #include <qtabwidget.h>

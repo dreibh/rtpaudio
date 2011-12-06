@@ -35,7 +35,7 @@
 #include "spectrumanalyzer.h"
 
 
-#include <qapp.h>
+#include <qapplication.h>
 #include <qlayout.h>
 #include <qpushbutton.h>
 #include <qbuttongroup.h>
@@ -44,7 +44,6 @@
 #include <qtimer.h>
 #include <qpainter.h>
 #include <qgroupbox.h>
-#include <qplatinumstyle.h>
 #include <qmainwindow.h>
 
 
@@ -74,11 +73,9 @@ class QSpectrumAnalyzer : public QMainWindow
      *
      * @param analyzer SpectrumAnalyzer object.
      * @param parent Parent widget.
-     * @param name Widget name.
      */
    QSpectrumAnalyzer(SpectrumAnalyzer* analyzer,
-                     QWidget*          parent = NULL,
-                     const char*       name   = NULL);
+                     QWidget*          parent = NULL);
 
    /**
      * Destructor.

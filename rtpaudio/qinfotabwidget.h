@@ -34,16 +34,12 @@
 #include "tdsystem.h"
 
 
-#include <qapp.h>
-#if QT_VERSION < 200
-#error QT Version 2.00 or better required!!!
-#endif
+#include <qapplication.h>
 #include <qlayout.h>
 #include <qpushbutton.h>
 #include <qtabwidget.h>
 #include <qwhatsthis.h>
 #include <qlabel.h>
-#include <qdict.h>
 #include <qlist.h>
 
 

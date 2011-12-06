@@ -27,7 +27,7 @@
 // ##########################################################################
 
 
-#include <qapp.h>
+#include <qapplication.h>
 #include <qlayout.h>
 #include <qpushbutton.h>
 #include <qscrollbar.h>
@@ -43,9 +43,12 @@
 #include <qlcdnumber.h>
 #include <qtimer.h>
 #include <qmessagebox.h>
-#include <qplatinumstyle.h>
 #include <qmenubar.h>
-#include <qpopupmenu.h>
+#include <qmenu.h>
+// //Added by qt3to4:
+// #include <qhboxlayout.h>
+// #include <vhboxlayout.h>
+// #include <qgridlayout.h>
 
 #include <fstream>
 
@@ -71,13 +74,12 @@ QClient::QClient(AudioWriterInterface* audioOutput,
                  SpectrumAnalyzer*     analyzer,
                  AudioMixer*           mixer,
                  const bool            enableSCTP,
-                 QWidget*              parent,
-                 const char*           name)
-   : QMainWindow(parent,name)
+                 QWidget*              parent)
+   : QMainWindow(parent)
 {
    // ====== Create AudioClient =============================================
    Client                 = new AudioClient(audioOutput);
-   CHECK_PTR(Client);
+   Q_CHECK_PTR(Client);
    SpectrumAnalyzerWindow = NULL;
    SpectrumAnalyzerDevice = analyzer;
    MixerWindow            = NULL;
@@ -89,162 +91,155 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    UseSCTP                = false;
 
    // ====== Main Layout ====================================================
-   WhatsThis = new QWhatsThis(this);
-   CHECK_PTR(WhatsThis);
    QWidget* centralWidget = new QWidget(this);
-   CHECK_PTR(centralWidget);
-   WhatsThis->add(centralWidget,"This is the RTP Audio Client!");
-   QGridLayout* topLayout = new QGridLayout(centralWidget,3,2,5);
-   CHECK_PTR(topLayout);
-   topLayout->setColStretch(0,0);
-   topLayout->setColStretch(1,10);
-   topLayout->setRowStretch(0,10);
-   topLayout->setRowStretch(1,0);
+   Q_CHECK_PTR(centralWidget);
+   centralWidget->setWhatsThis("This is the RTP Audio Client!");
+   QGridLayout* topLayout = new QGridLayout(centralWidget);
+   Q_CHECK_PTR(topLayout);
+//    topLayout->setColStretch(0,0);
+//    topLayout->setColStretch(1,10);
+//    topLayout->setRowStretch(0,10);
+//    topLayout->setRowStretch(1,0);
 
    // ====== Menu ===========================================================
    QMenuBar* menu = menuBar();
-   QPopupMenu* fileMenu = new QPopupMenu(this);
-   CHECK_PTR(fileMenu);
-   fileMenu->insertItem("&Load Bookmarks",this,SLOT(loadBookmarks()),CTRL+Key_M);
-   fileMenu->insertItem("&Save Bookmarks",this,SLOT(saveBookmarks()),CTRL+Key_O);
-   fileMenu->insertSeparator();
-   fileMenu->insertItem("&Quit",this,SLOT(quit()),CTRL+Key_Q);
 
-   QPopupMenu* controlMenu = new QPopupMenu(this);
-   CHECK_PTR(controlMenu);
-   controlMenu->insertItem("&Play",this,SLOT(play()),CTRL+Key_P);
-   controlMenu->insertItem("&Stop",this,SLOT(stop()),CTRL+Key_S);
-   controlMenu->insertSeparator();
-   controlMenu->insertItem("&Toggle Pause",this,SLOT(togglePause()),CTRL+Key_U);
+   QMenu* fileMenu = new QMenu("&File", this);
+   Q_CHECK_PTR(fileMenu);
+   fileMenu->addAction("&Load Bookmarks",this,SLOT(loadBookmarks()),Qt::CTRL+Qt::Key_M);
+   fileMenu->addAction("&Save Bookmarks",this,SLOT(saveBookmarks()),Qt::CTRL+Qt::Key_O);
+   fileMenu->addSeparator();
+   fileMenu->addAction("&Quit",this,SLOT(quit()),Qt::CTRL+Qt::Key_Q);
+   menu->addMenu(fileMenu);
 
-   URLMenu = new QPopupMenu(this);
-   CHECK_PTR(URLMenu);
+   QMenu* controlMenu = new QMenu("&Control", this);
+   Q_CHECK_PTR(controlMenu);
+   controlMenu->addAction("&Play",this,SLOT(play()),Qt::CTRL+Qt::Key_P);
+   controlMenu->addAction("&Stop",this,SLOT(stop()),Qt::CTRL+Qt::Key_S);
+   controlMenu->addSeparator();
+   controlMenu->addAction("&Toggle Pause",this,SLOT(togglePause()),Qt::CTRL+Qt::Key_U);
+   menu->addMenu(controlMenu);
+
+   URLMenu = new QMenu("&Bookmarks", this);
+   Q_CHECK_PTR(URLMenu);
    for(cardinal i = 0;i < LocationCount;i++) {
-      URLMenu->insertItem("()",MenuIDLocation + i);
-      if(i <= 9) {
-         URLMenu->setAccel(CTRL+Key_0+i,MenuIDLocation + i);
-      }
-      URLMenu->setItemEnabled(MenuIDLocation + i,false);
+      URLMenu->addAction("()");
+//       URLMenu->addAction("()",MenuIDLocation + i);
+//       if(i <= 9) {
+//          URLMenu->setAccel(Qt::CTRL+Qt::Key_0+i,MenuIDLocation + i);
+//       }
+//       URLMenu->setItemEnabled(MenuIDLocation + i,false);
       if(i == 0) {
-         URLMenu->insertSeparator();
+         URLMenu->addSeparator();
       }
    }
-   URLMenu->insertSeparator();
-   URLMenu->insertItem("&Clear Bookmarks",this,SLOT(clearBookmarks()),CTRL+Key_K);
+   URLMenu->addSeparator();
+   URLMenu->addAction("&Clear Bookmarks",this,SLOT(clearBookmarks()),Qt::CTRL+Qt::Key_K);
    QObject::connect(URLMenu,SIGNAL(activated(int)),this,SLOT(locationSelected(int)));
+   menu->addMenu(URLMenu);
 
-   ToolsMenu = new QPopupMenu(this);
-   CHECK_PTR(ToolsMenu);
-   if(SpectrumAnalyzerDevice != NULL) {
-      ToolsMenu->insertItem("Spectrum Analyzer",this,SLOT(spectrumAnalyzer()),CTRL+Key_A,MenuIDSpectrumAnalyzer);
-      ToolsMenu->setItemChecked(MenuIDSpectrumAnalyzer,false);
-      ToolsMenu->setWhatsThis(MenuIDSpectrumAnalyzer,"Check this item to show the spectrum analyzer.");
-   }
-   if(MixerDevice != NULL) {
-      ToolsMenu->insertItem("Audio Mixer",this,SLOT(audioMixer()),CTRL+Key_M,MenuIDMixer);
-      ToolsMenu->setItemChecked(MenuIDMixer,false);
-      ToolsMenu->setWhatsThis(MenuIDMixer,"Check this item to show the audio mixer.");
-   }
+   ToolsMenu = new QMenu("&Tools", this);
+   Q_CHECK_PTR(ToolsMenu);
+   SpectrumAnalyzerAction = ToolsMenu->addAction("Spectrum Analyzer",this,SLOT(spectrumAnalyzer()),Qt::CTRL+Qt::Key_A);
+   Q_CHECK_PTR(SpectrumAnalyzerAction);
+   SpectrumAnalyzerAction->setChecked(false);
+   MixerAction = ToolsMenu->addAction("Audio Mixer",this,SLOT(audioMixer()),Qt::CTRL+Qt::Key_M);
+   Q_CHECK_PTR(MixerAction);
+   MixerAction->setChecked(false);
 
-   SettingsMenu = new QPopupMenu(this);
-   CHECK_PTR(SettingsMenu);
-   SettingsMenu->insertItem("&Resolve Addresses",this,SLOT(toggleResolver()),CTRL+Key_R,MenuIDResolver);
-   SettingsMenu->setItemChecked(MenuIDResolver,ResolveMode);
-   SettingsMenu->insertItem("Auto Repeat",this,SLOT(toggleAutoRepeat()),CTRL+Key_Y,MenuIDAutoRepeat);
-   SettingsMenu->setItemChecked(MenuIDAutoRepeat,AutoRepeat);
-   SettingsMenu->insertItem("Auto Save Bookmarks",this,SLOT(toggleAutoSaveBookmarks()),CTRL+Key_L,MenuIDAutoSaveBookmarks);
-   SettingsMenu->setItemChecked(MenuIDAutoSaveBookmarks,AutoSaveBookmarks);
+   SettingsMenu = new QMenu("&Settings", this);
+   Q_CHECK_PTR(SettingsMenu);
+   ResolverAction = SettingsMenu->addAction("&Resolve Addresses",this,SLOT(toggleResolver()),Qt::CTRL+Qt::Key_R);
+   Q_CHECK_PTR(ResolverAction);
+   AutoRepeatAction = SettingsMenu->addAction("Auto Repeat",this,SLOT(toggleAutoRepeat()),Qt::CTRL+Qt::Key_Y);
+   Q_CHECK_PTR(AutoRepeatAction);
+   AutoSaveBookmarksAction = SettingsMenu->addAction("Auto Save Bookmarks",this,SLOT(toggleAutoSaveBookmarks()),Qt::CTRL+Qt::Key_L);
+   Q_CHECK_PTR(AutoSaveBookmarksAction);
+   menu->addMenu(SettingsMenu);
 
-   QPopupMenu* helpMenu = new QPopupMenu(this);
-   CHECK_PTR(helpMenu);
-   helpMenu->insertItem("&About",this,SLOT(information()),CTRL+Key_T);
-   helpMenu->insertItem("&What's This?",this,SLOT(whatsThis()),Key_F12);
-
-   menu->insertItem("&File",fileMenu);
-   menu->insertItem("&Control",controlMenu);
-   menu->insertItem("&Bookmarks",URLMenu);
-   menu->insertItem("&Tools",ToolsMenu);
-   menu->insertItem("&Settings",SettingsMenu);
-   menu->insertSeparator();
-   menu->insertItem("&Help",helpMenu);
+   QMenu* helpMenu = new QMenu("&Help", this);
+   Q_CHECK_PTR(helpMenu);
+   helpMenu->addAction("&About",this,SLOT(information()),Qt::CTRL+Qt::Key_T);
+   helpMenu->addAction("&What's This?",this,SLOT(whatsThis()),Qt::Key_F12);
+   menu->addSeparator();
+   menu->addMenu(helpMenu);
 
    // ====== Status line ====================================================
    QLabel* copyright = new QLabel("Copyright (C) 1999-2007 Thomas Dreibholz",centralWidget);
-   CHECK_PTR(copyright);
-   WhatsThis->add(copyright,"RTP Audio Client\nCopyright (C) 1999-2007 Thomas Dreibholz");
-   copyright->setAlignment(AlignRight);
+   Q_CHECK_PTR(copyright);
+   copyright->setWhatsThis("RTP Audio Client\nCopyright (C) 1999-2007 Thomas Dreibholz");
+   copyright->setAlignment(Qt::AlignRight);
    StatusBar = new QLabel("Welcome to the RTP Audio Client!",centralWidget);
-   CHECK_PTR(StatusBar);
-   WhatsThis->add(StatusBar,"The status of a connection will be shown here.");
+   Q_CHECK_PTR(StatusBar);
+   StatusBar->setWhatsThis("The status of a connection will be shown here.");
    StatusBar->setMinimumSize(StatusBar->sizeHint());
    copyright->setMinimumSize(copyright->sizeHint());
    topLayout->addWidget(StatusBar,2,0);
    topLayout->addWidget(copyright,2,1);
 
    // ====== Quality ========================================================
-   QButtonGroup* qualityGroup = new QButtonGroup("Quality",centralWidget);
-   CHECK_PTR(qualityGroup);
-   WhatsThis->add(qualityGroup,"This group contains functions to adapt the audio quality and change the encoding.");
+   QGroupBox* qualityGroup = new QGroupBox("Quality");
+   Q_CHECK_PTR(qualityGroup);
+   qualityGroup->setWhatsThis("This group contains functions to adapt the audio quality and change the encoding.");
    topLayout->addWidget(qualityGroup,1,1);
 
-   QVBoxLayout*  qualityLayout = new QVBoxLayout(qualityGroup,20);
-   CHECK_PTR(qualityLayout);
+   QVBoxLayout*  qualityLayout = new QVBoxLayout(qualityGroup);
+   Q_CHECK_PTR(qualityLayout);
    QHBoxLayout*  checkLayout   = new QHBoxLayout();
-   CHECK_PTR(checkLayout);
-   QCheckBox*    stereo        = new QCheckBox("Stereo",qualityGroup);
-   CHECK_PTR(stereo);
-   stereo->setAccel((int)ALT + (int)'1');
-   QComboBox*    bits = new QComboBox(false,qualityGroup);
-   CHECK_PTR(bits);
+   Q_CHECK_PTR(checkLayout);
+   QCheckBox*     stereo       = new QCheckBox("S&tereo",qualityGroup);
+   Q_CHECK_PTR(stereo);
+   QComboBox* bits = new QComboBox(qualityGroup);
+   Q_CHECK_PTR(bits);
    QLabel* ipv6 = NULL;
    if(!enableSCTP) {
       ipv6 = new QLabel(InternetAddress::hasIPv6() ? "Using IPv6" : "Using IPv4",qualityGroup);
-      CHECK_PTR(ipv6);
+      Q_CHECK_PTR(ipv6);
    }
    QComboBox* protocol = NULL;
    if(enableSCTP) {
-      protocol = new QComboBox(false,qualityGroup);
-      CHECK_PTR(protocol);
+      protocol = new QComboBox(qualityGroup);
+      Q_CHECK_PTR(protocol);
       if(InternetAddress::hasIPv6()) {
-         protocol->insertItem("UDP / IPv6",0);
-         protocol->insertItem("SCTP / IPv6",1);
+         protocol->insertItem(0, "UDP / IPv6");
+         protocol->insertItem(1, "SCTP / IPv6");
       }
       else {
-         protocol->insertItem("UDP / IPv4",0);
-         protocol->insertItem("SCTP / IPv4",1);
+         protocol->insertItem(0, "UDP / IPv4");
+         protocol->insertItem(1, "SCTP / IPv4");
       }
    }
-   QComboBox* rate    = new QComboBox(false,qualityGroup);
-   CHECK_PTR(rate);
-   QComboBox* encoder = new QComboBox(false,qualityGroup);
-   CHECK_PTR(encoder);
+   QComboBox* rate    = new QComboBox(qualityGroup);
+   Q_CHECK_PTR(rate);
+   QComboBox* encoder = new QComboBox(qualityGroup);
+   Q_CHECK_PTR(encoder);
 
    for(integer i = AudioQuality::ValidBits - 1;i >= 0;i--) {
       char str[64];
       snprintf((char*)&str,sizeof(str),"%d Bits",AudioQuality::ValidBitsTable[i]);
-      bits->insertItem((char*)&str,AudioQuality::ValidBits - i - 1);
+      bits->insertItem(AudioQuality::ValidBits - i - 1, (char*)&str);
    }
    for(integer i = AudioQuality::ValidRates - 1;i >= 0;i--) {
       char str[64];
       snprintf((char*)&str,sizeof(str),"%d Hz",AudioQuality::ValidRatesTable[i]);
-      rate->insertItem((char*)&str,AudioQuality::ValidRates - i - 1);
+      rate->insertItem(AudioQuality::ValidRates - i - 1, (char*)&str);
    }
    for(cardinal index = 0;;index++) {
       const char* encoding = Client->getEncodingName(index);
       if(encoding != NULL)
-         encoder->insertItem(encoding,index);
+         encoder->insertItem(index, encoding);
       else
          break;
    }
-   WhatsThis->add(stereo,"Check this box for stereo audio quality instead of mono.");
-   WhatsThis->add(bits,"You can select the number of audio bits here.");
-   WhatsThis->add(rate,"You can select the audio sampling rate here.");
-   WhatsThis->add(encoder,"You can select an encoding for the audio transport here.");
+   stereo->setWhatsThis("Check this box for stereo audio quality instead of mono.");
+   bits->setWhatsThis("You can select the number of audio bits here.");
+   rate->setWhatsThis("You can select the audio sampling rate here.");
+   encoder->setWhatsThis("You can select an encoding for the audio transport here.");
    if(ipv6 != NULL) {
-      WhatsThis->add(ipv6,"This label shows whether your system supports IPv6 or not.");
+      ipv6->setWhatsThis("This label shows whether your system supports IPv6 or not.");
    }
    if(protocol != NULL) {
-      WhatsThis->add(protocol,"You can select the transport protocol here: UDP or SCTP.");
+      protocol->setWhatsThis("You can select the transport protocol here: UDP or SCTP.");
    }
 
    stereo->setMinimumSize(stereo->sizeHint());
@@ -267,7 +262,7 @@ QClient::QClient(AudioWriterInterface* audioOutput,
 
    // ====== Transmission Status ============================================
    InfoWidget = new QInfoTabWidget(&InfoTable1,"Connection","pinguin.xpm",centralWidget);
-   CHECK_PTR(InfoWidget);
+   Q_CHECK_PTR(InfoWidget);
    char str[128];
    for(cardinal i = 0;i < MaxLayerInfo;i++) {
       snprintf((char*)&str,sizeof(str),"L #%d",i);
@@ -278,70 +273,70 @@ QClient::QClient(AudioWriterInterface* audioOutput,
 
    // ====== Main Display ===================================================
    QGroupBox* displayGroup = new QGroupBox("Media Information",centralWidget);
-   CHECK_PTR(displayGroup);
-   WhatsThis->add(displayGroup,"Information on the current media playing are shown in this group.");
+   Q_CHECK_PTR(displayGroup);
+   displayGroup->setWhatsThis("Information on the current media playing are shown in this group.");
    topLayout->addWidget(displayGroup,0,0);
 
-   QVBoxLayout* displayLayout = new QVBoxLayout(displayGroup,20);
-   CHECK_PTR(displayLayout);
+   QVBoxLayout* displayLayout = new QVBoxLayout(displayGroup);
+   Q_CHECK_PTR(displayLayout);
    Counter = new QLCDNumber(10,displayGroup);
-   CHECK_PTR(Counter);
+   Q_CHECK_PTR(Counter);
    Counter->setMinimumSize(180,80);
    displayLayout->addWidget(Counter);
    updateCounter(0);
 
    QGroupBox* mediaInfoGroup = new QGroupBox(displayGroup);
-   CHECK_PTR(mediaInfoGroup);
-   QGridLayout* mediaInfoLayout = new QGridLayout(mediaInfoGroup,3,2,5);
-   CHECK_PTR(mediaInfoLayout);
-   mediaInfoLayout->setColStretch(1,10);
+   Q_CHECK_PTR(mediaInfoGroup);
+   QGridLayout* mediaInfoLayout = new QGridLayout(mediaInfoGroup);
+   Q_CHECK_PTR(mediaInfoLayout);
+//    mediaInfoLayout->setColStretch(1,10);
 
    TitleLabel = new QLabel("N/A",mediaInfoGroup);
-   CHECK_PTR(TitleLabel);
+   Q_CHECK_PTR(TitleLabel);
    TitleLabel->setMinimumSize(TitleLabel->sizeHint());
    ArtistLabel = new QLabel("N/A",mediaInfoGroup);
-   CHECK_PTR(ArtistLabel);
+   Q_CHECK_PTR(ArtistLabel);
    ArtistLabel->setMinimumSize(ArtistLabel->sizeHint());
    CommentLabel = new QLabel("N/A",mediaInfoGroup);
-   CHECK_PTR(CommentLabel);
+   Q_CHECK_PTR(CommentLabel);
    CommentLabel->setMinimumSize(CommentLabel->sizeHint());
 
    QLabel* titleLabel = new QLabel("Title:",mediaInfoGroup);
-   CHECK_PTR(titleLabel);
+   Q_CHECK_PTR(titleLabel);
    mediaInfoLayout->addWidget(titleLabel,0,0);
    QLabel* artistLabel = new QLabel("Artist:",mediaInfoGroup);
-   CHECK_PTR(artistLabel);
+   Q_CHECK_PTR(artistLabel);
    mediaInfoLayout->addWidget(artistLabel,1,0);
    QLabel* commentLabel = new QLabel("Comment:",mediaInfoGroup);
-   CHECK_PTR(commentLabel);
+   Q_CHECK_PTR(commentLabel);
    mediaInfoLayout->addWidget(commentLabel,2,0);
 
    mediaInfoLayout->addWidget(TitleLabel,0,1);
    mediaInfoLayout->addWidget(ArtistLabel,1,1);
    mediaInfoLayout->addWidget(CommentLabel,2,1);
    displayLayout->addWidget(mediaInfoGroup);
-   WhatsThis->add(Counter,"This counter shows the position within the audio file in minutes/seconds/0.01 seconds format.");
-   WhatsThis->add(TitleLabel,"This is the title of the file playing");
-   WhatsThis->add(ArtistLabel,"This is the artist or the file playing");
-   WhatsThis->add(CommentLabel,"This is a comment on the file playing");
+   Counter->setWhatsThis("This counter shows the position within the audio file in minutes/seconds/0.01 seconds format.");
+   TitleLabel->setWhatsThis("This is the title of the file playing");
+   ArtistLabel->setWhatsThis("This is the artist or the file playing");
+   CommentLabel->setWhatsThis("This is a comment on the file playing");
 
 
    // ====== Control ========================================================
    QGroupBox* controlGroup = new QGroupBox("Server Control",centralWidget);
-   CHECK_PTR(controlGroup);
-   WhatsThis->add(controlGroup,"This group contains server control functions.");
+   Q_CHECK_PTR(controlGroup);
+   controlGroup->setWhatsThis("This group contains server control functions.");
    topLayout->addWidget(controlGroup,1,0);
 
-   QGridLayout* controlLayout = new QGridLayout(controlGroup,4,4,20);
-   CHECK_PTR(controlLayout);
+   QGridLayout* controlLayout = new QGridLayout(controlGroup);
+   Q_CHECK_PTR(controlLayout);
    QPushButton* whatsThis     = new QPushButton("H&elp",controlGroup);
-   CHECK_PTR(whatsThis);
+   Q_CHECK_PTR(whatsThis);
    QPushButton* play          = new QPushButton("&Play",controlGroup);
-   CHECK_PTR(play);
+   Q_CHECK_PTR(play);
    QPushButton* stop          = new QPushButton("St&op",controlGroup);
-   CHECK_PTR(stop);
+   Q_CHECK_PTR(stop);
    Pause                      = new QPushButton("P&ause",controlGroup);
-   CHECK_PTR(Pause);
+   Q_CHECK_PTR(Pause);
 
    bits->setMinimumHeight(stop->height());
    if(protocol != NULL) {
@@ -350,13 +345,13 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    rate->setMinimumHeight(stop->height());
    encoder->setMinimumHeight(stop->height());
 
-   WhatsThis->add(whatsThis,"Click here to enter What's This mode.");
-   WhatsThis->add(play,"Click here to start playing.");
-   WhatsThis->add(stop,"Click here to stop playing.");
-   WhatsThis->add(Pause,"Click here to pause playing.");
-   ScrollBar = new QScrollBar(QScrollBar::Horizontal,controlGroup);
-   CHECK_PTR(ScrollBar);
-   WhatsThis->add(ScrollBar,"Move this scrollbar to change the current position within a playing audio file.");
+   whatsThis->setWhatsThis("Click here to enter What's This mode.");
+   play->setWhatsThis("Click here to start playing.");
+   stop->setWhatsThis("Click here to stop playing.");
+   Pause->setWhatsThis("Click here to pause playing.");
+   ScrollBar = new QScrollBar(Qt::Horizontal,controlGroup);
+   Q_CHECK_PTR(ScrollBar);
+   ScrollBar->setWhatsThis("Move this scrollbar to change the current position within a playing audio file.");
    ScrollBarUpdated     = true;
    ScrollBarUpdateDelay = 0;
    ScrollBar->setRange(0,0);
@@ -364,18 +359,18 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    ScrollBar->setValue(0);
 
    QLabel* label = new QLabel("Source URL: (Example: rtpa://gaffel:7500/Test1.list)",controlGroup);
-   CHECK_PTR(label);
+   Q_CHECK_PTR(label);
    Location      = new QLineEdit(controlGroup);
-   CHECK_PTR(Location);
+   Q_CHECK_PTR(Location);
    QObject::connect(Location,SIGNAL(returnPressed()),this,SLOT(play()));
-   WhatsThis->add(label,"This is an example for a location.");
-   WhatsThis->add(Location,"Enter the location of the audio list to play here.\nExample: rtpa://gaffel:7500/Test1.list");
+   label->setWhatsThis("This is an example for a location.");
+   Location->setWhatsThis("Enter the location of the audio list to play here.\nExample: rtpa://gaffel:7500/Test1.list");
 
    play->setMinimumSize(play->sizeHint());
    whatsThis->setMinimumSize(whatsThis->sizeHint());
    stop->setMinimumSize(stop->sizeHint());
    Pause->setMinimumSize(Pause->sizeHint());
-   Pause->setToggleButton(TRUE);
+   Pause->setCheckable(TRUE);
    ScrollBar->setMinimumSize(ScrollBar->sizeHint());
    Location->setMinimumSize(Location->sizeHint());
    loadBookmarks();
@@ -383,9 +378,9 @@ QClient::QClient(AudioWriterInterface* audioOutput,
       Location->setText(defaultURL);
    else {
       loadBookmarks();
-      const String* url = URLList.first();
-      if(url != NULL) {
-          Location->setText(url->getData());
+      const String& url = URLList.first();
+      if(url.length() != 0) {
+          Location->setText(url.getData());
       }
       else {
          if(Client->getIPVersion() == 6)
@@ -400,9 +395,9 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    controlLayout->addWidget(stop,0,1);
    controlLayout->addWidget(Pause,0,2);
    controlLayout->addWidget(whatsThis,0,3);
-   controlLayout->addMultiCellWidget(ScrollBar,1,1,0,3);
-   controlLayout->addMultiCellWidget(label,2,2,0,3);
-   controlLayout->addMultiCellWidget(Location,3,3,0,3);
+   controlLayout->addWidget(ScrollBar,1,1,0,3);
+   controlLayout->addWidget(label,2,2,0,3);
+   controlLayout->addWidget(Location,3,3,0,3);
 
 
    // ====== Connect widgets to methods =====================================
@@ -422,12 +417,12 @@ QClient::QClient(AudioWriterInterface* audioOutput,
 
    // ====== Create new QTimer ==============================================
    QTimer* timer = new QTimer(this);
-   CHECK_PTR(timer);
+   Q_CHECK_PTR(timer);
    timer->QObject::connect(timer,SIGNAL(timeout()),this,SLOT(timerEvent()));
    timer->start(250);
 
    setCentralWidget(centralWidget);
-   setCaption("RTP Audio Client");
+   setWindowTitle("RTP Audio Client");
 }
 
 
@@ -464,9 +459,9 @@ void QClient::information()
 // ###### Show encoder error window #########################################
 void QClient::showError(const cardinal error)
 {
-   char  str[256];
-   char  strDefault[64];
-   char* errorString;
+   char        str[256];
+   char        strDefault[64];
+   const char* errorString;
    switch(error) {
       case ME_BadMedia:
          errorString = "Media not found or invalid file format!";
@@ -502,7 +497,7 @@ void QClient::play()
    String protocol;
    String host;
    String path;
-   bool newOK = scanURL((const char*)Location->text(),protocol,host,path);
+   bool newOK = scanURL((const char*)Location->text().toUtf8().constData(),protocol,host,path);
    if((newOK == false) || (protocol != "rtpa")) {
       StatusBar->setText("Invalid URL! Check URL and try again.");
       QMessageBox::warning(this,"Warning",
@@ -516,9 +511,9 @@ void QClient::play()
    // ====== Check, if URL is new => Restart or change media ================
    if(Client->playing() == true) {
       const char* oldURL = PlayingURL.getData();
-      const char* newURL = Location->text();
+      const char* newURL = Location->text().toUtf8().constData();
       if(!(strcmp(oldURL,newURL))) {
-         Pause->setOn(false);
+         Pause->setChecked(false);
          return;
       }
 
@@ -529,8 +524,8 @@ void QClient::play()
       if(oldOK == true) {
          if((oldHost == host) && (oldProtocol == protocol)) {
             Client->change(path.getData());
-            Pause->setOn(FALSE);
-            PlayingURL = (const char*)Location->text();
+            Pause->setChecked(FALSE);
+            PlayingURL = (const char*)Location->text().toUtf8().constData();
             InsertionRequired = true;
             return;
          }
@@ -539,8 +534,8 @@ void QClient::play()
    }
 
    // ====== Start client ===================================================
-   Pause->setOn(FALSE);
-   PlayingURL = (const char*)Location->text();
+   Pause->setChecked(FALSE);
+   PlayingURL = (const char*)Location->text().toUtf8().constData();
    bool ok = Client->play(host.getData(),path.getData(),UseSCTP);
 
    // ====== Update status display ==========================================
@@ -605,7 +600,7 @@ void QClient::togglePause()
 void QClient::toggleResolver()
 {
    ResolveMode = !ResolveMode;
-   SettingsMenu->setItemChecked(MenuIDResolver,ResolveMode);
+   ResolverAction->setChecked(ResolveMode);
 
    if(Client->playing()) {
       InternetAddress::PrintFormat format = InternetAddress::PF_Address;
@@ -624,7 +619,7 @@ void QClient::toggleResolver()
 void QClient::toggleAutoRepeat()
 {
    AutoRepeat = !AutoRepeat;
-   SettingsMenu->setItemChecked(MenuIDAutoRepeat,AutoRepeat);
+   AutoRepeatAction->setChecked(AutoRepeat);
 }
 
 
@@ -632,7 +627,7 @@ void QClient::toggleAutoRepeat()
 void QClient::toggleAutoSaveBookmarks()
 {
    AutoSaveBookmarks = !AutoSaveBookmarks;
-   SettingsMenu->setItemChecked(MenuIDAutoSaveBookmarks,AutoSaveBookmarks);
+   AutoSaveBookmarksAction->setChecked(AutoSaveBookmarks);
 }
 
 
@@ -645,13 +640,13 @@ void QClient::spectrumAnalyzer()
          if(SpectrumAnalyzerWindow != NULL) {
             QObject::connect(SpectrumAnalyzerWindow,SIGNAL(closeSpectrumAnalyzer()),this,SLOT(closeSpectrumAnalyzer()));
             SpectrumAnalyzerWindow->show();
-            ToolsMenu->setItemChecked(MenuIDSpectrumAnalyzer,true);
+            SpectrumAnalyzerAction->setChecked(true);
          }
       }
       else {
          delete SpectrumAnalyzerWindow;
          SpectrumAnalyzerWindow = NULL;
-         ToolsMenu->setItemChecked(MenuIDSpectrumAnalyzer,false);
+         SpectrumAnalyzerAction->setChecked(false);
       }
    }
 }
@@ -663,7 +658,7 @@ void QClient::closeSpectrumAnalyzer()
    if(SpectrumAnalyzerWindow != NULL) {
       delete SpectrumAnalyzerWindow;
       SpectrumAnalyzerWindow = NULL;
-      ToolsMenu->setItemChecked(MenuIDSpectrumAnalyzer,false);
+      SpectrumAnalyzerAction->setChecked(false);
    }
 }
 
@@ -677,13 +672,13 @@ void QClient::audioMixer()
          if(MixerWindow != NULL) {
             QObject::connect(MixerWindow,SIGNAL(closeAudioMixer()),this,SLOT(closeAudioMixer()));
             MixerWindow->show();
-            ToolsMenu->setItemChecked(MenuIDMixer,true);
+            MixerAction->setChecked(true);
          }
       }
       else {
          delete MixerWindow;
          MixerWindow = NULL;
-         ToolsMenu->setItemChecked(MenuIDMixer,false);
+         MixerAction->setChecked(false);
       }
    }
 }
@@ -695,7 +690,7 @@ void QClient::closeAudioMixer()
    if(MixerWindow != NULL) {
       delete MixerWindow;
       MixerWindow = NULL;
-      ToolsMenu->setItemChecked(MenuIDMixer,false);
+      MixerAction->setChecked(false);
    }
 }
 
@@ -716,15 +711,16 @@ void QClient::updateCounter(card64 position)
 {
    // ====== Update frame counter ===========================================
    char str[32];
-   snprintf((char*)&str,sizeof(str),"%08Ld",position / (PositionStepsPerSecond / 1000));
+   snprintf((char*)&str,sizeof(str),"%08lld",
+            (long long)(position / (PositionStepsPerSecond / 1000)));
 
    // ====== Update time counter ============================================
    const card64 seconds = position / PositionStepsPerSecond;
    snprintf((char*)&str,sizeof(str),
-            "%02Ld:%02Ld.%02Ld",
-            (seconds / 60),
-            (seconds % 60),
-            ((position % PositionStepsPerSecond) / (PositionStepsPerSecond / 100)));
+            "%02u:%02u.%02u",
+            (unsigned int)(seconds / 60),
+            (unsigned int)(seconds % 60),
+            (unsigned int)((position % PositionStepsPerSecond) / (PositionStepsPerSecond / 100)));
    Counter->display((char*)&str);
 }
 
@@ -735,7 +731,7 @@ void QClient::position(int value)
    if(!ScrollBarUpdated) {
       const card64 position = (card64)value * (PositionStepsPerSecond / 10);
       Client->setPosition(position);
-      Pause->setOn(FALSE);
+      Pause->setChecked(FALSE);
       ScrollBarUpdateDelay = MaxScrollBarUpdateDelay;
    }
    else {
@@ -845,7 +841,7 @@ void QClient::timerEvent()
       }
       jString += " [ms]";
       InfoWidget->update("IJ",jString);
-      flString = card64ToQString(totalLost,"%Ld ") + flString;
+      flString = card64ToQString(totalLost,"%lld ") + flString;
       InfoWidget->update("PL",flString);
 
 
@@ -874,7 +870,7 @@ void QClient::timerEvent()
 
       if(error == ME_EOF) {
          // ====== End of media -> Auto-repeat ==============================
-         if(!Pause->isOn()) {
+         if(!Pause->isChecked()) {
             if(AutoRepeat) {
                EOFRepeatDelay++;
                snprintf((char*)&str,sizeof(str),
@@ -928,9 +924,9 @@ void QClient::timerEvent()
 
       // ====== Display MediaInfo values ====================================
       const MediaInfo mediaInfo = Client->getMediaInfo();
-      TitleLabel->setText(QString(mediaInfo.Title).stripWhiteSpace());
-      ArtistLabel->setText(QString(mediaInfo.Artist).stripWhiteSpace());
-      CommentLabel->setText(QString(mediaInfo.Comment).stripWhiteSpace());
+      TitleLabel->setText(QString(mediaInfo.Title).trimmed());
+      ArtistLabel->setText(QString(mediaInfo.Artist).trimmed());
+      CommentLabel->setText(QString(mediaInfo.Comment).trimmed());
 
 
       // ====== Update counter ==============================================
@@ -938,7 +934,7 @@ void QClient::timerEvent()
 
 
       // ====== Update scrollbar's range ====================================
-      if(!ScrollBar->draggingSlider()) {
+      if(!ScrollBar->sliderMoved()) {
          if(ScrollBarUpdateDelay > 0)
             ScrollBarUpdateDelay--;
          if(ScrollBarUpdateDelay == 0) {
@@ -963,7 +959,7 @@ void QClient::locationSelected(int selection)
       String* url = URLList.first();
       while(url != NULL) {
          if(number == 0) {
-            const char* oldURL = Location->text();
+            const char* oldURL = Location->text().toUtf8().constData();
             const char* newURL = url->getData();
             if((strcmp(oldURL,newURL)) || (!Client->playing())) {
                Location->setText(newURL);
@@ -982,10 +978,10 @@ void QClient::insertURL(const String& urlToInsert)
 {
    // ====== Remove old copy of new URL and insert URL at head of list ======
    String* newURL = new String(urlToInsert);
-   CHECK_PTR(newURL);
-   String* url = URLList.first();
-   while(url != NULL) {
-      if(*url == urlToInsert) {
+   Q_CHECK_PTR(newURL);
+   String url = URLList.first();
+   while(url.length() != 0) {
+      if(url == urlToInsert) {
          URLList.remove(url);
          delete url;
       }
@@ -995,7 +991,6 @@ void QClient::insertURL(const String& urlToInsert)
    if(URLList.count() > LocationCount) {
       url = URLList.last();
       URLList.removeLast();
-      delete url;
    }
 
    // ====== Update menu ====================================================
@@ -1091,12 +1086,15 @@ QString QClient::bytesToQString(const card64 bytes) const
          unit = 'K';
       }
       if(bytes >= 1000000000)
-         snprintf((char*)&str,sizeof(str),"%1.5e (%1.2f %cB)",(double)bytes,bytesDouble,unit);
+         snprintf((char*)&str,sizeof(str),"%1.5e (%1.2f %cB)",
+                  (double)bytes,bytesDouble,unit);
       else
-         snprintf((char*)&str,sizeof(str),"%Ld (%1.2f %cB)",bytes,bytesDouble,unit);
+         snprintf((char*)&str,sizeof(str),"%llu (%1.2f %cB)",
+                  (unsigned long long)bytes,bytesDouble,unit);
    }
    else {
-      snprintf((char*)&str,sizeof(str),"%Ld",bytes);
+      snprintf((char*)&str,sizeof(str),"%Lu",
+               (unsigned long long)bytes);
    }
    return(QString((char*)&str));
 }
@@ -1207,15 +1205,15 @@ int main(int argc, char* argv[])
 
    // ====== Initialize audio output device =================================
    MultiAudioWriter* audioOutput = new MultiAudioWriter();
-   CHECK_PTR(audioOutput);
+   Q_CHECK_PTR(audioOutput);
    if(optAudioDebug > 0) {
       AudioDebug* audioDebug = new AudioDebug();
-      CHECK_PTR(audioDebug);
+      Q_CHECK_PTR(audioDebug);
       audioOutput->addWriter(audioDebug);
    }
    if(optAudioDevice > 0) {
       AudioDevice* audioDevice = new AudioDevice();
-      CHECK_PTR(audioDevice);
+      Q_CHECK_PTR(audioDevice);
       if(audioDevice->ready()) {
          audioOutput->addWriter(audioDevice);
       }
@@ -1227,13 +1225,13 @@ int main(int argc, char* argv[])
    }
    if(optAudioNull > 0) {
       AudioNull* audioNull = new AudioNull();
-      CHECK_PTR(audioNull);
+      Q_CHECK_PTR(audioNull);
       audioOutput->addWriter(audioNull);
    }
    SpectrumAnalyzer* spectrumAnalyzer = NULL;
    if(optAnalyzer > 0) {
       spectrumAnalyzer = new SpectrumAnalyzer();
-      CHECK_PTR(spectrumAnalyzer);
+      Q_CHECK_PTR(spectrumAnalyzer);
       audioOutput->addWriter(spectrumAnalyzer);
    }
 
@@ -1241,7 +1239,7 @@ int main(int argc, char* argv[])
    AudioMixer* mixer = NULL;
    if(optMixer > 0) {
       mixer = new AudioMixer();
-      CHECK_PTR(mixer);
+      Q_CHECK_PTR(mixer);
       if(mixer->ready() == false) {
          std::cerr << "WARNING: Audio mixer not ready => Disabling mixer!" << std::endl;
          delete mixer;
@@ -1251,10 +1249,9 @@ int main(int argc, char* argv[])
 
    // ======Initialize GUI ==================================================
    QApplication* application = new QApplication(argc,argv);
-   CHECK_PTR(application);
-   application->setStyle(new QPlatinumStyle());
+   Q_CHECK_PTR(application);
    QClient* player = new QClient(audioOutput,local,defaultURL,spectrumAnalyzer,mixer,optUseSCTP);
-   CHECK_PTR(player);
+   Q_CHECK_PTR(player);
    application->setMainWidget(player);
    player->show();
    if(optAnalyzer > 1) {
