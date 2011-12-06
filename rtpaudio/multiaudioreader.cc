@@ -79,7 +79,6 @@ bool MultiAudioReader::openMedia(const char* name)
    closeMedia();
    Error = ME_BadMedia;
    FILE* inputFD = fopen(name,"r");
-printf("MEDIA=<%s>\n", name);
    if(inputFD == NULL) {
       std::cerr << "WARNING: Unable to open input file <" << name << ">!" << std::endl;
       return(false);
@@ -88,6 +87,9 @@ printf("MEDIA=<%s>\n", name);
    // ====== Read identification ============================================
    char str[256];
    char* result = fgets((char*)&str,256,inputFD);
+   if(result == NULL) {
+      return(false);
+   }
    if(strncmp((char*)&str,"AudioList",9)) {
       return(false);
    }

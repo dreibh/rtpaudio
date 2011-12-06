@@ -58,6 +58,7 @@ AudioDevice::AudioDevice(const char* name)
       std::cerr << "************************************************************" << std::endl;
       std::cerr << "WARNING: AudioDevice::AudioDevice() - Unable to open device!" << std::endl;
       std::cerr << "************************************************************" << std::endl;
+      printf("N=%s\n",name);
       return;
    }
 
@@ -83,7 +84,6 @@ AudioDevice::AudioDevice(const char* name)
    if(ioctl(DeviceFD,SNDCTL_DSP_NONBLOCK,0) < 0) {
       std::cerr << "WARNING: AudioDevice::AudioDevice() - "
               "ioctl SNDCTL_DSP_NONBLOCK failed!" << std::endl;
-      return;
    }
 
 
