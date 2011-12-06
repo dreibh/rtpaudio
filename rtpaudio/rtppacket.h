@@ -49,10 +49,7 @@ const cardinal RTPMaxPayloadLimit = 8192;
   * = 1500 - (12 + 16 * 4) - 40 - 8
   * = Maximum ethernet data length - RTPPacket size - (16 * CSRC) - UDP header size - IPv6 header size.
   */
-// const cardinal RTPDefaultMaxPayload = 1376;  // ?????????????????
-
-const cardinal RTPDefaultMaxPayload = 800;
-
+const cardinal RTPDefaultMaxPayload = 1376;
 
 /**
   * Default RTP header size (CC = 0).
@@ -75,7 +72,7 @@ const double RTPMicroSecondsPerTimeStamp = 1000.0 / 16.0;
 /**
   * Maximum number of layers in one stream.
   * Note: This is *not* a constant of RFC 1889 but a limit for the
-  * RTP classes!
+  * RTP structs!
   */
 const cardinal RTPMaxQualityLayers = 4;
 
@@ -84,7 +81,7 @@ const cardinal RTPMaxQualityLayers = 4;
 /**
   * Maximum number of layers in one stream.
   * Note: This is *not* a constant of RFC 1889 but a limit for the
-  * RTP classes!
+  * RTP structs!
   */
 const cardinal RTPMaxQualityLayers = 16;
 
@@ -95,7 +92,7 @@ const cardinal RTPMaxQualityLayers = 16;
 
 
 /**
-  * This class manages an RTP packet
+  * This struct manages an RTP packet
   *
   * @short   RTP Packet
   * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
@@ -104,7 +101,7 @@ const cardinal RTPMaxQualityLayers = 16;
   * @see RTPSender
   * @see RTPReceiver
   */
-class RTPPacket
+struct RTPPacket
 {
    // ====== Constructor ====================================================
    public:
@@ -312,7 +309,7 @@ class RTPPacket
    card32 SSRC;                     // Synchronization Source (SSRC) identifier
    card32 CSRC[16];                 // Contributing Source (CSRC) identifiers
    char   Data[RTPConstants::RTPMaxPayloadLimit];    // Payload data
-};
+} __attribute__((packed));
 
 
 #include "rtppacket.icc"

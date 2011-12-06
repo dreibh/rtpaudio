@@ -119,9 +119,9 @@ void RTCPReceiver::run()
       }
 
       RTCPCommonHeader* r    = (RTCPCommonHeader*)&packetData;
-      RTCPCommonHeader* rend = (RTCPCommonHeader*)(long)r + packetSize;
+      RTCPCommonHeader* rend = (RTCPCommonHeader*)((long)r + (long)packetSize);
       do {
-         r = (RTCPCommonHeader*)((long*)r + (long)r->getLength());
+         r = (RTCPCommonHeader*)((long)r + (long)r->getLength());
       } while((r < rend) && (r->getVersion() == RTPConstants::RTPVersion));
       if(r != rend) {
 #ifdef DEBUG

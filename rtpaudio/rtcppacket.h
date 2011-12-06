@@ -66,7 +66,7 @@ enum RTCP_SDES_Type
 
 
 /**
-  * This class manages a common RTCP header.
+  * This struct manages a common RTCP header.
   *
   * @short   RTCP Common Header
   * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
@@ -76,7 +76,7 @@ enum RTCP_SDES_Type
   * @see RTCPReceiver
   * @see RTCPAbstractServer
   */
-class RTCPCommonHeader
+struct RTCPCommonHeader
 {
    // ====== Constructor ====================================================
    public:
@@ -175,11 +175,11 @@ class RTCPCommonHeader
 #endif
    card8 PT:8;		                  // RTCP Packet Type
    card16 Length;                         // Packet length in words minus one
-};
+} __attribute__((packed));
 
 
 /**
-  * This class manages a sender info block
+  * This struct manages a sender info block
   *
   * @short   RTCP Sender Info Block
   * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
@@ -189,7 +189,7 @@ class RTCPCommonHeader
   * @see RTCPReceiver
   * @see RTCPAbstractServer
   */
-class RTCPSenderInfoBlock
+struct RTCPSenderInfoBlock
 {
    // ====== Constructor ====================================================
    public:
@@ -267,11 +267,11 @@ class RTCPSenderInfoBlock
    card32 RTPTimeStamp;            // RTP Timestamp
    card32 PacketsSent;             // Packets sent
    card32 OctetsSent;              // Octets sent
-};
+} __attribute__((packed));
 
 
 /**
-  * This class manages a reception report block
+  * This struct manages a reception report block
   *
   * @short   RTCP Reception Report Block
   * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
@@ -281,7 +281,7 @@ class RTCPSenderInfoBlock
   * @see RTCPReceiver
   * @see RTCPAbstractServer
   */
-class RTCPReceptionReportBlock
+struct RTCPReceptionReportBlock
 {
    // ====== Constructor ====================================================
    public:
@@ -417,11 +417,11 @@ class RTCPReceptionReportBlock
    card32 Jitter;                         // Interarrival Jitter
    card32 LSR;                            // Last SR Packet from this source
    card32 DLSR;                           // Delay since last SR Packet
-};
+} __attribute__((packed));
 
 
 /**
-  * This class manages an RTCP report.
+  * This struct manages an RTCP report.
   *
   * @short   RTCP Report
   * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
@@ -431,7 +431,7 @@ class RTCPReceptionReportBlock
   * @see RTCPReceiver
   * @see RTCPAbstractServer
   */
-class RTCPReport : public RTCPCommonHeader
+struct RTCPReport : public RTCPCommonHeader
 {
    // ====== Constructor ====================================================
    public:
@@ -462,11 +462,11 @@ class RTCPReport : public RTCPCommonHeader
    // ====== Protected data =================================================
    protected:
    card32 SSRC;                  // Sender or Receiver generating this report
-};
+} __attribute__((packed));
 
 
 /**
-  * This class manages an RTCP sender report
+  * This struct manages an RTCP sender report
   *
   * @short   RTCP Sender Report
   * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
@@ -476,7 +476,7 @@ class RTCPReport : public RTCPCommonHeader
   * @see RTCPReceiver
   * @see RTCPAbstractServer
   */
-class RTCPSenderReport : public RTCPReport, public RTCPSenderInfoBlock
+struct RTCPSenderReport : public RTCPReport, public RTCPSenderInfoBlock
 {
    // ====== Constructor ====================================================
    public:
@@ -507,11 +507,11 @@ class RTCPSenderReport : public RTCPReport, public RTCPSenderInfoBlock
      * Array of RTCPReceptionReportBlocks
      */
    RTCPReceptionReportBlock rr[0];      // Variable length RR list
-};
+} __attribute__((packed));
 
 
 /**
-  * This class manages an RTCP receiver report
+  * This struct manages an RTCP receiver report
   *
   * @short   RTCP Sender Report
   * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
@@ -521,7 +521,7 @@ class RTCPSenderReport : public RTCPReport, public RTCPSenderInfoBlock
   * @see RTCPReceiver
   * @see RTCPAbstractServer
   */
-class RTCPReceiverReport : public RTCPReport
+struct RTCPReceiverReport : public RTCPReport
 {
    // ====== Constructor ====================================================
    public:
@@ -552,11 +552,11 @@ class RTCPReceiverReport : public RTCPReport
      * Array of RTCPReceptionReportBlocks
      */
    RTCPReceptionReportBlock rr[0];      // Variable length RR list
-};
+} __attribute__((packed));
 
 
 /**
-  * This class manages an RTCP source description item
+  * This struct manages an RTCP source description item
   *
   * @short   RTCP Source Description Item
   * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
@@ -566,7 +566,7 @@ class RTCPReceiverReport : public RTCPReport
   * @see RTCPReceiver
   * @see RTCPAbstractServer
   */
-class RTCPSourceDescriptionItem
+struct RTCPSourceDescriptionItem
 {
    public:
    /**
@@ -583,11 +583,11 @@ class RTCPSourceDescriptionItem
      * Item data.
      */
    char Data[0];
-};
+} __attribute__((packed));
 
 
 /**
-  * This class manages an RTCP source description chunk
+  * This struct manages an RTCP source description chunk
   *
   * @short   RTCP Source Description Chunk
   * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
@@ -597,7 +597,7 @@ class RTCPSourceDescriptionItem
   * @see RTCPReceiver
   * @see RTCPAbstractServer
   */
-class RTCPSourceDescriptionChunk
+struct RTCPSourceDescriptionChunk
 {
    public:
    /**
@@ -609,11 +609,11 @@ class RTCPSourceDescriptionChunk
      * Array of SDES items.
      */
    RTCPSourceDescriptionItem Item[1];
-};
+} __attribute__((packed));
 
 
 /**
-  * This class manages an RTCP source description (SDES)
+  * This struct manages an RTCP source description (SDES)
   *
   * @short   RTCP Source Description (SDES)
   * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
@@ -623,7 +623,7 @@ class RTCPSourceDescriptionChunk
   * @see RTCPReceiver
   * @see RTCPAbstractServer
   */
-class RTCPSourceDescription : public RTCPCommonHeader
+struct RTCPSourceDescription : public RTCPCommonHeader
 {
    // ====== Constructor ====================================================
    public:
@@ -652,11 +652,11 @@ class RTCPSourceDescription : public RTCPCommonHeader
      * Array of SDES chunks.
      */
    RTCPSourceDescriptionChunk Chunk[1];
-};
+} __attribute__((packed));
 
 
 /**
-  * This class manages an RTCP BYE message
+  * This struct manages an RTCP BYE message
   *
   * @short   RTCP BYE Message
   * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
@@ -666,7 +666,7 @@ class RTCPSourceDescription : public RTCPCommonHeader
   * @see RTCPReceiver
   * @see RTCPAbstractServer
   */
-class RTCPBye : public RTCPCommonHeader
+struct RTCPBye : public RTCPCommonHeader
 {
    // ====== Constructor ====================================================
    public:
@@ -714,11 +714,11 @@ class RTCPBye : public RTCPCommonHeader
    // ====== Private data ===================================================
    private:
    card32 Source[0];
-};
+} __attribute__((packed));
 
 
 /**
-  * This class manages an RTCP APP message
+  * This struct manages an RTCP APP message
   *
   * @short   RTCP APP Message
   * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
@@ -728,7 +728,7 @@ class RTCPBye : public RTCPCommonHeader
   * @see RTCPReceiver
   * @see RTCPAbstractServer
   */
-class RTCPApp : public RTCPCommonHeader
+struct RTCPApp : public RTCPCommonHeader
 {
    // ====== Constructor ====================================================
    public:
@@ -788,7 +788,7 @@ class RTCPApp : public RTCPCommonHeader
    card32 Source;
    char   Name[4];
    char   Data[0];
-};
+} __attribute__((packed));
 
 
 #include "rtcppacket.icc"
