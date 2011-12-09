@@ -41,6 +41,7 @@
 #include <qwhatsthis.h>
 #include <qlabel.h>
 #include <qlist.h>
+#include <qhash.h>
 
 
 /**
@@ -139,10 +140,10 @@ class QInfoWidget : public QWidget
 
    // ====== Private data ===================================================
    private:
-   const InfoTable* Table;
-   QWhatsThis*      WhatsThis;
-   QDict<QLabel>    LabelDict;
-   QList<QLabel>    LabelList;
+   const InfoTable*       Table;
+   QWhatsThis*            WhatsThis;
+   QHash<QString,QLabel*> LabelDict;
+   QList<QLabel>          LabelList;
 };
 
 

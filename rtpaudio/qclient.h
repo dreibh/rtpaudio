@@ -350,7 +350,7 @@ class QClient : public QMainWindow
    QPushButton*    Pause;
    QWhatsThis*     WhatsThis;
 
-   QList<String>   URLList;
+   QList<String*>  URLList;
    String          PlayingURL;
    bool            InsertionRequired;
    bool            ResolveMode;

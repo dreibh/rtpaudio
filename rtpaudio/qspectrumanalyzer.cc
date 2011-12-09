@@ -59,22 +59,22 @@ QSpectrumAnalyzer::QSpectrumAnalyzer(SpectrumAnalyzer* analyzer,
    // ====== Central widget =================================================
    QWidget* centralWidget = new QWidget(this);
    Q_CHECK_PTR(centralWidget);
-   QGridLayout* layout    = new QGridLayout(centralWidget,1,2);
+   QGridLayout* layout    = new QGridLayout(centralWidget);
    Q_CHECK_PTR(layout);
-   layout->setColStretch(0,0);
-   layout->setColStretch(1,10);
+//    layout->setColStretch(0,0);   ??????
+//    layout->setColStretch(1,10);
 
    // ====== Control group ==================================================
    QGroupBox* controlGroup = new QGroupBox("Control",centralWidget);
    Q_CHECK_PTR(controlGroup);
    layout->addWidget(controlGroup,0,0);
-   QVBoxLayout* controlLayout = new QVBoxLayout(controlGroup,20,20);
+   QVBoxLayout* controlLayout = new QVBoxLayout(controlGroup);
    Q_CHECK_PTR(controlLayout);
 
    Pause = new QPushButton("Pause",controlGroup);
    Q_CHECK_PTR(Pause);
-   Pause->setToggleButton(TRUE);
-   Pause->setOn(FALSE);
+   Pause->setCheckable(TRUE);
+   Pause->setChecked(FALSE);
    controlLayout->addWidget(Pause);
    QObject::connect(Pause,SIGNAL(toggled(bool)),this,SLOT(pause(bool)));
 
@@ -92,14 +92,14 @@ QSpectrumAnalyzer::QSpectrumAnalyzer(SpectrumAnalyzer* analyzer,
    QButtonGroup* radioGroup = new QButtonGroup(controlGroup);
    Q_CHECK_PTR(radioGroup);
    controlLayout->addWidget(radioGroup);
-   QVBoxLayout* radioLayout = new QVBoxLayout(radioGroup,5);
+   QVBoxLayout* radioLayout = new QVBoxLayout(this);
    Q_CHECK_PTR(radioLayout);
 
    char str[16];
    for(cardinal i = 0;i < sizeof(QSpectrumAnalyzerTimings) / sizeof(card16);i++) {
       snprintf((char*)&str,sizeof(str),
               "%1.2f s",(double)QSpectrumAnalyzerTimings[i] / 1000.0);
-      QRadioButton* radio = new QRadioButton(str,radioGroup);
+      QRadioButton* radio = new QRadioButton(str);
       Q_CHECK_PTR(radio);
       if(i == 1) {
          radio->setChecked(true);
@@ -112,7 +112,8 @@ QSpectrumAnalyzer::QSpectrumAnalyzer(SpectrumAnalyzer* analyzer,
    QGroupBox* fourierGroup = new QGroupBox("Fast Fourier Spectrum Analyzer",centralWidget);
    Q_CHECK_PTR(fourierGroup);
    layout->addWidget(fourierGroup,0,1);
-   QGridLayout* fourierLayout = new QGridLayout(fourierGroup,2,1,20,20);
+   QGridLayout* fourierLayout = new QGridLayout(fourierGroup);
+//    ,2,1,20,20   ?????
    Q_CHECK_PTR(fourierLayout);
    PaintWidget1 = new QWidget(fourierGroup);
    Q_CHECK_PTR(PaintWidget1);
@@ -126,7 +127,7 @@ QSpectrumAnalyzer::QSpectrumAnalyzer(SpectrumAnalyzer* analyzer,
    fourierLayout->addWidget(PaintWidget2,1,0);
 
    setCentralWidget(centralWidget);
-   setCaption("Spectrum Analyzer");
+   setWindowTitle("Spectrum Analyzer");
 
    Timer = new QTimer(this);
    Q_CHECK_PTR(Timer);
@@ -225,16 +226,18 @@ void QSpectrumAnalyzer::showSpectrum(QWidget*        paintWidget,
          }
          sum /= AverageSteps;
 
+         QPainterPath path;
          if(i == 0) {
-            painter.moveTo(sx,y + height - sum);
+            path.moveTo(sx,y + height - sum);
          } else {
-            painter.lineTo(sx,y + height - sum);
+            path.lineTo(sx,y + height - sum);
          }
          sx += AverageSteps * step;
          if(sx > Bars * step) {
             sx = Bars * step;
          }
-         painter.lineTo(sx,y + height - sum);
+         path.lineTo(sx,y + height - sum);
+         painter.drawPath(path);
       }
    }
 
@@ -265,10 +268,10 @@ void QSpectrumAnalyzer::newInterval(int index)
 {
    if((cardinal)index < sizeof(QSpectrumAnalyzerTimings) / sizeof(card16)) {
       Timing = QSpectrumAnalyzerTimings[index];
-      if(Pause->isOn()) {
-         Pause->setOn(FALSE);
+      if(Pause->isChecked()) {
+         Pause->setChecked(FALSE);
       }
-      Timer->changeInterval(QSpectrumAnalyzerTimings[index]);
+      Timer->setInterval(QSpectrumAnalyzerTimings[index]);
    }
 }
 

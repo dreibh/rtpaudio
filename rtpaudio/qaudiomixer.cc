@@ -61,17 +61,17 @@ QAudioMixer::QAudioMixer(AudioMixer* mixer,
    QGroupBox* controlGroup = new QGroupBox("AudioMixer",centralWidget);
    Q_CHECK_PTR(controlGroup);
    layout->addWidget(controlGroup);
-   QGridLayout* controlLayout = new QGridLayout(controlGroup,3,3,20,20);
+   QGridLayout* controlLayout = new QGridLayout(controlGroup);
    Q_CHECK_PTR(controlLayout);
-   controlLayout->setColStretch(1,2);
 
    // ====== Balance ========================================================
    QLabel* label1 = new QLabel("Balance:",controlGroup);
    Q_CHECK_PTR(label1);
    controlLayout->addWidget(label1,0,0);
-   Balance = new QSlider(0,100,5,50,QSlider::Horizontal,controlGroup);
+   Balance = new QSlider(Qt::Horizontal,controlGroup);
+//    0,100,5,50,   ????
    Q_CHECK_PTR(Balance);
-   Balance->setTickmarks(QSlider::Below);
+   Balance->setTickPosition(QSlider::TicksBelow);
    Balance->setTickInterval(10);
    controlLayout->addWidget(Balance,0,1);
    QPushButton* center = new QPushButton("Center",controlGroup);
@@ -84,14 +84,15 @@ QAudioMixer::QAudioMixer(AudioMixer* mixer,
    QLabel* label2 = new QLabel("Volume:",controlGroup);
    Q_CHECK_PTR(label2);
    controlLayout->addWidget(label2,1,0);
-   Volume = new QSlider(0,100,5,50,QSlider::Horizontal,controlGroup);
+   Volume = new QSlider(Qt::Horizontal,controlGroup);
+//   0,100,5,50,   ????
    Q_CHECK_PTR(Volume);
-   Volume->setTickmarks(QSlider::Below);
+   Volume->setTickPosition(QSlider::TicksBelow);
    Volume->setTickInterval(10);
    controlLayout->addWidget(Volume,1,1);
    Mute = new QPushButton("Mute",controlGroup);
    Q_CHECK_PTR(Mute);
-   Mute->setToggleButton(true);
+   Mute->setCheckable(true);
    controlLayout->addWidget(Mute,1,2);
    QObject::connect(Mute,SIGNAL(clicked()),this,SLOT(mute()));
    QObject::connect(Volume,SIGNAL(valueChanged(int)),this,SLOT(volume(int)));
@@ -102,10 +103,10 @@ QAudioMixer::QAudioMixer(AudioMixer* mixer,
    controlLayout->addWidget(label3,2,0);
    Values = new QLabel(controlGroup);
    Q_CHECK_PTR(Values);
-   controlLayout->addMultiCellWidget(Values,2,2,1,2);
+   controlLayout->addWidget(Values,2,2,1,2);
 
    setCentralWidget(centralWidget);
-   setCaption("Audio Mixer");
+   setWindowTitle("Audio Mixer");
 
 
    // ====== Set start values from mixer device =============================
@@ -146,7 +147,7 @@ QAudioMixer::~QAudioMixer()
 // ###### Update volumes on mixer device ####################################
 void QAudioMixer::update()
 {
-   if(Mute->isOn() == false) {
+   if(Mute->isChecked() == false) {
       integer balance = (integer)BalanceSetting - 50;
       card8 left;
       card8 right;

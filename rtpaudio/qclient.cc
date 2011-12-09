@@ -378,9 +378,9 @@ QClient::QClient(AudioWriterInterface* audioOutput,
       Location->setText(defaultURL);
    else {
       loadBookmarks();
-      const String& url = URLList.first();
-      if(url.length() != 0) {
-          Location->setText(url.getData());
+      const String* url = URLList.first();
+      if(url != NULL) {
+          Location->setText(url->getData());
       }
       else {
          if(Client->getIPVersion() == 6)
@@ -934,7 +934,7 @@ void QClient::timerEvent()
 
 
       // ====== Update scrollbar's range ====================================
-      if(!ScrollBar->sliderMoved()) {
+      if(!ScrollBar->isSliderDown()) {
          if(ScrollBarUpdateDelay > 0)
             ScrollBarUpdateDelay--;
          if(ScrollBarUpdateDelay == 0) {
@@ -954,7 +954,8 @@ void QClient::timerEvent()
 // ###### Location selected slot ############################################
 void QClient::locationSelected(int selection)
 {
-   if((selection >= (int)MenuIDLocation) && (selection < (int)(MenuIDLocation + LocationCount))) {
+   if((selection >= (int)MenuIDLocation) &&
+      (selection < (int)(MenuIDLocation + LocationCount))) {
       cardinal number = selection - MenuIDLocation;
       String* url = URLList.first();
       while(url != NULL) {
