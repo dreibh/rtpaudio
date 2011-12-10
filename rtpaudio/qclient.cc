@@ -929,9 +929,9 @@ void QClient::timerEvent()
 
       // ====== Display MediaInfo values ====================================
       const MediaInfo mediaInfo = Client->getMediaInfo();
-      TitleLabel->setText(QString(mediaInfo.Title).trimmed());
-      ArtistLabel->setText(QString(mediaInfo.Artist).trimmed());
-      CommentLabel->setText(QString(mediaInfo.Comment).trimmed());
+      TitleLabel->setText(QString::fromUtf8(mediaInfo.Title).trimmed());
+      ArtistLabel->setText(QString::fromUtf8(mediaInfo.Artist).trimmed());
+      CommentLabel->setText(QString::fromUtf8(mediaInfo.Comment).trimmed());
 
 
       // ====== Update counter ==============================================
