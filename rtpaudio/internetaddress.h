@@ -2,7 +2,7 @@
  *  $Id$
  *
  * SocketAPI implementation for the sctplib.
- * Copyright (C) 1999-2009 by Thomas Dreibholz
+ * Copyright (C) 1999-2011 by Thomas Dreibholz
  *
  * Realized in co-operation between
  * - Siemens AG
@@ -56,7 +56,7 @@
   * @short   Socket Address
   * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
-  */
+  */            
 class InternetAddress : virtual public SocketAddress
 {
    // ====== Constructors/Destructor ========================================
@@ -79,7 +79,7 @@ class InternetAddress : virtual public SocketAddress
      *
      * @param address Address string.
      */
-   InternetAddress(const String& address);
+   InternetAddress(const String& address);      
 
    /**
      * Constructor for a internet address given by host name and port.
@@ -135,7 +135,7 @@ class InternetAddress : virtual public SocketAddress
      *
      * @param hostName Host name.
      * @param port Port number.
-     */
+     */    
    void init(const String& hostName, const card16 port);
 
    /**
@@ -342,7 +342,7 @@ class InternetAddress : virtual public SocketAddress
      * getSystemAddress() implementation of SocketAddress
      *
      * @see SocketAddress#getSystemAddress
-     */
+     */            
    cardinal getSystemAddress(sockaddr*       buffer,
                              const socklen_t length,
                              const cardinal  type) const;

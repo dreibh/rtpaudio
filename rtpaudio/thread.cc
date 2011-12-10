@@ -2,7 +2,7 @@
  *  $Id$
  *
  * SocketAPI implementation for the sctplib.
- * Copyright (C) 1999-2006 by Thomas Dreibholz
+ * Copyright (C) 1999-2011 by Thomas Dreibholz
  *
  * Realized in co-operation between
  * - Siemens AG
@@ -14,20 +14,21 @@
  * Forschung (BMBF) of the Federal Republic of Germany (Foerderkennzeichen 01AK045).
  * The authors alone are responsible for the contents.
  *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
- * There are two mailinglists available at http://www.sctp.de which should be
- * used for any discussion related to this implementation.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Contact: discussion@sctp.de
- *          dreibh@exp-math.uni-essen.de
+ *          dreibh@iem.uni-due.de
  *          tuexen@fh-muenster.de
  *
  * Purpose: Thread Implementation
@@ -66,7 +67,7 @@ bool Thread::checkSyncDebugger()
                    "source package and update _Thread::pthread_descr_struct definition in Threads/thread.h!"
                 << std::endl;
       std::cerr << "Your glibc version: " << __GLIBC__ << "." << __GLIBC_MINOR__ << "!" << std::endl;
-      ::exit(1);
+      abort();
    }
    test.unsynchronized();
    std::cerr << "okay!" << std::endl;
@@ -127,11 +128,11 @@ bool Thread::start(const char* name)
          pthread_cond_wait(&StartupCondition,&StartupMutex);
 
 #ifdef PRINT_STARTSTOP
-         cout << "Process #" << PID
+         std::cout << "Process #" << PID
 #ifdef SYNCDEBUGGER
-              << " \"" << MutexName << "\""
+                   << " \"" << MutexName << "\""
 #endif
-              << " started." << endl;
+                   << " started." << std::endl;
 #endif
          ThreadSet.insert(this);
       }
@@ -191,11 +192,11 @@ void* Thread::stop()
    synchronized();
    if(running()) {
 #ifdef PRINT_STARTSTOP
-         cout << "Process #" << PID
+         std::cout << "Process #" << PID
 #ifdef SYNCDEBUGGER
-              << " \"" << MutexName << "\""
+                   << " \"" << MutexName << "\""
 #endif
-              << " stopping..." << endl;
+                   << " stopping..." << std::endl;
 #endif
 
 
@@ -246,18 +247,18 @@ void* Thread::stop()
             if(pthread == InternalPThreadPtr) {
                if(!found) {
                   found = true;
-                  cerr << "ERROR: Thread::stop() - Mutex problems detected after stopping process #"
-                       << PID << " \"" << MutexName << "\"!" << endl;
+                  std::cerr << "ERROR: Thread::stop() - Mutex problems detected after stopping process #"
+                            << PID << " \"" << MutexName << "\"!" << std::endl;
                }
                if(!nextLock) {
-                  cerr << "Mutex \"" << (*iterator)->getName()
-                       << "\" is still owned by stopped process #" << PID
-                       << " \"" << getName() << "\"!" << endl;
+                  std::cerr << "Mutex \"" << (*iterator)->getName()
+                            << "\" is still owned by stopped process #" << PID
+                            << " \"" << getName() << "\"!" << std::endl;
                }
                else {
-                  cerr << "Mutex \"" << (*iterator)->getName()
-                       << "\" is in *p_nextlock* list of stopped process #" << PID
-                       << " \"" << getName() << "\"!" << endl;
+                  std::cerr << "Mutex \"" << (*iterator)->getName()
+                            << "\" is in *p_nextlock* list of stopped process #" << PID
+                            << " \"" << getName() << "\"!" << std::endl;
                }
             }
             pthread = pthread->p_nextlock;
@@ -266,31 +267,31 @@ void* Thread::stop()
          iterator++;
       }
       if(found) {
-         cerr << endl;
+         std::cerr << std::endl;
          iterator = Synchronizable::MutexSet.begin();
          while(iterator != Synchronizable::MutexSet.end()) {
             Thread::pthread_descr pthread = (Thread::pthread_descr)((*iterator)->Mutex.__m_owner);
             if(pthread != NULL) {
                if(pthread->p_pid != PID) {
-                  cerr << "Mutex \"" << (*iterator)->getName()
-                       << "\" is owned by process #" << pthread->p_pid;
+                  std::cerr << "Mutex \"" << (*iterator)->getName()
+                            << "\" is owned by process #" << pthread->p_pid;
                   set<Thread*>::iterator threadIterator = ThreadSet.begin();
                   while(threadIterator != ThreadSet.end()) {
                      if((*threadIterator)->PID == pthread->p_pid) {
-                        cerr << " \"" << (*threadIterator)->MutexName << "\"";
+                        std::cerr << " \"" << (*threadIterator)->MutexName << "\"";
                         break;
                      }
                      threadIterator++;
                   }
-                  cerr << "." << endl;
+                  std::cerr << "." << std::endl;
                }
             }
             else {
-               cerr << "Mutex \"" << (*iterator)->getName() << "\" is free." << endl;
+               std::cerr << "Mutex \"" << (*iterator)->getName() << "\" is free." << std::endl;
             }
             iterator++;
          }
-         cerr << endl << "Program HALT!" << endl;
+         std::cerr << std::endl << "Program HALT!" << std::endl;
          kill(getpid(),SYNCDEBUGGER_FAILURESIGNAL);
       }
 #endif
@@ -298,11 +299,11 @@ void* Thread::stop()
 
       // ====== Remove thread from list =====================================
 #ifdef PRINT_STARTSTOP
-         cout << "Process #" << PID
+         std::cout << "Process #" << PID
 #ifdef SYNCDEBUGGER
-              << " \"" << MutexName << "\""
+                   << " \"" << MutexName << "\""
 #endif
-              << " stopped." << endl;
+                   << " stopped." << std::endl;
 #endif
       ThreadSet.erase(this);
       PID = 0;
