@@ -49,6 +49,127 @@
 
 
 // ###### Constructor #######################################################
+QSpectrumDisplay::QSpectrumDisplay(QWidget*        parent,
+                                   const cardinal* array,
+                                   const cardinal  bars,
+                                   cardinal&       max,
+                                   const bool      drawAverageLine)
+   : QWidget(parent), Max(max)
+{
+   Array           = array;
+   Bars            = bars;
+   DrawAverageLine = drawAverageLine;
+}
+
+
+// ###### Destructor ########################################################
+QSpectrumDisplay::~QSpectrumDisplay()
+{
+
+}
+
+
+// ###### Paint event slot ##################################################
+void QSpectrumDisplay::paintEvent(QPaintEvent*)
+{
+   QPainter painter;
+   const cardinal x = 0;
+   const cardinal y = 0;
+   const cardinal w = width();
+   const cardinal h = height() - 3;
+
+   painter.begin(this);
+   painter.fillRect(x,y+h,w,3,QColor(10,10,10));
+
+   // ====== Calculate maximum value ========================================
+   cardinal values[Bars];
+   Max = (cardinal)(double)(Max * 0.98);
+   if(Max < 1) {
+      Max = 1;
+   }
+   for(cardinal i = 0;i < Bars;i++) {
+      values[i] = Array[i];
+      if(values[i] > Max)
+         Max = values[i];
+   }
+
+   // ====== Draw Bars ======================================================
+   cardinal step = w / Bars;
+   cardinal sx   = x;
+   for(cardinal i = 0;i < Bars;i++) {
+      const cardinal value = (values[i] * h) / Max;
+      drawBar(&painter,sx,y,step,h,value);
+      sx += step;
+   }
+
+   // ====== Draw average line ==============================================
+   if(DrawAverageLine) {
+      step = w / Bars;
+      sx   = x;
+      painter.setPen(QPen(QColor(80,80,255),3));
+      QPainterPath path;
+      for(cardinal i = 0;i < Bars;i += AverageSteps) {
+         cardinal sum = values[i];
+         cardinal j;
+         for(j = 1;j < AverageSteps;j++) {
+            if((i + j >= Bars))
+               break;
+            sum += values[i + j];
+         }
+         sum /= AverageSteps;
+
+         if(i == 0) {
+            path.moveTo(sx,y + h - sum);
+         } else {
+            path.lineTo(sx,y + h - sum);
+         }
+         sx += AverageSteps * step;
+         if(sx > Bars * step) {
+            sx = Bars * step;
+         }
+         path.lineTo(sx,y + h - sum);
+      }
+      painter.drawPath(path);
+   }
+
+   painter.end();
+}
+
+
+// ###### Draw spectrum bar #################################################
+void QSpectrumDisplay::drawBar(QPainter*      painter,
+                               const cardinal x,
+                               const cardinal y,
+                               const cardinal width,
+                               const cardinal height,
+                               const cardinal barValue)
+{
+   cardinal value = barValue;
+   if(barValue > height)
+      value = height;
+
+   // ====== Remove area above bar =========================================
+   painter->fillRect(x,y,width,height - value,
+                     palette().color(QPalette::Background));
+
+   const cardinal y1 = y + height - value;
+   const cardinal h1 = value / BarColors;
+
+   // ====== Draw the bar ===================================================
+   cardinal r = 255;
+   cardinal g = 0;
+   cardinal i;
+   for(i = 0;i < BarColors - 1;i++) {
+      r -= (255 / BarColors);
+      g += (255 / BarColors);
+      painter->fillRect(x,y1 + i * h1,width,h1,QColor(r,g,0));
+   }
+   painter->fillRect(x,y1 + i * h1,width,y + height - (y1 + i * h1),QColor(0,255,0));
+}
+
+
+
+// ###### Constructor #######################################################
 QSpectrumAnalyzer::QSpectrumAnalyzer(SpectrumAnalyzer* analyzer,
                                      QWidget*          parent)
    : QMainWindow(parent)
@@ -61,8 +182,8 @@ QSpectrumAnalyzer::QSpectrumAnalyzer(SpectrumAnalyzer* analyzer,
    Q_CHECK_PTR(centralWidget);
    QGridLayout* layout    = new QGridLayout(centralWidget);
    Q_CHECK_PTR(layout);
-//    layout->setColStretch(0,0);   ??????
-//    layout->setColStretch(1,10);
+   layout->setColumnStretch(0,0);
+   layout->setColumnStretch(1,10);
 
    // ====== Control group ==================================================
    QGroupBox* controlGroup = new QGroupBox("Control",centralWidget);
@@ -71,55 +192,59 @@ QSpectrumAnalyzer::QSpectrumAnalyzer(SpectrumAnalyzer* analyzer,
    QVBoxLayout* controlLayout = new QVBoxLayout(controlGroup);
    Q_CHECK_PTR(controlLayout);
 
-   Pause = new QPushButton("Pause",controlGroup);
+   Pause = new QPushButton("Pause");
    Q_CHECK_PTR(Pause);
    Pause->setCheckable(TRUE);
    Pause->setChecked(FALSE);
-   controlLayout->addWidget(Pause);
+   controlLayout->addWidget(Pause,1,0);
    QObject::connect(Pause,SIGNAL(toggled(bool)),this,SLOT(pause(bool)));
 
-   QPushButton* buttonClose = new QPushButton("Close",controlGroup);
+   QPushButton* buttonClose = new QPushButton("Close");
    Q_CHECK_PTR(buttonClose);
    controlLayout->addWidget(buttonClose);
    QObject::connect(buttonClose,SIGNAL(clicked()),this,SLOT(closeWindow()));
 
-   Average = new QCheckBox("Average",controlGroup);
+   Average = new QCheckBox("Average");
    Q_CHECK_PTR(Average);
    Average->setChecked(TRUE);
-   controlLayout->addWidget(Average);
+   controlLayout->addWidget(Average,2,0);
+   QObject::connect(Average,SIGNAL(stateChanged(int)),this,SLOT(drawAverageLineToggled(int)));
 
    // ====== Timing group ===================================================
-   QButtonGroup* radioGroup = new QButtonGroup(controlGroup);
-   Q_CHECK_PTR(radioGroup);
-   QVBoxLayout* radioLayout = new QVBoxLayout(this);
+   QGroupBox* radioGroupBox = new QGroupBox("Update", controlGroup);
+   Q_CHECK_PTR(radioGroupBox);
+   QButtonGroup* radioButtonGroup = new QButtonGroup(controlGroup);
+   Q_CHECK_PTR(radioButtonGroup);
+   controlLayout->addWidget(radioGroupBox,3,0);
+   QVBoxLayout* radioLayout = new QVBoxLayout(radioGroupBox);
    Q_CHECK_PTR(radioLayout);
 
    char str[16];
    for(cardinal i = 0;i < sizeof(QSpectrumAnalyzerTimings) / sizeof(card16);i++) {
       snprintf((char*)&str,sizeof(str),
               "%1.2f s",(double)QSpectrumAnalyzerTimings[i] / 1000.0);
-      QRadioButton* radio = new QRadioButton(str);
+      QRadioButton* radio = new QRadioButton(str,radioGroupBox);
       Q_CHECK_PTR(radio);
       if(i == 1) {
          radio->setChecked(true);
       }
       radioLayout->addWidget(radio);
+      radioButtonGroup->addButton(radio,i);
    }
-   QObject::connect(radioGroup,SIGNAL(clicked(int)),this,SLOT(newInterval(int)));
+   QObject::connect(radioButtonGroup,SIGNAL(buttonPressed(int)),this,SLOT(newInterval(int)));
 
    // ====== Analyzer display ===============================================
    QGroupBox* fourierGroup = new QGroupBox("Fast Fourier Spectrum Analyzer",centralWidget);
    Q_CHECK_PTR(fourierGroup);
    layout->addWidget(fourierGroup,0,1);
    QGridLayout* fourierLayout = new QGridLayout(fourierGroup);
-//    ,2,1,20,20   ?????
    Q_CHECK_PTR(fourierLayout);
-   PaintWidget1 = new QWidget(fourierGroup);
+   PaintWidget1 = new QSpectrumDisplay(fourierGroup, ArrayL, Bars, Max);
    Q_CHECK_PTR(PaintWidget1);
    PaintWidget1->setMinimumWidth(300);
    PaintWidget1->setMinimumHeight(150);
    fourierLayout->addWidget(PaintWidget1,0,0);
-   PaintWidget2 = new QWidget(fourierGroup);
+   PaintWidget2 = new QSpectrumDisplay(fourierGroup, ArrayR, Bars, Max);
    Q_CHECK_PTR(PaintWidget2);
    PaintWidget2->setMinimumWidth(300);
    PaintWidget2->setMinimumHeight(150);
@@ -127,6 +252,7 @@ QSpectrumAnalyzer::QSpectrumAnalyzer(SpectrumAnalyzer* analyzer,
 
    setCentralWidget(centralWidget);
    setWindowTitle("Spectrum Analyzer");
+   setStatusBar(0);
 
    Timer = new QTimer(this);
    Q_CHECK_PTR(Timer);
@@ -146,119 +272,12 @@ QSpectrumAnalyzer::~QSpectrumAnalyzer()
 }
 
 
-// ###### Draw spectrum bar #################################################
-void QSpectrumAnalyzer::drawBar(QPainter*      painter,
-                                const cardinal x,
-                                const cardinal y,
-                                const cardinal width,
-                                const cardinal height,
-                                const cardinal barValue)
-{
-   cardinal value = barValue;
-   if(barValue > height)
-      value = height;
-
-   // ====== Remove area above bar =========================================
-   painter->fillRect(x,y,width,height - value,
-                     PaintWidget1->palette().color(QPalette::Background));
-
-   const cardinal y1 = y + height - value;
-   const cardinal h1 = value / BarColors;
-
-   // ====== Draw the bar ===================================================
-   cardinal r = 255;
-   cardinal g = 0;
-   cardinal i;
-   for(i = 0;i < BarColors - 1;i++) {
-      r -= (255 / BarColors);
-      g += (255 / BarColors);
-      painter->fillRect(x,y1 + i * h1,width,h1,QColor(r,g,0));
-   }
-   painter->fillRect(x,y1 + i * h1,width,y + height - (y1 + i * h1),QColor(0,255,0));
-}
-
-
-// ###### Show spectrum #####################################################
-void QSpectrumAnalyzer::showSpectrum(QWidget*        paintWidget,
-                                     const cardinal* array)
-{
-   QPainter painter;
-   const cardinal x      = 0;
-   const cardinal y      = 0;
-   const cardinal width  = paintWidget->width();
-   const cardinal height = paintWidget->height() - 3;
-
-   painter.begin(paintWidget);
-   painter.fillRect(x,y+height,width,3,QColor(10,10,10));
-
-   // ====== Calculate maximum value ========================================
-   cardinal values[Bars];
-   Max = (cardinal)(double)(Max * 0.98);
-   if(Max < 1)
-      Max = 1;
-   for(cardinal i = 0;i < Bars;i++) {
-      values[i] = array[i];
-      if(values[i] > Max)
-         Max = values[i];
-   }
-
-   // ====== Draw Bars ======================================================
-   cardinal step = width / Bars;
-   cardinal sx   = x;
-   for(cardinal i = 0;i < Bars;i++) {
-      const cardinal value = (values[i] * height) / Max;
-      drawBar(&painter,sx,y,step,height,value);
-      sx += step;
-   }
-
-   // ====== Draw average line ==============================================
-   if(Average->isChecked()) {
-      step = width / Bars;
-      sx = x;
-      painter.setPen(QPen(QColor(80,80,255),3));
-      for(cardinal i = 0;i < Bars;i += AverageSteps) {
-         cardinal sum = values[i];
-         cardinal j;
-         for(j = 1;j < AverageSteps;j++) {
-            if((i + j >= Bars))
-               break;
-            sum += values[i + j];
-         }
-         sum /= AverageSteps;
-
-         QPainterPath path;
-         if(i == 0) {
-            path.moveTo(sx,y + height - sum);
-         } else {
-            path.lineTo(sx,y + height - sum);
-         }
-         sx += AverageSteps * step;
-         if(sx > Bars * step) {
-            sx = Bars * step;
-         }
-         path.lineTo(sx,y + height - sum);
-         painter.drawPath(path);
-      }
-   }
-
-   painter.end();
-}
-
-
 // ###### Timer event slot ##################################################
 void QSpectrumAnalyzer::timerEvent()
 {
    if(Analyzer->getSpectrum((cardinal*)&ArrayL,(cardinal*)&ArrayR,Bars)) {
       update();
    }
-}
-
-
-// ###### Paint event slot ##################################################
-void QSpectrumAnalyzer::paintEvent(QPaintEvent*)
-{
-   showSpectrum(PaintWidget1,ArrayL);
-   showSpectrum(PaintWidget2,ArrayR);
 }
 
 
@@ -310,4 +329,11 @@ void QSpectrumAnalyzer::closeWindow()
 void QSpectrumAnalyzer::closeEvent(QCloseEvent* event)
 {
    emit closeSpectrumAnalyzer();
+}
+
+
+void QSpectrumAnalyzer::drawAverageLineToggled(int status)
+{
+   PaintWidget1->setDrawAverageLine(status);
+   PaintWidget2->setDrawAverageLine(status);
 }

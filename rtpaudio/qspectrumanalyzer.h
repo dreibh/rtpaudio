@@ -57,6 +57,69 @@ const card16 QSpectrumAnalyzerTimings[] = {
 
 
 /**
+  * This class is the spectrum display widget for the spectrum analyzer.
+  *
+  * @short   QSpectrumAnalyzer
+  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @version 1.0
+  */
+class QSpectrumDisplay : public QWidget
+{
+   // ====== Constructor/Destructor =========================================
+   Q_OBJECT
+   public:
+   /**
+     * Constructor.
+     *
+     * @param parent Parent widget.
+     * @param array Fourier array.
+     * @param bars Number of fourier bars.
+     * @param drawAverageLine Draw (TRUE) or hide (FALSE) average line.
+     */
+   QSpectrumDisplay(QWidget*        parent,
+                    const cardinal* array,
+                    const cardinal  bars,
+                    cardinal&       max,
+                    const bool      drawAverageLine = TRUE);
+
+   /**
+     * Destructor.
+     */
+   ~QSpectrumDisplay();
+
+
+   // ====== Qt slots =======================================================
+   public slots:
+   /**
+     * Qt slot: Paint event.
+     */
+   void paintEvent(QPaintEvent*);
+
+   inline void setDrawAverageLine(const bool drawAverageLine) {
+      DrawAverageLine = drawAverageLine;
+   }
+
+
+   // ====== Private data ===================================================
+   private:
+   void drawBar(QPainter*      painter,
+                const cardinal x,
+                const cardinal y,
+                const cardinal width,
+                const cardinal height,
+                const cardinal barValue);
+
+   static const cardinal BarColors    = 12;   // Number of colors per bar
+   static const cardinal AverageSteps = 10;   // Number of bars per average line
+
+   const cardinal* Array;
+   cardinal        Bars;
+   cardinal&       Max;
+   bool            DrawAverageLine;
+};
+
+
+/**
   * This class is the Qt-Toolkit GUI for the spectrum analyzer.
   *
   * @short   QSpectrumAnalyzer
@@ -91,11 +154,6 @@ class QSpectrumAnalyzer : public QMainWindow
    void timerEvent();
 
    /**
-     * Qt slot: Paint event.
-     */
-   void paintEvent(QPaintEvent*);
-
-   /**
      * Qt slot: Pause displaying the spectrum.
      */
    void pause(bool on);
@@ -115,6 +173,11 @@ class QSpectrumAnalyzer : public QMainWindow
      */
    void newInterval(int index);
 
+   /**
+     * Qt slot: Change draw average line status.
+     */
+   void drawAverageLineToggled(int status);
+
 
    // ====== Qt signals =====================================================
    signals:
@@ -127,24 +190,14 @@ class QSpectrumAnalyzer : public QMainWindow
    // ====== Private data ===================================================
    private:
    void closeEvent(QCloseEvent* event);
-   void drawBar(QPainter*      painter,
-                const cardinal x,
-                const cardinal y,
-                const cardinal width,
-                const cardinal height,
-                const cardinal barValue);
-   void showSpectrum(QWidget*        paintWidget,
-                     const cardinal* array);
 
    static const cardinal Bars         = 70;   // Number of bars
-   static const cardinal AverageSteps = 10;   // Number of bars per average line
-   static const cardinal BarColors    = 12;   // Number of colors per bar
    cardinal              ArrayL[Bars];
    cardinal              ArrayR[Bars];
 
    cardinal              Max;
-   QWidget*              PaintWidget1;
-   QWidget*              PaintWidget2;
+   QSpectrumDisplay*     PaintWidget1;
+   QSpectrumDisplay*     PaintWidget2;
    QCheckBox*            Average;
    QPushButton*          Pause;
    QTimer*               Timer;
