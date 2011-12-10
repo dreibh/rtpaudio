@@ -272,6 +272,7 @@ QClient::QClient(AudioWriterInterface* audioOutput,
       snprintf((char*)&str,sizeof(str),"L #%d",i);
       LayerInfo[i] = InfoWidget->addTable(&InfoTable2,(char*)&str,"info.xpm");
    }
+   InfoWidget->setMinimumWidth(350);
    topLayout->addWidget(InfoWidget,0,1);
 
 

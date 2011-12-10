@@ -69,7 +69,6 @@ QAudioMixer::QAudioMixer(AudioMixer* mixer,
    Q_CHECK_PTR(label1);
    controlLayout->addWidget(label1,0,0);
    Balance = new QSlider(Qt::Horizontal,controlGroup);
-//    0,100,5,50,   ????
    Q_CHECK_PTR(Balance);
    Balance->setTickPosition(QSlider::TicksBelow);
    Balance->setTickInterval(10);
@@ -85,7 +84,6 @@ QAudioMixer::QAudioMixer(AudioMixer* mixer,
    Q_CHECK_PTR(label2);
    controlLayout->addWidget(label2,1,0);
    Volume = new QSlider(Qt::Horizontal,controlGroup);
-//   0,100,5,50,   ????
    Q_CHECK_PTR(Volume);
    Volume->setTickPosition(QSlider::TicksBelow);
    Volume->setTickInterval(10);
