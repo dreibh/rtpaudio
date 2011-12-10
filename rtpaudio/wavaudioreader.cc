@@ -88,8 +88,8 @@ bool WavAudioReader::openMedia(const char* name)
 
    // ###### Read RIFF-WAVE-Header ##########################################
    RIFF_Header header;
-   fread((void *)&header,sizeof(RIFF_Header),1,InputFD);
-   if(strncmp(header.RIFF,"RIFF",4) || strncmp(header.FormatID,"WAVE",4)) {
+   size_t result = fread((void *)&header,sizeof(RIFF_Header),1,InputFD);
+   if((result != 1) || strncmp(header.RIFF,"RIFF",4) || strncmp(header.FormatID,"WAVE",4)) {
       return(false);
    }
 
@@ -115,7 +115,10 @@ bool WavAudioReader::openMedia(const char* name)
          return(true);
       }
       else if(!(strncmp(chunk.ID,"fmt ",4))) {
-         fread((void*)&Format,sizeof(WAVE_Format),1,InputFD);
+         result = fread((void*)&Format,sizeof(WAVE_Format),1,InputFD);
+         if(result != 1) {
+            return(false);
+         }
          if(chunk.Length > sizeof(WAVE_Format)) {
             fseek(InputFD,chunk.Length - sizeof(WAVE_Format),SEEK_CUR);
          }

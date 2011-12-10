@@ -222,5 +222,5 @@ bool MultiAudioWriter::write(const void* data, const size_t length)
    }
 
    unsynchronized();
-   return(true);
+   return(success);
 }
