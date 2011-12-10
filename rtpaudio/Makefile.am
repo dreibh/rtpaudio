@@ -1,9 +1,9 @@
 EXTRA_DIST = AudioServer.config Makefile.am SLA.config Test.list
 
 
-noinst_LIBRARIES = librtpaudio.a
+lib_LTLIBRARIES = librtpaudio.la
 
-librtpaudio_a_SOURCES = \
+librtpaudio_la_SOURCES = \
  abstractlayerdescription.cc abstractlayerdescription.h abstractlayerdescription.icc \
  abstractqosdescription.cc abstractqosdescription.h abstractqosdescription.icc \
  advancedaudiodecoder.cc advancedaudiodecoder.h advancedaudioencoder.cc advancedaudioencoder.h \
@@ -101,13 +101,13 @@ endif
 
 
 rtpa_server_SOURCES = rtpa-server.cc
-rtpa_server_LDADD   = librtpaudio.a -lpthread $(sctplib_LIBS) $(socketapi_LIBS) $(glib_LIBS) ../libmpegsound/libmpegsound.a
+rtpa_server_LDADD   = librtpaudio.la -lpthread $(sctplib_LIBS) $(socketapi_LIBS) $(glib_LIBS) ../libmpegsound/libmpegsound.la
 
 rtpa_client_SOURCES = rtpa-client.cc
-rtpa_client_LDADD   = librtpaudio.a -lpthread $(sctplib_LIBS) $(socketapi_LIBS) $(glib_LIBS)
+rtpa_client_LDADD   = librtpaudio.la -lpthread $(sctplib_LIBS) $(socketapi_LIBS) $(glib_LIBS)
 
 rtpa_vclient_SOURCES = rtpa-vclient.cc
-rtpa_vclient_LDADD   = librtpaudio.a -lpthread $(sctplib_LIBS) $(socketapi_LIBS) $(glib_LIBS)
+rtpa_vclient_LDADD   = librtpaudio.la -lpthread $(sctplib_LIBS) $(socketapi_LIBS) $(glib_LIBS)
 
 
 if BUILD_QT_PROGRAMS
@@ -115,5 +115,5 @@ rtpa_qclient_MOC      = rtpa-qclient.moc.cc qinfotabwidget.moc.cc qspectrumanaly
 rtpa_qclient_CXXFLAGS = $(QT_CXXFLAGS)
 rtpa_qclient_CXXADD   = $(QT_CXXFLAGS)
 rtpa_qclient_SOURCES  = rtpa-qclient.cc qinfotabwidget.cc qspectrumanalyzer.cc qaudiomixer.cc rtpa-qclient.moc.cc qinfotabwidget.moc.cc qspectrumanalyzer.moc.cc qaudiomixer.moc.cc
-rtpa_qclient_LDADD    = $(QT_LDADD) librtpaudio.a -lpthread $(sctplib_LIBS) $(socketapi_LIBS) $(glib_LIBS)
+rtpa_qclient_LDADD    = $(QT_LDADD) librtpaudio.la -lpthread $(sctplib_LIBS) $(socketapi_LIBS) $(glib_LIBS)
 endif
