@@ -1,5 +1,5 @@
 /*
- *  $Id: extsocketdescriptor.h 1191 2006-08-29 09:02:09Z dreibh $
+ *  $Id$
  *
  * SocketAPI implementation for the sctplib.
  * Copyright (C) 1999-2006 by Thomas Dreibholz

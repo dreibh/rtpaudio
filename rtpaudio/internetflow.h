@@ -1,5 +1,5 @@
 /*
- *  $Id: internetflow.h 1008 2006-03-10 09:56:56Z dreibh $
+ *  $Id$
  *
  * SocketAPI implementation for the sctplib.
  * Copyright (C) 1999-2006 by Thomas Dreibholz
@@ -52,7 +52,7 @@
   * @short   Internet Flow
   * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
   * @version 1.0
-  */            
+  */
 class InternetFlow : public InternetAddress
 {
    // ====== Constructors/Destructor ========================================
@@ -110,7 +110,7 @@ class InternetFlow : public InternetAddress
      * getSystemAddress() implementation of SocketAddressInterface.
      *
      * @see SocketAddressInterface#getSystemAddress
-     */            
+     */
    cardinal getSystemAddress(sockaddr*       buffer,
                              const socklen_t length,
                              const cardinal  type) const;

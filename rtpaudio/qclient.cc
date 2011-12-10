@@ -5,24 +5,27 @@
 // ####                                                                  ####
 // #### QClient - A graphical client for the RTP Audio Server            ####
 // ####                                                                  ####
-// #### Version 1.50  --  August 01, 2001                                ####
+// ####           Copyright (C) 1999-2012 by Thomas Dreibholz            ####
 // ####                                                                  ####
-// ####            Copyright (C) 1999-2001 by Thomas Dreibholz           ####
 // #### Contact:                                                         ####
-// ####    EMail: dreibh@exp-math.uni-essen.de                           ####
-// ####    WWW:   http://www.exp-math.uni-essen.de/~dreibh/rtpaudio      ####
+// ####    EMail: dreibh@iem.uni-due.de.de                               ####
+// ####    WWW:   http://www.iem.uni-due.de.de/~dreibh/rn                ####
 // ####                                                                  ####
 // #### ---------------------------------------------------------------- ####
 // ####                                                                  ####
-// #### This program is free software; you can redistribute it and/or    ####
-// #### modify it under the terms of the GNU General Public License      ####
-// #### as published by the Free Software Foundation; either version 2   ####
-// #### of the License, or (at your option) any later version.           ####
+// #### This program is free software: you can redistribute it and/or    ####
+// #### modify it under the terms of the GNU General Public License as   ####
+// #### published by the Free Software Foundation, either version 3 of   ####
+// #### the License, or (at your option) any later version.              ####
 // ####                                                                  ####
 // #### This program is distributed in the hope that it will be useful,  ####
 // #### but WITHOUT ANY WARRANTY; without even the implied warranty of   ####
 // #### MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the    ####
 // #### GNU General Public License for more details.                     ####
+// ####                                                                  ####
+// #### You should have received a copy of the GNU General Public        ####
+// #### License along with this program.  If not, see                    ####
+// #### <http://www.gnu.org/licenses/>.                                  ####
 // ####                                                                  ####
 // ##########################################################################
 
@@ -45,10 +48,6 @@
 #include <qmessagebox.h>
 #include <qmenubar.h>
 #include <qmenu.h>
-// //Added by qt3to4:
-// #include <qhboxlayout.h>
-// #include <vhboxlayout.h>
-// #include <qgridlayout.h>
 
 #include <fstream>
 
@@ -457,7 +456,7 @@ void QClient::information()
       "RTP Audio Client - Version 2.00\n\n"
       "Copyright (C) 1999-2012\n"
       "Thomas Dreibholz\n"
-      "dreibh@exp-math.uni-essen.de",
+      "dreibh@iem.uni-due.de.de",
       "Okay");
 }
 

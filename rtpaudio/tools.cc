@@ -1,5 +1,5 @@
 /*
- *  $Id: tools.cc 1309 2007-02-01 13:08:01Z dreibh $
+ *  $Id$
  *
  * SocketAPI implementation for the sctplib.
  * Copyright (C) 1999-2006 by Thomas Dreibholz

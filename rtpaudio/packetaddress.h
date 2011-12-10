@@ -1,5 +1,5 @@
 /*
- *  $Id: packetaddress.h 183 2003-08-19 19:28:34Z tuexen $
+ *  $Id$
  *
  * SocketAPI implementation for the sctplib.
  * Copyright (C) 1999-2003 by Thomas Dreibholz
@@ -61,7 +61,7 @@
   * @short   Packet Address
   * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
   * @version 1.0
-  */            
+  */
 class PacketAddress : virtual public SocketAddress
 {
    // ====== Constructors/Destructor ========================================

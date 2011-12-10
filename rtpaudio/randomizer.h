@@ -1,5 +1,5 @@
 /*
- *  $Id: randomizer.h 1008 2006-03-10 09:56:56Z dreibh $
+ *  $Id$
  *
  * SocketAPI implementation for the sctplib.
  * Copyright (C) 1999-2006 by Thomas Dreibholz
@@ -51,7 +51,7 @@
   * @short   Randomizer
   * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
   * @version 1.0
-  */            
+  */
 class Randomizer
 {
    // ====== Constructor ====================================================

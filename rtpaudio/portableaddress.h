@@ -51,7 +51,7 @@
   * @short   Portable Internet Address
   * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
   * @version 1.0
-  */            
+  */
 class PortableAddress
 {
    // ====== Comparision operators ==========================================

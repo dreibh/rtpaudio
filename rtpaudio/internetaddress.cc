@@ -1,5 +1,5 @@
 /*
- *  $Id: internetaddress.cc 2091 2009-01-15 10:18:23Z dreibh $
+ *  $Id$
  *
  * SocketAPI implementation for the sctplib.
  * Copyright (C) 1999-2009 by Thomas Dreibholz

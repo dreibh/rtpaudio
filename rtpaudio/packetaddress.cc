@@ -1,5 +1,5 @@
 /*
- *  $Id: packetaddress.cc 1309 2007-02-01 13:08:01Z dreibh $
+ *  $Id$
  *
  * SocketAPI implementation for the sctplib.
  * Copyright (C) 1999-2003 by Thomas Dreibholz
