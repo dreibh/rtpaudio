@@ -78,8 +78,8 @@ libbase_a_SOURCES = \
  wavaudioreader.cc wavaudioreader.h
 
 
-MP3BLASTER = /home/dreibh/src/mp3blaster-3.2.5
-INCLUDES = $(all_includes) -I$(MP3BLASTER)/mpegsound
+INCLUDES = $(all_includes) -I../libmpegsound
+
 
 if BUILD_QT_PROGRAMS
 %.moc.cc: %.h
@@ -101,7 +101,7 @@ endif
 
 
 server_SOURCES = server.cc
-server_LDADD   = libbase.a -lpthread $(sctplib_LIBS) $(socketapi_LIBS) $(glib_LIBS) $(MP3BLASTER)/mpegsound/libmpegsound.a
+server_LDADD   = libbase.a -lpthread $(sctplib_LIBS) $(socketapi_LIBS) $(glib_LIBS) ../libmpegsound/libmpegsound.a
 
 client_SOURCES = client.cc
 client_LDADD   = libbase.a -lpthread $(sctplib_LIBS) $(socketapi_LIBS) $(glib_LIBS)

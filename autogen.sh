@@ -2,4 +2,4 @@
 
 ./bootstrap && \
 ./configure --enable-kernel-sctp --enable-static --disable-shared --enable-qt $@ && \
-( gmake || make )
+( gmake -j2 || make -j2 )

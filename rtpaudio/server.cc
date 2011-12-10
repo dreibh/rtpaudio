@@ -164,7 +164,7 @@ int main(int argc, char* argv[])
       char str[256];
       char* result = fgets((char*)&str,256,inputFD);
       cardinal line = 0;
-      while(!feof(inputFD)) {
+      while( (result != NULL) && (!feof(inputFD)) ) {
          line++;
          const cardinal inputLength = strlen((char*)&str);
          if(inputLength > 1) {

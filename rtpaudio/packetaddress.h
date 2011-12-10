@@ -57,7 +57,7 @@
   * @short   Packet Address
   * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
-  */            
+  */
 class PacketAddress : virtual public SocketAddress
 {
    // ====== Constructors/Destructor ========================================

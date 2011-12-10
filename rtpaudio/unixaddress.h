@@ -56,7 +56,7 @@
   * @short   Socket Address
   * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
-  */            
+  */
 class UnixAddress : virtual public SocketAddress
 {
    // ====== Constructors/Destructor ========================================
@@ -169,13 +169,13 @@ class UnixAddress : virtual public SocketAddress
      */
    void setPort(const card16 port);
 
-   
+
    // ====== Get/set system sockaddr structure ==============================
    /**
      * getSystemAddress() implementation of SocketAddress
      *
      * @see SocketAddress#getSystemAddress
-     */            
+     */
    cardinal getSystemAddress(sockaddr*       buffer,
                              const socklen_t length,
                              const cardinal  type) const;

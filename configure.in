@@ -21,6 +21,11 @@ AC_PROG_LN_S
 AC_PROG_LIBTOOL
 
 
+# ###### Checks for headers #################################################
+AC_HEADER_STDC
+AC_CHECK_HEADERS(fcntl.h errno.h)
+
+
 # ###### Options ############################################################
 AC_ARG_ENABLE([qt],
               [  --enable-qt             enable QT-based examples ][default=no]],
@@ -397,7 +402,7 @@ fi
 
 
 # ###### Makefiles ##########################################################
-AC_OUTPUT(Makefile rtpaudio/Makefile )
+AC_OUTPUT(Makefile libmpegsound/Makefile rtpaudio/Makefile )
 
 
 # ###### Configuration results ##############################################
