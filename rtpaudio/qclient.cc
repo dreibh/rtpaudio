@@ -1099,10 +1099,10 @@ QString QClient::bytesToQString(const card64 bytes) const
          unit = 'K';
       }
       if(bytes >= 1000000000)
-         snprintf((char*)&str,sizeof(str),"%1.5e (%1.2f %cB)",
+         snprintf((char*)&str,sizeof(str),"%1.5e (%1.2f %ciB)",
                   (double)bytes,bytesDouble,unit);
       else
-         snprintf((char*)&str,sizeof(str),"%llu (%1.2f %cB)",
+         snprintf((char*)&str,sizeof(str),"%llu (%1.2f %ciB)",
                   (unsigned long long)bytes,bytesDouble,unit);
    }
    else {

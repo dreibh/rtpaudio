@@ -101,7 +101,7 @@ QAudioMixer::QAudioMixer(AudioMixer* mixer,
    controlLayout->addWidget(label3,2,0);
    Values = new QLabel(controlGroup);
    Q_CHECK_PTR(Values);
-   controlLayout->addWidget(Values,2,2,1,2);
+   controlLayout->addWidget(Values,2,1,1,2);
 
    setCentralWidget(centralWidget);
    setWindowTitle("Audio Mixer");
