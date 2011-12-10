@@ -327,38 +327,40 @@ class QClient : public QMainWindow
    QAction*              AutoRepeatAction;
    QAction*              AutoSaveBookmarksAction;
 
+   QAction*              LocationAction[LocationCount];
+
    QSpectrumAnalyzer*    SpectrumAnalyzerWindow;
    QAudioMixer*          MixerWindow;
    SpectrumAnalyzer*     SpectrumAnalyzerDevice;
    AudioMixer*           MixerDevice;
 
-   QMenu*          ToolsMenu;
-   QMenu*          URLMenu;
-   QMenu*          SettingsMenu;
-   QLineEdit*      Location;
-   QLCDNumber*     Counter;
-   QLabel*         TitleLabel;
-   QLabel*         ArtistLabel;
-   QLabel*         CommentLabel;
-   QLabel*         StatusBar;
-   QInfoTabWidget* InfoWidget;
-   QInfoWidget*    LayerInfo[MaxLayerInfo];
-   QScrollBar*     ScrollBar;
-   bool            ScrollBarUpdated;
-   cardinal        ScrollBarUpdateDelay;
-   cardinal        EOFRepeatDelay;
-   QPushButton*    Pause;
-   QWhatsThis*     WhatsThis;
+   QMenu*                ToolsMenu;
+   QMenu*                URLMenu;
+   QMenu*                SettingsMenu;
+   QLineEdit*            Location;
+   QLCDNumber*           Counter;
+   QLabel*               TitleLabel;
+   QLabel*               ArtistLabel;
+   QLabel*               CommentLabel;
+   QLabel*               StatusBar;
+   QInfoTabWidget*       InfoWidget;
+   QInfoWidget*          LayerInfo[MaxLayerInfo];
+   QScrollBar*           ScrollBar;
+   bool                  ScrollBarUpdated;
+   cardinal              ScrollBarUpdateDelay;
+   cardinal              EOFRepeatDelay;
+   QPushButton*          Pause;
+   QWhatsThis*           WhatsThis;
 
-   QList<String*>  URLList;
-   String          PlayingURL;
-   bool            InsertionRequired;
-   bool            ResolveMode;
-   bool            AutoRepeat;
-   bool            AutoSaveBookmarks;
-   bool            UseSCTP;
+   QList<String*>        URLList;
+   String                PlayingURL;
+   bool                  InsertionRequired;
+   bool                  ResolveMode;
+   bool                  AutoRepeat;
+   bool                  AutoSaveBookmarks;
+   bool                  UseSCTP;
 
-   AudioClient*    Client;
+   AudioClient*          Client;
 };
 
 

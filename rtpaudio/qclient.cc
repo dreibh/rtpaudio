@@ -84,16 +84,17 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    SpectrumAnalyzerDevice = analyzer;
    MixerWindow            = NULL;
    MixerDevice            = mixer;
-   InsertionRequired      = false;
-   ResolveMode            = false;
-   AutoSaveBookmarks      = false;
-   AutoRepeat             = true;
-   UseSCTP                = false;
+   InsertionRequired      = FALSE;
+   ResolveMode            = FALSE;
+   AutoSaveBookmarks      = FALSE;
+   AutoRepeat             = TRUE;
+   UseSCTP                = FALSE;
 
    // ====== Main Layout ====================================================
    QWidget* centralWidget = new QWidget(this);
    Q_CHECK_PTR(centralWidget);
    centralWidget->setWhatsThis("This is the RTP Audio Client!");
+
    QGridLayout* topLayout = new QGridLayout(centralWidget);
    Q_CHECK_PTR(topLayout);
 //    topLayout->setColStretch(0,0);
@@ -123,12 +124,11 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    URLMenu = new QMenu("&Bookmarks", this);
    Q_CHECK_PTR(URLMenu);
    for(cardinal i = 0;i < LocationCount;i++) {
-      URLMenu->addAction("()");
-//       URLMenu->addAction("()",MenuIDLocation + i);
-//       if(i <= 9) {
-//          URLMenu->setAccel(Qt::CTRL+Qt::Key_0+i,MenuIDLocation + i);
-//       }
-//       URLMenu->setItemEnabled(MenuIDLocation + i,false);
+      LocationAction[i] = URLMenu->addAction("()");
+      Q_CHECK_PTR(LocationAction[i]);
+      if(i <= 9) {
+         LocationAction[i]->setShortcut(Qt::CTRL+Qt::Key_0+i);
+      }
       if(i == 0) {
          URLMenu->addSeparator();
       }
@@ -142,10 +142,13 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    Q_CHECK_PTR(ToolsMenu);
    SpectrumAnalyzerAction = ToolsMenu->addAction("Spectrum Analyzer",this,SLOT(spectrumAnalyzer()),Qt::CTRL+Qt::Key_A);
    Q_CHECK_PTR(SpectrumAnalyzerAction);
-   SpectrumAnalyzerAction->setChecked(false);
+   SpectrumAnalyzerAction->setCheckable(TRUE);
+   SpectrumAnalyzerAction->setChecked(FALSE);
    MixerAction = ToolsMenu->addAction("Audio Mixer",this,SLOT(audioMixer()),Qt::CTRL+Qt::Key_M);
    Q_CHECK_PTR(MixerAction);
-   MixerAction->setChecked(false);
+   MixerAction->setCheckable(TRUE);
+   MixerAction->setChecked(FALSE);
+   menu->addMenu(ToolsMenu);
 
    SettingsMenu = new QMenu("&Settings", this);
    Q_CHECK_PTR(SettingsMenu);
@@ -165,9 +168,9 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    menu->addMenu(helpMenu);
 
    // ====== Status line ====================================================
-   QLabel* copyright = new QLabel("Copyright (C) 1999-2007 Thomas Dreibholz",centralWidget);
+   QLabel* copyright = new QLabel("Copyright (C) 1999-2012 Thomas Dreibholz",centralWidget);
    Q_CHECK_PTR(copyright);
-   copyright->setWhatsThis("RTP Audio Client\nCopyright (C) 1999-2007 Thomas Dreibholz");
+   copyright->setWhatsThis("RTP Audio Client\nCopyright (C) 1999-2012 Thomas Dreibholz");
    copyright->setAlignment(Qt::AlignRight);
    StatusBar = new QLabel("Welcome to the RTP Audio Client!",centralWidget);
    Q_CHECK_PTR(StatusBar);
@@ -183,13 +186,13 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    qualityGroup->setWhatsThis("This group contains functions to adapt the audio quality and change the encoding.");
    topLayout->addWidget(qualityGroup,1,1);
 
-   QVBoxLayout*  qualityLayout = new QVBoxLayout(qualityGroup);
+   QVBoxLayout* qualityLayout = new QVBoxLayout(qualityGroup);
    Q_CHECK_PTR(qualityLayout);
-   QHBoxLayout*  checkLayout   = new QHBoxLayout();
+   QHBoxLayout* checkLayout   = new QHBoxLayout();
    Q_CHECK_PTR(checkLayout);
-   QCheckBox*     stereo       = new QCheckBox("S&tereo",qualityGroup);
+   QCheckBox*   stereo        = new QCheckBox("S&tereo",qualityGroup);
    Q_CHECK_PTR(stereo);
-   QComboBox* bits = new QComboBox(qualityGroup);
+   QComboBox*   bits = new QComboBox(qualityGroup);
    Q_CHECK_PTR(bits);
    QLabel* ipv6 = NULL;
    if(!enableSCTP) {
@@ -352,10 +355,10 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    ScrollBar = new QScrollBar(Qt::Horizontal,controlGroup);
    Q_CHECK_PTR(ScrollBar);
    ScrollBar->setWhatsThis("Move this scrollbar to change the current position within a playing audio file.");
-   ScrollBarUpdated     = true;
+   ScrollBarUpdated     = TRUE;
    ScrollBarUpdateDelay = 0;
    ScrollBar->setRange(0,0);
-   ScrollBarUpdated = true;
+   ScrollBarUpdated = TRUE;
    ScrollBar->setValue(0);
 
    QLabel* label = new QLabel("Source URL: (Example: rtpa://gaffel:7500/Test1.list)",controlGroup);
@@ -378,8 +381,9 @@ QClient::QClient(AudioWriterInterface* audioOutput,
       Location->setText(defaultURL);
    else {
       loadBookmarks();
-      const String* url = URLList.first();
-      if(url != NULL) {
+      QList<String*>::iterator found = URLList.begin();
+      if(found != URLList.end()) {
+         const String* url = *found;
           Location->setText(url->getData());
       }
       else {
@@ -448,8 +452,8 @@ void QClient::information()
 {
    QMessageBox::information(this,
       "RTP Audio Information",
-      "RTP Audio Client - Version 1.50\n\n"
-      "Copyright (C) 1999-2007\n"
+      "RTP Audio Client - Version 2.00\n\n"
+      "Copyright (C) 1999-2012\n"
       "Thomas Dreibholz\n"
       "dreibh@exp-math.uni-essen.de",
       "Okay");
@@ -498,7 +502,7 @@ void QClient::play()
    String host;
    String path;
    bool newOK = scanURL((const char*)Location->text().toUtf8().constData(),protocol,host,path);
-   if((newOK == false) || (protocol != "rtpa")) {
+   if((newOK == FALSE) || (protocol != "rtpa")) {
       StatusBar->setText("Invalid URL! Check URL and try again.");
       QMessageBox::warning(this,"Warning",
                            "This URL is invalid!\n"
@@ -509,11 +513,11 @@ void QClient::play()
    }
 
    // ====== Check, if URL is new => Restart or change media ================
-   if(Client->playing() == true) {
+   if(Client->playing() == TRUE) {
       const char* oldURL = PlayingURL.getData();
       const char* newURL = Location->text().toUtf8().constData();
       if(!(strcmp(oldURL,newURL))) {
-         Pause->setChecked(false);
+         Pause->setChecked(FALSE);
          return;
       }
 
@@ -521,12 +525,12 @@ void QClient::play()
       String oldHost;
       String oldPath;
       bool oldOK = scanURL(PlayingURL,oldProtocol,oldHost,oldPath);
-      if(oldOK == true) {
+      if(oldOK == TRUE) {
          if((oldHost == host) && (oldProtocol == protocol)) {
             Client->change(path.getData());
             Pause->setChecked(FALSE);
             PlayingURL = (const char*)Location->text().toUtf8().constData();
-            InsertionRequired = true;
+            InsertionRequired = TRUE;
             return;
          }
       }
@@ -551,7 +555,7 @@ void QClient::play()
       InfoWidget->update("SA",serverAddress.getData());
       InfoWidget->update("CA",ourAddress.getData());
       InfoWidget->update("CSSRC",card64ToQString(Client->getOurSSRC(),"$%08x"));
-      InsertionRequired = true;
+      InsertionRequired = TRUE;
    }
    else {
       StatusBar->setText("Unable to find server! Check parameters and try again.");
@@ -567,7 +571,7 @@ void QClient::play()
 // ###### Stop playing ######################################################
 void QClient::stop()
 {
-   InsertionRequired = false;
+   InsertionRequired = FALSE;
    Client->stop();
    if(SpectrumAnalyzerWindow != NULL) {
       SpectrumAnalyzerWindow->reset();
@@ -640,13 +644,13 @@ void QClient::spectrumAnalyzer()
          if(SpectrumAnalyzerWindow != NULL) {
             QObject::connect(SpectrumAnalyzerWindow,SIGNAL(closeSpectrumAnalyzer()),this,SLOT(closeSpectrumAnalyzer()));
             SpectrumAnalyzerWindow->show();
-            SpectrumAnalyzerAction->setChecked(true);
+            SpectrumAnalyzerAction->setChecked(TRUE);
          }
       }
       else {
          delete SpectrumAnalyzerWindow;
          SpectrumAnalyzerWindow = NULL;
-         SpectrumAnalyzerAction->setChecked(false);
+         SpectrumAnalyzerAction->setChecked(FALSE);
       }
    }
 }
@@ -658,7 +662,7 @@ void QClient::closeSpectrumAnalyzer()
    if(SpectrumAnalyzerWindow != NULL) {
       delete SpectrumAnalyzerWindow;
       SpectrumAnalyzerWindow = NULL;
-      SpectrumAnalyzerAction->setChecked(false);
+      SpectrumAnalyzerAction->setChecked(FALSE);
    }
 }
 
@@ -672,13 +676,13 @@ void QClient::audioMixer()
          if(MixerWindow != NULL) {
             QObject::connect(MixerWindow,SIGNAL(closeAudioMixer()),this,SLOT(closeAudioMixer()));
             MixerWindow->show();
-            MixerAction->setChecked(true);
+            MixerAction->setChecked(TRUE);
          }
       }
       else {
          delete MixerWindow;
          MixerWindow = NULL;
-         MixerAction->setChecked(false);
+         MixerAction->setChecked(FALSE);
       }
    }
 }
@@ -690,7 +694,7 @@ void QClient::closeAudioMixer()
    if(MixerWindow != NULL) {
       delete MixerWindow;
       MixerWindow = NULL;
-      MixerAction->setChecked(false);
+      MixerAction->setChecked(FALSE);
    }
 }
 
@@ -735,7 +739,7 @@ void QClient::position(int value)
       ScrollBarUpdateDelay = MaxScrollBarUpdateDelay;
    }
    else {
-      ScrollBarUpdated = false;
+      ScrollBarUpdated = FALSE;
    }
 }
 
@@ -796,8 +800,8 @@ void QClient::timerEvent()
       }
 
       // ====== Insert URL into list ========================================
-      if(InsertionRequired == true) {
-         InsertionRequired = false;
+      if(InsertionRequired == TRUE) {
+         InsertionRequired = FALSE;
          insertURL(PlayingURL);
       }
 
@@ -879,7 +883,7 @@ void QClient::timerEvent()
                StatusBar->setText((char*)&str);
                if(EOFRepeatDelay >= EOFRepeatInterval) {
                   EOFRepeatDelay = 0;
-                  ScrollBarUpdated = false;
+                  ScrollBarUpdated = FALSE;
                   position(0);
                }
             }
@@ -938,9 +942,9 @@ void QClient::timerEvent()
          if(ScrollBarUpdateDelay > 0)
             ScrollBarUpdateDelay--;
          if(ScrollBarUpdateDelay == 0) {
-            ScrollBarUpdated = true;
+            ScrollBarUpdated = TRUE;
             ScrollBar->setRange(0,Client->getMaxPosition() / (PositionStepsPerSecond / 10));
-            ScrollBarUpdated = true;
+            ScrollBarUpdated = TRUE;
             ScrollBar->setValue(Client->getPosition() / (PositionStepsPerSecond / 10));
          }
       }
@@ -954,59 +958,64 @@ void QClient::timerEvent()
 // ###### Location selected slot ############################################
 void QClient::locationSelected(int selection)
 {
-   if((selection >= (int)MenuIDLocation) &&
-      (selection < (int)(MenuIDLocation + LocationCount))) {
-      cardinal number = selection - MenuIDLocation;
-      String* url = URLList.first();
-      while(url != NULL) {
-         if(number == 0) {
-            const char* oldURL = Location->text().toUtf8().constData();
-            const char* newURL = url->getData();
-            if((strcmp(oldURL,newURL)) || (!Client->playing())) {
-               Location->setText(newURL);
-               play();
-            }
-            break;
-         }
-         number--;
-         url = URLList.next();
-      }
-   }
+   printf("STOP locationSelected %d!\n",selection);
+   exit(1);
+
+//    if((selection >= (int)MenuIDLocation) &&
+//       (selection < (int)(MenuIDLocation + LocationCount))) {
+//       cardinal number = selection - MenuIDLocation;
+//       for(QList<String*>::iterator iterator = URLList.begin();
+//           iterator != URLList.end(); ++iterator) {
+//          String* url = *iterator;
+//          if(number == 0) {
+//             const char* oldURL = Location->text().toUtf8().constData();
+//             const char* newURL = url->getData();
+//             if((strcmp(oldURL,newURL)) || (!Client->playing())) {
+//                Location->setText(newURL);
+//                play();
+//             }
+//             break;
+//          }
+//          number--;
+//       }
+//    }
 }
 
 // ###### Insert current URL into URL list ##################################
 void QClient::insertURL(const String& urlToInsert)
 {
-   // ====== Remove old copy of new URL and insert URL at head of list ======
-   String* newURL = new String(urlToInsert);
-   Q_CHECK_PTR(newURL);
-   String url = URLList.first();
-   while(url.length() != 0) {
-      if(url == urlToInsert) {
-         URLList.remove(url);
-         delete url;
-      }
-      url = URLList.next();
-   }
-   URLList.insert(0,newURL);
-   if(URLList.count() > LocationCount) {
-      url = URLList.last();
-      URLList.removeLast();
-   }
+printf("INSERT\n");
 
-   // ====== Update menu ====================================================
-   url = URLList.first();
-   for(cardinal i = MenuIDLocation;i < MenuIDLocation + LocationCount;i++) {
-      if(url != NULL) {
-         URLMenu->changeItem(i,url->getData());
-         URLMenu->setItemEnabled(i,true);
-         url = URLList.next();
-      }
-      else {
-         URLMenu->changeItem(i,"()");
-         URLMenu->setItemEnabled(i,false);
-      }
-   }
+//    // ====== Remove old copy of new URL and insert URL at head of list ======
+//    String* newURL = new String(urlToInsert);
+//    Q_CHECK_PTR(newURL);
+//    String url = URLList.first();
+//    while(url.length() != 0) {
+//       if(url == urlToInsert) {
+//          URLList.remove(url);
+//          delete url;
+//       }
+//       url = URLList.next();
+//    }
+//    URLList.insert(0,newURL);
+//    if(URLList.count() > LocationCount) {
+//       url = URLList.last();
+//       URLList.removeLast();
+//    }
+//
+//    // ====== Update menu ====================================================
+//    url = URLList.first();
+//    for(cardinal i = MenuIDLocation;i < MenuIDLocation + LocationCount;i++) {
+//       if(url != NULL) {
+//          URLMenu->changeItem(i,url->getData());
+//          URLMenu->setItemEnabled(i,TRUE);
+//          url = URLList.next();
+//       }
+//       else {
+//          URLMenu->changeItem(i,"()");
+//          URLMenu->setItemEnabled(i,FALSE);
+//       }
+//    }
 }
 
 
@@ -1014,18 +1023,19 @@ void QClient::insertURL(const String& urlToInsert)
 void QClient::clearBookmarks()
 {
    // ====== Delete URL list ================================================
-   String* url = URLList.first();
-   while(url != NULL) {
-      URLList.removeFirst();
+   QList<String*>::iterator iterator = URLList.begin();
+   while(iterator != URLList.end()) {
+      String* url = *iterator;
       delete url;
-      url = URLList.first();
+      URLList.removeFirst();
+      iterator = URLList.begin();
    }
 
-   // ====== Update menu ====================================================
-   for(cardinal i = MenuIDLocation;i < MenuIDLocation + LocationCount;i++) {
-      URLMenu->changeItem(i,"()");
-      URLMenu->setItemEnabled(i,false);
-   }
+//    // ====== Update menu ====================================================
+//    for(cardinal i = MenuIDLocation;i < MenuIDLocation + LocationCount;i++) {
+//       URLMenu->changeItem(i,"()");
+//       URLMenu->setItemEnabled(i,FALSE);
+//    }
 }
 
 
@@ -1055,10 +1065,10 @@ void QClient::saveBookmarks()
       os << "# This is an automatically generated file." << std::endl;
       os << "# It will be read and overwritten. Do *not* edit!" << std::endl;
       os << "#" << std::endl;
-      String* url = URLList.last();
-      while(url != NULL) {
+      for(QList<String*>::iterator iterator = URLList.begin();
+          iterator != URLList.end(); ++iterator) {
+         String* url = *iterator;
          os << *url << std::endl;
-         url = URLList.prev();
       }
    }
 }
@@ -1153,8 +1163,8 @@ int main(int argc, char* argv[])
    cardinal optAudioNull   = 0;
    cardinal optAnalyzer    = 1;
    cardinal optMixer       = 1;
-   bool     optForceIPv4   = false;
-   bool     optUseSCTP     = false;
+   bool     optForceIPv4   = FALSE;
+   bool     optUseSCTP     = FALSE;
    char*    local          = NULL;
    char*    defaultURL     = NULL;
    for(cardinal i = 1;i < (cardinal)argc;i++) {
@@ -1168,9 +1178,9 @@ int main(int argc, char* argv[])
       else if(!(strcasecmp(argv[i],"-device")))       optAudioDevice = 0;
       else if(!(strcasecmp(argv[i],"-analyzer")))     optAnalyzer    = 0;
       else if(!(strcasecmp(argv[i],"-mixer")))        optMixer       = 0;
-      else if(!(strcasecmp(argv[i],"-force-ipv4")))   optForceIPv4   = true;
-      else if(!(strcasecmp(argv[i],"-sctp")))         optUseSCTP     = true;
-      else if(!(strcasecmp(argv[i],"-nosctp")))       optUseSCTP     = false;
+      else if(!(strcasecmp(argv[i],"-force-ipv4")))   optForceIPv4   = TRUE;
+      else if(!(strcasecmp(argv[i],"-sctp")))         optUseSCTP     = TRUE;
+      else if(!(strcasecmp(argv[i],"-nosctp")))       optUseSCTP     = FALSE;
       else if(!(strncasecmp(argv[i],"-url=",5)))      defaultURL     = &argv[i][5];
       else if(!(strncasecmp(argv[i],"-local=hostname",7))) local     = &argv[i][7];
       else {
@@ -1180,8 +1190,8 @@ int main(int argc, char* argv[])
       }
    }
    if(optForceIPv4) {
-      if(InternetAddress::UseIPv6 == true) {
-         InternetAddress::UseIPv6 = false;
+      if(InternetAddress::UseIPv6 == TRUE) {
+         InternetAddress::UseIPv6 = FALSE;
          std::cerr << "NOTE: IPv6 support disabled!" << std::endl;
       }
    }
@@ -1241,7 +1251,7 @@ int main(int argc, char* argv[])
    if(optMixer > 0) {
       mixer = new AudioMixer();
       Q_CHECK_PTR(mixer);
-      if(mixer->ready() == false) {
+      if(mixer->ready() == FALSE) {
          std::cerr << "WARNING: Audio mixer not ready => Disabling mixer!" << std::endl;
          delete mixer;
          mixer = NULL;
@@ -1253,7 +1263,7 @@ int main(int argc, char* argv[])
    Q_CHECK_PTR(application);
    QClient* player = new QClient(audioOutput,local,defaultURL,spectrumAnalyzer,mixer,optUseSCTP);
    Q_CHECK_PTR(player);
-   application->setMainWidget(player);
+   application->setActiveWindow(player);
    player->show();
    if(optAnalyzer > 1) {
       player->spectrumAnalyzer();

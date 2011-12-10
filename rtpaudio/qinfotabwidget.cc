@@ -36,42 +36,36 @@
 #include <qpushbutton.h>
 #include <qtabwidget.h>
 #include <qlabel.h>
-#include <qdict.h>
 #include <qlist.h>
 
 
 // ###### Constructor #######################################################
 QInfoWidget::QInfoWidget(const InfoTable* table,
-                         QWidget*         parent,
-                         const char*      name)
-   : QWidget(parent,name)
+                         QWidget*         parent)
+   : QWidget(parent)
 {
    Table = table;
 
-   // ====== Initialize layout and QWhatsThis ===============================
-   QGridLayout* layout = new QGridLayout(this,Table->Entries,10);
-   CHECK_PTR(layout);
-   layout->setColStretch(1,10);
-
-   WhatsThis = new QWhatsThis(this);
-   CHECK_PTR(WhatsThis);
+   // ====== Initialize layout ==============================================
+   QGridLayout* layout = new QGridLayout(this);
+   Q_CHECK_PTR(layout);
+//    layout->setColStretch(1,10); ????
 
    // ====== Create info table ==============================================
    for(cardinal i = 0;i < Table->Entries;i++) {
       QLabel* label = new QLabel(QString(Table->Entry[i].Title) + ": ",this);
-      CHECK_PTR(label);
+      Q_CHECK_PTR(label);
       label->setMinimumSize(label->sizeHint());
       layout->addWidget(label,i,0);
-      WhatsThis->add(label,Table->Entry[i].Help);
+      label->setWhatsThis(Table->Entry[i].Help);
 
       QLabel* value = new QLabel("--- N/A ---",this);
-      CHECK_PTR(value);
+      Q_CHECK_PTR(value);
       value->setMinimumSize(value->sizeHint());
       layout->addWidget(value,i,1);
-      WhatsThis->add(value,Table->Entry[i].Help);
+      value->setWhatsThis(Table->Entry[i].Help);
 
       LabelDict.insert(Table->Entry[i].ID,value);
-      LabelList.append(value);
    }
 }
 
@@ -79,9 +73,9 @@ QInfoWidget::QInfoWidget(const InfoTable* table,
 // ###### Update ############################################################
 bool QInfoWidget::update(const QString& id, const QString& value)
 {
-   QLabel* label = LabelDict.find(id);
-   if(label != NULL) {
-      label->setText(value);
+   QHash<QString,QLabel*>::iterator found = LabelDict.find(id);
+   if(found != LabelDict.end()) {
+      (*found)->setText(value);
       return(true);
    }
    return(false);
@@ -91,10 +85,9 @@ bool QInfoWidget::update(const QString& id, const QString& value)
 // ###### Clear all entries #################################################
 void QInfoWidget::clear()
 {
-   QLabel* label = LabelList.first();
-   while(label != NULL) {
-      label->setText("N/A");
-      label = LabelList.next();
+   for(QHash<QString,QLabel*>::iterator iterator = LabelDict.begin();
+       iterator != LabelDict.end(); ++iterator) {
+      (*iterator)->setText("N/A");
    }
 }
 
@@ -103,9 +96,8 @@ void QInfoWidget::clear()
 QInfoTabWidget::QInfoTabWidget(const InfoTable* table,
                                const char*      title,
                                const char*      pixmapName,
-                               QWidget*         parent,
-                               const char*      name)
-   : QTabWidget(parent,name)
+                               QWidget*         parent)
+   : QTabWidget(parent)
 {
    addTable(table,title,pixmapName);
 }
@@ -117,7 +109,7 @@ QInfoWidget* QInfoTabWidget::addTable(const InfoTable* table,
                                       const char*      pixmapName)
 {
    QInfoWidget* infoWidget = new QInfoWidget(table,this);
-   CHECK_PTR(infoWidget);
+   Q_CHECK_PTR(infoWidget);
    addTab(infoWidget,QPixmap(pixmapName),title);
    InfoWidgetList.append(infoWidget);
    return(infoWidget);
@@ -129,15 +121,15 @@ bool QInfoTabWidget::update(const QString& id, const QString& value)
 {
    cardinal count = 0;
 
-   QInfoWidget* infoWidget = InfoWidgetList.first();
-   while(infoWidget != NULL) {
+   for(QList<QInfoWidget*>::iterator iterator = InfoWidgetList.begin();
+       iterator != InfoWidgetList.end(); ++iterator) {
+      QInfoWidget* infoWidget = *iterator;
       if(infoWidget->update(id,value)) {
          count++;
       }
-      infoWidget = InfoWidgetList.next();
    }
    if(count == 0) {
-      std::cerr << "QInfoTabWidget::update() - Unknown ID " << id << "!" << std::endl;
+      std::cerr << "QInfoTabWidget::update() - Unknown ID " << id.toUtf8().constData() << "!" << std::endl;
       return(false);
    }
    return(true);
@@ -147,9 +139,9 @@ bool QInfoTabWidget::update(const QString& id, const QString& value)
 // ###### Clear all entries #################################################
 void QInfoTabWidget::clear()
 {
-   QInfoWidget* infoWidget = InfoWidgetList.first();
-   while(infoWidget != NULL) {
+   for(QList<QInfoWidget*>::iterator iterator = InfoWidgetList.begin();
+       iterator != InfoWidgetList.end(); ++iterator) {
+      QInfoWidget* infoWidget = *iterator;
       infoWidget->clear();
-      infoWidget = InfoWidgetList.next();
    }
 }

@@ -91,7 +91,6 @@ QSpectrumAnalyzer::QSpectrumAnalyzer(SpectrumAnalyzer* analyzer,
    // ====== Timing group ===================================================
    QButtonGroup* radioGroup = new QButtonGroup(controlGroup);
    Q_CHECK_PTR(radioGroup);
-   controlLayout->addWidget(radioGroup);
    QVBoxLayout* radioLayout = new QVBoxLayout(this);
    Q_CHECK_PTR(radioLayout);
 
@@ -160,7 +159,8 @@ void QSpectrumAnalyzer::drawBar(QPainter*      painter,
       value = height;
 
    // ====== Remove area above bar =========================================
-   painter->fillRect(x,y,width,height - value,PaintWidget1->backgroundColor());
+   painter->fillRect(x,y,width,height - value,
+                     PaintWidget1->palette().color(QPalette::Background));
 
    const cardinal y1 = y + height - value;
    const cardinal h1 = value / BarColors;
@@ -212,7 +212,7 @@ void QSpectrumAnalyzer::showSpectrum(QWidget*        paintWidget,
    }
 
    // ====== Draw average line ==============================================
-   if(Average->isOn()) {
+   if(Average->isChecked()) {
       step = width / Bars;
       sx = x;
       painter.setPen(QPen(QColor(80,80,255),3));
@@ -249,8 +249,7 @@ void QSpectrumAnalyzer::showSpectrum(QWidget*        paintWidget,
 void QSpectrumAnalyzer::timerEvent()
 {
    if(Analyzer->getSpectrum((cardinal*)&ArrayL,(cardinal*)&ArrayR,Bars)) {
-      showSpectrum(PaintWidget1,ArrayL);
-      showSpectrum(PaintWidget2,ArrayR);
+      update();
    }
 }
 

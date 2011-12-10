@@ -115,12 +115,10 @@ class QInfoWidget : public QWidget
      *
      * @param table InfoTable with info string descriptions.
      * @param parent Parent widget.
-     * @param name Widget name.
      */
    public:
    QInfoWidget(const InfoTable* table,
-               QWidget*         parent = NULL,
-               const char*      name   = NULL);
+               QWidget*         parent = NULL);
 
 
    // ====== Update =========================================================
@@ -141,9 +139,7 @@ class QInfoWidget : public QWidget
    // ====== Private data ===================================================
    private:
    const InfoTable*       Table;
-   QWhatsThis*            WhatsThis;
    QHash<QString,QLabel*> LabelDict;
-   QList<QLabel>          LabelList;
 };
 
 
@@ -167,14 +163,12 @@ class QInfoTabWidget : public QTabWidget
      * @param title Tab title.
      * @param pixmapName Name of pixmap for tab.
      * @param parent Parent widget.
-     * @param name Widget name.
      */
    public:
    QInfoTabWidget(const InfoTable* table,
                   const char*      title,
                   const char*      pixmapName = NULL,
-                  QWidget*         parent     = NULL,
-                  const char*      name       = NULL);
+                  QWidget*         parent     = NULL);
 
 
    // ====== Add InfoTable ==================================================
@@ -207,7 +201,7 @@ class QInfoTabWidget : public QTabWidget
 
    // ====== Private data ===================================================
    private:
-   QList<QInfoWidget> InfoWidgetList;
+   QList<QInfoWidget*> InfoWidgetList;
 };
 
 
