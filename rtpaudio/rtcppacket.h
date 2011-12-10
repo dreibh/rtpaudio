@@ -510,7 +510,7 @@ struct RTCPSenderReport : public RTCPReport, public RTCPSenderInfoBlock
    /**
      * Array of RTCPReceptionReportBlocks
      */
-   RTCPReceptionReportBlock rr[0];      // Variable length RR list
+   RTCPReceptionReportBlock rr[];      // Variable length RR list
 } __attribute__((packed));
 
 
@@ -555,7 +555,7 @@ struct RTCPReceiverReport : public RTCPReport
    /**
      * Array of RTCPReceptionReportBlocks
      */
-   RTCPReceptionReportBlock rr[0];      // Variable length RR list
+   RTCPReceptionReportBlock rr[];      // Variable length RR list
 } __attribute__((packed));
 
 
@@ -586,7 +586,7 @@ struct RTCPSourceDescriptionItem
    /**
      * Item data.
      */
-   char Data[0];
+   char Data[];
 } __attribute__((packed));
 
 
@@ -717,7 +717,7 @@ struct RTCPBye : public RTCPCommonHeader
 
    // ====== Private data ===================================================
    private:
-   card32 Source[0];
+   card32 Source[];
 } __attribute__((packed));
 
 
@@ -791,7 +791,7 @@ struct RTCPApp : public RTCPCommonHeader
    private:
    card32 Source;
    char   Name[4];
-   char   Data[0];
+   char   Data[];
 } __attribute__((packed));
 
 
