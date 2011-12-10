@@ -13,4 +13,3 @@ libmpegsound_a_SOURCES  = soundinputstream.cc fileinput.cc httpinput.cc \
 noinst_HEADERS		= mpegsound.h mpegsound_locals.h
 
 INCLUDES                = -I$(srcdir) -I$(includedir)
-# AM_CXXFLAGS             = @NAS_CFLAGS@

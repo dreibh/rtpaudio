@@ -64,7 +64,7 @@
 #include "audioclient.h"
 #include "trafficclassvalues.h"
 
-#include "qclient.h"
+#include "rtpa-qclient.h"
 
 
 // ###### Constructor #######################################################

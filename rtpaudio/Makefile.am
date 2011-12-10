@@ -1,9 +1,9 @@
 EXTRA_DIST = AudioServer.config Makefile.am SLA.config Test.list
 
 
-noinst_LIBRARIES = libbase.a
+noinst_LIBRARIES = librtpaudio.a
 
-libbase_a_SOURCES = \
+librtpaudio_a_SOURCES = \
  abstractlayerdescription.cc abstractlayerdescription.h abstractlayerdescription.icc \
  abstractqosdescription.cc abstractqosdescription.h abstractqosdescription.icc \
  advancedaudiodecoder.cc advancedaudiodecoder.h advancedaudioencoder.cc advancedaudioencoder.h \
@@ -94,23 +94,26 @@ endif
 
 
 if BUILD_QT_PROGRAMS
-bin_PROGRAMS = server client qclient
+bin_PROGRAMS = rtpa-server rtpa-client rtpa-vclient rtpa-qclient
 else
-bin_PROGRAMS = server client
+bin_PROGRAMS = rtpa-server rtpa-client rtpa-vclient
 endif
 
 
-server_SOURCES = server.cc
-server_LDADD   = libbase.a -lpthread $(sctplib_LIBS) $(socketapi_LIBS) $(glib_LIBS) ../libmpegsound/libmpegsound.a
+rtpa_server_SOURCES = rtpa-server.cc
+rtpa_server_LDADD   = librtpaudio.a -lpthread $(sctplib_LIBS) $(socketapi_LIBS) $(glib_LIBS) ../libmpegsound/libmpegsound.a
 
-client_SOURCES = client.cc
-client_LDADD   = libbase.a -lpthread $(sctplib_LIBS) $(socketapi_LIBS) $(glib_LIBS)
+rtpa_client_SOURCES = rtpa-client.cc
+rtpa_client_LDADD   = librtpaudio.a -lpthread $(sctplib_LIBS) $(socketapi_LIBS) $(glib_LIBS)
+
+rtpa_vclient_SOURCES = rtpa-vclient.cc
+rtpa_vclient_LDADD   = librtpaudio.a -lpthread $(sctplib_LIBS) $(socketapi_LIBS) $(glib_LIBS)
 
 
-if BUILD_QT_PROGRAMS
-qclient_MOC      = qclient.moc.cc qinfotabwidget.moc.cc qspectrumanalyzer.moc.cc qaudiomixer.moc.cc
-qclient_CXXFLAGS = $(QT_CXXFLAGS)
-qclient_CXXADD   = $(QT_CXXFLAGS)
-qclient_SOURCES  = qclient.cc qinfotabwidget.cc qspectrumanalyzer.cc qaudiomixer.cc   qclient.moc.cc qinfotabwidget.moc.cc qspectrumanalyzer.moc.cc qaudiomixer.moc.cc
-qclient_LDADD    = $(QT_LDADD) libbase.a -lpthread $(sctplib_LIBS) $(socketapi_LIBS) $(glib_LIBS)
-endif
+# if BUILD_QT_PROGRAMS
+rtpa_qclient_MOC      = rtpa-qclient.moc.cc qinfotabwidget.moc.cc qspectrumanalyzer.moc.cc qaudiomixer.moc.cc
+rtpa_qclient_CXXFLAGS = $(QT_CXXFLAGS)
+rtpa_qclient_CXXADD   = $(QT_CXXFLAGS)
+rtpa_qclient_SOURCES  = rtpa-qclient.cc qinfotabwidget.cc qspectrumanalyzer.cc qaudiomixer.cc rtpa-qclient.moc.cc qinfotabwidget.moc.cc qspectrumanalyzer.moc.cc qaudiomixer.moc.cc
+rtpa_qclient_LDADD    = $(QT_LDADD) librtpaudio.a -lpthread $(sctplib_LIBS) $(socketapi_LIBS) $(glib_LIBS)
+# endif

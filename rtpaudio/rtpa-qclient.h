@@ -31,8 +31,8 @@
 // $Id$
 
 
-#ifndef QCLIENT_H
-#define QCLIENT_H
+#ifndef RTPA_QCLIENT_H
+#define RTPA_QCLIENT_H
 
 
 #include "audiowriterinterface.h"

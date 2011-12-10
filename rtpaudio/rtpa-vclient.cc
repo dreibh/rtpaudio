@@ -39,11 +39,14 @@
 #include "mediainfo.h"
 #include "breakdetector.h"
 
+#include <sys/types.h>
+#include <signal.h>
+
 
 const cardinal DefaultPause      = 500;
 const cardinal DefaultThreads    = 12;
-char*          DefaultServer     = "localhost:7500";
-char*          DefaultMedia      = "TestWav%d.list";
+const char*    DefaultServer     = "localhost:7500";
+const char*    DefaultMedia      = "TestWav%d.list";
 const cardinal DefaultMediaCount = 1;
 
 
@@ -151,9 +154,11 @@ char* VerificationClientThread::getStatusString(char*          str,
    synchronized();
    const card64 seconds = Position / 1000;
    snprintf(str,maxLength,
-            "#%02d =>  $%08x: %3Ld:%02Ld.%02Ld   %5d Hz / %2d Bits / %6s   %s",
+            "#%02d =>  $%08x: %3u:%02u.%02u   %5d Hz / %2d Bits / %6s   %s",
             ID,SSRC,
-            seconds / 60, seconds % 60,Position % 100,
+            (unsigned int)(seconds / 60),
+            (unsigned int)(seconds % 60),
+            (unsigned int)(Position % 100),
             Quality.getSamplingRate(),
             Quality.getBits(),
             (Quality.getChannels() == 2) ? "Stereo" : "Mono",
@@ -168,7 +173,7 @@ void VerificationClientThread::run()
 {
    for(;;) {
       synchronized();
-      Client = new AudioClient(NULL,0,(AudioWriterInterface*)&OutputDevice);
+      Client = new AudioClient((AudioWriterInterface*)&OutputDevice);
       unsynchronized();
       if(Client != NULL) {
          test();
@@ -204,7 +209,7 @@ void* VerificationClientThread::stop()
 // ###### Write log entry ###################################################
 void VerificationClientThread::writeLog(const char* str)
 {
-   cout << "#" << ID << ": " << str << endl;
+   std::cout << "#" << ID << ": " << str << std::endl;
 }
 
 
@@ -255,8 +260,10 @@ void VerificationClientThread::selectPosition()
       char str[128];
       const card64 seconds = pos / PositionStepsPerSecond;
       snprintf((char*)&str,sizeof(str),
-              "Select position %Ld:%02Ld.%02Ld.",
-              seconds / 60, seconds % 60, (pos / (PositionStepsPerSecond / 100)) % 100);
+              "Select position %u:%02u.%02u.",
+              (unsigned int)(seconds / 60),
+              (unsigned int)(seconds % 60),
+              (unsigned int)((pos / (PositionStepsPerSecond / 100)) % 100));
       writeLog((char*)&str);
       Client->setPosition(pos);
    }
@@ -275,7 +282,7 @@ void VerificationClientThread::selectMedia()
    }
    else {
       if(Client->play(Server,(char*)&str,UseSCTP) == false) {
-         cerr << "ERROR: Connection to server failed!" << endl;
+         std::cerr << "ERROR: Connection to server failed!" << std::endl;
          kill(getpid(),SIGINT);
       }
    }
@@ -392,20 +399,20 @@ inline void validatePr(double& p)
 int main(int argc, char** argv)
 {
    // ====== Get arguments ==================================================
-   bool     optForceIPv4     = false;
-   bool     optUseSCTP       = false;
-   double   prSelectEncoding = 0.1;
-   double   prSelectQuality  = 0.7;
-   double   prSelectPosition = 0.3;
-   double   prSelectMedia    = 0.05;
-   double   prStop           = 0.03;
-   double   prRestart        = 0.01;
-   char*    server           = DefaultServer;
-   char*    media            = DefaultMedia;
-   char*    receiverName     = NULL;
-   cardinal count            = DefaultMediaCount;
-   cardinal pause            = DefaultPause;
-   cardinal threads          = DefaultThreads;
+   bool        optForceIPv4     = false;
+   bool        optUseSCTP       = false;
+   double      prSelectEncoding = 0.1;
+   double      prSelectQuality  = 0.7;
+   double      prSelectPosition = 0.3;
+   double      prSelectMedia    = 0.05;
+   double      prStop           = 0.03;
+   double      prRestart        = 0.01;
+   const char* server           = DefaultServer;
+   const char* media            = DefaultMedia;
+   const char* receiverName     = NULL;
+   cardinal    count            = DefaultMediaCount;
+   cardinal    pause            = DefaultPause;
+   cardinal    threads          = DefaultThreads;
    for(cardinal i = 1;i < (cardinal)argc;i++) {
       if(!(strncasecmp(argv[i],"-se=",4)))       prSelectEncoding = atof(&argv[i][4]);
       else if(!(strncasecmp(argv[i],"-sq=",4)))  prSelectQuality  = atof(&argv[i][4]);
@@ -424,12 +431,12 @@ int main(int argc, char** argv)
       else if(!(strcasecmp(argv[i],"-nosctp")))      optUseSCTP   = false;
       else if(!(strncasecmp(argv[i],"-local=",7)))   receiverName = &argv[i][7];
       else {
-         cerr << "Usage: " << argv[0] << endl
-              << "   {-local=hostname}" << endl
-              << "   {-threads=count} {-pause=milliseconds}" << endl
-              << "   {-server=host:port} {-media=name with %%d} {-count=media count}" << endl
-              << "   {-se=probability} {-sq=probability} {-sp=probability}" << endl
-              << "   {-sm=probability} {-st=probability} {-re=probability}" << endl;
+         std::cerr << "Usage: " << argv[0] << std::endl
+              << "   {-local=hostname}" << std::endl
+              << "   {-threads=count} {-pause=milliseconds}" << std::endl
+              << "   {-server=host:port} {-media=name with %%d} {-count=media count}" << std::endl
+              << "   {-se=probability} {-sq=probability} {-sp=probability}" << std::endl
+              << "   {-sm=probability} {-st=probability} {-re=probability}" << std::endl;
          exit(1);
       }
    }
@@ -451,38 +458,38 @@ int main(int argc, char** argv)
    if(optForceIPv4) {
       if(InternetAddress::UseIPv6 == true) {
          InternetAddress::UseIPv6 = false;
-         cerr << "NOTE: IPv6 support disabled!" << endl;
+         std::cerr << "NOTE: IPv6 support disabled!" << std::endl;
       }
    }
 
 
    // ====== Print information ==============================================
-   cerr << "RTP Audio Verification Client - Copyright (C) 1999-2001 Thomas Dreibholz" << endl;
-   cerr << "------------------------------------------------------------------------" << endl;
-   cerr << endl;
-   cout << "Version:       " << __DATE__ << ", " << __TIME__ << endl;
+   std::cerr << "RTP Audio Verification Client - Copyright (C) 1999-2001 Thomas Dreibholz" << std::endl;
+   std::cerr << "------------------------------------------------------------------------" << std::endl;
+   std::cerr << std::endl;
+   std::cout << "Version:       " << __DATE__ << ", " << __TIME__ << std::endl;
    if(optUseSCTP) {
-      cerr << "SCTP:          on" << endl;
+      std::cerr << "SCTP:          on" << std::endl;
    }
    else {
-      cerr << "SCTP:          off" << endl;
+      std::cerr << "SCTP:          off" << std::endl;
    }
    if(receiverName != NULL) {
-      cerr << "Local Address: " << receiverName << endl;
+      std::cerr << "Local Address: " << receiverName << std::endl;
    }
-   cerr << endl;
-   cerr << "Threads                     = " << threads << endl;
-   cerr << "Server                      = " << server << endl;
-   cerr << "Media name                  = " << media << endl;
-   cerr << "Media count                 = " << count << endl;
-   cerr << "Maximum pause               = " << pause << " [ms]" << endl;
-   cerr << "Select encoding probability = " << prSelectEncoding << endl;
-   cerr << "Select quality probability  = " << prSelectQuality << endl;
-   cerr << "Select position probability = " << prSelectPosition << endl;
-   cerr << "Select media probability    = " << prSelectMedia << endl;
-   cerr << "Restart probability         = " << prStop << endl;
-   cerr << "Client restart probability  = " << prRestart << endl;
-   cerr << endl;
+   std::cerr << std::endl;
+   std::cerr << "Threads                     = " << threads << std::endl;
+   std::cerr << "Server                      = " << server << std::endl;
+   std::cerr << "Media name                  = " << media << std::endl;
+   std::cerr << "Media count                 = " << count << std::endl;
+   std::cerr << "Maximum pause               = " << pause << " [ms]" << std::endl;
+   std::cerr << "Select encoding probability = " << prSelectEncoding << std::endl;
+   std::cerr << "Select quality probability  = " << prSelectQuality << std::endl;
+   std::cerr << "Select position probability = " << prSelectPosition << std::endl;
+   std::cerr << "Select media probability    = " << prSelectMedia << std::endl;
+   std::cerr << "Restart probability         = " << prStop << std::endl;
+   std::cerr << "Client restart probability  = " << prRestart << std::endl;
+   std::cerr << std::endl;
    Thread::delay(1000000);
 
 
@@ -506,8 +513,8 @@ int main(int argc, char** argv)
    installBreakDetector();
    do {
       Thread::delay(1000000,true);
-      printTimeStamp(cerr);
-      cerr << endl;
+      printTimeStamp(std::cerr);
+      std::cerr << std::endl;
       for(cardinal i = 0;i < threads;i++) {
          char str[512];
          if(breakDetected()) {
@@ -515,9 +522,9 @@ int main(int argc, char** argv)
             // -> Check for break every iteration.
             break;
          }
-         cerr << thread[i]->getStatusString((char*)&str,sizeof(str)) << endl;
+         std::cerr << thread[i]->getStatusString((char*)&str,sizeof(str)) << std::endl;
       }
-      cerr << endl;
+      std::cerr << std::endl;
    } while(!breakDetected());
 
 
@@ -525,6 +532,6 @@ int main(int argc, char** argv)
    for(cardinal i = 0;i < threads;i++) {
       thread[i]->stop();
    }
-   cerr << "Terminated!" << endl;
+   std::cerr << "Terminated!" << std::endl;
    return(0);
 }
