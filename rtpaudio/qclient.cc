@@ -90,18 +90,6 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    AutoRepeat             = TRUE;
    UseSCTP                = FALSE;
 
-   // ====== Main Layout ====================================================
-   QWidget* centralWidget = new QWidget(this);
-   Q_CHECK_PTR(centralWidget);
-   centralWidget->setWhatsThis("This is the RTP Audio Client!");
-
-   QGridLayout* topLayout = new QGridLayout(centralWidget);
-   Q_CHECK_PTR(topLayout);
-//    topLayout->setColStretch(0,0);
-//    topLayout->setColStretch(1,10);
-//    topLayout->setRowStretch(0,10);
-//    topLayout->setRowStretch(1,0);
-
    // ====== Menu ===========================================================
    QMenuBar* menu = menuBar();
 
@@ -166,6 +154,19 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    helpMenu->addAction("&What's This?",this,SLOT(whatsThis()),Qt::Key_F12);
    menu->addSeparator();
    menu->addMenu(helpMenu);
+
+
+   // ====== Main Layout ====================================================
+   QWidget* centralWidget = new QWidget(this);
+   Q_CHECK_PTR(centralWidget);
+   centralWidget->setWhatsThis("This is the RTP Audio Client!");
+
+   QGridLayout* topLayout = new QGridLayout(centralWidget);
+   Q_CHECK_PTR(topLayout);
+   topLayout->setColumnStretch(0,0);
+   topLayout->setColumnStretch(1,10);
+   topLayout->setRowStretch(0,10);
+   topLayout->setRowStretch(1,0);
 
    // ====== Status line ====================================================
    QLabel* copyright = new QLabel("Copyright (C) 1999-2012 Thomas Dreibholz",centralWidget);
@@ -292,7 +293,7 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    Q_CHECK_PTR(mediaInfoGroup);
    QGridLayout* mediaInfoLayout = new QGridLayout(mediaInfoGroup);
    Q_CHECK_PTR(mediaInfoLayout);
-//    mediaInfoLayout->setColStretch(1,10);
+   mediaInfoLayout->setColumnStretch(1,10);
 
    TitleLabel = new QLabel("N/A",mediaInfoGroup);
    Q_CHECK_PTR(TitleLabel);
@@ -399,9 +400,9 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    controlLayout->addWidget(stop,0,1);
    controlLayout->addWidget(Pause,0,2);
    controlLayout->addWidget(whatsThis,0,3);
-   controlLayout->addWidget(ScrollBar,1,1,0,3);
-   controlLayout->addWidget(label,2,2,0,3);
-   controlLayout->addWidget(Location,3,3,0,3);
+   controlLayout->addWidget(ScrollBar,1,0,1,4);
+   controlLayout->addWidget(label,2,0,1,4);
+   controlLayout->addWidget(Location,3,0,1,4);
 
 
    // ====== Connect widgets to methods =====================================
