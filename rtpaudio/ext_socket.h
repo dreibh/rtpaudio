@@ -2,7 +2,7 @@
  *  $Id$
  *
  * SocketAPI implementation for the sctplib.
- * Copyright (C) 1999-2007 by Thomas Dreibholz
+ * Copyright (C) 1999-2009 by Thomas Dreibholz
  *
  * Realized in co-operation between
  * - Siemens AG
@@ -14,20 +14,21 @@
  * Forschung (BMBF) of the Federal Republic of Germany (Foerderkennzeichen 01AK045).
  * The authors alone are responsible for the contents.
  *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
- * There are two mailinglists available at http://www.sctp.de which should be
- * used for any discussion related to this implementation.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Contact: discussion@sctp.de
- *          dreibh@exp-math.uni-essen.de
+ *          dreibh@iem.uni-due.de
  *          tuexen@fh-muenster.de
  *
  * Purpose: Extended Socket API
@@ -49,6 +50,7 @@
 #include <sys/time.h>
 #include <inttypes.h>
 #include <netinet/in.h>
+#include <poll.h>
 
 
 #ifndef IPPROTO_SCTP
@@ -56,24 +58,37 @@
 #endif
 
 
-#define SOCKETAPI_MAJOR_VERSION  1
-#define SOCKETAPI_MINOR_VERSION  9000
+#define SOCKETAPI_MAJOR_VERSION  0x2
+#define SOCKETAPI_MINOR_VERSION  0x2200
 
 
-#define MSG_UNORDERED    (1 << 31)
-#define MSG_UNBUNDLED    (1 << 30)
+/*
+   The socketapi library internally combines the
+   flags and sinfo_flags fields! Here, it is
+   ensured to define unique value.
+*/
+#define MSG_UNORDERED     MSG_DONTROUTE
+#define MSG_UNBUNDLED     MSG_CTRUNC
 #ifndef MSG_NOTIFICATION
-#define MSG_NOTIFICATION (1 << 29)
+#define MSG_NOTIFICATION  MSG_OOB
 #endif
-#define MSG_ABORT        (1 << 28)
 #ifndef MSG_EOF
-#define MSG_EOF          (1 << 27)
+#define MSG_EOF           MSG_FIN
 #endif
-#define MSG_SHUTDOWN     MSG_EOF
-#define MSG_PR_SCTP_TTL  (1 << 26)
-#define MSG_ADDR_OVER    (1 << 25)
-#define MSG_SEND_TO_ALL  (1 << 24)
-#define MSG_MULTIADDRS   (1 << 23)
+#define MSG_SHUTDOWN      MSG_EOF
+#define MSG_MULTIADDRS    MSG_TRUNC
+
+#ifdef MSG_RST
+#define MSG_ABORT         MSG_RST
+#define MSG_PR_SCTP_TTL   MSG_ERRQUEUE
+#define MSG_ADDR_OVER     MSG_MORE
+#define MSG_SEND_TO_ALL   MSG_PROXY
+#else
+#define MSG_ABORT         0x200
+#define MSG_PR_SCTP_TTL   0x400
+#define MSG_ADDR_OVER     0x800
+#define MSG_SEND_TO_ALL   0xc00
+#endif
 
 #define SCTP_UNORDERED    MSG_UNORDERED
 #define SCTP_UNBUNDLED    MSG_UNBUNDLED
@@ -350,10 +365,16 @@ struct sctp_event_subscribe
 
 
 struct sctp_assoc_value {
-   sctp_assoc_t            assoc_id;
-   uint32_t                assoc_value;
+   sctp_assoc_t assoc_id;
+   uint32_t     assoc_value;
 };
 
+
+struct sctp_sack_info {
+   sctp_assoc_t sack_assoc_id;
+   uint32_t     sack_delay;
+   uint32_t     sack_freq;
+};
 
 
 #define SCTP_INITMSG                1000
@@ -371,7 +392,7 @@ struct sctp_assoc_value {
 #define SCTP_NODELAY                1018
 #define SCTP_SET_DEFAULT_SEND_PARAM 1019
 #define SCTP_EVENTS                 1020
-#define SCTP_DELAYED_ACK_TIME       1021
+#define SCTP_DELAYED_SACK           1021
 #define SCTP_FRAGMENT_INTERLEAVE    1022
 #define SCTP_PARTIAL_DELIVERY_POINT 1023
 #define SCTP_MAXSEG                 1024
@@ -383,6 +404,7 @@ struct sctp_assoc_value {
 extern "C" {
 #endif
 
+unsigned int socketAPIGetVersion();
 int ext_socket(int domain, int type, int protocol);
 int ext_open(const char* pathname, int flags, mode_t mode);
 int ext_creat(const char* pathname, mode_t mode);
@@ -407,23 +429,6 @@ ssize_t ext_sendmsg(int s, const struct msghdr* msg, int flags);
 ssize_t ext_read(int fd, void* buf, size_t count);
 ssize_t ext_write(int fd, const void* buf, size_t count);
 int ext_select(int n, fd_set* readfds, fd_set* writefds, fd_set* exceptfds, struct timeval* timeout);
-
-#if defined(__APPLE__)
-#define POLLIN  0x001
-#define POLLPRI 0x002
-#define POLLOUT 0x004
-#define POLLERR 0x008
-#define POLLHUP 0x010
-
-struct pollfd {
-   int       fd;
-   short int events;
-   short int revents;
-};
-#else
-#include <sys/poll.h>
-#endif
-
 int ext_poll(struct pollfd* fdlist, long unsigned int count, int time);
 
 
@@ -442,7 +447,8 @@ int sctp_bindx(int              sockfd,
 
 int ext_connectx(int                    sockfd,
                  const struct sockaddr* addrs,
-                 int                    addrcnt);
+                 int                    addrcnt,
+                 sctp_assoc_t*          id);
 #define sctp_connectx ext_connectx
 
 int sctp_peeloff(int sockfd, sctp_assoc_t id);
@@ -529,7 +535,7 @@ int sctp_enableCRC32(const unsigned int enable);
 #define ext_close(a) ::close(a)
 #define ext_getsockname(a,b,c) ::getsockname(a,b,c)
 #define ext_getpeername(a,b,c) ::getpeername(a,b,c)
-#define ext_fcntl(a,b,c,d) ::fcntl(a,b,c,d)
+#define ext_fcntl(a,b,c) ::fcntl(a,b,c)
 #define ext_ioctl(a,b,c) ::ioctl(a,b,c)
 #define ext_getsockopt(a,b,c,d,e) ::getsockopt(a,b,c,d,e)
 #define ext_setsockopt(a,b,c,d,e) ::setsockopt(a,b,c,d,e)
@@ -542,12 +548,7 @@ int sctp_enableCRC32(const unsigned int enable);
 #define ext_read(a,b,c) ::read(a,b,c)
 #define ext_write(a,b,c) ::write(a,b,c)
 #define ext_select(a,b,c,d,e) ::select(a,b,c,d,e)
-#ifdef USE_SELECT
-extern "C" {
-#include <poll.h>
-int ext_poll(struct pollfd* fdlist, long unsigned int count, int time);
-}
-#else
+#ifndef USE_SELECT
 #define ext_poll(a,b,c) ::poll(a,b,c)
 #endif
 #define ext_pipe(a) ::pipe(a)
@@ -574,10 +575,7 @@ int ext_poll(struct pollfd* fdlist, long unsigned int count, int time);
 #define ext_read(a,b,c) read(a,b,c)
 #define ext_write(a,b,c) write(a,b,c)
 #define ext_select(a,b,c,d,e) select(a,b,c,d,e)
-#ifdef USE_SELECT
-#include <poll.h>
-int ext_poll(struct pollfd* fdlist, long unsigned int count, int time);
-#else
+#ifndef USE_SELECT
 #define ext_poll(a,b,c) poll(a,b,c)
 #endif
 #define ext_pipe(a) pipe(a)
@@ -589,41 +587,9 @@ int ext_poll(struct pollfd* fdlist, long unsigned int count, int time);
 #include <sys/uio.h>
 #include <netinet/sctp.h>
 
-/*
-#ifndef SCTP_UNORDERED
-#define SCTP_UNORDERED MSG_UNORDERED
+#ifndef SCTP_DELAYED_SACK
+#define SCTP_DELAYED_SACK SCTP_DELAYED_ACK_TIME
 #endif
-#ifndef SCTP_ADDR_OVER
-#define SCTP_ADDR_OVER MSG_ADDR_OVER
-#endif
-#ifndef SCTP_ABORT
-#define SCTP_ABORT MSG_ABORT
-#endif
-#ifndef MSG_EOF
-#define SCTP_EOF MSG_EOF
-#endif
-*/
-
-/*
-#ifndef SPP_HB_ENABLE
-#define SPP_HB_ENABLE SPP_HB_ENABLED
-#endif
-#ifndef SPP_HB_DISABLE
-#define SPP_HB_DISABLE SPP_HB_DISABLED
-#endif
-#ifndef SPP_PMTUD_ENABLE
-#define SPP_PMTUD_ENABLE SPP_PMTUD_ENABLED
-#endif
-#ifndef SPP_PMTUD_DISABLE
-#define SPP_PMTUD_DISABLE SPP_PMTUD_DISABLED
-#endif
-#ifndef SPP_SACKDELAY_ENABLE
-#define SPP_SACKDELAY_ENABLE SPP_SACKDELAY_ENABLED
-#endif
-#ifndef SPP_SACKDELAY_DISABLE
-#define SPP_SACKDELAY_DISABLE SPP_SACKDELAY_DISABLED
-#endif
-*/
 
 #endif
 
