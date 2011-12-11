@@ -5,8 +5,8 @@ Maintainer: Thomas Dreibholz <dreibh@iem.uni-due.de>
 Homepage: http://www.iem.uni-due.de/~dreibh/rn/
 Build-Depends: autotools-dev,
                debhelper (>= 7.0.50~),
-               libsctp-dev (>= 1.0.5),
-               libqt4-dev
+               libqt4-dev,
+               libsctp-dev (>= 1.0.5)
 Standards-Version: 3.9.2
 
 Package: rtpaudio-server
@@ -15,9 +15,9 @@ Depends: ${misc:Depends},
          ${shlibs:Depends}
 Recommends: iputils-ping,
             iputils-tracepath,
+            pulseaudio-utils,
             rsplib-tools,
             subnetcalc,
-            pulseaudio-utils,
             traceroute
 Description: RTP Audio sound streaming system
  The RTP Audio system consists of a server and several clients, which are
