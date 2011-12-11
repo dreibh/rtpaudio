@@ -114,6 +114,6 @@ if BUILD_QT_PROGRAMS
 rtpa_qclient_MOC      = rtpa-qclient.moc.cc qinfotabwidget.moc.cc qspectrumanalyzer.moc.cc qaudiomixer.moc.cc
 rtpa_qclient_CXXFLAGS = $(QT_CXXFLAGS)
 rtpa_qclient_CXXADD   = $(QT_CXXFLAGS)
-rtpa_qclient_SOURCES  = rtpa-qclient.cc qinfotabwidget.cc qspectrumanalyzer.cc qaudiomixer.cc rtpa-qclient.moc.cc qinfotabwidget.moc.cc qspectrumanalyzer.moc.cc qaudiomixer.moc.cc
+rtpa_qclient_SOURCES  = rtpa-qclient.cc rtpa-qclient.h qinfotabwidget.cc qinfotabwidget.h qspectrumanalyzer.cc qspectrumanalyzer.h qaudiomixer.cc qaudiomixer.h rtpa-qclient.moc.cc qinfotabwidget.moc.cc qspectrumanalyzer.moc.cc qaudiomixer.moc.cc
 rtpa_qclient_LDADD    = $(QT_LDADD) librtpaudio.a -lpthread $(sctplib_LIBS) $(socketapi_LIBS) $(glib_LIBS)
 endif

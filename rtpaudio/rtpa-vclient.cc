@@ -464,7 +464,7 @@ int main(int argc, char** argv)
 
 
    // ====== Print information ==============================================
-   std::cerr << "RTP Audio Verification Client - Copyright (C) 1999-2001 Thomas Dreibholz" << std::endl;
+   std::cerr << "RTP Audio Verification Client - Copyright (C) 1999-2012 Thomas Dreibholz" << std::endl;
    std::cerr << "------------------------------------------------------------------------" << std::endl;
    std::cerr << std::endl;
    std::cout << "Version:       " << __DATE__ << ", " << __TIME__ << std::endl;

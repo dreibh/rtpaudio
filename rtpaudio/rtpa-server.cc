@@ -349,7 +349,7 @@ int main(int argc, char* argv[])
 
 
    // ====== Print status ===================================================
-   std::cout << "RTP Audio Server - Copyright (C) 1999-2007 Thomas Dreibholz" << std::endl;
+   std::cout << "RTP Audio Server - Copyright (C) 1999-2012 Thomas Dreibholz" << std::endl;
    std::cout << "-----------------------------------------------------------" << std::endl;
    std::cout << std::endl;
    std::cout << "Version:          " << __DATE__ << ", " << __TIME__ << std::endl;
