@@ -1150,7 +1150,7 @@ QString QClient::flowInfoToQString(const card8  trafficClass,
 int main(int argc, char* argv[])
 {
    // ===== Check arguments =================================================
-   cardinal optAudioDevice = 0;
+   cardinal optAudioDevice = 1;
    cardinal optAudioDebug  = 0;
    cardinal optAudioNull   = 0;
    cardinal optAnalyzer    = 1;
