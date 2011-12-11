@@ -9,9 +9,34 @@ Build-Depends: autotools-dev,
                libsctp-dev (>= 1.0.5)
 Standards-Version: 3.9.2
 
-Package: rtpaudio-server
+Package: libmpegsound0
+Section: libs
 Architecture: any
 Depends: ${misc:Depends},
+         ${shlibs:Depends}
+Description: Sound decoder library
+ libmpegsound decodes a couple of sound formats (e.g. MP3, OGG) and
+ returns a raw data stream.
+ .
+ The library is provided by this package.
+
+Package: libmpegsound-dev
+Section: libdevel
+Architecture: any
+Depends: libmpegsound0 (= ${binary:Version}),
+         ${misc:Depends},
+         ${shlibs:Depends}
+Recommends: rsplib-docs
+Description: Headers for the sound decoder library
+ libmpegsound decodes a couple of sound formats (e.g. MP3, OGG) and
+ returns a raw data stream.
+ .
+ This package provides header files for the libmpegsound library.
+
+Package: rtpaudio
+Architecture: any
+Depends: libmpegsound0,
+         ${misc:Depends},
          ${shlibs:Depends}
 Recommends: iputils-ping,
             iputils-tracepath,

@@ -1,4 +1,4 @@
-src/rtpa-client		/usr/bin
-src/rtpa-qclient	/usr/bin
-src/rtpa-server		/usr/bin
-src/rtpa-vclient	/usr/bin
+debian/tmp/usr/bin/rtpa-client
+debian/tmp/usr/bin/rtpa-qclient
+debian/tmp/usr/bin/rtpa-server
+debian/tmp/usr/bin/rtpa-vclient
