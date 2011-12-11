@@ -279,7 +279,7 @@ class QClient : public QMainWindow
    /**
      * Slot for location menu item.
      */
-   void locationSelected(int selection);
+   void locationSelected(QAction* action);
 
    /**
      * Slot for loading bookmarks.
@@ -305,7 +305,7 @@ class QClient : public QMainWindow
    // ====== Status update ==================================================
    private:
    void updateCounter(card64 position);
-   void insertURL(const String& urlToInsert);
+   void insertURL(const String& urlToInsert, const int where = 0);
 
 
    // ====== Private data ===================================================

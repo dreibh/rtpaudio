@@ -51,6 +51,7 @@
 #include <qmenu.h>
 
 #include <fstream>
+#include <assert.h>
 
 
 #include "tdsystem.h"
@@ -114,6 +115,7 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    for(cardinal i = 0;i < LocationCount;i++) {
       LocationAction[i] = URLMenu->addAction("()");
       Q_CHECK_PTR(LocationAction[i]);
+      LocationAction[i]->setEnabled(FALSE);
       if(i <= 9) {
          LocationAction[i]->setShortcut(Qt::CTRL+Qt::Key_0+i);
       }
@@ -123,8 +125,8 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    }
    URLMenu->addSeparator();
    URLMenu->addAction("&Clear Bookmarks",this,SLOT(clearBookmarks()),Qt::CTRL+Qt::Key_K);
-   QObject::connect(URLMenu,SIGNAL(activated(int)),this,SLOT(locationSelected(int)));
    menu->addMenu(URLMenu);
+   QObject::connect(URLMenu,SIGNAL(triggered(QAction*)),this,SLOT(locationSelected(QAction*)));
 
    ToolsMenu = new QMenu("&Tools", this);
    Q_CHECK_PTR(ToolsMenu);
@@ -958,66 +960,54 @@ void QClient::timerEvent()
 
 
 // ###### Location selected slot ############################################
-void QClient::locationSelected(int selection)
+void QClient::locationSelected(QAction* action)
 {
-   printf("STOP locationSelected %d!\n",selection);
-   exit(1);
-
-//    if((selection >= (int)MenuIDLocation) &&
-//       (selection < (int)(MenuIDLocation + LocationCount))) {
-//       cardinal number = selection - MenuIDLocation;
-//       for(QList<String*>::iterator iterator = URLList.begin();
-//           iterator != URLList.end(); ++iterator) {
-//          String* url = *iterator;
-//          if(number == 0) {
-//             const char* oldURL = Location->text().toUtf8().constData();
-//             const char* newURL = url->getData();
-//             if((strcmp(oldURL,newURL)) || (!Client->playing())) {
-//                Location->setText(newURL);
-//                play();
-//             }
-//             break;
-//          }
-//          number--;
-//       }
-//    }
+   const char* oldURL = Location->text().toUtf8().constData();
+   const char* newURL = action->text().toUtf8().data();
+   if((strcmp(oldURL,newURL)) || (!Client->playing())) {
+      Location->setText(newURL);
+      play();
+   }
 }
 
 // ###### Insert current URL into URL list ##################################
-void QClient::insertURL(const String& urlToInsert)
+void QClient::insertURL(const String& urlToInsert, const int where)
 {
-printf("INSERT\n");
+   // ====== Remove old copy of new URL and insert URL at head of list ======
+   String* newURL = new String(urlToInsert);
+   Q_CHECK_PTR(newURL);
+   for(QList<String*>::iterator iterator = URLList.begin();
+       iterator != URLList.end(); ++iterator) {
+      String* url = *iterator;
+      if(*url == urlToInsert) {
+         URLList.erase(iterator);
+         delete url;
+         break;
+      }
+   }
+   URLList.insert(where,newURL);
+   if(URLList.count() > (int)LocationCount) {
+      String* url = URLList.last();
+      URLList.removeLast();
+      delete url;
+   }
 
-//    // ====== Remove old copy of new URL and insert URL at head of list ======
-//    String* newURL = new String(urlToInsert);
-//    Q_CHECK_PTR(newURL);
-//    String url = URLList.first();
-//    while(url.length() != 0) {
-//       if(url == urlToInsert) {
-//          URLList.remove(url);
-//          delete url;
-//       }
-//       url = URLList.next();
-//    }
-//    URLList.insert(0,newURL);
-//    if(URLList.count() > LocationCount) {
-//       url = URLList.last();
-//       URLList.removeLast();
-//    }
-//
-//    // ====== Update menu ====================================================
-//    url = URLList.first();
-//    for(cardinal i = MenuIDLocation;i < MenuIDLocation + LocationCount;i++) {
-//       if(url != NULL) {
-//          URLMenu->changeItem(i,url->getData());
-//          URLMenu->setItemEnabled(i,TRUE);
-//          url = URLList.next();
-//       }
-//       else {
-//          URLMenu->changeItem(i,"()");
-//          URLMenu->setItemEnabled(i,FALSE);
-//       }
-//    }
+   // ====== Update menu ====================================================
+   unsigned int i = 0;
+   for(QList<String*>::iterator iterator = URLList.begin();
+      iterator != URLList.end(); ++iterator) {
+      assert(i < LocationCount);
+      String* url = *iterator;
+      if(url != NULL) {
+         LocationAction[i]->setText(url->getData());
+         LocationAction[i]->setEnabled(TRUE);
+      }
+      else {
+         LocationAction[i]->setText("()");
+         LocationAction[i]->setEnabled(FALSE);
+      }
+      i++;
+   }
 }
 
 
@@ -1033,11 +1023,11 @@ void QClient::clearBookmarks()
       iterator = URLList.begin();
    }
 
-//    // ====== Update menu ====================================================
-//    for(cardinal i = MenuIDLocation;i < MenuIDLocation + LocationCount;i++) {
-//       URLMenu->changeItem(i,"()");
-//       URLMenu->setItemEnabled(i,FALSE);
-//    }
+   // ====== Update menu ====================================================
+   for(cardinal i = 0; i < LocationCount; i++) {
+      LocationAction[i]->setText("()");
+      LocationAction[i]->setEnabled(FALSE);
+   }
 }
 
 
@@ -1051,7 +1041,7 @@ void QClient::loadBookmarks()
          char str[512];
          is.getline(str,512);
          if((strlen((char*)&str) > 1) && (str[0] != '#')) {
-            insertURL(String((char*)&str));
+            insertURL(String((char*)&str), URLList.size());
          }
       }
    }
