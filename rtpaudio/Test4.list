@@ -1,0 +1,22 @@
+AudioList
+
+# This a an audio list file for RTP Audio.
+# It contains a set of file names of WAV and MP3 files. Option lines begin with
+# "*", comments with "#".
+#
+# There are four possible options:
+# *directory = <name> changes the current directory.
+#
+# The next options set title, artist and comment for the next file. If the
+# file contains its own information, the file's settings will be overwritten
+# by the options.
+# *title = <title> sets the title string for the next file.
+# *artist = <artist> sets the artist string for the next file.
+# *comment = <comment> sets the comment string for the next file.
+
+*directory = Test-MP3s
+
+*title   = Zirkusmusik
+*artist  = Christian Bruhn
+*comment = OGG Test File
+Zirkusmusik.mp3

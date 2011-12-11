@@ -16,32 +16,12 @@ AudioList
 
 *directory = Test-MP3s
 
-*title   = Born To Be Wild
-*artist  = Steppenwolf, 1967
-*comment = RTP Audio Test MP3 File #1
-BornToBeWild.mp3
-
-*title   = Die glorreichen Sieben
-*artist  = Unknown
-*comment = RTP Audio Test MP3 File #2
-DieGlorreichenSieben.mp3
+*title   = Highway To Hell
+*artist  = ACDC
+*comment = RTP Audio Test MP3 File #6
+HighwayToHell.mp3
 
 *title   = Hellraiser
 *artist  = Motörhead, 1992
 *comment = RTP Audio Test MP3 File #3
 Hellraiser.mp3
-
-*title   = San Francisco
-*artist  = Scott McKenzie, 1968
-*comment = RTP Audio Test MP3 File #4
-SanFrancisco.mp3
-
-*title   = Go West
-*artist  = Pet Shop Boys, 1993
-*comment = RTP Audio Test MP3 File #5
-GoWest.mp3
-
-*title   = Highway To Hell
-*artist  = ACDC
-*comment = RTP Audio Test MP3 File #6
-HighwayToHell.mp3
