@@ -52,7 +52,7 @@ class StreamDescription;
   * This structure contains a possible layer to DiffServ class mapping.
   *
   * @short   Layer Class Mapping Possibility
-  * @author  Thomas Dreibholz (Dreibholz@bigfoot.com)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
 */
 struct LayerClassMappingPossibility
@@ -83,7 +83,7 @@ struct LayerClassMappingPossibility
   * This structure contains a list of possible layer to DiffServ class mapping.
   *
   * @short   Layer Class Mapping
-  * @author  Thomas Dreibholz (Dreibholz@bigfoot.com)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
 */
 struct LayerClassMapping
@@ -105,7 +105,7 @@ struct LayerClassMapping
   * algorithm.
   *
   * @short   Resource Utilization Point
-  * @author  Thomas Dreibholz (Dreibholz@bigfoot.com)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
 */
 class ResourceUtilizationPoint

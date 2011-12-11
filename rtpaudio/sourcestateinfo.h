@@ -46,7 +46,7 @@
   * See also RFC 1889 for more information on RTP.
   *
   * @short   Source State Info
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   *
   * @see RTPReceiver

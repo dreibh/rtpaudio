@@ -54,7 +54,7 @@ class TrafficShaper;
   * This class is a singleton for the traffic shaper.
   *
   * @short   Traffic Shaper Singleton
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
 */
 class TrafficShaperSingleton : public TimedThread
@@ -103,7 +103,7 @@ class TrafficShaperSingleton : public TimedThread
   * This class is a traffic shaper.
   *
   * @short   Traffic Shaper
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
 */
 class TrafficShaper : public Synchronizable

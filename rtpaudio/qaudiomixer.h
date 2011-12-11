@@ -52,7 +52,7 @@
   * This class is a Qt GUI for the audio mixer.
   *
   * @short   QAudioMixer
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 class QAudioMixer : public QMainWindow

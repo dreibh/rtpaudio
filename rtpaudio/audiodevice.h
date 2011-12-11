@@ -45,7 +45,7 @@
   * This class implements AudioWriterInterface for the audio device.
   *
   * @short   Audio Device
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 class AudioDevice : virtual public AudioWriterInterface,

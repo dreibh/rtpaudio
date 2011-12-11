@@ -49,7 +49,7 @@
   * Important node: All frames sizes in this class are payload frame sizes!
   *
   * @short   Generic Frame Size Scalability
-  * @author  Thomas Dreibholz (Dreibholz@bigfoot.com)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 class GenericFrameSizeScalability : virtual public FrameSizeScalabilityInterface

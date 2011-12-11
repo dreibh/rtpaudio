@@ -64,7 +64,7 @@ const card16 QSpectrumAnalyzerTimings[] = {
   * This class is the spectrum display widget for the spectrum analyzer.
   *
   * @short   QSpectrumAnalyzer
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 class QSpectrumDisplay : public QWidget
@@ -127,7 +127,7 @@ class QSpectrumDisplay : public QWidget
   * This class is the Qt-Toolkit GUI for the spectrum analyzer.
   *
   * @short   QSpectrumAnalyzer
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 class QSpectrumAnalyzer : public QMainWindow

@@ -43,7 +43,7 @@
   * This structure contains packet information for getNextPacket() call.
   *
   * @short   EncoderPacket
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 struct EncoderPacket
@@ -86,7 +86,7 @@ struct EncoderPacket
   * This class is the interface for an encoder.
   *
   * @short   Encoder Interface
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 class EncoderInterface

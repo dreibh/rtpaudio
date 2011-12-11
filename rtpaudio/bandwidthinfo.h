@@ -46,7 +46,7 @@
   * This is a description of bandwidth requirements.
   *
   * @short   Bandwidth Info
-  * @author  Thomas Dreibholz (Dreibholz@bigfoot.com)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 struct BandwidthInfo

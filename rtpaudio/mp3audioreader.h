@@ -52,7 +52,7 @@
   * This class is a reader for MP3 audio files.
   *
   * @short   MP3 Audio Reader
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 class MP3AudioReader : public Soundplayer,

@@ -53,7 +53,7 @@
   * and QInfoTabWidget.
   *
   * @short   InfoEntry
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 struct InfoEntry
@@ -84,7 +84,7 @@ struct InfoEntry
   * and QInfoTabWidget.
   *
   * @short   InfoTable
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 struct InfoTable
@@ -106,7 +106,7 @@ struct InfoTable
   * This class is a widget for displaying sets of info strings.
   *
   * @short   QInfoWidget
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 class QInfoWidget : public QWidget
@@ -152,7 +152,7 @@ class QInfoWidget : public QWidget
   * This class is a widget for displaying groups of sets of info strings.
   *
   * @short   QInfoTabWidget
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 class QInfoTabWidget : public QTabWidget

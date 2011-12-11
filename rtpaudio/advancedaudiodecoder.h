@@ -54,7 +54,7 @@
   * the full data.
   *
   * @short   Advanced Audio Decoder
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 class AdvancedAudioDecoder : public AudioDecoderInterface,

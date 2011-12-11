@@ -44,7 +44,7 @@
   * This class is a reader for WAV audio files.
   *
   * @short   WAV Audio Reader
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 class WavAudioReader : public AudioReaderInterface,

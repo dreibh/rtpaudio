@@ -141,7 +141,7 @@ const InfoTable InfoTable2 =
   * This class is the Qt-Toolkit GUI for the RTP audio client.
   *
   * @short   QClient
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 class QClient : public QMainWindow

@@ -55,7 +55,7 @@
   * This class is an audio server based on RTCPAbstractServer
   *
   * @short   Audio Server
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 class AudioServer : public RTCPAbstractServer

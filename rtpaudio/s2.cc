@@ -1165,7 +1165,7 @@ RTPAdaptionLayer::~RTPAdaptionLayer()
   * This class implements an RTCP receiver based on Thread.
   *
   * @short   RTCP Receiver
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 class TestReceiver : public Thread

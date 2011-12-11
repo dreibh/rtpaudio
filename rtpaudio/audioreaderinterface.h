@@ -44,7 +44,7 @@
   * This class is the interface for an audio reader.
   *
   * @short   Audio Reader Interface
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 class AudioReaderInterface : virtual public AudioQualityInterface

@@ -50,7 +50,7 @@
   * This class contains a stream's QoS requirements.
   *
   * @short   Abstract QoS Description.
-  * @author  Thomas Dreibholz (Dreibholz@bigfoot.com)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
 */
 class AbstractQoSDescription : virtual public FrameRateScalabilityInterface

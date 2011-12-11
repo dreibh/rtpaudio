@@ -44,7 +44,7 @@
   * This class is a repository for encoders.
   *
   * @short   Encoder Repository Interface
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 class EncoderRepositoryInterface : virtual public EncoderInterface

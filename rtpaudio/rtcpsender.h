@@ -49,7 +49,7 @@
   * This class implements an RTCP sender based on TimedThread.
   *
   * @short   RTCP Sender
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 class RTCPSender : public TimedThread

@@ -47,7 +47,7 @@
   * This is an interface for a bandwidth-managed stream.
   *
   * @short   Managed Stream Interface
-  * @author  Thomas Dreibholz (Dreibholz@bigfoot.com)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
 */
 class ManagedStreamInterface

@@ -44,7 +44,7 @@
   * This class defines the packet format for the advanced audio encoder.
   *
   * @short   Advanced Audio Packet
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   *
   * @see AdvancedAudioEncoder

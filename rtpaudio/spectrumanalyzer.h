@@ -45,7 +45,7 @@
   * This class implements a spectrum analyzer device implementing AudioWriterInterface.
   *
   * @short   Spectrum Analyzer
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 class SpectrumAnalyzer : virtual public AudioWriterInterface,

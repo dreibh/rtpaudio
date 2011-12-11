@@ -44,7 +44,7 @@
   * This class manages audio quality.
   *
   * @short   Audio Quality
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 class AudioQuality : virtual public AdjustableAudioQualityInterface

@@ -46,7 +46,7 @@
   * This class is an interface for frame rate scalability.
   *
   * @short   Frame Rate Scalability Interface
-  * @author  Thomas Dreibholz (Dreibholz@bigfoot.com)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 class FrameRateScalabilityInterface

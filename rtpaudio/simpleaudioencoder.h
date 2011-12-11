@@ -47,7 +47,7 @@
   * redundant transmission.
   *
   * @short   Simple Audio Encoder
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 class SimpleAudioEncoder : public AudioEncoderInterface,

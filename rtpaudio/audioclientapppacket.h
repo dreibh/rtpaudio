@@ -57,7 +57,7 @@ const card8 AudioClientDefaultTrafficClass = 0x00;
   * RTCP APP-PRIV messages.
   *
   * @short   Audio Client RTCP-SDES-APP-PRIV Packet
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   *
   * @see AudioClient

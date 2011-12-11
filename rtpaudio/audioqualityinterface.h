@@ -42,7 +42,7 @@
   * This class is an interface for getting audio quality.
   *
   * @short   Audio Quality Interface
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 class AudioQualityInterface
@@ -142,7 +142,7 @@ class AudioQualityInterface
   * It extends AudioQualityInterface with setting functions.
   *
   * @short   Adjustable Audio Quality Interface
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 class AdjustableAudioQualityInterface : virtual public AudioQualityInterface

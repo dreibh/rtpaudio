@@ -44,7 +44,7 @@
   * This class implements a dummy AudioWriterInterface.
   *
   * @short   Audio Null
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 class AudioNull : virtual public AudioWriterInterface,

@@ -48,7 +48,7 @@
   * This class is a repository for audio decoders.
   *
   * @short   Audio Decoder Repository
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 class AudioDecoderRepository : virtual public DecoderRepositoryInterface,

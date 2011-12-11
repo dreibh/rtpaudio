@@ -48,7 +48,7 @@
   * This class implements an RTP receiver based on Thread.
   *
   * @short   RTP Receiver
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 class RTPReceiver : public Thread

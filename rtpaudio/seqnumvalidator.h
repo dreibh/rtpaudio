@@ -44,7 +44,7 @@
   * Jitter and fraction loss calculation is also done by this class.
   *
   * @short   Sequence Number Validator
-  * @author  Thomas Dreibholz (dreibh@exp-math.uni-essen.de)
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
 class SeqNumValidator
