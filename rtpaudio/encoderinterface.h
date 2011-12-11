@@ -36,7 +36,6 @@
 
 
 #include "tdsystem.h"
-#include "range.h"
 #include "abstractqosdescription.h"
 
 
