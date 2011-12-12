@@ -1,39 +1,34 @@
-/*
- *  $Id$
- *
- * SocketAPI implementation for the sctplib.
- * Copyright (C) 2005-2009 by Thomas Dreibholz
- *
- * Realized in co-operation between
- * - Siemens AG
- * - University of Essen, Institute of Computer Networking Technology
- * - University of Applied Sciences, Muenster
- *
- * Acknowledgement
- * This work was partially funded by the Bundesministerium fuer Bildung und
- * Forschung (BMBF) of the Federal Republic of Germany (Foerderkennzeichen 01AK045).
- * The authors alone are responsible for the contents.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
-
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * Contact: discussion@sctp.de
- *          dreibh@iem.uni-due.de
- *          tuexen@fh-muenster.de
- *
- * Purpose: Traffic Class Values
- *
- */
+// ##########################################################################
+// ####                                                                  ####
+// ####                      RTP Audio Server Project                    ####
+// ####                    ============================                  ####
+// ####                                                                  ####
+// #### Traffic Class Values                                             ####
+// ####                                                                  ####
+// ####           Copyright (C) 1999-2012 by Thomas Dreibholz            ####
+// ####                                                                  ####
+// #### Contact:                                                         ####
+// ####    EMail: dreibh@iem.uni-due.de.de                               ####
+// ####    WWW:   http://www.iem.uni-due.de.de/~dreibh/rn                ####
+// ####                                                                  ####
+// #### ---------------------------------------------------------------- ####
+// ####                                                                  ####
+// #### This program is free software: you can redistribute it and/or    ####
+// #### modify it under the terms of the GNU General Public License as   ####
+// #### published by the Free Software Foundation, either version 3 of   ####
+// #### the License, or (at your option) any later version.              ####
+// ####                                                                  ####
+// #### This program is distributed in the hope that it will be useful,  ####
+// #### but WITHOUT ANY WARRANTY; without even the implied warranty of   ####
+// #### MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the    ####
+// #### GNU General Public License for more details.                     ####
+// ####                                                                  ####
+// #### You should have received a copy of the GNU General Public        ####
+// #### License along with this program.  If not, see                    ####
+// #### <http://www.gnu.org/licenses/>.                                  ####
+// ####                                                                  ####
+// ##########################################################################
+// $Id$
 
 
 #include "tdsystem.h"
@@ -43,7 +38,13 @@
 
 // ###### Traffic class values ##############################################
 const card8 TrafficClassValues::TCValues[TrafficClassValues::MaxValues] = {
-   46,10,12,14,18,20,22,26,28,30,34,36,38,40,42,0
+   0xb8,
+   0x28, 0x30, 0x38,
+   0x48, 0x50, 0x58,
+   0x68, 0x70, 0x78,
+   0x88, 0x90, 0x98,
+   0xa0, 0xa8,
+   0x00
 };
 
 

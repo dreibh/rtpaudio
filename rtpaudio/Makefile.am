@@ -62,7 +62,6 @@ librtpaudio_a_SOURCES = \
  sourcestateinfo.cc sourcestateinfo.h sourcestateinfo.icc \
  spectrumanalyzer.cc spectrumanalyzer.h \
  staticglobals.cc \
- streamsrcdest.cc streamsrcdest.h \
  synchronizable.cc synchronizable.h synchronizable.icc \
  tdsystem.h tdin6.h \
  tdmessage.h tdmessage.icc \
