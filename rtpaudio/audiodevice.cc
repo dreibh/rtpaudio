@@ -62,7 +62,6 @@ AudioDevice::AudioDevice(const char* name)
       std::cerr << "************************************************************" << std::endl;
       std::cerr << "WARNING: AudioDevice::AudioDevice() - Unable to open device!" << std::endl;
       std::cerr << "************************************************************" << std::endl;
-      printf("N=%s\n",name);
       return;
    }
 
