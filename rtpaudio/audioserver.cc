@@ -337,8 +337,8 @@ void AudioServer::userCommand(const Client*               client,
        break;
       case AudioClientAppPacket::ACAS_Play:
          {
-            const AbstractQoSDescription* qosDescription = user->Sender.getQoSDescription(0);
 /* ???
+            const AbstractQoSDescription* qosDescription = user->Sender.getQoSDescription(0);
             ExtendedTransportInfo ti;
             user->Sender.getTransportInfo(ti,false);
 

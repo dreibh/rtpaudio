@@ -81,19 +81,19 @@ AdvancedAudioEncoder::AdvancedAudioEncoder(AudioReaderInterface* audioReader)
 AdvancedAudioEncoder::~AdvancedAudioEncoder()
 {
    if(FrameBufferLL != NULL) {
-      delete FrameBufferLL;
+      delete [] FrameBufferLL;
       FrameBufferLL = NULL;
    }
    if(FrameBufferRL != NULL) {
-      delete FrameBufferRL;
+      delete [] FrameBufferRL;
       FrameBufferRL = NULL;
    }
    if(FrameBufferLU != NULL) {
-      delete FrameBufferLU;
+      delete [] FrameBufferLU;
       FrameBufferLU = NULL;
    }
    if(FrameBufferRU != NULL) {
-      delete FrameBufferRU;
+      delete [] FrameBufferRU;
       FrameBufferRU = NULL;
    }
 }

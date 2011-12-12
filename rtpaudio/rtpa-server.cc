@@ -151,7 +151,6 @@ int main(int argc, char* argv[])
    bool   optUseSCTP      = false;
    bool   lossScalability = true;
    bool   disableQM       = false;
-   char*  manager         = NULL;
    cardinal maxPacketSize = 1500;
    card64 timeout         = 10000000;
    card16 port            = AudioClientAppPacket::RTPAudioDefaultPort;
@@ -286,7 +285,6 @@ int main(int argc, char* argv[])
       else if(!(strcasecmp(argv[i],"-sctp")))            optUseSCTP   = true;
       else if(!(strcasecmp(argv[i],"-nosctp")))          optUseSCTP   = false;
       else if(!(strncasecmp(argv[i],"-port=",6)))        port      = (card16)atol(&argv[i][6]);
-      else if(!(strncasecmp(argv[i],"-manager=",9)))     manager   = &argv[i][9];
       else if(!(strncasecmp(argv[i],"-timeout=",9)))     timeout   = 1000000 * (card64)atol(&argv[i][9]);
       else if(!(strncasecmp(argv[i],"-maxpktsize=",12))) maxPacketSize = (cardinal)atol(&argv[i][12]);
       else if(!(strcasecmp(argv[i],"-disable-qm")))      disableQM = true;

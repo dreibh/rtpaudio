@@ -115,7 +115,7 @@ integer RTCPSender::sendBye()
 {
    if(SenderSocket != NULL) {
       char     packet[sizeof(RTCPBye) + 4];
-      RTCPBye* bye = (RTCPBye*)packet;
+      RTCPBye* bye = (RTCPBye*)&packet;
 
       bye->init(1);
       bye->setSource(0,SSRC);
@@ -135,7 +135,7 @@ integer RTCPSender::sendApp(const char*    name,
 {
    if(SenderSocket != NULL) {
       char     packet[sizeof(RTCPApp) + dataLength];
-      RTCPApp* app = (RTCPApp*)packet;
+      RTCPApp* app = (RTCPApp*)&packet;
 
       app->init(0);
       app->setSource(SSRC);

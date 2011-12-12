@@ -67,7 +67,7 @@ SimpleAudioEncoder::SimpleAudioEncoder(AudioReaderInterface* audioReader)
 SimpleAudioEncoder::~SimpleAudioEncoder()
 {
    if(FrameBuffer != NULL) {
-      delete FrameBuffer;
+      delete [] FrameBuffer;
       FrameBuffer = NULL;
    }
 }
