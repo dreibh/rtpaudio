@@ -7,7 +7,7 @@
 // #### ================================================================ ####
 // ####                                                                  ####
 // ####                                                                  ####
-// #### Bandwidth Manager                                                ####
+// #### QoS Manager Interface                                            ####
 // ####                                                                  ####
 // ####           Copyright (C) 1999-2012 by Thomas Dreibholz            ####
 // ####                                                                  ####
@@ -35,8 +35,8 @@
 // $Id$
 
 
-#ifndef BANDWIDTHMANAGER_H
-#define BANDWIDTHMANAGER_H
+#ifndef QOSMANAGERINTERFACE_H
+#define QOSMANAGERINTERFACE_H
 
 
 #include "tdsystem.h"
@@ -45,13 +45,13 @@
 #include "rtcppacket.h"
 
 
-class BandwidthManager
+class QoSManagerInterface
 {
    public:
    /**
      * Destructor.
      */
-   virtual ~BandwidthManager() = 0;
+   virtual ~QoSManagerInterface() = 0;
 
    // ====== Stream management ==============================================
    /**

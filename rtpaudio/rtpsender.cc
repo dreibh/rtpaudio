@@ -53,29 +53,29 @@ RTPSender::RTPSender()
 
 
 // ###### Constructor #######################################################
-RTPSender::RTPSender(InternetFlow&     flow,
-                     const card32      ssrc,
-                     EncoderInterface* encoder,
-                     Socket*           senderSocket,
-                     const cardinal    maxPacketSize,
-                     BandwidthManager* bwManager)
+RTPSender::RTPSender(InternetFlow&        flow,
+                     const card32         ssrc,
+                     EncoderInterface*    encoder,
+                     Socket*              senderSocket,
+                     const cardinal       maxPacketSize,
+                     QoSManagerInterface* qosManager)
    : TimedThread(1000000,"RTPSender")
 {
-   init(flow,ssrc,encoder,senderSocket,maxPacketSize,bwManager);
+   init(flow,ssrc,encoder,senderSocket,maxPacketSize,qosManager);
 }
 
 
 // ###### Initialize ########################################################
-void RTPSender::init(InternetFlow&     flow,
-                     const card32      ssrc,
-                     EncoderInterface* encoder,
-                     Socket*           senderSocket,
-                     const cardinal    maxPacketSize,
-                     BandwidthManager* bwManager)
+void RTPSender::init(InternetFlow&        flow,
+                     const card32         ssrc,
+                     EncoderInterface*    encoder,
+                     Socket*              senderSocket,
+                     const cardinal       maxPacketSize,
+                     QoSManagerInterface* qosManager)
 {
    Encoder            = encoder;
    SenderSocket       = senderSocket;
-   BandwidthMgr       = bwManager;
+   QoSMgr             = qosManager;
    MaxPacketSize      = maxPacketSize;
    BytesSent          = 0;
    PacketsSent        = 0;
@@ -169,9 +169,9 @@ void RTPSender::updateQuality(const AbstractQoSDescription* aqd)
 
 #ifdef USE_TRAFFICSHAPER
          Shaper[i].setBandwidth(Bandwidth[i] + RTPConstants::RTPDefaultHeaderSize + IPv6HeaderSize + UDPHeaderSize);
-         Shaper[i].setBufferDelay(BufferDelay[i] + BandwidthMgr->SystemDelayTolerance);
+         Shaper[i].setBufferDelay(BufferDelay[i] + QoSMgr->SystemDelayTolerance);
          if(Shaper[i].refreshBuffer(Flow[i].getTrafficClass(),true) == true) {
-            BandwidthMgr->bufferFlushEvent(this,i);
+            QoSMgr->bufferFlushEvent(this,i);
          }
 #endif
       }
@@ -285,8 +285,8 @@ void RTPSender::timerEvent()
       const bool newInterval  = Encoder->checkInterval(nextInterval,newRUList);
 
       // ====== Check for new interval ======================================
-      if(BandwidthMgr != NULL) {
-         BandwidthMgr->intervalChangeEvent(this,newInterval,nextInterval,newRUList);
+      if(QoSMgr != NULL) {
+         QoSMgr->intervalChangeEvent(this,newInterval,nextInterval,newRUList);
       }
    }
 
@@ -345,8 +345,8 @@ void RTPSender::timerEvent()
             }
             if(sent < 0) {
                SequenceNumber[encoderPacket.Layer] = Shaper[encoderPacket.Layer].getLastSeqNum();
-               if(BandwidthMgr != NULL) {
-                  BandwidthMgr->bufferFlushEvent(this,encoderPacket.Layer);
+               if(QoSMgr != NULL) {
+                  QoSMgr->bufferFlushEvent(this,encoderPacket.Layer);
                }
                packet.setSequenceNumber(SequenceNumber[encoderPacket.Layer]);
                sent = Shaper[encoderPacket.Layer].sendTo(

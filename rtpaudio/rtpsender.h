@@ -42,7 +42,7 @@
 #include "encoderinterface.h"
 #include "trafficshaper.h"
 #include "abstractqosdescription.h"
-#include "bandwidthmanager.h"
+#include "qosmanagerinterface.h"
 
 
 /**
@@ -74,16 +74,16 @@ class RTPSender : virtual public ManagedStreamInterface,
      * @param encoder Encoder to get packets to send from.
      * @param senderSocket Socket to write packets to.
      * @param maxPacketSize Maximum packet size.
-     * @param bwManager Bandwidth manager.
+     * @param qosManager QoS manager.
      *
      * @see Thread#start
      */
-   RTPSender(InternetFlow&     flow,
-             const card32      ssrc,
-             EncoderInterface* encoder,
-             Socket*           senderSocket,
-             const cardinal    maxPacketSize = 1500,
-             BandwidthManager* bwManager     = NULL);
+   RTPSender(InternetFlow&        flow,
+             const card32         ssrc,
+             EncoderInterface*    encoder,
+             Socket*              senderSocket,
+             const cardinal       maxPacketSize = 1500,
+             QoSManagerInterface* qosManager     = NULL);
 
    /**
      * Destructor.
@@ -101,16 +101,16 @@ class RTPSender : virtual public ManagedStreamInterface,
      * @param encoder Encoder to get packets to send from.
      * @param senderSocket Socket to write packets to.
      * @param maxPacketSize Maximum packet size.
-     * @param bwManager Bandwidth manager.
+     * @param qosManager QoS manager.
      *
      * @see Thread#start
      */
-   void init(InternetFlow&     flow,
-             const card32      ssrc,
-             EncoderInterface* encoder,
-             Socket*           senderSocket,
-             const cardinal    maxPacketSize = 1500,
-             BandwidthManager* bwManager     = NULL);
+   void init(InternetFlow&        flow,
+             const card32         ssrc,
+             EncoderInterface*    encoder,
+             Socket*              senderSocket,
+             const cardinal       maxPacketSize = 1500,
+             QoSManagerInterface* qosManager    = NULL);
 
 
 
@@ -215,40 +215,37 @@ class RTPSender : virtual public ManagedStreamInterface,
    // ====== Private data ===================================================
    private:
    void timerEvent();
+   void updateFrameRate(const AbstractQoSDescription* aqd);
 
 
    private:
-   EncoderInterface* Encoder;
-   Socket*           SenderSocket;
+   EncoderInterface*    Encoder;
+   Socket*              SenderSocket;
 
-   cardinal      FramesPerSecond;
-   cardinal      RenewCounter;
-   cardinal      MaxPacketSize;
-   card32        SSRC;
-   card64        BytesSent;
-   card64        PacketsSent;
-   card64        TimeStamp;
+   cardinal             FramesPerSecond;
+   cardinal             RenewCounter;
+   cardinal             MaxPacketSize;
+   card32               SSRC;
+   card64               BytesSent;
+   card64               PacketsSent;
+   card64               TimeStamp;
 
-   card32        PayloadBytesSent;
-   card32        PayloadPacketsSent;
+   card32               PayloadBytesSent;
+   card32               PayloadPacketsSent;
 
-   bool          Pause;
-   bool          TransmissionError;
+   bool                 Pause;
+   bool                 TransmissionError;
 
+   InternetFlow         Flow[RTPConstants::RTPMaxQualityLayers];
+   card16               SequenceNumber[RTPConstants::RTPMaxQualityLayers];
 
-   InternetFlow  Flow[RTPConstants::RTPMaxQualityLayers];
-   card16        SequenceNumber[RTPConstants::RTPMaxQualityLayers];
-
-
-   void updateFrameRate(const AbstractQoSDescription* aqd);
-
-   BandwidthManager* BandwidthMgr;
-   cardinal          Bandwidth[RTPConstants::RTPMaxQualityLayers];
-   double            BufferDelay[RTPConstants::RTPMaxQualityLayers];
+   QoSManagerInterface* QoSMgr;
+   cardinal             Bandwidth[RTPConstants::RTPMaxQualityLayers];
+   double               BufferDelay[RTPConstants::RTPMaxQualityLayers];
 
 #ifdef USE_TRAFFICSHAPER
-   TrafficShaper     SenderReportBuffer;
-   TrafficShaper     Shaper[RTPConstants::RTPMaxQualityLayers];
+   TrafficShaper        SenderReportBuffer;
+   TrafficShaper        Shaper[RTPConstants::RTPMaxQualityLayers];
 #endif
 };
 

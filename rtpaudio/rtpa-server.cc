@@ -52,11 +52,10 @@
 // #define FAST_BREAK
 
 
-// Globals
-Socket*                  rtcpServerSocket  = NULL;
-RTCPReceiver*            rtcpReceiver      = NULL;
-AudioServer*             server            = NULL;
-BandwidthManager*        qosManager        = NULL;
+static Socket*              rtcpServerSocket  = NULL;
+static RTCPReceiver*        rtcpReceiver      = NULL;
+static AudioServer*         server            = NULL;
+static QoSManagerInterface* qosManager        = NULL;
 
 
 void cleanUp(const cardinal exitCode = 0);

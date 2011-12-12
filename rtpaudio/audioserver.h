@@ -44,7 +44,7 @@
 #include "rtcpreceiver.h"
 #include "rtcpabstractserver.h"
 #include "multiaudioreader.h"
-#include "bandwidthmanager.h"
+#include "qosmanagerinterface.h"
 
 #include "audioclientapppacket.h"
 
@@ -85,13 +85,13 @@ class AudioServer : public RTCPAbstractServer
    /**
      * Constructor for new AudioServer.
      *
-     * @param maxPacketSize Maximum packet size.
      * @param qosManager QoS manager.
+     * @param maxPacketSize Maximum packet size.
      * @param useSCTP true to use SCTP instead of UDP; false otherwise.
      */
-   AudioServer(BandwidthManager* qosManager    = NULL,
-               const cardinal    maxPacketSize = 1500,
-               const bool        useSCTP       = false);
+   AudioServer(QoSManagerInterface* qosManager    = NULL,
+               const cardinal       maxPacketSize = 1500,
+               const bool           useSCTP       = false);
 
    /**
      * Destructor.
@@ -219,7 +219,7 @@ class AudioServer : public RTCPAbstractServer
 
    // ====== Private data ===================================================
    private:
-   BandwidthManager*                   QoSMgr;
+   QoSManagerInterface*                QoSMgr;
    std::multimap<const cardinal,User*> UserSet;
    Synchronizable                      UserSetSync;
    cardinal                            MaxPacketSize;

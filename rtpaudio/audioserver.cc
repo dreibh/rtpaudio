@@ -66,9 +66,9 @@
 
 
 // ###### Constructor #######################################################
-AudioServer::AudioServer(BandwidthManager* qosManager,
-                         const cardinal    maxPacketSize,
-                         const bool        useSCTP)
+AudioServer::AudioServer(QoSManagerInterface* qosManager,
+                         const cardinal       maxPacketSize,
+                         const bool           useSCTP)
 {
    Randomizer random;
    OurSSRC = random.random32();

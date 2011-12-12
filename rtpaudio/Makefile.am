@@ -25,7 +25,6 @@ librtpaudio_a_SOURCES = \
  audioserver.cc audioserver.h audioserver.icc \
  audiowriterinterface.cc audiowriterinterface.h \
  bandwidthinfo.cc bandwidthinfo.h bandwidthinfo.icc \
- bandwidthmanager.h \
  breakdetector.cc breakdetector.h \
  cbrframesizescalability.cc  cbrframesizescalability.h \
  condition.cc condition.h condition.icc \
@@ -44,6 +43,7 @@ librtpaudio_a_SOURCES = \
  multitimerthread.h multitimerthread.icc \
  packetaddress.cc packetaddress.h packetaddress.icc \
  portableaddress.h portableaddress.icc \
+ qosmanagerinterface.h \
  randomizer.cc randomizer.h randomizer.icc \
  resourceutilizationpoint.cc resourceutilizationpoint.h resourceutilizationpoint.icc \
  ringbuffer.cc ringbuffer.h ringbuffer.icc \
