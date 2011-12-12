@@ -39,7 +39,8 @@
 // ###### Constructor #######################################################
 AudioEncoderRepository::AudioEncoderRepository()
 {
-   Encoder = NULL;
+   Encoder    = NULL;
+   AutoDelete = true;
 }
 
 
