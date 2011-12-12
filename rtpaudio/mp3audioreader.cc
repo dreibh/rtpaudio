@@ -38,57 +38,6 @@
 #include <stdarg.h>
 
 
-/*
-   Note: libmpegsound requires a patch to calculate the length of VBR
-         MP3s correctly.
-
-   In mpegtoraw.cc, replace in method Mpegtoraw::initialize
-
-        if (totalframe)
-        {
-         loader->setposition(first_offset);
-          seterrorcode(SOUND_ERROR_OK);
-        }
-
-        return (totalframe != 0);
-      }
-
-   by
-
-      if (totalframe)
-      {
-        // ====== VBR MP3 patch =================================================
-        if(is_vbr) {
-
-           // Get frame offsets
-           int i = 0;
-           while(i < totalframe) {
-              loadheader();
-              i++;
-              frameoffsets[i] = loader->getposition();
-              if(frameoffsets[i] == frameoffsets[i - 1]) {
-                 // End of media reached => i-1 was last frame.
-                 i--;
-                 break;
-              }
-           }
-           totalframe = i;
-
-           // Reset position
-           setframe(0);
-        }
-        // ======================================================================
-
-        loader->setposition(first_offset);
-        seterrorcode(SOUND_ERROR_OK);
-      }
-
-      return (totalframe != 0);
-
-*/
-
-
-
 // Debug mode: Print MPEGSound debug messages
 // #define DEBUG
 

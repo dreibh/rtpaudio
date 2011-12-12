@@ -569,8 +569,7 @@ const char* AudioClient::getEncodingName(const cardinal index)
 // ###### Get number of raw bytes per second ################################
 cardinal AudioClient::getRawBytesPerSecond()
 {
-   // ???
-   return(0);
+   return(0);   // ???
 }
 
 

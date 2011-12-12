@@ -53,7 +53,7 @@ QInfoWidget::QInfoWidget(const InfoTable* table,
    // ====== Initialize layout ==============================================
    QGridLayout* layout = new QGridLayout(this);
    Q_CHECK_PTR(layout);
-//    layout->setColStretch(1,10); ????
+   layout->setColumnStretch(1,10);
 
    // ====== Create info table ==============================================
    for(cardinal i = 0;i < Table->Entries;i++) {
