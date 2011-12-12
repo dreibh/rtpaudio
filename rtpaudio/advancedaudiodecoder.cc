@@ -382,7 +382,7 @@ void AdvancedAudioDecoder::handleNextPacket(const DecoderPacket* decoderPacket)
 #ifdef DEBUG
             std::cout << "Received duplicate LU" << std::endl;
 #endif
-            delete fragment;
+            delete [] (char*)fragment;
          }
       }
       else if((packet->Flags & (AdvancedAudioPacket::AAF_ChannelLeft|AdvancedAudioPacket::AAF_ByteLower)) ==
@@ -394,7 +394,7 @@ void AdvancedAudioDecoder::handleNextPacket(const DecoderPacket* decoderPacket)
 #ifdef DEBUG
             std::cout << "Received duplicate LL" << std::endl;
 #endif
-            delete fragment;
+            delete [] (char*)fragment;
          }
       }
       else if((packet->Flags & (AdvancedAudioPacket::AAF_ChannelRight|AdvancedAudioPacket::AAF_ByteUpper)) ==
@@ -406,7 +406,7 @@ void AdvancedAudioDecoder::handleNextPacket(const DecoderPacket* decoderPacket)
 #ifdef DEBUG
             std::cout << "Received duplicate RU" << std::endl;
 #endif
-            delete fragment;
+            delete [] (char*)fragment;
          }
       }
       else if((packet->Flags & (AdvancedAudioPacket::AAF_ChannelRight|AdvancedAudioPacket::AAF_ByteLower)) ==
@@ -418,7 +418,7 @@ void AdvancedAudioDecoder::handleNextPacket(const DecoderPacket* decoderPacket)
 #ifdef DEBUG
             std::cout << "Received duplicate RL" << std::endl;
 #endif
-            delete fragment;
+            delete [] (char*)fragment;
          }
       }
       else if((packet->Flags & AdvancedAudioPacket::AAF_MediaInfo) == AdvancedAudioPacket::AAF_MediaInfo) {
