@@ -96,18 +96,18 @@ QClient::QClient(AudioWriterInterface* audioOutput,
 
    QMenu* fileMenu = new QMenu("&File", this);
    Q_CHECK_PTR(fileMenu);
-   fileMenu->addAction("&Load Bookmarks",this,SLOT(loadBookmarks()),Qt::CTRL+Qt::Key_M);
-   fileMenu->addAction("&Save Bookmarks",this,SLOT(saveBookmarks()),Qt::CTRL+Qt::Key_O);
+   fileMenu->addAction("&Load Bookmarks",this,SLOT(loadBookmarks()),Qt::ALT+Qt::Key_M);
+   fileMenu->addAction("&Save Bookmarks",this,SLOT(saveBookmarks()),Qt::ALT+Qt::Key_O);
    fileMenu->addSeparator();
-   fileMenu->addAction("&Quit",this,SLOT(quit()),Qt::CTRL+Qt::Key_Q);
+   fileMenu->addAction("&Quit",this,SLOT(quit()),Qt::ALT+Qt::Key_Q);
    menu->addMenu(fileMenu);
 
    QMenu* controlMenu = new QMenu("&Control", this);
    Q_CHECK_PTR(controlMenu);
-   controlMenu->addAction("&Play",this,SLOT(play()),Qt::CTRL+Qt::Key_P);
-   controlMenu->addAction("&Stop",this,SLOT(stop()),Qt::CTRL+Qt::Key_S);
+   controlMenu->addAction("&Play",this,SLOT(play()),Qt::ALT+Qt::Key_P);
+   controlMenu->addAction("&Stop",this,SLOT(stop()),Qt::ALT+Qt::Key_S);
    controlMenu->addSeparator();
-   controlMenu->addAction("&Toggle Pause",this,SLOT(togglePause()),Qt::CTRL+Qt::Key_U);
+   controlMenu->addAction("&Toggle Pause",this,SLOT(togglePause()),Qt::ALT+Qt::Key_U);
    menu->addMenu(controlMenu);
 
    URLMenu = new QMenu("&Bookmarks", this);
@@ -117,24 +117,24 @@ QClient::QClient(AudioWriterInterface* audioOutput,
       Q_CHECK_PTR(LocationAction[i]);
       LocationAction[i]->setEnabled(FALSE);
       if(i <= 9) {
-         LocationAction[i]->setShortcut(Qt::CTRL+Qt::Key_0+i);
+         LocationAction[i]->setShortcut(Qt::ALT+Qt::Key_0+i);
       }
       if(i == 0) {
          URLMenu->addSeparator();
       }
    }
    URLMenu->addSeparator();
-   URLMenu->addAction("&Clear Bookmarks",this,SLOT(clearBookmarks()),Qt::CTRL+Qt::Key_K);
+   URLMenu->addAction("&Clear Bookmarks",this,SLOT(clearBookmarks()),Qt::ALT+Qt::Key_K);
    menu->addMenu(URLMenu);
    QObject::connect(URLMenu,SIGNAL(triggered(QAction*)),this,SLOT(locationSelected(QAction*)));
 
    ToolsMenu = new QMenu("&Tools", this);
    Q_CHECK_PTR(ToolsMenu);
-   SpectrumAnalyzerAction = ToolsMenu->addAction("Spectrum Analyzer",this,SLOT(spectrumAnalyzer()),Qt::CTRL+Qt::Key_A);
+   SpectrumAnalyzerAction = ToolsMenu->addAction("Spectrum Analyzer",this,SLOT(spectrumAnalyzer()),Qt::ALT+Qt::Key_A);
    Q_CHECK_PTR(SpectrumAnalyzerAction);
    SpectrumAnalyzerAction->setCheckable(TRUE);
    SpectrumAnalyzerAction->setChecked(FALSE);
-   MixerAction = ToolsMenu->addAction("Audio Mixer",this,SLOT(audioMixer()),Qt::CTRL+Qt::Key_M);
+   MixerAction = ToolsMenu->addAction("Audio Mixer",this,SLOT(audioMixer()),Qt::ALT+Qt::Key_M);
    Q_CHECK_PTR(MixerAction);
    MixerAction->setCheckable(TRUE);
    MixerAction->setChecked(FALSE);
@@ -142,17 +142,17 @@ QClient::QClient(AudioWriterInterface* audioOutput,
 
    SettingsMenu = new QMenu("&Settings", this);
    Q_CHECK_PTR(SettingsMenu);
-   ResolverAction = SettingsMenu->addAction("&Resolve Addresses",this,SLOT(toggleResolver()),Qt::CTRL+Qt::Key_R);
+   ResolverAction = SettingsMenu->addAction("&Resolve Addresses",this,SLOT(toggleResolver()),Qt::ALT+Qt::Key_R);
    Q_CHECK_PTR(ResolverAction);
-   AutoRepeatAction = SettingsMenu->addAction("Auto Repeat",this,SLOT(toggleAutoRepeat()),Qt::CTRL+Qt::Key_Y);
+   AutoRepeatAction = SettingsMenu->addAction("Auto Repeat",this,SLOT(toggleAutoRepeat()),Qt::ALT+Qt::Key_Y);
    Q_CHECK_PTR(AutoRepeatAction);
-   AutoSaveBookmarksAction = SettingsMenu->addAction("Auto Save Bookmarks",this,SLOT(toggleAutoSaveBookmarks()),Qt::CTRL+Qt::Key_L);
+   AutoSaveBookmarksAction = SettingsMenu->addAction("Auto Save Bookmarks",this,SLOT(toggleAutoSaveBookmarks()),Qt::ALT+Qt::Key_L);
    Q_CHECK_PTR(AutoSaveBookmarksAction);
    menu->addMenu(SettingsMenu);
 
    QMenu* helpMenu = new QMenu("&Help", this);
    Q_CHECK_PTR(helpMenu);
-   helpMenu->addAction("&About",this,SLOT(information()),Qt::CTRL+Qt::Key_T);
+   helpMenu->addAction("&About",this,SLOT(information()),Qt::ALT+Qt::Key_T);
    helpMenu->addAction("&What's This?",this,SLOT(whatsThis()),Qt::Key_F12);
    menu->addSeparator();
    menu->addMenu(helpMenu);
@@ -518,9 +518,8 @@ void QClient::play()
 
    // ====== Check, if URL is new => Restart or change media ================
    if(Client->playing() == TRUE) {
-      const char* oldURL = PlayingURL.getData();
-      const char* newURL = Location->text().toUtf8().constData();
-      if(!(strcmp(oldURL,newURL))) {
+      const String newURL = String(Location->text().toUtf8().constData());
+      if(PlayingURL == newURL) {
          Pause->setChecked(FALSE);
          return;
       }
@@ -533,7 +532,7 @@ void QClient::play()
          if((oldHost == host) && (oldProtocol == protocol)) {
             Client->change(path.getData());
             Pause->setChecked(FALSE);
-            PlayingURL = (const char*)Location->text().toUtf8().constData();
+            PlayingURL = newURL;
             InsertionRequired = TRUE;
             return;
          }
@@ -962,10 +961,8 @@ void QClient::timerEvent()
 // ###### Location selected slot ############################################
 void QClient::locationSelected(QAction* action)
 {
-   const char* oldURL = Location->text().toUtf8().constData();
-   const char* newURL = action->text().toUtf8().data();
-   if((strcmp(oldURL,newURL)) || (!Client->playing())) {
-      Location->setText(newURL);
+   if((Location->text() != action->text()) || (!Client->playing())) {
+      Location->setText(action->text());
       play();
    }
 }
