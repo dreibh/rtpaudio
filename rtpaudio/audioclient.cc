@@ -65,7 +65,6 @@ AudioClient::AudioClient(AudioWriterInterface* audioOutput)
    Status.Bits         = AudioQuality::HighestBits;
    Status.Channels     = AudioQuality::HighestChannels;
    Status.SamplingRate = AudioQuality::HighestSamplingRate;
-   OurPort             = 0;
    Sender              = NULL;
    Receiver            = NULL;
    AudioOutput         = audioOutput;
@@ -293,8 +292,11 @@ bool AudioClient::play(const char* url)
       sendCommand();
 
       // ====== Get client's local address =====================================
-      // OurPort = receiverAddress.getPort();
-      OurPort = 0;
+      // Get our local address from the server's view.
+      SenderSocket.getSocketAddress(OurAddress);
+      InternetAddress receiverAddress;
+      ReceiverSocket.getSocketAddress(receiverAddress);
+      OurAddress.setPort(receiverAddress.getPort());
 
       // ====== Print information ==============================================
 #ifdef DEBUG
@@ -334,9 +336,9 @@ void AudioClient::stop()
    }
    SenderSocket.close();
    ReceiverSocket.close();
+   OurAddress.reset();
    ServerAddress.reset();
    Decoders.reset();
-   OurPort = 0;
    AudioOutput->sync();
    OldPosition     = (card64)-1;
    ChangeTimeStamp = 0;
@@ -539,16 +541,15 @@ String AudioClient::getServerAddressString(const InternetAddress::PrintFormat fo
 // ###### Get client address ################################################
 String AudioClient::getOurAddressString(const InternetAddress::PrintFormat format) const
 {
-/* ???
    if(IsPlaying) {
       InternetAddress address = OurAddress;
       address.setPrintFormat(format);
       return(address.getAddressString());
    }
    else {
-*/
+
       return("N/A");
-   //}
+   }
 }
 
 

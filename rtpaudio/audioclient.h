@@ -421,7 +421,7 @@ class AudioClient : virtual public AdjustableAudioQualityInterface
    Socket                                               ReceiverSocket;
    InternetFlow                                         Flow;
    InternetAddress                                      ServerAddress;
-   card16                                               OurPort;
+   InternetAddress                                      OurAddress;
    card32                                               OurSSRC;
 
    std::multimap<const cardinal,AudioDecoderInterface*> DecoderSet;
