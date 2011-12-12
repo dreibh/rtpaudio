@@ -74,7 +74,6 @@ QClient::QClient(AudioWriterInterface* audioOutput,
                  const char*           defaultURL,
                  SpectrumAnalyzer*     analyzer,
                  AudioMixer*           mixer,
-                 const bool            enableSCTP,
                  QWidget*              parent)
    : QMainWindow(parent)
 {
@@ -89,7 +88,6 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    ResolveMode            = FALSE;
    AutoSaveBookmarks      = FALSE;
    AutoRepeat             = TRUE;
-   UseSCTP                = FALSE;
 
    // ====== Menu ===========================================================
    QMenuBar* menu = menuBar();
@@ -195,29 +193,13 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    Q_CHECK_PTR(checkLayout);
    QCheckBox*   stereo        = new QCheckBox("S&tereo",qualityGroup);
    Q_CHECK_PTR(stereo);
-   QComboBox*   bits = new QComboBox(qualityGroup);
+   QComboBox*   bits          = new QComboBox(qualityGroup);
    Q_CHECK_PTR(bits);
-   QLabel* ipv6 = NULL;
-   if(!enableSCTP) {
-      ipv6 = new QLabel(InternetAddress::hasIPv6() ? "Using IPv6" : "Using IPv4",qualityGroup);
-      Q_CHECK_PTR(ipv6);
-   }
-   QComboBox* protocol = NULL;
-   if(enableSCTP) {
-      protocol = new QComboBox(qualityGroup);
-      Q_CHECK_PTR(protocol);
-      if(InternetAddress::hasIPv6()) {
-         protocol->insertItem(0, "UDP / IPv6");
-         protocol->insertItem(1, "SCTP / IPv6");
-      }
-      else {
-         protocol->insertItem(0, "UDP / IPv4");
-         protocol->insertItem(1, "SCTP / IPv4");
-      }
-   }
-   QComboBox* rate    = new QComboBox(qualityGroup);
+   QLabel* ipv6               = new QLabel(InternetAddress::hasIPv6() ? "Using IPv6" : "Using IPv4",qualityGroup);
+   Q_CHECK_PTR(ipv6);
+   QComboBox* rate            = new QComboBox(qualityGroup);
    Q_CHECK_PTR(rate);
-   QComboBox* encoder = new QComboBox(qualityGroup);
+   QComboBox* encoder         = new QComboBox(qualityGroup);
    Q_CHECK_PTR(encoder);
 
    for(integer i = AudioQuality::ValidBits - 1;i >= 0;i--) {
@@ -241,12 +223,7 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    bits->setWhatsThis("You can select the number of audio bits here.");
    rate->setWhatsThis("You can select the audio sampling rate here.");
    encoder->setWhatsThis("You can select an encoding for the audio transport here.");
-   if(ipv6 != NULL) {
-      ipv6->setWhatsThis("This label shows whether your system supports IPv6 or not.");
-   }
-   if(protocol != NULL) {
-      protocol->setWhatsThis("You can select the transport protocol here: UDP or SCTP.");
-   }
+   ipv6->setWhatsThis("This label shows whether your system supports IPv6 or not.");
 
    stereo->setMinimumSize(stereo->sizeHint());
    stereo->setChecked(TRUE);
@@ -255,12 +232,7 @@ QClient::QClient(AudioWriterInterface* audioOutput,
 
    checkLayout->addWidget(bits);
    checkLayout->addWidget(stereo);
-   if(ipv6 != NULL) {
-      checkLayout->addWidget(ipv6);
-   }
-   if(protocol != NULL) {
-      checkLayout->addWidget(protocol);
-   }
+   checkLayout->addWidget(ipv6);
    qualityLayout->addLayout(checkLayout);
    qualityLayout->addWidget(rate);
    qualityLayout->addWidget(encoder);
@@ -346,9 +318,6 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    Q_CHECK_PTR(Pause);
 
    bits->setMinimumHeight(stop->height());
-   if(protocol != NULL) {
-      protocol->setMinimumHeight(stop->height());
-   }
    rate->setMinimumHeight(stop->height());
    encoder->setMinimumHeight(stop->height());
 
@@ -417,9 +386,6 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    QObject::connect(rate,SIGNAL(activated(int)),this,SLOT(setSamplingRate(int)));
    QObject::connect(stereo,SIGNAL(toggled(bool)),this,SLOT(setChannels(bool)));
    QObject::connect(bits,SIGNAL(activated(int)),this,SLOT(setBits(int)));
-   if(protocol != NULL) {
-      QObject::connect(protocol,SIGNAL(activated(int)),this,SLOT(setProtocol(int)));
-   }
    QObject::connect(encoder,SIGNAL(activated(int)),this,SLOT(setEncoding(int)));
 
 
@@ -505,8 +471,9 @@ void QClient::play()
    String protocol;
    String host;
    String path;
-   bool newOK = scanURL((const char*)Location->text().toUtf8().constData(),protocol,host,path);
-   if((newOK == FALSE) || (protocol != "rtpa")) {
+   const bool newOK = scanURL((const char*)Location->text().toUtf8().constData(),protocol,host,path);
+   protocol = protocol.toLower();
+   if((newOK == FALSE) || ((protocol != "rtpa") && (protocol != "rtpa+udp") && (protocol != "rtpa+sctp"))) {
       StatusBar->setText("Invalid URL! Check URL and try again.");
       QMessageBox::warning(this,"Warning",
                            "This URL is invalid!\n"
@@ -527,10 +494,11 @@ void QClient::play()
       String oldProtocol;
       String oldHost;
       String oldPath;
-      bool oldOK = scanURL(PlayingURL,oldProtocol,oldHost,oldPath);
+      const bool oldOK = scanURL(PlayingURL,oldProtocol,oldHost,oldPath);
+      oldProtocol = oldProtocol.toLower();
       if(oldOK == TRUE) {
          if((oldHost == host) && (oldProtocol == protocol)) {
-            Client->change(path.getData());
+            Client->change((const char*)Location->text().toUtf8().constData());
             Pause->setChecked(FALSE);
             PlayingURL = newURL;
             InsertionRequired = TRUE;
@@ -543,7 +511,7 @@ void QClient::play()
    // ====== Start client ===================================================
    Pause->setChecked(FALSE);
    PlayingURL = (const char*)Location->text().toUtf8().constData();
-   bool ok = Client->play(host.getData(),path.getData(),UseSCTP);
+   const bool ok = Client->play(PlayingURL.getData());
 
    // ====== Update status display ==========================================
    if(ok) {
@@ -565,7 +533,7 @@ void QClient::play()
       QMessageBox::warning(this,"Warning",
                            "Unable to find server!\n"
                            "Check parameters and try again.\n"
-                           "Example: rtpa://ipv6-odin:7500/CD1.list",
+                           "Example: rtpa+udp://odin:7500/CD1.list",
                            "Okay!");
    }
 }
@@ -771,13 +739,6 @@ void QClient::setChannels(bool stereo)
 void QClient::setBits(int index)
 {
    Client->setBits(AudioQuality::ValidBitsTable[AudioQuality::ValidBits - index - 1]);
-}
-
-
-// ###### Set protocol ######################################################
-void QClient::setProtocol(int index)
-{
-   UseSCTP = (index == 1);
 }
 
 
@@ -1153,7 +1114,6 @@ int main(int argc, char* argv[])
    cardinal optAnalyzer    = 1;
    cardinal optMixer       = 1;
    bool     optForceIPv4   = FALSE;
-   bool     optUseSCTP     = FALSE;
    char*    local          = NULL;
    char*    defaultURL     = NULL;
    for(cardinal i = 1;i < (cardinal)argc;i++) {
@@ -1168,8 +1128,6 @@ int main(int argc, char* argv[])
       else if(!(strcasecmp(argv[i],"-analyzer")))     optAnalyzer    = 0;
       else if(!(strcasecmp(argv[i],"-mixer")))        optMixer       = 0;
       else if(!(strcasecmp(argv[i],"-force-ipv4")))   optForceIPv4   = TRUE;
-      else if(!(strcasecmp(argv[i],"-sctp")))         optUseSCTP     = TRUE;
-      else if(!(strcasecmp(argv[i],"-nosctp")))       optUseSCTP     = FALSE;
       else if(!(strncasecmp(argv[i],"-url=",5)))      defaultURL     = &argv[i][5];
       else if(!(strncasecmp(argv[i],"-local=hostname",7))) local     = &argv[i][7];
       else {
@@ -1183,10 +1141,6 @@ int main(int argc, char* argv[])
          InternetAddress::UseIPv6 = FALSE;
          std::cerr << "NOTE: IPv6 support disabled!" << std::endl;
       }
-   }
-   if((optUseSCTP) && (local == NULL)) {
-      std::cerr << "ERROR: No local hostname given but required for SCTP!" << std::endl;
-      exit(1);
    }
    if((optAudioDebug == 0) && (optAudioNull == 0) && (optAudioDevice == 0)) {
       optAudioDevice = 1;
@@ -1250,7 +1204,7 @@ int main(int argc, char* argv[])
    // ======Initialize GUI ==================================================
    QApplication* application = new QApplication(argc,argv);
    Q_CHECK_PTR(application);
-   QClient* player = new QClient(audioOutput,local,defaultURL,spectrumAnalyzer,mixer,optUseSCTP);
+   QClient* player = new QClient(audioOutput,local,defaultURL,spectrumAnalyzer,mixer);
    Q_CHECK_PTR(player);
    application->setActiveWindow(player);
    player->show();

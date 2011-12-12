@@ -79,23 +79,20 @@ class AudioClient : virtual public AdjustableAudioQualityInterface
    /**
      * Start playing given media from given server.
      *
-     * @param server Server address (e.g. gaffel:7500).
-     * @param mediaName Media name (e.g. ../AudioFiles/Test1.list)
-     * @param useSCTP true to use SCTP instead of UDP; false otherwise.
+     * @param url Media URL (e.g. "rtpa+sctp://gaffel:7500/Test1.list").
      * @return true, if play request has been sent to server.
      */
-   bool play(const char* server,
-             const char* mediaName,
-             const bool  useSCTP = false);
+   bool play(const char* url);
 
    /**
      * Change media of an established connection.
      *
      * @param mediaName New media name (e.g. ../AudioFiles/Test2.list)
+     * @return true, if play request has been sent to server.
      *
      * @see play
      */
-   void change(const char* mediaName);
+   bool change(const char* mediaName);
 
    /**
      * Stop playing.

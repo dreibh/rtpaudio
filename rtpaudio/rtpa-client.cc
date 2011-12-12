@@ -43,9 +43,6 @@
 #include <fstream>
 
 
-#define SCTP_MAXADDRESSES 20
-
-
 // Fast Break: Disable break detector to debug thread deadlocks
 // #define FAST_BREAK
 
@@ -198,7 +195,6 @@ int main(int argc, char* argv[])
    bool            optAudioDebug = false;
    bool            optAudioNull  = false;
    bool            optForceIPv4  = false;
-   bool            optUseSCTP    = false;
    const char*     info          = "";
    cardinal        encoding      = 0;
    char*           prefix        = NULL;
@@ -210,8 +206,6 @@ int main(int argc, char* argv[])
       else if(!(strcasecmp(argv[i],"-null")))       optAudioNull  = true;
       else if(!(strcasecmp(argv[i],"-force-ipv4"))) optForceIPv4  = true;
       else if(!(strcasecmp(argv[i],"-use-ipv4")))   optForceIPv4  = false;
-      else if(!(strcasecmp(argv[i],"-sctp")))       optUseSCTP    = true;
-      else if(!(strcasecmp(argv[i],"-nosctp")))     optUseSCTP    = false;
       else if(!(strncasecmp(argv[i],"-prefix=",8))) prefix        = &argv[i][8];
       else if(!(strncasecmp(argv[i],"-info=",6)))   info          = &argv[i][6];
       else if(!(strncasecmp(argv[i],"-rate=",6)))   rate          = atol(&argv[i][6]);
@@ -230,21 +224,6 @@ int main(int argc, char* argv[])
       }
    }
 
-   // ====== Get server address and media name ==============================
-   String protocol;
-   String host;
-   String path;
-   bool ok = scanURL(argv[1],protocol,host,path);
-   if((ok == false) || (protocol != "rtpa")) {
-      std::cerr << "ERROR: Invalid URL! Check URL and try again." << std::endl;
-      std::cerr << "       Example: rtpa://gaffel:7500/Test.list" << std::endl;
-      cleanUp(1);
-   }
-   InternetAddress serverAddress(host);
-   if(!serverAddress.isValid()) {
-      std::cerr << "ERROR: Invalid server address! Check URL and try again." << std::endl;
-      cleanUp(1);
-   }
 
    // ====== Initialize audio output device =================================
    if(optAudioDebug) {
@@ -290,7 +269,7 @@ int main(int argc, char* argv[])
 
 
    // ====== Start playing ==================================================
-   ok = client->play(host.getData(),path.getData(),optUseSCTP);
+   const bool ok = client->play(argv[1]);
    if(ok == false) {
       std::cerr << "ERROR: Client::main() - AudioClient::play() failed!" << std::endl;
       cleanUp(1);
@@ -310,18 +289,11 @@ int main(int argc, char* argv[])
    std::cout << "-----------------------------------------------------------" << std::endl;
    std::cout << std::endl;
    std::cout << "Version:         " << __DATE__ << ", " << __TIME__ << std::endl;
-   if(optUseSCTP) {
-      std::cout << "SCTP:            on" << std::endl;
-   }
-   else {
-      std::cout << "SCTP:            off" << std::endl;
-   }
    std::cout << "Server Address:  " << client->getServerAddressString() << std::endl;
-   std::cout << std::endl;
    char str[32];
    snprintf((char*)&str,sizeof(str),"$%08x",client->getOurSSRC());
    std::cout << "Client SSRC:     " << str << std::endl;
-   std::cout << "Media Name:      " << path << std::endl;
+   std::cout << "Media URL:       " << argv[1] << std::endl;
    std::cout << "Layers:          " << layers << std::endl;
    std::cout << std::endl;
 

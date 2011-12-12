@@ -111,26 +111,56 @@ AudioClient::~AudioClient()
 
 
 // ###### Change media ######################################################
-void AudioClient::change(const char* mediaName)
+bool AudioClient::change(const char* url)
 {
-   if(Sender != NULL) {
-      strncpy((char*)&Status.MediaName,mediaName,sizeof(Status.MediaName));
-      Status.StartPosition   = 0;
-      Status.RestartPosition = 0;
-      ChangeTimeStamp        = getMicroTime();
-      sendCommand(false);
+   String protocol;
+   String server;
+   String mediaName;
+
+   if(scanURL(url,protocol,server,mediaName) == true) {
+      if(Sender != NULL) {
+         strncpy((char*)&Status.MediaName,mediaName.getData(),sizeof(Status.MediaName));
+         Status.StartPosition   = 0;
+         Status.RestartPosition = 0;
+         ChangeTimeStamp        = getMicroTime();
+         sendCommand(false);
+         return(true);
+      }
+      else {
+         std::cerr << "ERROR: AudioClient::change() - No connection!" << std::endl;
+      }
    }
-   else {
-      std::cerr << "ERROR: AudioClient::change() - No connection!" << std::endl;
-   }
+
+   return(false);
 }
 
 
 // ###### Start playing #####################################################
-bool AudioClient::play(const char* server,
-                       const char* mediaName,
-                       const bool  useSCTP)
+bool AudioClient::play(const char* url)
 {
+   String protocol;
+   String server;
+   String mediaName;
+
+   if(scanURL(url,protocol,server,mediaName) == false) {
+      return(false);
+   }
+
+   bool useSCTP;
+   protocol = protocol.toLower();
+   if(protocol == "rtpa") {
+      useSCTP = false;
+   }
+   else if(protocol == "rtpa+udp") {
+      useSCTP = false;
+   }
+   else if(protocol == "rtpa+sctp") {
+      useSCTP = true;
+   }
+   else {
+      return(false);
+   }
+
    if(Sender == NULL) {
       // ====== Set default settings ========================================
       Status.FormatID        = AudioClientAppPacket::AudioClientFormatID;
@@ -139,7 +169,7 @@ bool AudioClient::play(const char* server,
       Status.Status          = AudioClientAppPacket::ACAS_Play;
       Status.StartPosition   = (card64)-1;
       Status.RestartPosition = 0;
-      strncpy((char*)&Status.MediaName,mediaName,sizeof(Status.MediaName));
+      strncpy((char*)&Status.MediaName,mediaName.getData(),sizeof(Status.MediaName));
       OldPosition     = (card64)-1;
       ChangeTimeStamp = 0;
       Randomizer random;

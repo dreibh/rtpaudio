@@ -45,9 +45,8 @@
 
 const cardinal DefaultPause      = 500;
 const cardinal DefaultThreads    = 12;
-const char*    DefaultServer     = "localhost:7500";
-const char*    DefaultMedia      = "TestWav%d.list";
-const cardinal DefaultMediaCount = 1;
+const char*    DefaultURL        = "rtpa+udp://localhost:7500/Test%u.list";
+const cardinal DefaultMediaCount = 4;
 
 
 class VerificationClientThread : public Thread
@@ -56,17 +55,15 @@ class VerificationClientThread : public Thread
    public:
    VerificationClientThread(const cardinal id,
                             const char*    localName,
-                            const char*    server = DefaultServer,
-                            const char*    media  = DefaultMedia,
-                            const cardinal count  = DefaultMediaCount,
-                            const cardinal pause  = DefaultPause,
+                            const char*    url              = DefaultURL,
+                            const cardinal count            = DefaultMediaCount,
+                            const cardinal pause            = DefaultPause,
                             const double   prSelectEncoding = 0.1,
                             const double   prSelectQuality  = 0.7,
                             const double   prSelectPosition = 0.3,
                             const double   prSelectMedia    = 0.05,
                             const double   prStop           = 0.03,
-                            const double   prRestart        = 0.01,
-                            const bool     useSCTP          = false);
+                            const double   prRestart        = 0.01);
 
 
    // ====== Status functions ===============================================
@@ -96,8 +93,7 @@ class VerificationClientThread : public Thread
    const char*  Encoding;
 
    cardinal     ID;
-   const char*  Server;
-   const char*  Media;
+   const char*  URL;
    cardinal     MediaCount;
    cardinal     Pause;
    double       PrSelectEncoding;
@@ -108,7 +104,6 @@ class VerificationClientThread : public Thread
    double       PrRestart;
 
    String       LocalName;
-   bool         UseSCTP;
 };
 
 
@@ -116,8 +111,7 @@ class VerificationClientThread : public Thread
 VerificationClientThread::VerificationClientThread(
                              const cardinal id,
                              const char*    localName,
-                             const char*    server,
-                             const char*    media,
+                             const char*    url,
                              const cardinal count,
                              const cardinal pause,
                              const double   prSelectEncoding,
@@ -125,18 +119,14 @@ VerificationClientThread::VerificationClientThread(
                              const double   prSelectPosition,
                              const double   prSelectMedia,
                              const double   prStop,
-                             const double   prRestart,
-                             const bool     useSCTP)
+                             const double   prRestart)
    : Thread("VClient")
 {
    ID         = id;
    LocalName  = String(localName);
-
-   Server     = server;
-   Media      = media;
+   URL        = url;
    MediaCount = count;
    Pause      = pause;
-   UseSCTP    = useSCTP;
 
    PrSelectEncoding = prSelectEncoding;
    PrSelectQuality  = prSelectQuality;
@@ -275,13 +265,13 @@ void VerificationClientThread::selectMedia()
 {
    char str[128];
    cardinal number = Random.random(1,MediaCount);
-   snprintf((char*)&str,sizeof(str),Media,(int)number);
+   snprintf((char*)&str,sizeof(str),URL,(int)number);
 
    if(Client->playing()) {
       Client->change((char*)&str);
    }
    else {
-      if(Client->play(Server,(char*)&str,UseSCTP) == false) {
+      if(Client->play((const char*)&str) == false) {
          std::cerr << "ERROR: Connection to server failed!" << std::endl;
          kill(getpid(),SIGINT);
       }
@@ -400,41 +390,36 @@ int main(int argc, char** argv)
 {
    // ====== Get arguments ==================================================
    bool        optForceIPv4     = false;
-   bool        optUseSCTP       = false;
    double      prSelectEncoding = 0.1;
    double      prSelectQuality  = 0.7;
    double      prSelectPosition = 0.3;
    double      prSelectMedia    = 0.05;
    double      prStop           = 0.03;
    double      prRestart        = 0.01;
-   const char* server           = DefaultServer;
-   const char* media            = DefaultMedia;
    const char* receiverName     = NULL;
+   const char* url              = DefaultURL;
    cardinal    count            = DefaultMediaCount;
    cardinal    pause            = DefaultPause;
    cardinal    threads          = DefaultThreads;
    for(cardinal i = 1;i < (cardinal)argc;i++) {
-      if(!(strncasecmp(argv[i],"-se=",4)))       prSelectEncoding = atof(&argv[i][4]);
-      else if(!(strncasecmp(argv[i],"-sq=",4)))  prSelectQuality  = atof(&argv[i][4]);
-      else if(!(strncasecmp(argv[i],"-sp=",4)))  prSelectPosition = atof(&argv[i][4]);
-      else if(!(strncasecmp(argv[i],"-sm=",4)))  prSelectMedia    = atof(&argv[i][4]);
-      else if(!(strncasecmp(argv[i],"-st=",4)))  prStop           = atof(&argv[i][4]);
-      else if(!(strncasecmp(argv[i],"-re=",4)))  prRestart        = atof(&argv[i][4]);
-      else if(!(strncasecmp(argv[i],"-threads=",9))) threads = atol(&argv[i][9]);
-      else if(!(strncasecmp(argv[i],"-server=",8)))  server  = &argv[i][8];
-      else if(!(strncasecmp(argv[i],"-media=",7)))   media   = &argv[i][7];
-      else if(!(strncasecmp(argv[i],"-count=",7)))   count   = atol(&argv[i][7]);
-      else if(!(strncasecmp(argv[i],"-pause=",7)))   pause   = atol(&argv[i][7]);
-      else if(!(strcasecmp(argv[i],"-force-ipv4")))  optForceIPv4 = true;
-      else if(!(strcasecmp(argv[i],"-use-ipv4")))    optForceIPv4 = false;
-      else if(!(strcasecmp(argv[i],"-sctp")))        optUseSCTP   = true;
-      else if(!(strcasecmp(argv[i],"-nosctp")))      optUseSCTP   = false;
-      else if(!(strncasecmp(argv[i],"-local=",7)))   receiverName = &argv[i][7];
+      if(!(strncasecmp(argv[i],"-se=",4)))           prSelectEncoding = atof(&argv[i][4]);
+      else if(!(strncasecmp(argv[i],"-sq=",4)))      prSelectQuality  = atof(&argv[i][4]);
+      else if(!(strncasecmp(argv[i],"-sp=",4)))      prSelectPosition = atof(&argv[i][4]);
+      else if(!(strncasecmp(argv[i],"-sm=",4)))      prSelectMedia    = atof(&argv[i][4]);
+      else if(!(strncasecmp(argv[i],"-st=",4)))      prStop           = atof(&argv[i][4]);
+      else if(!(strncasecmp(argv[i],"-re=",4)))      prRestart        = atof(&argv[i][4]);
+      else if(!(strncasecmp(argv[i],"-threads=",9))) threads          = atol(&argv[i][9]);
+      else if(!(strncasecmp(argv[i],"-url=",5)))     url              = &argv[i][5];
+      else if(!(strncasecmp(argv[i],"-count=",7)))   count            = atol(&argv[i][7]);
+      else if(!(strncasecmp(argv[i],"-pause=",7)))   pause            = atol(&argv[i][7]);
+      else if(!(strcasecmp(argv[i],"-force-ipv4")))  optForceIPv4     = true;
+      else if(!(strcasecmp(argv[i],"-use-ipv4")))    optForceIPv4     = false;
+      else if(!(strncasecmp(argv[i],"-local=",7)))   receiverName     = &argv[i][7];
       else {
          std::cerr << "Usage: " << argv[0] << std::endl
               << "   {-local=hostname}" << std::endl
               << "   {-threads=count} {-pause=milliseconds}" << std::endl
-              << "   {-server=host:port} {-media=name with %%d} {-count=media count}" << std::endl
+              << "   {-url=URL with %%u} {-count=media count}" << std::endl
               << "   {-se=probability} {-sq=probability} {-sp=probability}" << std::endl
               << "   {-sm=probability} {-st=probability} {-re=probability}" << std::endl;
          exit(1);
@@ -468,19 +453,12 @@ int main(int argc, char** argv)
    std::cerr << "------------------------------------------------------------------------" << std::endl;
    std::cerr << std::endl;
    std::cout << "Version:       " << __DATE__ << ", " << __TIME__ << std::endl;
-   if(optUseSCTP) {
-      std::cerr << "SCTP:          on" << std::endl;
-   }
-   else {
-      std::cerr << "SCTP:          off" << std::endl;
-   }
    if(receiverName != NULL) {
       std::cerr << "Local Address: " << receiverName << std::endl;
    }
    std::cerr << std::endl;
    std::cerr << "Threads                     = " << threads << std::endl;
-   std::cerr << "Server                      = " << server << std::endl;
-   std::cerr << "Media name                  = " << media << std::endl;
+   std::cerr << "URL                         = " << url << std::endl;
    std::cerr << "Media count                 = " << count << std::endl;
    std::cerr << "Maximum pause               = " << pause << " [ms]" << std::endl;
    std::cerr << "Select encoding probability = " << prSelectEncoding << std::endl;
@@ -499,10 +477,9 @@ int main(int argc, char** argv)
       thread[i] = new VerificationClientThread(
                          i + 1,
                          receiverName,
-                         server, media, count, pause,
+                         url, count, pause,
                          prSelectEncoding, prSelectQuality, prSelectPosition,
-                         prSelectMedia, prStop, prRestart,
-                         optUseSCTP);
+                         prSelectMedia, prStop, prRestart);
       char str[256];
       snprintf((char*)&str,sizeof(str),"VClient Thread #%02d",i);
       thread[i]->start((char*)&str);

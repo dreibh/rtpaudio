@@ -165,7 +165,6 @@ class QClient : public QMainWindow
            const char*           defaultURL   = NULL,
            SpectrumAnalyzer*     analyzer     = NULL,
            AudioMixer*           mixer        = NULL,
-           const bool            enableSCTP   = false,
            QWidget*              parent       = NULL);
 
    /**
@@ -260,11 +259,6 @@ class QClient : public QMainWindow
      * Slot for "Stereo" checkbox.
      */
    void setChannels(bool stereo);
-
-   /**
-     * Slot for "protocol" combobox.
-     */
-   void setProtocol(int index);
 
    /**
      * Slot for "Bits" combobox.
@@ -362,7 +356,6 @@ class QClient : public QMainWindow
    bool                  ResolveMode;
    bool                  AutoRepeat;
    bool                  AutoSaveBookmarks;
-   bool                  UseSCTP;
 
    AudioClient*          Client;
 };
