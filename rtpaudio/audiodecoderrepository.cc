@@ -38,7 +38,8 @@
 // ###### Constructor #######################################################
 AudioDecoderRepository::AudioDecoderRepository()
 {
-   Decoder = NULL;
+   Decoder    = NULL;
+   AutoDelete = true;
 }
 
 

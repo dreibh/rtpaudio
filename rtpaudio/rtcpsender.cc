@@ -189,7 +189,7 @@ void RTCPSender::removeSDESItem(const card8 type)
    if(sdesIterator != SDESItemSet.end()) {
        RTCPSourceDescriptionItem* item = sdesIterator->second;
        SDESItemSet.erase(sdesIterator);
-       delete item;
+       delete [] (char*)item;
    }
    unsynchronized();
 }
@@ -223,12 +223,12 @@ integer RTCPSender::sendSDES()
          }
 
          // ====== Mark the end of the SDES chunk ===========================
-         adr[0] = RTCP_SDES_END;
-         adr[1] = RTCP_SDES_END;
-         adr[2] = RTCP_SDES_END;
-         adr[3] = RTCP_SDES_END;
-         bytes++;
-         bytes += bytes % 4;
+         if(bytes % 4) {
+            adr[0] = RTCP_SDES_END;
+            adr[1] = RTCP_SDES_END;
+            adr[2] = RTCP_SDES_END;
+            bytes += 4 - (bytes % 4);
+         }
          sdes->setLength(bytes);
 
          // ====== Send packet ==============================================

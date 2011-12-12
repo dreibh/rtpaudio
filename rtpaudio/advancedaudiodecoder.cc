@@ -749,7 +749,7 @@ void AdvancedAudioDecoder::deleteFragments(std::multimap<const card16,FrameFragm
       while(fragmentIterator != set->end()) {
          FrameFragment* fragment = fragmentIterator->second;
          set->erase(fragmentIterator);
-         delete fragment;
+         delete [] (char*)fragment;
          fragmentIterator = set->begin();
       }
    }

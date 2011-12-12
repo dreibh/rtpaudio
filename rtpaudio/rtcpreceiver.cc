@@ -216,7 +216,8 @@ void RTCPReceiver::run()
                      break;
                   }
                   for ( ;rsp->Type;rsp = rspn) {
-                     rspn = (RTCPSourceDescriptionItem*)((char*)rsp + rsp->Length + 2);
+                     printf(" t=%d l=%d\n",rsp->Type,rsp->Length);
+                     rspn = (RTCPSourceDescriptionItem*)((long)rsp + (long)rsp->Length + (long)sizeof(RTCPSourceDescriptionItem));
                      if(rspn >= end) {
                         rsp = rspn;
                         break;

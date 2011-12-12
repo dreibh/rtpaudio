@@ -612,7 +612,7 @@ struct RTCPSourceDescriptionChunk
    /**
      * Array of SDES items.
      */
-   RTCPSourceDescriptionItem Item[1];
+   RTCPSourceDescriptionItem Item[];
 } __attribute__((packed));
 
 
