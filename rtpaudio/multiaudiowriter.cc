@@ -46,6 +46,7 @@ MultiAudioWriter::MultiAudioWriter()
    AudioSamplingRate = 44100;
    AudioBits         = 16;
    AudioChannels     = 2;
+   AudioByteOrder    = BYTE_ORDER;
 }
 
 

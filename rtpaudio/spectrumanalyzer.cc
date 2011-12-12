@@ -47,9 +47,13 @@
 SpectrumAnalyzer::SpectrumAnalyzer()
    : Synchronizable("SpectrumAnalyzer")
 {
+   AudioSamplingRate = 0;
+   AudioChannels     = 0;
+   AudioBits         = 0;
+   AudioByteOrder    = BYTE_ORDER;
+   InputBufferPos    = 0;
+   FFT               = new FastFourierTransformation(FFTPoints);
    setQuality(AudioQuality::HighestQuality);
-   FFT            = new FastFourierTransformation(FFTPoints);
-   InputBufferPos = 0;
 }
 
 
