@@ -41,7 +41,7 @@
 
 
 /**
-  * This class defines the packet format for the simple audio encoder.
+  * This struct defines the packet format for the simple audio encoder.
   *
   * @short   Simple Audio Packet
   * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
@@ -50,7 +50,7 @@
   * @see SimpleAudioEncoder
   * @see SimpleAudioDecoder
   */
-class SimpleAudioPacket
+struct SimpleAudioPacket
 {
    // ====== Constructor ====================================================
    public:
@@ -212,8 +212,8 @@ class SimpleAudioPacket
    /**
      * Packet data.
      */
-   char Data[0];
-};
+   char Data[];
+} __attribute__((packed));
 
 
 #endif

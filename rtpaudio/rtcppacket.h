@@ -786,6 +786,13 @@ struct RTCPApp : public RTCPCommonHeader
      */
    inline void setSource(const card32 source);
 
+   /**
+     * Set name.
+     *
+     * @return Pointer to name field.
+     */
+   inline void setName(const char* name);
+
 
    // ====== Private data ===================================================
    private:

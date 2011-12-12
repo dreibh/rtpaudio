@@ -41,7 +41,7 @@
 
 
 /**
-  * This class defines the packet format for the advanced audio encoder.
+  * This struct defines the packet format for the advanced audio encoder.
   *
   * @short   Advanced Audio Packet
   * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
@@ -50,7 +50,7 @@
   * @see AdvancedAudioEncoder
   * @see AdvancedAudioDecoder
   */
-class AdvancedAudioPacket
+struct AdvancedAudioPacket
 {
    // ====== Constructor ====================================================
    public:
@@ -241,8 +241,7 @@ class AdvancedAudioPacket
      * Packet data.
      */
    char Data[0];
-};
+} __attribute__((packed));
 
 
 #endif
-

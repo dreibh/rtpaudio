@@ -53,7 +53,7 @@ const card8 AudioClientDefaultTrafficClass = 0x00;
 
 
 /**
-  * This class defines the packet format for the audio client's
+  * This struct defines the packet format for the audio client's
   * RTCP APP-PRIV messages.
   *
   * @short   Audio Client RTCP-SDES-APP-PRIV Packet
@@ -63,7 +63,7 @@ const card8 AudioClientDefaultTrafficClass = 0x00;
   * @see AudioClient
   * @see AudioServer
   */
-class AudioClientAppPacket
+struct AudioClientAppPacket
 {
    // ====== Constructor ====================================================
    public:
@@ -169,7 +169,7 @@ class AudioClientAppPacket
      * Media name, e.g. "AudioFiles/Test1.list".
      */
    char MediaName[128];
-};
+} __attribute__((packed));
 
 
 #endif

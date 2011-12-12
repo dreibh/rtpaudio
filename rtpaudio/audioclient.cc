@@ -249,8 +249,8 @@ bool AudioClient::play(const char* server,
 
 /*
       Sender->addSDESItem(RTCP_SDES_PHONE,"+49 1234 56789");
-      Sender->addSDESItem(RTCP_SDES_LOC,"Wiehl-Forst, Germany");
-      Sender->addSDESItem(RTCP_SDES_EMAIL,"email@pop3.domain.xy");
+      Sender->addSDESItem(RTCP_SDES_LOC,"Essen, Germany");
+      Sender->addSDESItem(RTCP_SDES_EMAIL,"email@domain.xy");
 */
       Sender->sendSDES();
 
@@ -338,7 +338,7 @@ void AudioClient::sendCommand(const bool updateRestartPosition)
       AudioClientAppPacket app;
       app = Status;
       app.translate();
-      Sender->sendApp("HELO",(void *)&app,sizeof(AudioClientAppPacket));
+      Sender->sendApp("HELO",(void*)&app,sizeof(AudioClientAppPacket));
       if(Sender->addSDESItem(RTCP_SDES_PRIV,(char*)&app,sizeof(AudioClientAppPacket)) == false) {
          std::cerr << "ERROR: Unable to add SDES - Out of memory!" << std::endl;
       }

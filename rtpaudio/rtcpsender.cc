@@ -139,6 +139,7 @@ integer RTCPSender::sendApp(const char*    name,
 
       app->init(0);
       app->setSource(SSRC);
+      app->setName(name);
       app->setLength(sizeof(packet));
       memcpy(app->getData(),data,dataLength);
 

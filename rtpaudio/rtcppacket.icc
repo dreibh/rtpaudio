@@ -373,4 +373,10 @@ inline void RTCPApp::setSource(const card32 source)
 }
 
 
+// ###### Set packet's name #################################################
+inline void RTCPApp::setName(const char* name)
+{
+   memcpy((char*)&Name, name, sizeof(Name));
+}
+
 #endif
