@@ -97,7 +97,6 @@ void AudioServer::outOfMemoryWarning()
 // ###### Send update to congestion manager #################################
 void AudioServer::managementUpdate(const Client* client, User* user)
 {
-   // ???
 }
 
 
@@ -148,12 +147,13 @@ void* AudioServer::newClient(Client* client, const char* cname)
    }
 
    // ====== Initialize RTPSender ===========================================
-   user->Sender.init(user->Flow,OurSSRC,&user->Repository,&user->SenderSocket,MaxPacketSize);
+   user->Sender.init(user->Flow,OurSSRC,&user->Repository,&user->SenderSocket,MaxPacketSize,QoSMgr);
 
    // ====== Add stream to QoS management ===================================
-   // ???
-
+   InternetAddress ourAddress;
+   user->SenderSocket.getSocketAddress(ourAddress);
    UserSetSync.synchronized();
+   user->StreamIdentifier = (integer)((long)user);
    UserSet.insert(std::pair<const cardinal,User*>(user->StreamIdentifier,user));
    UserSetSync.unsynchronized();
 
@@ -200,10 +200,9 @@ void AudioServer::deleteClient(Client* client, const DeleteReason reason)
             UserSet.find(user->StreamIdentifier);
          UserSet.erase(found);
          UserSetSync.unsynchronized();
-
-         // ====== Remove stream from QoS management ========================
-         // ???
-
+      }
+      if(QoSMgr != NULL) {
+         QoSMgr->removeStream(&user->Sender);
       }
       user->Sender.stop();
       if(user->Flow.getFlowLabel() != 0) {
@@ -266,17 +265,20 @@ void AudioServer::userCommand(const Client*               client,
       // ====== Select new media and set frame number =======================
       if(user->Reader.getErrorCode() == ME_NoMedia) {
 #ifdef VERBOSE
-            char str[128];
-            printTimeStamp();
-            snprintf((char*)&str,sizeof(str),"$%08x",client->SSRC);
-            std::cout << str << " loading media <" << (const char*)&app->MediaName
-                 << ">." << std::endl;
+         char str[128];
+         printTimeStamp();
+         snprintf((char*)&str,sizeof(str),"$%08x",client->SSRC);
+         std::cout << str << " loading media <" << (const char*)&app->MediaName
+                   << ">." << std::endl;
 #endif
          if(user->Reader.openMedia((char*)&app->MediaName)) {
             user->Reader.setPosition(app->RestartPosition);
             user->PosChgSeqNumber = app->PosChgSeqNumber;
             user->MediaName       = String((const char*)&app->MediaName);
             user->Sender.leaveCorrectionLoop();
+            if(QoSMgr != NULL) {
+               QoSMgr->addStream(&user->Sender,0,(const char*)&app->MediaName);
+            }
          }
       }
 
@@ -288,11 +290,17 @@ void AudioServer::userCommand(const Client*               client,
          std::cout << str << " changing media to <" << (const char*)&app->MediaName
               << ">." << std::endl;
 #endif
+         if(QoSMgr != NULL) {
+            QoSMgr->removeStream(&user->Sender);
+         }
          user->Reader.closeMedia();
          if(user->Reader.openMedia((char*)&app->MediaName)) {
             user->Reader.setPosition(app->RestartPosition);
             user->MediaName = String((const char*)&app->MediaName);
             user->Sender.leaveCorrectionLoop();
+            if(QoSMgr != NULL) {
+               QoSMgr->addStream(&user->Sender,0,(const char*)&app->MediaName);
+            }
          }
       }
 
@@ -429,21 +437,14 @@ void AudioServer::receiverReport(const Client*                   client,
                                  const RTCPReceptionReportBlock* report,
                                  const cardinal                  layer)
 {
-/* ???
    User* user = (User*)client->UserData;
 
    if(LossScalability == true) {
       if(QoSMgr != NULL) {
 #ifdef QOSMGR_DEBUG
-         std::cout << "Loss rate in layer #" << layer << ": " << report->getFractionLost() << std::endl;
+         cout << "Loss rate in layer #" << layer << ": " << report->getFractionLost() << endl;
 #endif
-         // QoSMgr->setFractionLost(user->StreamIdentifier,report->getFractionLost(),layer);
-         QoSMgr->setReport(user->StreamIdentifier,report,layer);
-      }
-      else {
-         user->Sender.adaptQuality(report->getFractionLost(),layer);
-         managementUpdate(client,user);
+         QoSMgr->reportEvent(&user->Sender,report,layer);
       }
    }
-*/
 }
