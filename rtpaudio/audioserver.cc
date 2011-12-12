@@ -337,40 +337,41 @@ void AudioServer::userCommand(const Client*               client,
        break;
       case AudioClientAppPacket::ACAS_Play:
          {
-/* ???
-            const AbstractQoSDescription* qosDescription = user->Sender.getQoSDescription(0);
-            ExtendedTransportInfo ti;
-            user->Sender.getTransportInfo(ti,false);
+            // NOTE: getQoSDescription() will set frame rate!
+            const AbstractQoSDescription* qosDescription =
+               user->Sender.getQoSDescription(0);
 
-            if(user->BandwidthLimit >= ti.getTotalMinWantedBytesPerSecond()) {
-               if(user->UserLimitPause == true) {
-                  user->UserLimitPause = false;
-                  if(user->ManagerLimitPause == false) {
+            if(qosDescription != NULL) {
+               if(user->BandwidthLimit >= qosDescription->getMinWantedBandwidth()) {
+                  if(user->UserLimitPause == true) {
+                     user->UserLimitPause = false;
+                     if(user->ManagerLimitPause == false) {
 #ifdef VERBOSE
-                     printTimeStamp();
-                     char str[128];
-                     snprintf((char*)&str,sizeof(str),"$%08x resumed due to increased user bandwidth!",client->SSRC);
-                     std::cout << str << std::endl;
+                        printTimeStamp();
+                        char str[128];
+                        snprintf((char*)&str,sizeof(str),"$%08x resumed due to increased user bandwidth!",client->SSRC);
+                        std::cout << str << std::endl;
 #endif
-                     user->Sender.setPause(false);
+                        user->Sender.setPause(false);
+                     }
+                  }
+               }
+               else {
+                  if(user->UserLimitPause == false) {
+                     user->UserLimitPause = true;
+                     if(user->ManagerLimitPause == false) {
+#ifdef VERBOSE
+                        printTimeStamp();
+                        char str[128];
+                        snprintf((char*)&str,sizeof(str),"$%08x paused due to user bandwidth limit!",client->SSRC);
+                        std::cout << str << std::endl;
+#endif
+                        user->Sender.setPause(true);
+                     }
                   }
                }
             }
-            else {
-               if(user->UserLimitPause == false) {
-                  user->UserLimitPause = true;
-                  if(user->ManagerLimitPause == false) {
-#ifdef VERBOSE
-                     printTimeStamp();
-                     char str[128];
-                     snprintf((char*)&str,sizeof(str),"$%08x paused due to user bandwidth limit!",client->SSRC);
-                     std::cout << str << std::endl;
-#endif
-                     user->Sender.setPause(true);
-                  }
-               }
-            }
-*/
+
             if((user->ClientPause == true) &&
                (user->UserLimitPause == false) &&
                (user->ManagerLimitPause == false)) {
