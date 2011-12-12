@@ -150,7 +150,11 @@ bool MP3AudioReader::openMedia(const char* name)
       closeMedia();
       return(false);
    }
-   MP3Decoder->initialize(fileName);
+   if(MP3Decoder->initialize(fileName) == false) {
+      closeMedia();
+      delete fileName;
+      return(false);
+   }
    if(!MP3Decoder->run(-1)) {
       closeMedia();
       delete fileName;
