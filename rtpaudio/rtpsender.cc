@@ -53,19 +53,21 @@ RTPSender::RTPSender()
 
 
 // ###### Constructor #######################################################
-RTPSender::RTPSender(const card32      ssrc,
+RTPSender::RTPSender(InternetFlow&     flow,
+                     const card32      ssrc,
                      EncoderInterface* encoder,
                      Socket*           senderSocket,
                      const cardinal    maxPacketSize,
                      BandwidthManager* bwManager)
    : TimedThread(1000000,"RTPSender")
 {
-   init(ssrc,encoder,senderSocket,maxPacketSize,bwManager);
+   init(flow,ssrc,encoder,senderSocket,maxPacketSize,bwManager);
 }
 
 
 // ###### Initialize ########################################################
-void RTPSender::init(const card32      ssrc,
+void RTPSender::init(InternetFlow&     flow,
+                     const card32      ssrc,
                      EncoderInterface* encoder,
                      Socket*           senderSocket,
                      const cardinal    maxPacketSize,
@@ -89,7 +91,7 @@ void RTPSender::init(const card32      ssrc,
 
    for(cardinal i = 0;i < RTPConstants::RTPMaxQualityLayers;i++) {
       // ====== Initialize values for each layer ============================
-      SenderSocket->getPeerAddress(Flow[i]);
+      Flow[i]           = flow;
       SequenceNumber[i] = random.random16();
 #ifdef USE_TRAFFICSHAPER
       Shaper[i].setSocket(SenderSocket);
@@ -321,8 +323,8 @@ void RTPSender::timerEvent()
                                 RTPConstants::RTPMicroSecondsPerTimeStamp) & 0xffffffff);
 
             // ====== Send packet via traffic shaper =========================
-#ifdef USE_TRAFFICSHAPER
             ssize_t sent;
+#ifdef USE_TRAFFICSHAPER
             if(encoderPacket.ErrorCode >= ME_UnrecoverableError) {
                 sent = SenderReportBuffer.sendTo(
                           &packet,
@@ -358,12 +360,13 @@ void RTPSender::timerEvent()
 
             // ====== Send packet without traffic shaper ====================
 #else
-            const ssize_t sent = SenderSocket->sendTo(
-                                    &packet,
-                                    packet.calculateHeaderSize() + bytesData,
-                                    (SenderSocket->getProtocol() == IPPROTO_SCTP) ? SCTP_UNORDERED|MSG_NOSIGNAL : MSG_NOSIGNAL,
-                                    Flow[encoderPacket.Layer],
-                                    Flow[encoderPacket.Layer].getTrafficClass());
+            sent = SenderSocket->sendTo(
+                        &packet,
+                        packet.calculateHeaderSize() + bytesData,
+                        (SenderSocket->getProtocol() == IPPROTO_SCTP) ?
+                           SCTP_UNORDERED|MSG_NOSIGNAL : MSG_NOSIGNAL,
+                        Flow[encoderPacket.Layer],
+                        Flow[encoderPacket.Layer].getTrafficClass());
 #endif
 
             // ====== Update counters and sequence number ===================

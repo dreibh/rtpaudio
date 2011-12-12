@@ -169,7 +169,7 @@ bool AudioClient::play(const char* server,
          return(false);
       }
       ReceiverSocket.create(Socket::IP,
-                            useSCTP ? Socket::Stream : Socket::Datagram,
+                            useSCTP ? Socket::SeqPacket : Socket::Datagram,
                             useSCTP ? Socket::SCTP : Socket::Default);
       if(!ReceiverSocket.ready()) {
          std::cerr << "ERROR: AudioClient::play() - "

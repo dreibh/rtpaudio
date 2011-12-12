@@ -124,23 +124,12 @@ void* AudioServer::newClient(Client* client, const char* cname)
       deleteClient(client,DeleteReason_Error);
       return(NULL);
    }
+   user->SenderSocket.setBlockingMode(false);
    user->Flow = user->SenderSocket.allocFlow(client->ClientAddress);
-   if(user->Flow.getFlowLabel() != 0) {
-      if(user->SenderSocket.connect(user->Flow,AudioServerDefaultTrafficClass) == false) {
-         if(user->SenderSocket.connect(client->ClientAddress,AudioServerDefaultTrafficClass) == false) {
-            std::cerr << "WARNING: AudioServer::newClient() - Unable to flow-connect to client!" << std::endl;
-            deleteClient(client,DeleteReason_Error);
-            return(NULL);
-         }
-      }
+   if(user->Flow.getFlowLabel() == 0) {
+      user->Flow = InternetFlow(client->ClientAddress,0,0);
    }
-   else {
-      if(user->SenderSocket.connect(client->ClientAddress,AudioServerDefaultTrafficClass) == false) {
-         std::cerr << "WARNING: AudioServer::newClient() - Unable to connect to client!" << std::endl;
-         deleteClient(client,DeleteReason_Error);
-         return(NULL);
-      }
-   }
+   user->Flow.setTrafficClass(AudioServerDefaultTrafficClass);
 
    // ====== Create repository and encoders =================================
    user->LastSequenceNumber  = 0xffff;
@@ -159,7 +148,7 @@ void* AudioServer::newClient(Client* client, const char* cname)
    }
 
    // ====== Initialize RTPSender ===========================================
-   user->Sender.init(OurSSRC,&user->Repository,&user->SenderSocket,MaxPacketSize);
+   user->Sender.init(user->Flow,OurSSRC,&user->Repository,&user->SenderSocket,MaxPacketSize);
 
    // ====== Add stream to QoS management ===================================
    // ???

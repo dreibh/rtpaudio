@@ -69,6 +69,7 @@ class RTPSender : virtual public ManagedStreamInterface,
      * Constructor for new RTPSender. The new sender's thread has to be started
      * by calling start()!
      *
+     * @param flow Flow to remote side.
      * @param ssrc Sender's SSRC (see RFC 1889).
      * @param encoder Encoder to get packets to send from.
      * @param senderSocket Socket to write packets to.
@@ -77,7 +78,8 @@ class RTPSender : virtual public ManagedStreamInterface,
      *
      * @see Thread#start
      */
-   RTPSender(const card32      ssrc,
+   RTPSender(InternetFlow&     flow,
+             const card32      ssrc,
              EncoderInterface* encoder,
              Socket*           senderSocket,
              const cardinal    maxPacketSize = 1500,
@@ -94,6 +96,7 @@ class RTPSender : virtual public ManagedStreamInterface,
      * Initialize new RTPSender. The new sender's thread has to be started
      * by calling start()!
      *
+     * @param flow Flow to remote side.
      * @param ssrc Sender's SSRC (see RFC 1889).
      * @param encoder Encoder to get packets to send from.
      * @param senderSocket Socket to write packets to.
@@ -102,7 +105,8 @@ class RTPSender : virtual public ManagedStreamInterface,
      *
      * @see Thread#start
      */
-   void init(const card32      ssrc,
+   void init(InternetFlow&     flow,
+             const card32      ssrc,
              EncoderInterface* encoder,
              Socket*           senderSocket,
              const cardinal    maxPacketSize = 1500,

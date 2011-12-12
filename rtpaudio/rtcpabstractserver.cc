@@ -101,7 +101,6 @@ void RTCPAbstractServer::receivedSourceDescription(const InternetFlow flow,
             client->ClientAddress.setPort(client->ClientAddress.getPort() + 1);
             client->TimeStamp     = getMicroTime();
             client->Timeout       = DefaultTimeout;
-            client->UserData      = NULL;
             client->UserData      = newClient(client,cnameString.getData());
             if(client->UserData != NULL) {
                ClientSet.insert(std::pair<const cardinal,Client*>(source,client));
