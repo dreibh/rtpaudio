@@ -92,9 +92,11 @@ endif
 
 
 if BUILD_QT_PROGRAMS
-bin_PROGRAMS = rtpa-server rtpa-client rtpa-vclient rtpa-qclient
+bin_PROGRAMS  = rtpa-server   rtpa-client   rtpa-vclient   rtpa-qclient
+dist_man_MANS = rtpa-server.1 rtpa-client.1 rtpa-vclient.1 rtpa-qclient.1
 else
-bin_PROGRAMS = rtpa-server rtpa-client rtpa-vclient
+bin_PROGRAMS  = rtpa-server   rtpa-client   rtpa-vclient
+dist_man_MANS = rtpa-server.1 rtpa-client.1 rtpa-vclient.1
 endif
 
 

@@ -1,4 +1,4 @@
-rtpaudio (2.0.0~alpha1.2-1ubuntu1) precise; urgency=low
+rtpaudio (2.0.0~alpha1.3-1ubuntu1) precise; urgency=low
 
   * Initial Debian release (Closes: #xxxxxx).
   * Initial Ubuntu release (LP: #xxxxxx).

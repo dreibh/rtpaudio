@@ -45,9 +45,6 @@
 #include "audioserver.h"
 
 
-#define SCTP_MAXADDRESSES 20
-
-
 // Fast Break: Disable break detector to debug thread deadlocks
 // #define FAST_BREAK
 

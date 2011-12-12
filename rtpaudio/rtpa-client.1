@@ -1,0 +1,78 @@
+.\" ##########################################################################
+.\" ####                                                                  ####
+.\" ####                      RTP Audio Server Project                    ####
+.\" ####                    ============================                  ####
+.\" ####                                                                  ####
+.\" #### RTP Audio Client Manpage                                         ####
+.\" ####                                                                  ####
+.\" ####           Copyright (C) 1999-2012 by Thomas Dreibholz            ####
+.\" ####                                                                  ####
+.\" #### Contact:                                                         ####
+.\" ####    EMail: dreibh@iem.uni-due.de.de                               ####
+.\" ####    WWW:   http://www.iem.uni-due.de.de/~dreibh/rn                ####
+.\" ####                                                                  ####
+.\" #### ---------------------------------------------------------------- ####
+.\" ####                                                                  ####
+.\" #### This program is free software: you can redistribute it and/or    ####
+.\" #### modify it under the terms of the GNU General Public License as   ####
+.\" #### published by the Free Software Foundation, either version 3 of   ####
+.\" #### the License, or (at your option) any later version.              ####
+.\" ####                                                                  ####
+.\" #### This program is distributed in the hope that it will be useful,  ####
+.\" #### but WITHOUT ANY WARRANTY; without even the implied warranty of   ####
+.\" #### MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the    ####
+.\" #### GNU General Public License for more details.                     ####
+.\" ####                                                                  ####
+.\" #### You should have received a copy of the GNU General Public        ####
+.\" #### License along with this program.  If not, see                    ####
+.\" #### <http://www.gnu.org/licenses/>.                                  ####
+.\" ####                                                                  ####
+.\" ##########################################################################
+.\" $Id$
+.\"
+.\" ###### Setup ############################################################
+.Dd December 12, 2011
+.Dt rtpa-client 1
+.Os rtpa-client
+.\" ###### Name #############################################################
+.Sh NAME
+.Nm rtpa-client
+.Nd RTP Audio Client (text version)
+.\" ###### Synopsis #########################################################
+.Sh SYNOPSIS
+.Nm rtpa-client
+.Op URL
+.Op Fl debug
+.Op Fl null
+.Op Fl encoding=number
+.Op Fl prefix=name
+.Op Fl info=infostring
+.Op Fl force-ipv4
+.\" ###### Description ######################################################
+.Sh DESCRIPTION
+.Nm rtpa-client
+is the RTP Audio client application.
+.Pp
+.\" ###### Arguments ########################################################
+.Sh OPTIONS
+The following options may be provided:
+.Bl -tag -width indent
+.It URL
+.It Fl debug
+TBD.
+.El
+.\" ###### Arguments ########################################################
+.Sh EXAMPLES
+.Bl -tag -width indent
+.It rtpa-client rtpa://server.domain/Test1.list
+.It rtpa-client rtpa+udp://server.domain/Test1.list
+.It rtpa-client rtpa+sctp://server.domain/Test1.list
+.El
+.\" ###### Authors ##########################################################
+.Sh AUTHORS
+Thomas Dreibholz
+.br
+http://www.iem.uni-due.de/~dreibh/rn
+.br
+mailto://dreibh@iem.uni-due.de
+.br

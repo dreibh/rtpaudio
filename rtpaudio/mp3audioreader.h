@@ -146,7 +146,7 @@ class MP3AudioReader : public Soundplayer,
    bool setsoundtype(int stereo, int samplesize, int speed);
    void set8bitmode();
    bool putblock(void* buffer, int size);
-   int putblock_nt(void* buffer, int size);
+   int  putblock_nt(void* buffer, int size);
    void releasedevice();
    bool attachdevice();
 
