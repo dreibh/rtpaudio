@@ -38,7 +38,7 @@ Section: libs
 Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries of the RTP Audio sound streaming system
+Description: Shared libraries for RTP Audio (common audio codec handling)
  The RTP Audio system is a network sound streaming systen. It has been
  designed for QoS performance analysis and teaching purposes.
  .
@@ -49,7 +49,7 @@ Section: libs
 Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries of the RTP Audio sound streaming system
+Description: Shared libraries for RTP Audio (common audio data handling)
  The RTP Audio system is a network sound streaming systen. It has been
  designed for QoS performance analysis and teaching purposes.
  .
@@ -60,7 +60,7 @@ Section: libs
 Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries of the RTP Audio sound streaming system
+Description: Shared libraries for RTP Audio (audio decoding)
  The RTP Audio system is a network sound streaming systen. It has been
  designed for QoS performance analysis and teaching purposes.
  .
@@ -71,7 +71,7 @@ Section: libs
 Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries of the RTP Audio sound streaming system
+Description: Shared libraries for RTP Audio (audio encoding)
  The RTP Audio system is a network sound streaming systen. It has been
  designed for QoS performance analysis and teaching purposes.
  .
@@ -82,7 +82,7 @@ Section: libs
 Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries of the RTP Audio sound streaming system
+Description: Shared libraries for RTP Audio (audio input reading)
  The RTP Audio system is a network sound streaming systen. It has been
  designed for QoS performance analysis and teaching purposes.
  .
@@ -93,7 +93,7 @@ Section: libs
 Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries of the RTP Audio sound streaming system
+Description: Shared libraries for RTP Audio (audio output writing)
  The RTP Audio system is a network sound streaming systen. It has been
  designed for QoS performance analysis and teaching purposes.
  .
@@ -104,7 +104,7 @@ Section: libs
 Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries of the RTP Audio sound streaming system
+Description: Shared libraries for RTP Audio (media information handling)
  The RTP Audio system is a network sound streaming systen. It has been
  designed for QoS performance analysis and teaching purposes.
  .
@@ -126,7 +126,7 @@ Section: libs
 Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries of the RTP Audio sound streaming system
+Description: Shared libraries for RTP Audio (RTP client-side audio handling)
  The RTP Audio system is a network sound streaming systen. It has been
  designed for QoS performance analysis and teaching purposes.
  .
@@ -137,7 +137,7 @@ Section: libs
 Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries of the RTP Audio sound streaming system
+Description: Shared libraries for RTP Audio (RTP server-side audio handling)
  The RTP Audio system is a network sound streaming systen. It has been
  designed for QoS performance analysis and teaching purposes.
  .
@@ -148,7 +148,7 @@ Section: libs
 Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries of the RTP Audio sound streaming system
+Description: Shared libraries for RTP Audio (common RTP handling)
  The RTP Audio system is a network sound streaming systen. It has been
  designed for QoS performance analysis and teaching purposes.
  .
@@ -159,7 +159,7 @@ Section: libs
 Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries of the RTP Audio sound streaming system
+Description: Shared libraries for RTP Audio (RTP client-side handling)
  The RTP Audio system is a network sound streaming systen. It has been
  designed for QoS performance analysis and teaching purposes.
  .
@@ -170,7 +170,7 @@ Section: libs
 Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries of the RTP Audio sound streaming system
+Description: Shared libraries for RTP Audio (RTP server-side handling)
  The RTP Audio system is a network sound streaming systen. It has been
  designed for QoS performance analysis and teaching purposes.
  .
@@ -181,7 +181,7 @@ Section: libs
 Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries of the RTP Audio sound streaming system
+Description: Shared libraries for RTP Audio (common helper functions)
  The RTP Audio system is a network sound streaming systen. It has been
  designed for QoS performance analysis and teaching purposes.
  .
@@ -189,8 +189,7 @@ Description: Shared libraries of the RTP Audio sound streaming system
 
 Package: rtpaudio
 Architecture: any
-Depends: libmpegsound0,
-         libaudiocodeccommon0,
+Depends: libaudiocodeccommon0,
          libaudiocommon0,
          libaudiodecoder0,
          libaudioencoder0,
