@@ -77,7 +77,7 @@ struct AdvancedAudioPacket
    /**
      * Type ID for Advanced Audio Encoding.
      */
-   static const card16 AdvancedAudioTypeID = 0x2909;
+   static const card16 AdvancedAudioTypeID = 0x2961;
 
    /**
      * Name for Advanced Audio Encoding.

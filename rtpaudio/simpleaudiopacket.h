@@ -77,7 +77,7 @@ struct SimpleAudioPacket
    /**
      * Type ID for Simple Audio Encoding.
      */
-   static const card16 SimpleAudioTypeID = 0x1234;
+   static const card16 SimpleAudioTypeID = 0x2960;
 
    /**
      * Name for Simple Audio Encoding.
