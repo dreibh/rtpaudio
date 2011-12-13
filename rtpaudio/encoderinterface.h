@@ -96,7 +96,7 @@ class EncoderInterface
    /**
      * Virtual destructor.
      */
-   virtual ~EncoderInterface();
+   virtual ~EncoderInterface() = 0;
 
 
    // ====== Encoder type ===================================================

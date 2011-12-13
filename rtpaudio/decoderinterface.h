@@ -117,7 +117,7 @@ class DecoderInterface
    /**
      * Virtual destructor.
      */
-   virtual ~DecoderInterface();
+   virtual ~DecoderInterface() = 0;
 
 
    // ====== Decoder type ===================================================
