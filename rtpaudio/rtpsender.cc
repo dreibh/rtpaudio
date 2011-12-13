@@ -54,23 +54,27 @@ RTPSender::RTPSender()
 
 
 // ###### Constructor #######################################################
-RTPSender::RTPSender(InternetFlow&        flow,
+RTPSender::RTPSender(const InternetFlow&  flow,
                      const card32         ssrc,
                      EncoderInterface*    encoder,
                      Socket*              senderSocket,
+                     const card32         controlPPID,
+                     const card32         dataPPID,
                      const cardinal       maxPacketSize,
                      QoSManagerInterface* qosManager)
    : TimedThread(1000000,"RTPSender")
 {
-   init(flow,ssrc,encoder,senderSocket,maxPacketSize,qosManager);
+   init(flow,ssrc,encoder,senderSocket,controlPPID,dataPPID,maxPacketSize,qosManager);
 }
 
 
 // ###### Initialize ########################################################
-void RTPSender::init(InternetFlow&        flow,
+void RTPSender::init(const InternetFlow&  flow,
                      const card32         ssrc,
                      EncoderInterface*    encoder,
                      Socket*              senderSocket,
+                     const card32         controlPPID,
+                     const card32         dataPPID,
                      const cardinal       maxPacketSize,
                      QoSManagerInterface* qosManager)
 {
@@ -88,6 +92,8 @@ void RTPSender::init(InternetFlow&        flow,
    TransmissionError  = false;
    TimeStamp          = getMicroTime();
    SSRC               = ssrc;
+   ControlPPID        = controlPPID;
+   DataPPID           = dataPPID;
    Randomizer random;
 
    for(cardinal i = 0;i < RTPConstants::RTPMaxQualityLayers;i++) {
@@ -241,7 +247,7 @@ void RTPSender::timerEvent()
       }
       RenewCounter = 0;
 
-      // ====== Send RTCP Sender Report =====================================
+      // ====== Create RTCP Sender Report ===================================
       RTCPSenderReport report(SSRC,0);
       const card64 now = getMicroTime();
       report.setNTPTimeStamp(now);
@@ -250,10 +256,24 @@ void RTPSender::timerEvent()
                       RTPConstants::RTPMicroSecondsPerTimeStamp) & 0xffffffff);
       report.setOctetsSent(PayloadBytesSent);
       report.setPacketsSent(PayloadPacketsSent);
+
+      // ====== Send RTCP Sender Report =====================================
 #ifdef USE_TRAFFICSHAPER
       if(SenderReportBuffer.send(&report,sizeof(RTCPSenderReport),(cardinal)-1,(SenderSocket->getProtocol() == IPPROTO_SCTP) ? SCTP_UNORDERED|MSG_NOSIGNAL : MSG_NOSIGNAL) != sizeof(RTCPSenderReport)) {
 #else
-      if(SenderSocket->send(&report,sizeof(RTCPSenderReport),(SenderSocket->getProtocol() == IPPROTO_SCTP) ? SCTP_UNORDERED|MSG_NOSIGNAL : MSG_NOSIGNAL) != sizeof(RTCPSenderReport)) {
+      SocketMessage<CSpace(sizeof(sctp_sndrcvinfo))> message;
+      message.setBuffer(&report,sizeof(RTCPSenderReport));
+      message.setAddress(Flow[0]);
+      if(SenderSocket->getProtocol() == IPPROTO_SCTP) {
+         sctp_sndrcvinfo* info = (sctp_sndrcvinfo*)message.addHeader(
+                                    sizeof(sctp_sndrcvinfo),IPPROTO_SCTP,SCTP_SNDRCV);
+         info->sinfo_assoc_id   = 0;
+         info->sinfo_stream     = 0;
+         info->sinfo_flags      = SCTP_UNORDERED;
+         info->sinfo_timetolive = 100;   // 100ms
+         info->sinfo_ppid       = htonl(ControlPPID);
+      }
+      if(SenderSocket->sendMsg(&message.Header,MSG_NOSIGNAL,Flow[0].getTrafficClass()))  {
 #endif
          const integer error = SenderSocket->getLastError();
          if((TransmissionError == false) && (error != EAGAIN) && (error != EINTR)) {
@@ -361,14 +381,6 @@ void RTPSender::timerEvent()
 
             // ====== Send packet without traffic shaper ====================
 #else
-//             sent = SenderSocket->sendTo(
-//                         &packet,
-//                         packet.calculateHeaderSize() + bytesData,
-//                         (SenderSocket->getProtocol() == IPPROTO_SCTP) ?
-//                            SCTP_UNORDERED|MSG_NOSIGNAL : MSG_NOSIGNAL,
-//                         Flow[encoderPacket.Layer],
-//                         Flow[encoderPacket.Layer].getTrafficClass());
-
             SocketMessage<CSpace(sizeof(sctp_sndrcvinfo))> message;
             message.setBuffer(&packet, packet.calculateHeaderSize() + bytesData);
             message.setAddress(Flow[encoderPacket.Layer]);
@@ -379,7 +391,7 @@ void RTPSender::timerEvent()
                info->sinfo_stream     = (unsigned short)encoderPacket.Layer;
                info->sinfo_flags      = SCTP_UNORDERED;
                info->sinfo_timetolive = 100;   // 100ms
-               info->sinfo_ppid       = htonl(0x2909ffff);
+               info->sinfo_ppid       = htonl(DataPPID);
             }
             sent = SenderSocket->sendMsg(&message.Header,MSG_NOSIGNAL,Flow[encoderPacket.Layer].getTrafficClass());
 #endif

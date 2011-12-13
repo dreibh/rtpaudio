@@ -51,6 +51,21 @@ const card8 AudioServerDefaultTrafficClass = 0x00;
 const card8 AudioClientDefaultTrafficClass = 0x00;
    // IPTOS_RELIABILITY|IPTOS_PREC_PRIORITY;
 
+/**
+  * RTP Audio Server default port.
+  */
+static const cardinal RTPAudioDefaultPort = 7500;
+
+/**
+  * RTP Audio data PPID (for SCTP transport).
+  */
+static const card32 RTPAudioDataPPID = 0x2909ffff;
+
+/**
+  * RTP Audio control PPID (for SCTP transport).
+  */
+static const card32 RTPAudioControlPPID = 0x2909fffe;
+
 
 /**
   * This struct defines the packet format for the audio client's
@@ -100,11 +115,6 @@ struct AudioClientAppPacket
       ACAS_Play           = 1,
       ACAS_Pause          = 2
    };
-
-   /**
-     * RTP Audio Server default port.
-     */
-   static const cardinal RTPAudioDefaultPort = 7500;
 
 
    // ====== Packet data ====================================================

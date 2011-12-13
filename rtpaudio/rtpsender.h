@@ -73,15 +73,19 @@ class RTPSender : virtual public ManagedStreamInterface,
      * @param ssrc Sender's SSRC (see RFC 1889).
      * @param encoder Encoder to get packets to send from.
      * @param senderSocket Socket to write packets to.
+     * @param controlPPID PPID for SCTP control transport.
+     * @param dataPPID PPID for SCTP data transport.
      * @param maxPacketSize Maximum packet size.
      * @param qosManager QoS manager.
      *
      * @see Thread#start
      */
-   RTPSender(InternetFlow&        flow,
+   RTPSender(const InternetFlow&  flow,
              const card32         ssrc,
              EncoderInterface*    encoder,
              Socket*              senderSocket,
+             const card32         controlPPID,
+             const card32         dataPPID,
              const cardinal       maxPacketSize = 1500,
              QoSManagerInterface* qosManager     = NULL);
 
@@ -100,15 +104,19 @@ class RTPSender : virtual public ManagedStreamInterface,
      * @param ssrc Sender's SSRC (see RFC 1889).
      * @param encoder Encoder to get packets to send from.
      * @param senderSocket Socket to write packets to.
+     * @param controlPPID PPID for SCTP control transport.
+     * @param dataPPID PPID for SCTP data transport.
      * @param maxPacketSize Maximum packet size.
      * @param qosManager QoS manager.
      *
      * @see Thread#start
      */
-   void init(InternetFlow&        flow,
+   void init(const InternetFlow&  flow,
              const card32         ssrc,
              EncoderInterface*    encoder,
              Socket*              senderSocket,
+             const card32         controlPPID,
+             const card32         dataPPID,
              const cardinal       maxPacketSize = 1500,
              QoSManagerInterface* qosManager    = NULL);
 
@@ -229,6 +237,8 @@ class RTPSender : virtual public ManagedStreamInterface,
    card64               BytesSent;
    card64               PacketsSent;
    card64               TimeStamp;
+   card32               ControlPPID;
+   card32               DataPPID;
 
    card32               PayloadBytesSent;
    card32               PayloadPacketsSent;

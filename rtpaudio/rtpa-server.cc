@@ -149,7 +149,7 @@ int main(int argc, char* argv[])
    bool   disableQM       = false;
    cardinal maxPacketSize = 1500;
    card64 timeout         = 10000000;
-   card16 port            = AudioClientAppPacket::RTPAudioDefaultPort;
+   card16 port            = RTPAudioDefaultPort;
    String directory;
 
 

@@ -183,7 +183,7 @@ bool AudioClient::play(const char* url)
          return(false);
       }
       if(ServerAddress.getPort() == 0) {
-         ServerAddress.setPort(AudioClientAppPacket::RTPAudioDefaultPort);
+         ServerAddress.setPort(RTPAudioDefaultPort);
       }
 
 
@@ -197,12 +197,13 @@ bool AudioClient::play(const char* url)
          stop();
          return(false);
       }
+      SenderSocket.setBlockingMode(false);
       ReceiverSocket.create(Socket::IP,
                             useSCTP ? Socket::SeqPacket : Socket::Datagram,
                             useSCTP ? Socket::SCTP : Socket::Default);
       if(!ReceiverSocket.ready()) {
          std::cerr << "ERROR: AudioClient::play() - "
-                 "Unable to bind socket for RTPReceiver!" << std::endl;
+                      "Unable to bind socket for RTPReceiver!" << std::endl;
          stop();
          return(false);
       }
@@ -219,22 +220,10 @@ bool AudioClient::play(const char* url)
 
       // ====== Connect sender socket to server =============================
       Flow = SenderSocket.allocFlow(ServerAddress);
-      if(Flow.getFlowLabel() != 0) {
-         if(SenderSocket.connect(Flow,AudioClientDefaultTrafficClass) == 0) {
-            if(SenderSocket.connect(ServerAddress,AudioClientDefaultTrafficClass) == false) {
-               std::cerr << "ERROR: AudioClient::play() - Unable to connect socket for RTCPSender!" << std::endl;
-               stop();
-               return(false);
-            }
-         }
+      if(Flow.getFlowLabel() == 0) {
+         Flow = InternetFlow(ServerAddress,0,0);
       }
-      else {
-         if(SenderSocket.connect(ServerAddress,AudioClientDefaultTrafficClass) == false) {
-            std::cerr << "ERROR: AudioClient::play() - Unable to connect socket for RTCPSender!" << std::endl;
-            stop();
-            return(false);
-         }
-      }
+      Flow.setTrafficClass(AudioClientDefaultTrafficClass);
 
 
       // ====== Create RTPReceiver ==========================================
@@ -252,7 +241,7 @@ bool AudioClient::play(const char* url)
 
 
       // ====== Create RTCPSender ===========================================
-      Sender = new RTCPSender(OurSSRC,&SenderSocket,Receiver,3000);
+      Sender = new RTCPSender(Flow,OurSSRC,&SenderSocket,Receiver,3000,RTPAudioControlPPID);
       if(Sender == NULL) {
          std::cerr << "ERROR: AudioClient::play() - Out of memory!" << std::endl;
          stop();

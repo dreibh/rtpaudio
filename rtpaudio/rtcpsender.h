@@ -68,15 +68,19 @@ class RTCPSender : public TimedThread
      * Constructor for new RTCPSender. The new sender's thread has to be started
      * by calling start()!
      *
+     * @param flow Flow to remote side.
      * @param ssrc SSRC.
      * @param senderSocket Socket to write data to.
      * @param receiver RTPReceiver for reports to send.
      * @param bandwidth RTCP Bandwidth (see RFC 1889).
+     * @param controlPPID PPID for SCTP transport.
      */
-   RTCPSender(const card32 ssrc,
-              Socket*      senderSocket,
-              RTPReceiver* receiver,
-              const card64 bandwidth);
+   RTCPSender(const InternetFlow& flow,
+              const card32        ssrc,
+              Socket*             senderSocket,
+              RTPReceiver*        receiver,
+              const card64        bandwidth,
+              const card32        controlPPID);
 
    /**
      * Destructor.
@@ -89,15 +93,19 @@ class RTCPSender : public TimedThread
      * Initialize new RTCPSender. The new sender's thread has to be started
      * by calling start()!
      *
+     * @param flow Flow to remote side.
      * @param ssrc SSRC.
      * @param senderSocket Socket to write data to.
      * @param receiver RTPReceiver for reports to send.
      * @param bandwidth RTCP Bandwidth (see RFC 1889).
+     * @param controlPPID PPID for SCTP transport.
      */
-   void init(const card32 ssrc,
-             Socket*      senderSocket,
-             RTPReceiver* receiver,
-             const card64 bandwidth);
+   void init(const InternetFlow& flow,
+             const card32        ssrc,
+             Socket*             senderSocket,
+             RTPReceiver*        receiver,
+             const card64        bandwidth,
+             const card32        controlPPID);
 
 
    // ====== RTCP packet sending functions ==================================
@@ -165,12 +173,14 @@ class RTCPSender : public TimedThread
    void timerEvent();
    double computeTransmissionInterval();
 
+   InternetFlow                                          Flow;
    SocketAddress*                                        ReceiverAddress;
    Socket*                                               SenderSocket;
    RTPReceiver*                                          Receiver;
    card32                                                SSRC;
    std::multimap<const card8,RTCPSourceDescriptionItem*> SDESItemSet;
    Randomizer                                            Random;
+   card32                                                ControlPPID;
 
    bool    Initial;         // True, if application has not yet sent an RTCP packet
    bool    WeSent;          // True, if data sent since 2nd previous RTCP report

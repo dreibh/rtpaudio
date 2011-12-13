@@ -138,8 +138,8 @@ void* AudioServer::newClient(Client* client, const char* cname)
    user->ManagerLimitPause   = false;
    user->ClientPause         = false;
    user->Repository.setAutoDelete(true);
-   bool e1 = user->Repository.addEncoder(new AdvancedAudioEncoder(&user->Reader));
-   bool e2 = user->Repository.addEncoder(new SimpleAudioEncoder(&user->Reader));
+   const bool e1 = user->Repository.addEncoder(new AdvancedAudioEncoder(&user->Reader));
+   const bool e2 = user->Repository.addEncoder(new SimpleAudioEncoder(&user->Reader));
    if((e1 == false) || (e2 == false)) {
       outOfMemoryWarning();
       deleteClient(client,DeleteReason_Error);
@@ -147,7 +147,10 @@ void* AudioServer::newClient(Client* client, const char* cname)
    }
 
    // ====== Initialize RTPSender ===========================================
-   user->Sender.init(user->Flow,OurSSRC,&user->Repository,&user->SenderSocket,MaxPacketSize,QoSMgr);
+   user->Sender.init(user->Flow,OurSSRC,
+                     &user->Repository,&user->SenderSocket,
+                     RTPAudioControlPPID, RTPAudioDataPPID,
+                     MaxPacketSize,QoSMgr);
 
    // ====== Add stream to QoS management ===================================
    InternetAddress ourAddress;

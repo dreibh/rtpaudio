@@ -32,6 +32,7 @@
 
 
 #include "tdsystem.h"
+#include "tdmessage.h"
 #include "rtcpsender.h"
 
 
@@ -45,25 +46,31 @@ RTCPSender::RTCPSender()
 
 
 // ###### Constructor #######################################################
-RTCPSender::RTCPSender(const card32 ssrc,
-                       Socket*      senderSocket,
-                       RTPReceiver* receiver,
-                       const card64 bandwidth)
+RTCPSender::RTCPSender(const InternetFlow& flow,
+                       const card32        ssrc,
+                       Socket*             senderSocket,
+                       RTPReceiver*        receiver,
+                       const card64        bandwidth,
+                       const card32        controlPPID)
    : TimedThread(1000000,"RTCPSender")
 {
-   init(ssrc,senderSocket,receiver,bandwidth);
+   init(flow,ssrc,senderSocket,receiver,bandwidth,controlPPID);
 }
 
 
 // ###### Initialize ########################################################
-void RTCPSender::init(const card32 ssrc,
-                      Socket*      senderSocket,
-                      RTPReceiver* receiver,
-                      const card64 bandwidth)
+void RTCPSender::init(const InternetFlow& flow,
+                      const card32        ssrc,
+                      Socket*             senderSocket,
+                      RTPReceiver*        receiver,
+                      const card64        bandwidth,
+                      const card32        controlPPID)
 {
+   Flow            = flow;
    SSRC            = ssrc;
    Receiver        = receiver;
    SenderSocket    = senderSocket;
+   ControlPPID     = controlPPID;
 
    Initial         = true;
    WeSent          = false;
@@ -121,8 +128,20 @@ integer RTCPSender::sendBye()
       bye->setSource(0,SSRC);
       bye->setLength(sizeof(packet));
 
-      return(SenderSocket->send((void*)&packet,sizeof(packet),
-                (SenderSocket->getProtocol() == IPPROTO_SCTP) ? SCTP_UNORDERED|MSG_NOSIGNAL : MSG_NOSIGNAL));
+      // ====== Send packet =================================================
+      SocketMessage<CSpace(sizeof(sctp_sndrcvinfo))> message;
+      message.setBuffer(&packet, sizeof(packet));
+      message.setAddress(Flow);
+      if(SenderSocket->getProtocol() == IPPROTO_SCTP) {
+         sctp_sndrcvinfo* info = (sctp_sndrcvinfo*)message.addHeader(
+                                    sizeof(sctp_sndrcvinfo),IPPROTO_SCTP,SCTP_SNDRCV);
+         info->sinfo_assoc_id   = 0;
+         info->sinfo_stream     = 0;
+         info->sinfo_flags      = SCTP_UNORDERED;
+         info->sinfo_timetolive = 100;   // 100ms
+         info->sinfo_ppid       = htonl(ControlPPID);
+      }
+      return(SenderSocket->sendMsg(&message.Header,MSG_NOSIGNAL,Flow.getTrafficClass()));
    }
    return(0);
 }
@@ -143,8 +162,20 @@ integer RTCPSender::sendApp(const char*    name,
       app->setLength(sizeof(packet));
       memcpy(app->getData(),data,dataLength);
 
-      return(SenderSocket->send((void *)&packet,sizeof(packet),
-               (SenderSocket->getProtocol() == IPPROTO_SCTP) ? SCTP_UNORDERED|MSG_NOSIGNAL : MSG_NOSIGNAL));
+      // ====== Send packet =================================================
+      SocketMessage<CSpace(sizeof(sctp_sndrcvinfo))> message;
+      message.setBuffer(&packet, sizeof(packet));
+      message.setAddress(Flow);
+      if(SenderSocket->getProtocol() == IPPROTO_SCTP) {
+         sctp_sndrcvinfo* info = (sctp_sndrcvinfo*)message.addHeader(
+                                    sizeof(sctp_sndrcvinfo),IPPROTO_SCTP,SCTP_SNDRCV);
+         info->sinfo_assoc_id   = 0;
+         info->sinfo_stream     = 0;
+         info->sinfo_flags      = SCTP_UNORDERED;
+         info->sinfo_timetolive = 100;   // 100ms
+         info->sinfo_ppid       = htonl(ControlPPID);
+      }
+      return(SenderSocket->sendMsg(&message.Header,MSG_NOSIGNAL,Flow.getTrafficClass()));
    }
    return(0);
 }
@@ -236,9 +267,19 @@ integer RTCPSender::sendSDES()
 
          // ====== Send packet ==============================================
          unsynchronized();
-         const int result = SenderSocket->send((void*)sdes,bytes,
-                               (SenderSocket->getProtocol() == IPPROTO_SCTP) ? SCTP_UNORDERED|MSG_NOSIGNAL : MSG_NOSIGNAL);
-         return(result);
+         SocketMessage<CSpace(sizeof(sctp_sndrcvinfo))> message;
+         message.setBuffer((void*)sdes, bytes);
+         message.setAddress(Flow);
+         if(SenderSocket->getProtocol() == IPPROTO_SCTP) {
+            sctp_sndrcvinfo* info = (sctp_sndrcvinfo*)message.addHeader(
+                                       sizeof(sctp_sndrcvinfo),IPPROTO_SCTP,SCTP_SNDRCV);
+            info->sinfo_assoc_id   = 0;
+            info->sinfo_stream     = 0;
+            info->sinfo_flags      = SCTP_UNORDERED;
+            info->sinfo_timetolive = 100;   // 100ms
+            info->sinfo_ppid       = htonl(ControlPPID);
+         }
+         return(SenderSocket->sendMsg(&message.Header,MSG_NOSIGNAL,Flow.getTrafficClass()));
       }
       unsynchronized();
    }
@@ -297,8 +338,21 @@ integer RTCPSender::sendReport()
       std::cout << std::endl;
 */
 
-      return(SenderSocket->send((void*)report,length,
-               (SenderSocket->getProtocol() == IPPROTO_SCTP) ? SCTP_UNORDERED|MSG_NOSIGNAL : MSG_NOSIGNAL));
+      // ====== Send packet ==============================================
+      unsynchronized();
+      SocketMessage<CSpace(sizeof(sctp_sndrcvinfo))> message;
+      message.setBuffer((void*)report,length);
+      message.setAddress(Flow);
+      if(SenderSocket->getProtocol() == IPPROTO_SCTP) {
+         sctp_sndrcvinfo* info = (sctp_sndrcvinfo*)message.addHeader(
+                                    sizeof(sctp_sndrcvinfo),IPPROTO_SCTP,SCTP_SNDRCV);
+         info->sinfo_assoc_id   = 0;
+         info->sinfo_stream     = 0;
+         info->sinfo_flags      = SCTP_UNORDERED;
+         info->sinfo_timetolive = 100;   // 100ms
+         info->sinfo_ppid       = htonl(ControlPPID);
+      }
+      return(SenderSocket->sendMsg(&message.Header,MSG_NOSIGNAL,Flow.getTrafficClass()));
    }
    return(0);
 }
