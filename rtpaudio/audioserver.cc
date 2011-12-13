@@ -95,7 +95,7 @@ void AudioServer::outOfMemoryWarning()
 
 
 // ###### Send update to congestion manager #################################
-void AudioServer::managementUpdate(const Client* client, User* user)
+void AudioServer::managementUpdate(Client* client, User* user)
 {
 }
 
@@ -242,9 +242,9 @@ void AudioServer::deleteClient(Client* client, const DeleteReason reason)
 
 
 // ###### Handle user command ###############################################
-void AudioServer::userCommand(const Client*               client,
-                              User*                       user,
-                              const AudioClientAppPacket* app)
+void AudioServer::userCommand(Client*               client,
+                              User*                 user,
+                              AudioClientAppPacket* app)
 {
    // ====== Check, if command has already been executed ====================
    const integer diff = (integer)app->SequenceNumber -
@@ -271,7 +271,7 @@ void AudioServer::userCommand(const Client*               client,
          std::cout << str << " loading media <" << (const char*)&app->MediaName
                    << ">." << std::endl;
 #endif
-         if(user->Reader.openMedia((char*)&app->MediaName)) {
+         if(user->Reader.openMedia((const char*)&app->MediaName)) {
             user->Reader.setPosition(app->RestartPosition);
             user->PosChgSeqNumber = app->PosChgSeqNumber;
             user->MediaName       = String((const char*)&app->MediaName);
@@ -294,7 +294,7 @@ void AudioServer::userCommand(const Client*               client,
             QoSMgr->removeStream(&user->Sender);
          }
          user->Reader.closeMedia();
-         if(user->Reader.openMedia((char*)&app->MediaName)) {
+         if(user->Reader.openMedia((const char*)&app->MediaName)) {
             user->Reader.setPosition(app->RestartPosition);
             user->MediaName = String((const char*)&app->MediaName);
             user->Sender.leaveCorrectionLoop();
@@ -384,9 +384,9 @@ void AudioServer::userCommand(const Client*               client,
 
 
 // ###### Handle app message ################################################
-void AudioServer::appMessage(const Client*  client,
+void AudioServer::appMessage(Client*        client,
                              const char*    name,
-                             const void*    data,
+                             void*          data,
                              const cardinal dataLength)
 {
    User* user = (User*)client->UserData;
@@ -400,31 +400,44 @@ void AudioServer::appMessage(const Client*  client,
 
 
 // ###### Handle SDES message ###############################################
-void AudioServer::sdesMessage(const Client*  client,
+void AudioServer::sdesMessage(Client*        client,
                               const card8    type,
-                              const char*    data,
+                              char*          data,
                               const cardinal length)
 {
    User* user = (User*)client->UserData;
    if(type == RTCP_SDES_PRIV) {
-      AudioClientAppPacket* app = (AudioClientAppPacket*)data;
-      app->translate();
-      if(app->FormatID == AudioClientAppPacket::AudioClientFormatID) {
-         userCommand(client,user,app);
-         managementUpdate(client,user);
+      AudioClientSDESPrivPacket* priv = (AudioClientSDESPrivPacket*)data;
+      if( (priv->PrefixLength == 7) &&
+          (priv->Prefix[0] == 'C') &&
+          (priv->Prefix[1] == 'o') &&
+          (priv->Prefix[2] == 'o') &&
+          (priv->Prefix[3] == 'k') &&
+          (priv->Prefix[4] == 'i') &&
+          (priv->Prefix[5] == 'e') &&
+          (priv->Prefix[6] == '0') ) {
+         AudioClientAppPacket* app  = &priv->Status;
+         app->translate();
+         if(app->FormatID == AudioClientAppPacket::AudioClientFormatID) {
+            userCommand(client,user,app);
+            managementUpdate(client,user);
+         }
+      }
+      else {
+         std::cerr << "NOTE: AudioServer::sdesMessage() - Unknown prefix" << std::endl;
       }
    }
 /*
    else {
       std::cerr << "NOTE: AudioServer::sdesMessage() - Unsupported SDES type: "
-           << (cardinal)type << std::endl;
+                << (cardinal)type << std::endl;
    }
 */
 }
 
 
 // ###### Check, if client is okay ##########################################
-bool AudioServer::checkClient(const Client* client)
+bool AudioServer::checkClient(Client* client)
 {
    User* user = (User*)client->UserData;
 
@@ -433,9 +446,9 @@ bool AudioServer::checkClient(const Client* client)
 
 
 // ###### Handle receiver report ############################################
-void AudioServer::receiverReport(const Client*                   client,
-                                 const RTCPReceptionReportBlock* report,
-                                 const cardinal                  layer)
+void AudioServer::receiverReport(Client*                   client,
+                                 RTCPReceptionReportBlock* report,
+                                 const cardinal            layer)
 {
    User* user = (User*)client->UserData;
 

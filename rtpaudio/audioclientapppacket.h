@@ -31,8 +31,8 @@
 // $Id$
 
 
-#ifndef AUDIOCLIENTAPP_H
-#define AUDIOCLIENTAPP_H
+#ifndef AUDIOCLIENTAPPPACKET_H
+#define AUDIOCLIENTAPPPACKET_H
 
 
 // #include <linux/ip.h>
@@ -56,7 +56,7 @@ const card8 AudioClientDefaultTrafficClass = 0x00;
   * This struct defines the packet format for the audio client's
   * RTCP APP-PRIV messages.
   *
-  * @short   Audio Client RTCP-SDES-APP-PRIV Packet
+  * @short   Audio Client RTCP-APP Packet
   * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   *
@@ -169,6 +169,25 @@ struct AudioClientAppPacket
      * Media name, e.g. "AudioFiles/Test1.list".
      */
    char MediaName[128];
+} __attribute__((packed));
+
+
+/**
+  * This struct defines the packet format for the audio client's
+  * RTCP SDES-PRIV messages.
+  *
+  * @short   Audio Client RTCP SDES-PRIV Packet
+  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
+  * @version 1.0
+  *
+  * @see AudioClient
+  * @see AudioServer
+  */
+struct AudioClientSDESPrivPacket
+{
+   card8                PrefixLength;
+   char                 Prefix[7];
+   AudioClientAppPacket Status;
 } __attribute__((packed));
 
 

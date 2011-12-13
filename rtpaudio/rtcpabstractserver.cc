@@ -84,7 +84,7 @@ void RTCPAbstractServer::outOfMemoryWarning()
 void RTCPAbstractServer::receivedSourceDescription(const InternetFlow flow,
                                                    const card32       source,
                                                    const card8        type,
-                                                   const char*        data,
+                                                   char*              data,
                                                    const card8        length)
 {
    synchronized();
@@ -121,10 +121,10 @@ void RTCPAbstractServer::receivedSourceDescription(const InternetFlow flow,
 
 // ###### Handle received Sender Report #####################################
 void RTCPAbstractServer::receivedSenderReport(
-                            const InternetFlow              flow,
-                            const card32                    source,
-                            const RTCPReceptionReportBlock* report,
-                            const cardinal                  layer)
+                            const InternetFlow        flow,
+                            const card32              source,
+                            RTCPReceptionReportBlock* report,
+                            const cardinal            layer)
 {
    std::cerr << "RTCPAbstractServer::receivedSenderReport() - Not implemented yet!"
         << std::endl;
@@ -154,7 +154,7 @@ void RTCPAbstractServer::receivedBye(const InternetFlow flow,
 void RTCPAbstractServer::receivedApp(const InternetFlow flow,
                                      const card32       source,
                                      const char*        name,
-                                     const void*        data,
+                                     void*              data,
                                      const card32       dataLength)
 {
    synchronized();
@@ -169,10 +169,10 @@ void RTCPAbstractServer::receivedApp(const InternetFlow flow,
 
 // ###### Handle received RTCP Receiver Report ##############################
 void RTCPAbstractServer::receivedReceiverReport(
-                            const InternetFlow              flow,
-                            const card32                    source,
-                            const RTCPReceptionReportBlock* report,
-                            const cardinal                  layer)
+                            const InternetFlow        flow,
+                            const card32              source,
+                            RTCPReceptionReportBlock* report,
+                            const cardinal            layer)
 {
    synchronized();
    Client* client = findClient(source,flow);

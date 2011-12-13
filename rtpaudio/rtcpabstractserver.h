@@ -123,7 +123,7 @@ class RTCPAbstractServer : public TimedThread
      *
      * @return true, if client is okay; false to delete client in case of an error.
      */
-   virtual bool checkClient(const Client* client) = 0;
+   virtual bool checkClient(Client* client) = 0;
 
    /**
      * Called when a client sends RTCP APP message.
@@ -134,9 +134,9 @@ class RTCPAbstractServer : public TimedThread
      * @param data RTCP APP data.
      * @param dataLength RTCP APP data length.
      */
-   virtual void appMessage(const Client*  client,
+   virtual void appMessage(Client*        client,
                            const char*    name,
-                           const void*    data,
+                           void*          data,
                            const cardinal dataLength) = 0;
 
    /**
@@ -149,9 +149,9 @@ class RTCPAbstractServer : public TimedThread
      * @param data RTCP SDES data.
      * @param length RTCP SDES length.
      */
-   virtual void sdesMessage(const Client*  client,
+   virtual void sdesMessage(Client*        client,
                             const card8    type,
-                            const char*    data,
+                            char*          data,
                             const cardinal length) = 0;
 
    /**
@@ -163,9 +163,9 @@ class RTCPAbstractServer : public TimedThread
      * @param report RTCPReceptionReportBlock.
      * @param layer Layer number.
      */
-   virtual void receiverReport(const Client*                   client,
-                               const RTCPReceptionReportBlock* report,
-                               const cardinal                  layer) = 0;
+   virtual void receiverReport(Client*                   client,
+                               RTCPReceptionReportBlock* report,
+                               const cardinal            layer) = 0;
 
 
    /**
@@ -221,23 +221,23 @@ class RTCPAbstractServer : public TimedThread
      */
    friend class RTCPReceiver;
 
-   void receivedSenderReport(const InternetFlow              flow,
-                             const card32                    source,
-                             const RTCPReceptionReportBlock* report,
-                             const cardinal                  layer);
-   void receivedReceiverReport(const InternetFlow              flow,
-                               const card32                    source,
-                               const RTCPReceptionReportBlock* report,
-                               const cardinal                  layer);
+   void receivedSenderReport(const InternetFlow        flow,
+                             const card32              source,
+                             RTCPReceptionReportBlock* report,
+                             const cardinal            layer);
+   void receivedReceiverReport(const InternetFlow        flow,
+                               const card32              source,
+                               RTCPReceptionReportBlock* report,
+                               const cardinal            layer);
    void receivedSourceDescription(const InternetFlow flow,
                                   const card32       source,
                                   const card8        type,
-                                  const char*        data,
+                                  char*              data,
                                   const card8        length);
    void receivedApp(const InternetFlow flow,
                     const card32       source,
                     const char*        name,
-                    const void*        data,
+                    void*              data,
                     const card32       dataLength);
    void receivedBye(const InternetFlow flow,
                     const card32       source,

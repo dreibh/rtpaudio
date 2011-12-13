@@ -164,36 +164,36 @@ class AudioServer : public RTCPAbstractServer
      *
      * @see RTCPAbstractServer#checkClient
      */
-   bool checkClient(const RTCPAbstractServer::Client* client);
+   bool checkClient(RTCPAbstractServer::Client* client);
 
    /**
      * appMessage() implementation of RTCPAbstractServer.
      *
      * @see RTCPAbstractServer#appMessage
      */
-   void appMessage(const RTCPAbstractServer::Client* client,
-                   const char*                       name,
-                   const void*                       data,
-                   const cardinal                    dataLength);
+   void appMessage(RTCPAbstractServer::Client* client,
+                   const char*                 name,
+                   void*                       data,
+                   const cardinal              dataLength);
 
    /**
      * sdesMessage() implementation of RTCPAbstractServer.
      *
      * @see RTCPAbstractServer#sdesMessage
      */
-   void sdesMessage(const RTCPAbstractServer::Client* client,
-                    const card8                       type,
-                    const char*                       data,
-                    const cardinal                    length);
+   void sdesMessage(RTCPAbstractServer::Client* client,
+                    const card8                 type,
+                    char*                       data,
+                    const cardinal              length);
 
    /**
      * receiverReport() implementation of RTCPAbstractServer.
      *
      * @see RTCPAbstractServer#receiverReport
      */
-   void receiverReport(const RTCPAbstractServer::Client* client,
-                       const RTCPReceptionReportBlock*   report,
-                       const cardinal                    layer);
+   void receiverReport(RTCPAbstractServer::Client* client,
+                       RTCPReceptionReportBlock*   report,
+                       const cardinal              layer);
 
 
    // ====== Execute user command ===========================================
@@ -204,9 +204,9 @@ class AudioServer : public RTCPAbstractServer
      * @param user User.
      * @param app AudioClientApp message.
      */
-   void userCommand(const RTCPAbstractServer::Client* client,
-                    User*                             user,
-                    const AudioClientAppPacket*       app);
+   void userCommand(RTCPAbstractServer::Client* client,
+                    User*                       user,
+                    AudioClientAppPacket*       app);
 
    /**
      * Update QoS/congestion management.
@@ -214,7 +214,7 @@ class AudioServer : public RTCPAbstractServer
      * @param client Client to do congestion for.
      * @param user User data.
      */
-   void managementUpdate(const RTCPAbstractServer::Client* client, User* user);
+   void managementUpdate(RTCPAbstractServer::Client* client, User* user);
 
 
    // ====== Private data ===================================================

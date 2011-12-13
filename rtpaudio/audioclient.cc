@@ -367,11 +367,22 @@ void AudioClient::sendCommand(const bool updateRestartPosition)
       if(updateRestartPosition == true)
          getPosition(); // This will update RestartPosition!
 
-      AudioClientAppPacket app;
-      app = Status;
-      app.translate();
-      Sender->sendApp("HELO",(void*)&app,sizeof(AudioClientAppPacket));
-      if(Sender->addSDESItem(RTCP_SDES_PRIV,(char*)&app,sizeof(AudioClientAppPacket)) == false) {
+      // ====== Create status cookie ========================================
+      AudioClientSDESPrivPacket priv;
+      priv.PrefixLength = 7;
+      priv.Prefix[0] = 'C';
+      priv.Prefix[1] = 'o';
+      priv.Prefix[2] = 'o';
+      priv.Prefix[3] = 'k';
+      priv.Prefix[4] = 'i';
+      priv.Prefix[5] = 'e';
+      priv.Prefix[6] = '0';
+      priv.Status    = Status;
+      priv.Status.translate();
+
+      Sender->sendApp("HELO",(const void*)&priv.Status,sizeof(priv.Status));
+
+      if(Sender->addSDESItem(RTCP_SDES_PRIV,(const char*)&priv,sizeof(priv)) == false) {
          std::cerr << "ERROR: Unable to add SDES - Out of memory!" << std::endl;
       }
    }
@@ -389,9 +400,21 @@ card64 AudioClient::getPosition()
             OldPosition     = position;
             ChangeTimeStamp = 0;
             Status.RestartPosition   = position;
-            AudioClientAppPacket app = Status;
-            app.translate();
-            if(Sender->addSDESItem(RTCP_SDES_PRIV,(char*)&app,sizeof(AudioClientAppPacket)) == false) {
+
+            // ====== Create status cookie ==================================
+            AudioClientSDESPrivPacket priv;
+            priv.PrefixLength = 7;
+            priv.Prefix[0] = 'C';
+            priv.Prefix[1] = 'o';
+            priv.Prefix[2] = 'o';
+            priv.Prefix[3] = 'k';
+            priv.Prefix[4] = 'i';
+            priv.Prefix[5] = 'e';
+            priv.Prefix[6] = '0';
+            priv.Status    = Status;
+            priv.Status.translate();
+
+            if(Sender->addSDESItem(RTCP_SDES_PRIV,(const char*)&priv,sizeof(priv)) == false) {
                std::cerr << "ERROR: Unable to add SDES - Out of memory!" << std::endl;
             }
          }
