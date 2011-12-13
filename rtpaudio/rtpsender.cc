@@ -32,6 +32,7 @@
 
 
 #include "tdsystem.h"
+#include "tdmessage.h"
 #include "rtpsender.h"
 #include "rtcpsender.h"
 #include "randomizer.h"
@@ -360,13 +361,27 @@ void RTPSender::timerEvent()
 
             // ====== Send packet without traffic shaper ====================
 #else
-            sent = SenderSocket->sendTo(
-                        &packet,
-                        packet.calculateHeaderSize() + bytesData,
-                        (SenderSocket->getProtocol() == IPPROTO_SCTP) ?
-                           SCTP_UNORDERED|MSG_NOSIGNAL : MSG_NOSIGNAL,
-                        Flow[encoderPacket.Layer],
-                        Flow[encoderPacket.Layer].getTrafficClass());
+//             sent = SenderSocket->sendTo(
+//                         &packet,
+//                         packet.calculateHeaderSize() + bytesData,
+//                         (SenderSocket->getProtocol() == IPPROTO_SCTP) ?
+//                            SCTP_UNORDERED|MSG_NOSIGNAL : MSG_NOSIGNAL,
+//                         Flow[encoderPacket.Layer],
+//                         Flow[encoderPacket.Layer].getTrafficClass());
+
+            SocketMessage<CSpace(sizeof(sctp_sndrcvinfo))> message;
+            message.setBuffer(&packet, packet.calculateHeaderSize() + bytesData);
+            message.setAddress(Flow[encoderPacket.Layer]);
+            if(SenderSocket->getProtocol() == IPPROTO_SCTP) {
+               sctp_sndrcvinfo* info = (sctp_sndrcvinfo*)message.addHeader(
+                                          sizeof(sctp_sndrcvinfo),IPPROTO_SCTP,SCTP_SNDRCV);
+               info->sinfo_assoc_id   = 0;
+               info->sinfo_stream     = (unsigned short)encoderPacket.Layer;
+               info->sinfo_flags      = SCTP_UNORDERED;
+               info->sinfo_timetolive = 100;   // 100ms
+               info->sinfo_ppid       = htonl(0x2909ffff);
+            }
+            sent = SenderSocket->sendMsg(&message.Header,MSG_NOSIGNAL,Flow[encoderPacket.Layer].getTrafficClass());
 #endif
 
             // ====== Update counters and sequence number ===================
