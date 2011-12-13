@@ -1,0 +1,25 @@
+Index: epan/dissectors/packet-rtcp.c
+===================================================================
+--- epan/dissectors/packet-rtcp.c	(Revision 40175)
++++ epan/dissectors/packet-rtcp.c	(Arbeitskopie)
+@@ -4992,5 +4992,7 @@
+     dissector_add_handle("udp.port", rtcp_handle);
+ 
+     heur_dissector_add( "udp", dissect_rtcp_heur, proto_rtcp);
+-        heur_dissector_add("stun", dissect_rtcp_heur, proto_rtcp);
++    heur_dissector_add("stun", dissect_rtcp_heur, proto_rtcp);
++
++    dissector_add_uint("sctp.ppi", 0x2909fffe, rtcp_handle);
+ }
+Index: epan/dissectors/packet-rtp.c
+===================================================================
+--- epan/dissectors/packet-rtp.c	(Revision 40175)
++++ epan/dissectors/packet-rtp.c	(Arbeitskopie)
+@@ -2194,6 +2194,7 @@
+ 	}
+ 	dissector_add_uint("rtp.pt", rtp_rfc2198_pt, rtp_rfc2198_handle);
+ 	rtp_saved_rfc2198_pt = rtp_rfc2198_pt;
++   dissector_add_uint("sctp.ppi", 0x2909ffff, rtp_handle);
+ }
+ 
+ /*
