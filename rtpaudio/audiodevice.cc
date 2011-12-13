@@ -42,7 +42,7 @@
 
 
 // Debug mode: Print debug information.
-#define DEBUG
+// #define DEBUG
 
 
 // ###### Audio device constructor ##########################################
@@ -71,22 +71,22 @@ AudioDevice::AudioDevice(const char* name)
    // ====== Initialize audio device ========================================
    if(ioctl(DeviceFD,SNDCTL_DSP_GETCAPS,&DeviceCapabilities) < 0) {
       std::cerr << "WARNING: AudioDevice::AudioDevice() - "
-              "ioctl SNDCTL_DSP_GETCAPS failed!" << std::endl;
+                   "ioctl SNDCTL_DSP_GETCAPS failed!" << std::endl;
       return;
    }
    if(ioctl(DeviceFD,SNDCTL_DSP_GETFMTS,&DeviceFormats) < 0) {
       std::cerr << "WARNING: AudioDevice::AudioDevice() - "
-              "ioctl SNDCTL_DSP_GETFMTS failed!" << std::endl;
+                   "ioctl SNDCTL_DSP_GETFMTS failed!" << std::endl;
       return;
    }
    if(ioctl(DeviceFD,SNDCTL_DSP_GETBLKSIZE,&DeviceBlockSize) < 0) {
       std::cerr << "WARNING: AudioDevice::AudioDevice() - "
-              "ioctl SNDCTL_DSP_GETBLKSIZE failed!" << std::endl;
+                   "ioctl SNDCTL_DSP_GETBLKSIZE failed!" << std::endl;
       return;
    }
    if(ioctl(DeviceFD,SNDCTL_DSP_NONBLOCK,0) < 0) {
       std::cerr << "WARNING: AudioDevice::AudioDevice() - "
-              "ioctl SNDCTL_DSP_NONBLOCK failed!" << std::endl;
+                   "ioctl SNDCTL_DSP_NONBLOCK failed!" << std::endl;
    }
 
 
@@ -114,18 +114,18 @@ AudioDevice::AudioDevice(const char* name)
    }
    else if(DeviceFormats & AFMT_U8) {
       std::cerr << "NOTE: AudioDevice::AudioDevice() - "
-              "Your audio device seems not to support 16 bits!" << std::endl;
+                   "Your audio device seems not to support 16 bits!" << std::endl;
       DeviceBits      = 8;
       DeviceByteOrder = BYTE_ORDER;
       format = AFMT_U8;
    }
    else {
       std::cerr << "ERROR: AudioDevice::AudioDevice() - "
-           << "Your audio device does not support S16 or U8 format?!?!" << std::endl;
+                   "Your audio device does not support S16 or U8 format?!?!" << std::endl;
    }
    if(ioctl(DeviceFD,SNDCTL_DSP_SETFMT,&format) < 0) {
       std::cerr << "WARNING: AudioDevice::AudioDevice() - "
-              "ioctl SNDCTL_DSP_SETFMT failed!" << std::endl;
+                   "ioctl SNDCTL_DSP_SETFMT failed!" << std::endl;
       return;
    }
 
@@ -157,7 +157,7 @@ AudioDevice::AudioDevice(const char* name)
    std::cout << "   DeviceByteOrder    = " << ((DeviceByteOrder == LITTLE_ENDIAN) ? "Little Endian" : "Big Endian") << std::endl;
    std::cout << "   DeviceFragmentSize = " << DeviceFragmentSize << std::endl;
    std::cout << "   DeviceOSpace       = " << DeviceOSpace
-        << " = " << AudioQuality(DeviceSamplingRate,DeviceBits,DeviceChannels).bytesToTime(DeviceOSpace) << " [s]" << std::endl;
+             << " = " << AudioQuality(DeviceSamplingRate,DeviceBits,DeviceChannels).bytesToTime(DeviceOSpace) << " [s]" << std::endl;
    std::cout << "   Capabilities       = ";
    if(DeviceCapabilities & DSP_CAP_REALTIME) std::cout << "<Real-time> ";
    if(DeviceCapabilities & DSP_CAP_BATCH)    std::cout << "<Batch> ";
@@ -167,7 +167,7 @@ AudioDevice::AudioDevice(const char* name)
    std::cout << std::endl;
    std::cout << "RingBuffer:" << std::endl;
    std::cout << "   ResizeThreshold    = " << ResizeThreshold
-        << " = " << AudioQuality(DeviceSamplingRate,DeviceBits,DeviceChannels).bytesToTime(ResizeThreshold) << " [s]" << std::endl;
+             << " = " << AudioQuality(DeviceSamplingRate,DeviceBits,DeviceChannels).bytesToTime(ResizeThreshold) << " [s]" << std::endl;
 #endif
 
 
@@ -268,8 +268,8 @@ card16 AudioDevice::setSamplingRate(const card16 rate) {
       sync();
       IsReady = (ioctl(DeviceFD,SNDCTL_DSP_SPEED,&arg) >= 0);
       if(!IsReady) {
-         std::cerr << "WARNING: AudioDevice::plingRate() - IOCTL error <"
-              << strerror(errno) << ">" << std::endl;
+         std::cerr << "WARNING: AudioDevice::setSamplingRate() - IOCTL error <"
+                   << strerror(errno) << ">" << std::endl;
       }
       else {
          DeviceSamplingRate = arg;
@@ -319,7 +319,7 @@ void AudioDevice::sync()
    IsReady = (ioctl(DeviceFD,SNDCTL_DSP_RESET,0) >= 0);
    if(!IsReady) {
       std::cerr << "WARNING: AudioDevice::sync() - IOCTL error <"
-           << strerror(errno) << ">" << std::endl;
+                << strerror(errno) << ">" << std::endl;
       return;
    }
    SyncCount++;
