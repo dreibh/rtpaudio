@@ -39,6 +39,7 @@ EXTRA_DIST = AudioServer.config Makefile.am SLA.config Test.list
 
 lib_LTLIBRARIES = libtdtoolbox.la libmediainfo.la libaudiocommon.la libaudioreader.la libaudiowriter.la librtpcommon.la librtpserver.la librtpclient.la libaudiocodeccommon.la libaudioencoder.la libaudiodecoder.la librtpaudiocommon.la librtpaudioserver.la librtpaudioclient.la
 
+
 libtdtoolbox_la_SOURCES = \
  breakdetector.cc breakdetector.h \
  condition.cc condition.h condition.icc \

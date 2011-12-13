@@ -419,12 +419,12 @@ cardinal AbstractQoSDescription::calculateResourceUtilizationList(
       if((rup[i].Utilization < 0.0) || (rup[i].Utilization > 1.0)) {
          std::cerr << "INTERNAL ERROR: AbstractQoSDescription::calculateResourceUtilizationList() - "
                       "Resulting utilization out of range [0,1]!" << std::endl;
-         exit(1);
+         ::abort();
       }
       if(rup[i].Bandwidth < bandwidth) {
          std::cerr << "INTERNAL ERROR: AbstractQoSDescription::calculateResourceUtilizationList() - "
                       "Senseless bandwidth settings in resource/utilization list!" << std::endl;
-         exit(1);
+         ::abort();
       }
       if((i < count - 1) &&
          (rup[i].Utilization == rup[i + 1].Utilization) &&
@@ -432,13 +432,13 @@ cardinal AbstractQoSDescription::calculateResourceUtilizationList(
          (rup[i].FrameRate   == rup[i + 1].FrameRate)) {
          std::cerr << "INTERNAL ERROR: AbstractQoSDescription::calculateResourceUtilizationList() - "
                       "Duplicate points in list?!" << std::endl;
-         exit(1);
+         ::abort();
       }
    }
    if(rup[count - 1].Utilization < 1.0) {
       std::cerr << "INTERNAL ERROR: AbstractQoSDescription::calculateResourceUtilizationList() - "
                    "Maximum utilization < 1.0?!" << std::endl;
-      exit(1);
+      ::abort();
    }
 
    return(count);

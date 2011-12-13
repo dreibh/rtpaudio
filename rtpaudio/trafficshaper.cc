@@ -165,7 +165,7 @@ ssize_t TrafficShaper::addPacket(const void*    data,
    if((bytes > 0) && (Bandwidth == 0)) {
       std::cerr << "ERROR: TrafficShaper::addPacket() - Bandwidth is zero!" << std::endl;
       std::cerr << bytes << " to " << destination << std::endl;
-      exit(1);
+      ::abort();
    }
 
    // ====== Create new packet ==============================================

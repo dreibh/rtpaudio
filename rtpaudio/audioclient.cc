@@ -77,7 +77,7 @@ AudioClient::AudioClient(AudioWriterInterface* audioOutput)
    AdvancedAudioDecoder* advancedAudioDecoder = new AdvancedAudioDecoder(audioOutput);
    if((simpleAudioDecoder == NULL) || (advancedAudioDecoder == NULL)) {
       std::cerr << "ERROR: AudioClient::AudioClient() - Out of memory!" << std::endl;
-      exit(1);
+      ::abort();;
    }
    bool a1 = Decoders.addDecoder(advancedAudioDecoder);
    bool a2 = Decoders.addDecoder(simpleAudioDecoder);
@@ -85,7 +85,7 @@ AudioClient::AudioClient(AudioWriterInterface* audioOutput)
    DecoderSet.insert(std::pair<const cardinal,AudioDecoderInterface*>(1,simpleAudioDecoder));
    if((!a1) || (!a2)) {
       std::cerr << "ERROR: AudioClient::AudioClient() - Out of memory!" << std::endl;
-      exit(1);
+      ::abort();;
    }
    Decoders.activate();
    Status.Encoding = Decoders.getTypeID();

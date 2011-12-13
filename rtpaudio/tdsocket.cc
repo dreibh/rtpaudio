@@ -124,7 +124,7 @@ void Socket::packSocketAddressArray(const sockaddr_storage* addrArray,
             std::cerr << "ERROR: pack_sockaddr_storage() - Unknown address type #" << ((sockaddr*)&addrArray[i])->sa_family << "!" << std::endl;
             std::cerr << "IMPORTANT NOTE:" << std::endl
                       << "The standardizers have changed the socket API; the sockaddr_storage array has been replaced by a variable-sized sockaddr_in/in6 blocks. Do not blame us for this change, send your complaints to the standardizers at sctp-impl@external.cisco.com!" << std::endl;
-            exit(1);
+            ::abort();
           break;
       }
    }

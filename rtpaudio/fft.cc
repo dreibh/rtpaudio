@@ -55,11 +55,11 @@ FastFourierTransformation::FastFourierTransformation(const integer fftlen)
 
    if((SinTable = new int16[Points]) == NULL) {
       std::cerr << "ERROR: FastFourierTransformation::FastFourierTransformation() - Out of memory!" << std::endl;
-      exit(1);
+      ::abort();
    }
    if((BitReversed = new integer[Points / 2]) == NULL) {
       std::cerr << "ERROR: FastFourierTransformation::FastFourierTransformation() - Out of memory!" << std::endl;
-      exit(1);
+      ::abort();
    }
 
    for(i = 0;i < Points / 2;i++) {

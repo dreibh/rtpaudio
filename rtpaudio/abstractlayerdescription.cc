@@ -146,7 +146,7 @@ cardinal AbstractLayerDescription::rawToPayload(const double   frameRate,
               << "MaxFrameCount: " << maxFrameCount << endl
               << "MaxFramePkts:  " << maxFramePackets << endl
               << "PayloadPkts:   " << payloadPackets  << endl;
-         exit(1);
+         ::abort();
       }
       RawToPayloadInUse = false;
    }
@@ -209,7 +209,7 @@ cardinal AbstractLayerDescription::payloadToRaw(
               << "MaxFramePkts:  " << maxFramePackets << endl
               << "PayloadPkts:   " << payloadPackets  << endl
               << "MaxPktPayload: " << maxPktPayload << endl;
-         exit(1);
+         ::abort();
       }
       RawToPayloadInUse = false;
    }
@@ -259,7 +259,7 @@ card64 AbstractLayerDescription::payloadBandwidthToBandwidth(
               "Scale factor < 0.0!" << endl;
       cerr << "bandwidth " << bandwidth << ", frame rate " << frameRate << ":  "
            << frameSize << " vs. " << minFrameSizeO << endl;
-      exit(1);
+      ::abort();
 #endif
       return(0);
    }
