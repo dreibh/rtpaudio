@@ -168,7 +168,9 @@ bool RTCPSender::addSDESItem(const card8 type,
    RTCPSourceDescriptionItem* packet = (RTCPSourceDescriptionItem*)ptr;
    packet->Type   = type;
    packet->Length = len;
-   if(data != NULL) memcpy(&packet->Data,data,len);
+   if(data != NULL) {
+      memcpy(&packet->Data,data,len);
+   }
 
    // ====== Remove old packet ==============================================
    removeSDESItem(type);
@@ -205,7 +207,7 @@ integer RTCPSender::sendSDES()
          // ====== Initialize packet ========================================
          char ptr[256 * (SDESItemSet.size() + 1)];
          RTCPSourceDescription* sdes = (RTCPSourceDescription*)ptr;
-         sdes->init(SDESItemSet.size());
+         sdes->init(1);
          sdes->Chunk[0].SRC = SSRC;
 
          // Copy all SDES item into one packet
