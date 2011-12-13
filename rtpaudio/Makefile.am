@@ -102,9 +102,9 @@ librtpserver_la_SOURCES = \
  bandwidthinfo.cc bandwidthinfo.h bandwidthinfo.icc \
  encoderinterface.cc encoderinterface.h \
  encoderrepositoryinterface.h \
- frameratescalabilityinterface.h frameratescalabilityinterface.cc framesizescalabilityinterface.h framesizescalabilityinterface.cc \
- managedstreaminterface.h \
- qosmanagerinterface.h \
+ frameratescalabilityinterface.h frameratescalabilityinterface.cc \
+ framesizescalabilityinterface.h framesizescalabilityinterface.cc \
+ managedstreaminterface.h qosmanagerinterface.h \
  resourceutilizationpoint.cc resourceutilizationpoint.h resourceutilizationpoint.icc \
  rtcpabstractserver.cc rtcpabstractserver.h rtcpabstractserver.icc \
  rtcpreceiver.cc rtcpreceiver.h \

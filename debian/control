@@ -33,9 +33,24 @@ Description: Headers for the sound decoder library
  .
  This package provides header files for the libmpegsound library.
 
+Package: librtpaudio0
+Section: libs
+Architecture: any
+Depends: ${misc:Depends},
+         ${shlibs:Depends}
+Description: Shared libraries of the RTP Audio sound streaming system
+ The RTP Audio system consists of a server and several clients, which are
+ served with audio data from the server. The transmission is realized using
+ the RTP protocol (Real-Time Protocol, see RFC 1889) based on UDP. RTP Audio
+ supports IPv4 and IPv6 including flowlabels and traffic classes.
+ .
+ This package provides the shared libraries required by the RTP Audio
+ applications.
+
 Package: rtpaudio
 Architecture: any
 Depends: libmpegsound0,
+         librtpaudio0,
          ${misc:Depends},
          ${shlibs:Depends}
 Recommends: iputils-ping,

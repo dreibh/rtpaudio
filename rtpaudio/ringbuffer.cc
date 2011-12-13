@@ -176,7 +176,7 @@ ssize_t RingBuffer::read(char*        data,
 
       if(copy1 + copy2 > BytesStored) {
          std::cerr << "INTERNAL ERROR: RingBuffer::read() - Corrupt structures!" << std::endl;
-         exit(1);
+         ::abort();
       }
 
       BytesStored -= copy1 + copy2;

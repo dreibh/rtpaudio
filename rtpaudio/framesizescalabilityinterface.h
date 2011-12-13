@@ -57,7 +57,7 @@ class FrameSizeScalabilityInterface
    /**
      * Destructor.
      */
-   virtual ~FrameSizeScalabilityInterface();
+   virtual ~FrameSizeScalabilityInterface() = 0;
 
    /**
      * Get name of the frame size scalability class.
