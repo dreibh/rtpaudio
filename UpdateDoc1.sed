@@ -1,2 +1,3 @@
-s/Dreibholz@bigfoot.com/dreibh@iem.uni-due.de/g
-s/dreibh@exp-math.uni-essen.de/dreibh@iem.uni-due.de/g
+s/AudioClientAppPacket/AudioClientAppCookie/g
+s/####    WWW:   http:\/\/www.iem.uni-due.de.de\/~dreibh\/rn                ####/####    WWW:   http:\/\/www.iem.uni-due.de.de\/~dreibh\/rtpaudio          ####/g
+s/http:\/\/www.iem.uni-due.de.de\/~dreibh\/rn/http:\/\/www.iem.uni-due.de.de\/~dreibh\/rtpaudio/g

@@ -56,7 +56,7 @@ class FrameRateScalabilityInterface
    /**
      * Destructor.
      */
-   virtual ~FrameRateScalabilityInterface();
+   virtual ~FrameRateScalabilityInterface() = 0;
 
    /**
      * Get name of the frame rate scalability class.
