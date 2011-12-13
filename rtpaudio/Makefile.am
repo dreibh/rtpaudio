@@ -26,14 +26,12 @@ librtpaudio_a_SOURCES = \
  audiowriterinterface.cc audiowriterinterface.h \
  bandwidthinfo.cc bandwidthinfo.h bandwidthinfo.icc \
  breakdetector.cc breakdetector.h \
- cbrframesizescalability.cc  cbrframesizescalability.h \
  condition.cc condition.h condition.icc \
  decoderinterface.cc decoderinterface.h decoderrepositoryinterface.h \
  encoderinterface.cc encoderinterface.h \
  encoderrepositoryinterface.h \
  ext_socket.h \
  frameratescalabilityinterface.h framesizescalabilityinterface.h \
- genericframesizescalability.cc  genericframesizescalability.h \
  internetaddress.cc internetaddress.h internetaddress.icc internetflow.cc internetflow.h internetflow.icc \
  managedstreaminterface.h \
  mediainfo.cc mediainfo.h \
