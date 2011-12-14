@@ -19,7 +19,7 @@
 #
 # Contact: dreibh@iem.uni-due.de
 
-LIBRARY_PACKAGES="libmpegsound0"
+LIBRARY_PACKAGES="libmpegsound0 libaudiocodeccommon0 libaudiocommon0 libaudiodecoder0 libaudioencoder0 libaudioreader0 libaudiowriter0 libmediainfo0 librtpaudioclient0 librtpaudiocommon0 librtpaudioserver0 librtpclient0 librtpcommon0 librtpserver0 libtdtoolbox0"
 
 
 find debian/ -maxdepth 1 -name "*.symbols" | xargs --no-run-if-empty rm -f
@@ -28,7 +28,7 @@ echo ""
 echo "Creating binary package ..."
 echo ""
 
-./bootstrap && debuild -b -us -uc || exit 1
+# ./bootstrap && debuild -b -us -uc || exit 1
 
 
 for LIBRARY_PACKAGE in $LIBRARY_PACKAGES ; do
@@ -39,13 +39,13 @@ for LIBRARY_PACKAGE in $LIBRARY_PACKAGES ; do
    # Symbol file generation according How-To at:
    # http://swik.net/Ubuntu/Planet+Ubuntu/Dmitrijs+Ledkovs%3A+Lintian+no-symbols-control-file/d4q9h
 
-   find . -maxdepth 1 -name "dpkg-gensymbols*" | xargs --no-run-if-empty rm -f
+   find . -maxdepth 1 -name "new_symbol_file" | xargs --no-run-if-empty rm -f
 
    echo "dpkg-gensymbols -p$LIBRARY_PACKAGE -Pdebian/$LIBRARY_PACKAGE | patch -p0"
    dpkg-gensymbols -p$LIBRARY_PACKAGE -Pdebian/$LIBRARY_PACKAGE | patch -p0 || exit 1
 
    # Replace C++ symbols which are different on 32- and 64-bit systems
-   ./replace-cpp-symbols <dpkg-gensymbols* >debian/$LIBRARY_PACKAGE.symbols || exit 1
+   ./replace-cpp-symbols <new_symbol_file >debian/$LIBRARY_PACKAGE.symbols || exit 1
 
    # Strip off ubuntu version!
    perl -pi -e 's/-\d.*//' debian/$LIBRARY_PACKAGE.symbols || exit 1
