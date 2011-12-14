@@ -53,7 +53,7 @@ RingBuffer::RingBuffer()
 RingBuffer::~RingBuffer()
 {
    if(Buffer != NULL) {
-      delete Buffer;
+      delete [] Buffer;
       Buffer = NULL;
    }
 }
