@@ -61,8 +61,13 @@ class SourceStateInfo : public SeqNumValidator,
      * Constructor.
      */
    SourceStateInfo();
+   
+   /**
+     * Copy operation.
+     */
+   SourceStateInfo& operator=(const SourceStateInfo& original);
 
-
+ 
    // ====== Reset ==========================================================
    /**
      * Reset.

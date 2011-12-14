@@ -49,6 +49,18 @@ SourceStateInfo::SourceStateInfo()
 }
 
 
+// ###### Copy operation ####################################################
+SourceStateInfo& SourceStateInfo::operator=(const SourceStateInfo& original)
+{
+   // This operation is important! It avoids to copy the Synchronizable!
+   (SeqNumValidator)*this = (SeqNumValidator)original;
+   LSR                    = original.LSR;
+   LSRUpdateTimeStamp     = original.LSRUpdateTimeStamp;
+   SSRC                   = original.SSRC;   
+}
+
+
+
 // ###### Initialize table ##################################################
 void SourceStateInfo::reset()
 {
