@@ -549,6 +549,9 @@ bool InternetAddress::setSystemAddress(sockaddr* address, const socklen_t length
          }
          AddrSpec.Host16[5] = 0xffff;
          memcpy((char*)&AddrSpec.Host16[6],(char*)&address4->sin_addr.s_addr,4);
+#ifdef HAVE_SIN_LEN
+	 address4.sin_len = sizeof(sockaddr_in);
+#endif
          Valid = true;
          return(true);
        break;
@@ -560,6 +563,9 @@ bool InternetAddress::setSystemAddress(sockaddr* address, const socklen_t length
          memcpy((char*)&AddrSpec.Host16,(char*)&address6->sin6_addr._S6_un._S6_u8[0],16);
 #else
          memcpy((char*)&AddrSpec.Host16,(char*)&address6->sin6_addr.__u6_addr.__u6_addr8[0],16);
+#endif
+#ifdef HAVE_SIN6_LEN
+	 address6.sin6_len = sizeof(sockaddr_in6);
 #endif
          Valid = true;
          return(true);
