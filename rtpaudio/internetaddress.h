@@ -104,7 +104,7 @@ class InternetAddress : virtual public SocketAddress
      * @param address sockaddr.
      * @param length Length of sockaddr (sizeof(sockaddr_in) or sizeof(sockaddr_in6)).
      */
-   InternetAddress(sockaddr* address, socklen_t length);
+   InternetAddress(const sockaddr* address, const socklen_t length);
 
    /**
      * Destructor.
@@ -152,7 +152,7 @@ class InternetAddress : virtual public SocketAddress
      * @param address sockaddr.
      * @param length Length of sockaddr (sizeof(sockaddr_in) or sizeof(sockaddr_in6)).
      */
-   void init(sockaddr* address, socklen_t length);
+   void init(const sockaddr* address, const socklen_t length);
 
 
    // ====== Operators ======================================================
@@ -352,7 +352,7 @@ class InternetAddress : virtual public SocketAddress
      *
      * @see SocketAddress#setSystemAddress
      */
-   bool setSystemAddress(sockaddr* address, const socklen_t length);
+   bool setSystemAddress(const sockaddr* address, const socklen_t length);
 
 
    // ====== IPv6 support functions ========================================
