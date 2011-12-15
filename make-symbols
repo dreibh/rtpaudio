@@ -40,12 +40,24 @@ for LIBRARY_PACKAGE in $LIBRARY_PACKAGES ; do
    # http://swik.net/Ubuntu/Planet+Ubuntu/Dmitrijs+Ledkovs%3A+Lintian+no-symbols-control-file/d4q9h
 
    find . -maxdepth 1 -name "new_symbol_file" | xargs --no-run-if-empty rm -f
+   find . -maxdepth 1 -name "dpkg-gensymbols*" | xargs --no-run-if-empty rm -f
+   find . -maxdepth 1 -name "symbols-*.patch" | xargs --no-run-if-empty rm -f
 
-   echo "dpkg-gensymbols -p$LIBRARY_PACKAGE -Pdebian/$LIBRARY_PACKAGE | patch -p0"
-   dpkg-gensymbols -p$LIBRARY_PACKAGE -Pdebian/$LIBRARY_PACKAGE | patch -p0 || exit 1
+   echo "dpkg-gensymbols -p$LIBRARY_PACKAGE -Pdebian/$LIBRARY_PACKAGE"
+   touch debian/$LIBRARY_PACKAGE.symbols
+   dpkg-gensymbols -p$LIBRARY_PACKAGE -Pdebian/$LIBRARY_PACKAGE >symbols-$LIBRARY_PACKAGE.patch
+   patch -p0 <symbols-$LIBRARY_PACKAGE.patch
 
-   # Replace C++ symbols which are different on 32- and 64-bit systems
-   ./replace-cpp-symbols <new_symbol_file >debian/$LIBRARY_PACKAGE.symbols || exit 1
+#    # Replace C++ symbols which are different on 32- and 64-bit systems
+#    if [ -e "new_symbol_file" ] ; then
+#       echo "NEW!"
+#       ./replace-cpp-symbols <new_symbol_file >debian/$LIBRARY_PACKAGE.symbols || exit 1
+#    fi
+#    GENSYMBOLS=`find . -maxdepth 1 -name "dpkg-gensymbols*"`
+#    if [ "$GENSYMBOLS" != "" ] ; then
+#       echo "GENSYM!"
+#       ./replace-cpp-symbols <$GENSYMBOLS >debian/$LIBRARY_PACKAGE.symbols || exit 1
+#    fi
 
    # Strip off ubuntu version!
    perl -pi -e 's/-\d.*//' debian/$LIBRARY_PACKAGE.symbols || exit 1
