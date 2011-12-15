@@ -229,13 +229,18 @@ void RTCPAbstractServer::timerEvent()
    std::multimap<const cardinal,Client*>::iterator clientIterator = ClientSet.begin();
    while(clientIterator != ClientSet.end()) {
       Client* client = clientIterator->second;
+
       if(client->TimeStamp + client->Timeout < now) {
          receivedBye(client->ClientAddress, client->SSRC, DeleteReason_Timeout);
+         clientIterator = ClientSet.begin();
       }
       else if(checkClient(client) == false) {
          receivedBye(client->ClientAddress, client->SSRC, DeleteReason_Error);
+         clientIterator = ClientSet.begin();
       }
-      clientIterator++;
+      else {
+         clientIterator++;
+      }
    }
 
    unsynchronized();
