@@ -345,7 +345,7 @@ bool AdvancedAudioEncoder::prepareNextFrame(const cardinal headerSize,
             FrameBufferPosLL  = AdvancedAudioPacket::AdvancedAudioFrameSize;
             FrameBufferPosRL  = AdvancedAudioPacket::AdvancedAudioFrameSize;
             FrameBufferSizeLU = 4;
-            FrameBufferLU[0]  = 0x00;
+            memset(FrameBufferLU, 0x00, 4);
 
             // Send empty frames for 1 second before decreasing send rate to
             // let the decoder play all frames stored in buffer.
