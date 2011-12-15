@@ -690,7 +690,7 @@ ssize_t Socket::receiveMsg(struct msghdr* msg,
    }
 
    ReceivedFlow = 0;
-   for(cmsghdr* c = CFirst(msg);c;c = CNext(msg,c)) {
+   for(cmsghdr* c = CFirstHeader(msg);c;c = CNextHeader(msg,c)) {
       switch(c->cmsg_level) {
 #if (SYSTEM == OS_Linux)
          case SOL_IPV6:

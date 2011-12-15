@@ -129,7 +129,7 @@ integer RTCPSender::sendBye()
       bye->setLength(sizeof(packet));
 
       // ====== Send packet =================================================
-      SocketMessage<CSpace(sizeof(sctp_sndrcvinfo))> message;
+      SocketMessage<sizeof(sctp_sndrcvinfo)> message;
       message.setBuffer(&packet, sizeof(packet));
       message.setAddress(Flow, SenderSocket->getFamily());
       if(SenderSocket->getProtocol() == IPPROTO_SCTP) {
@@ -163,7 +163,7 @@ integer RTCPSender::sendApp(const char*    name,
       memcpy(app->getData(),data,dataLength);
 
       // ====== Send packet =================================================
-      SocketMessage<CSpace(sizeof(sctp_sndrcvinfo))> message;
+      SocketMessage<sizeof(sctp_sndrcvinfo)> message;
       message.setBuffer(&packet, sizeof(packet));
       message.setAddress(Flow, SenderSocket->getFamily());
       if(SenderSocket->getProtocol() == IPPROTO_SCTP) {
@@ -267,7 +267,7 @@ integer RTCPSender::sendSDES()
 
          // ====== Send packet ==============================================
          unsynchronized();
-         SocketMessage<CSpace(sizeof(sctp_sndrcvinfo))> message;
+         SocketMessage<sizeof(sctp_sndrcvinfo)> message;
          message.setBuffer((void*)sdes, bytes);
          message.setAddress(Flow, SenderSocket->getFamily());
          if(SenderSocket->getProtocol() == IPPROTO_SCTP) {
@@ -340,7 +340,7 @@ integer RTCPSender::sendReport()
 
       // ====== Send packet ==============================================
       unsynchronized();
-      SocketMessage<CSpace(sizeof(sctp_sndrcvinfo))> message;
+      SocketMessage<sizeof(sctp_sndrcvinfo)> message;
       message.setBuffer((void*)report,length);
       message.setAddress(Flow, SenderSocket->getFamily());
       if(SenderSocket->getProtocol() == IPPROTO_SCTP) {

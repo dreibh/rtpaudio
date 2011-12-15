@@ -261,7 +261,7 @@ void RTPSender::timerEvent()
 #ifdef USE_TRAFFICSHAPER
       if(SenderReportBuffer.send(&report,sizeof(RTCPSenderReport),(cardinal)-1,(SenderSocket->getProtocol() == IPPROTO_SCTP) ? SCTP_UNORDERED|MSG_NOSIGNAL : MSG_NOSIGNAL) != sizeof(RTCPSenderReport)) {
 #else
-      SocketMessage<CSpace(sizeof(sctp_sndrcvinfo))> message;
+      SocketMessage<sizeof(sctp_sndrcvinfo)> message;
       message.setBuffer(&report,sizeof(RTCPSenderReport));
       message.setAddress(Flow[0],SenderSocket->getFamily());
       if(SenderSocket->getProtocol() == IPPROTO_SCTP) {
@@ -381,7 +381,7 @@ void RTPSender::timerEvent()
 
             // ====== Send packet without traffic shaper ====================
 #else
-            SocketMessage<CSpace(sizeof(sctp_sndrcvinfo))> message;
+            SocketMessage<sizeof(sctp_sndrcvinfo)> message;
             message.setBuffer(&packet, packet.calculateHeaderSize() + bytesData);
             message.setAddress(Flow[encoderPacket.Layer], SenderSocket->getFamily());
             if(SenderSocket->getProtocol() == IPPROTO_SCTP) {

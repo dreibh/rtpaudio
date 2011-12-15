@@ -43,9 +43,7 @@
 #include "tdsystem.h"
 #include "tdmessage.h"
 
-#if (SYSTEM == OS_FreeBSD)
-#include <machine/param.h>
-#endif
+#include <assert.h>
 
 
 
@@ -89,7 +87,7 @@ template<const size_t size> inline void SocketMessage<size>::setAddress(const So
                                                                         const integer        family)
 {
    Header.msg_namelen = address.getSystemAddress((sockaddr*)&Address,sizeof(Address),family);
-   Header.msg_name    = (char*)&Address;
+   Header.msg_name    = &Address;
 }
 
 
@@ -106,7 +104,7 @@ template<const size_t size> inline void SocketMessage<size>::setBuffer(void* buf
 // ###### Set control size ##################################################
 template<const size_t size> inline void SocketMessage<size>::setControl(const size_t controlsize)
 {
-   Header.msg_control = (char*)&Control;
+   Header.msg_control = &Control;
    if(controlsize > size) {
       std::cerr << "WARNING: SocketMessage<" << size << ">:setControl() - Size too large!" << std::endl;
       Header.msg_controllen = size;
@@ -117,17 +115,18 @@ template<const size_t size> inline void SocketMessage<size>::setControl(const si
 
 
 // ###### Add cmsg header ###################################################
-template<const size_t size> inline char* SocketMessage<size>::addHeader(
+template<const size_t size> inline void* SocketMessage<size>::addHeader(
                                             const size_t payload,
                                             const int    level,
                                             const int    type)
 {
-   if(NextMsg == NULL) {
-      NextMsg = (cmsghdr*)&Control;
+   if(NextMsg == NULL) {   // Initialize
       Header.msg_control    = (char*)&Control;
+      Header.msg_controllen = size;
+      NextMsg = CFirstHeader(&Header);
       Header.msg_controllen = 0;
    }
-   const cardinal length = CSpace(payload);
+   assert(NextMsg != NULL);
 
    if(Header.msg_controllen > size) {
       std::cerr << "WARNING: SocketMessage<" << size << ">:addHeader() - Too much control data!" << std::endl;
@@ -135,13 +134,14 @@ template<const size_t size> inline char* SocketMessage<size>::addHeader(
    }
 
    cmsghdr* cmsg = NextMsg;
-   cmsg->cmsg_len   = length;
+   cmsg->cmsg_len   = CMSG_LEN(payload);
    cmsg->cmsg_level = level;
    cmsg->cmsg_type  = type;
 
    Header.msg_controllen += cmsg->cmsg_len;
-   NextMsg = (cmsghdr*)((long)cmsg + (long)length);
-   return((char*)((long)cmsg + (long)sizeof(cmsghdr)));
+   NextMsg = CNextHeader(&Header, cmsg);
+
+   return(CData(cmsg));
 }
 
 
@@ -149,7 +149,7 @@ template<const size_t size> inline char* SocketMessage<size>::addHeader(
 template<const size_t size> inline cmsghdr* SocketMessage<size>::getFirstHeader() const
 {
    if(Header.msg_controllen > 0) {
-      return(CFirst(&Header));
+      return(CFirstHeader(&Header));
    }
    return(NULL);
 }
@@ -158,7 +158,7 @@ template<const size_t size> inline cmsghdr* SocketMessage<size>::getFirstHeader(
 // ###### Get next cmsg header ##############################################
 template<const size_t size> inline cmsghdr* SocketMessage<size>::getNextHeader(const cmsghdr* prev) const
 {
-   return(CNext(&Header,prev));
+   return(CNextHeader(&Header,prev));
 }
 
 
@@ -176,25 +176,33 @@ template<const size_t size> inline void SocketMessage<size>::setFlags(const int 
 }
 
 
-// ###### Wrapper for CMSG_DATA #############################################
-inline static char* CData(const cmsghdr* cmsg)
+// ###### Wrapper for CMSG_SPACE ############################################
+inline static size_t CLength(const size_t payloadLength)
 {
-   return((char*)CMSG_DATA(cmsg));
+#ifdef SOLARIS
+   return((_CMSG_DATA_ALIGN(sizeof(struct cmsghdr)) + (payloadLength)));
+#else
+   return(CMSG_LEN(payloadLength));
+#endif
+}
+
+
+// ###### Wrapper for CMSG_DATA #############################################
+inline static void* CData(const cmsghdr* cmsg)
+{
+   return(CMSG_DATA(cmsg));
 }
 
 
 // ###### Wrapper for CMSG_FIRSTHDR #########################################
-inline static cmsghdr* CFirst(const msghdr* header)
+inline static cmsghdr* CFirstHeader(const msghdr* header)
 {
-   if(header->msg_controllen > 0) {
-      return(CMSG_FIRSTHDR((msghdr*)header));
-   }
-   return(NULL);
+   return(CMSG_FIRSTHDR((msghdr*)header));
 }
 
 
 // ###### Wrapper for CMSG_NXTHDR ###########################################
-inline static cmsghdr* CNext(const msghdr* header, const cmsghdr* cmsg)
+inline static cmsghdr* CNextHeader(const msghdr* header, const cmsghdr* cmsg)
 {
    return(CMSG_NXTHDR((msghdr*)header,(cmsghdr*)cmsg));
 }

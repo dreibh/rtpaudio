@@ -50,6 +50,26 @@
 #include <sys/socket.h>
 
 
+/**
+  * Wrapper for CMSG_LEN macro.
+  */
+inline static size_t CLength(const size_t payloadLength);
+
+/**
+  * Wrapper for CMSG_DATA macro.
+  */
+inline static void* CData(const cmsghdr* cmsg);
+
+/**
+  * Wrapper for CMSG_FIRSTHDR macro.
+  */
+inline static cmsghdr* CFirstHeader(const msghdr* header);
+
+/**
+  * Wrapper for CMSG_NXTHDR macro.
+  */
+inline static cmsghdr* CNextHeader(const msghdr* header, const cmsghdr* cmsg);
+
 
 /**
   * This template class manages manages message structures used by
@@ -118,7 +138,7 @@ template<const size_t size> class SocketMessage
      * @param type Type (e.g. SCTP_INIT).
      * @return Pointer to begin of *payload* area.
      */
-   inline char* addHeader(const size_t payload,
+   inline void* addHeader(const size_t payload,
                           const int    level,
                           const int    type);
 
@@ -174,43 +194,12 @@ template<const size_t size> class SocketMessage
      * Control data block, its size is given by the template parameter.
      */
    public:
-   char Control[size];
+#ifdef SOLARIS
+   char Control[_CMSG_DATA_ALIGN(sizeof(struct cmsghdr)) + _CMSG_DATA_ALIGN(size)];
+#else
+   char Control[CMSG_SPACE(size)];
+#endif
 };
-
-
-/**
-  * Wrapper for CMSG_SPACE macro.
-  */
-#if (SYSTEM == OS_SOLARIS)
-#define CSpace(payload) (_CMSG_DATA_ALIGN(sizeof(struct cmsghdr)) + _CMSG_DATA_ALIGN(payload))
-#else
-#define CSpace(payload) CMSG_SPACE(payload)
-#endif
-
-/**
-  * Wrapper for CMSG_LEN macro.
-  */
-
-#if (SYSTEM == OS_SOLARIS)
-#define CLength(l) (_CMSG_DATA_ALIGN(sizeof(struct cmsghdr)) + (l))
-#else
-#define CLength(l) CMSG_LEN(l)
-#endif
-
-/**
-  * Wrapper for CMSG_DATA macro.
-  */
-inline static char* CData(const cmsghdr* cmsg);
-
-/**
-  * Wrapper for CMSG_FIRSTHDR macro.
-  */
-inline static cmsghdr* CFirst(const msghdr* header);
-
-/**
-  * Wrapper for CMSG_NXTHDR macro.
-  */
-inline static cmsghdr* CNext(const msghdr* header, const cmsghdr* cmsg);
 
 
 #include "tdmessage.icc"
