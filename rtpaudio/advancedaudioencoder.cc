@@ -346,14 +346,9 @@ bool AdvancedAudioEncoder::prepareNextFrame(const cardinal headerSize,
             FrameBufferPosRL  = AdvancedAudioPacket::AdvancedAudioFrameSize;
             FrameBufferSizeLU = 4;
             memset(FrameBufferLU, 0x00, 4);
-
             // Send empty frames for 1 second before decreasing send rate to
             // let the decoder play all frames stored in buffer.
-            if((SentError < 1 * AdvancedAudioPacket::AdvancedAudioFramesPerSecond) && (error < ME_UnrecoverableError))
-               SentError++;
-            else
-               SendError = AdvancedAudioPacket::AdvancedAudioFramesPerSecond;
-
+            SendError = AdvancedAudioPacket::AdvancedAudioFramesPerSecond;
             return(true);
          }
          if(SendError > 0) SendError--;

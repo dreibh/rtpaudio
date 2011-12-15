@@ -199,8 +199,8 @@ bool SimpleAudioEncoder::prepareNextFrame(const cardinal headerSize,
             ErrorCode       = error;
             FrameBufferPos  = 0;
             FrameBufferSize = 4;
-            FrameBuffer[0]  = 0x00;
-            SendError       = SimpleAudioPacket::SimpleAudioFramesPerSecond;
+            memset(FrameBuffer, 0x00, 4);
+            SendError = SimpleAudioPacket::SimpleAudioFramesPerSecond;
             return(true);
          }
          if(SendError > 0) SendError--;
