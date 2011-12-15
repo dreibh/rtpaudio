@@ -51,6 +51,11 @@
 
 
 /**
+  * Wrapper for CMSG_SPACE macro.
+  */
+inline static size_t CSpace(const size_t payloadLength);
+
+/**
   * Wrapper for CMSG_LEN macro.
   */
 inline static size_t CLength(const size_t payloadLength);

@@ -124,7 +124,7 @@ template<const size_t size> inline void* SocketMessage<size>::addHeader(
 
    Header.msg_controllen += cmsg->cmsg_len;
    NextMsg = CNextHeader(&Header, cmsg);
-   
+
    return(CData(cmsg));
 }
 
@@ -161,10 +161,21 @@ template<const size_t size> inline void SocketMessage<size>::setFlags(const int 
 
 
 // ###### Wrapper for CMSG_SPACE ############################################
+inline static size_t CSpace(const size_t payloadLength)
+{
+#ifdef SOLARIS
+   return(_CMSG_DATA_ALIGN(sizeof(struct cmsghdr)) + _CMSG_DATA_ALIGN(payloadLength));
+#else
+   return(CMSG_SPACE(payloadLength));
+#endif
+}
+
+
+// ###### Wrapper for CMSG_LEN ##############################################
 inline static size_t CLength(const size_t payloadLength)
 {
 #ifdef SOLARIS
-   return((_CMSG_DATA_ALIGN(sizeof(struct cmsghdr)) + (payloadLength)));
+   return(_CMSG_DATA_ALIGN(sizeof(struct cmsghdr)) + payloadLength);
 #else
    return(CMSG_LEN(payloadLength));
 #endif
