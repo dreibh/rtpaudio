@@ -26,9 +26,11 @@
 # Use case: symbols which are different on 32/64 bit systems,
 #           e.g. functions using size_t parameters.
 CPP_SYMBOLS_TO_BE_REPLACED='
-SimpleAudioPacket::calculateQualityForLimits
-AdvancedAudioPacket::calculateQualityForLimits
+Wavetoraw::setcurrentpoint
 '
+
+# To replace ALL symbols, set CPP_SYMBOLS_REPLACE_ALL=1!
+CPP_SYMBOLS_REPLACE_ALL=1
 # ###########################################################################
 
 
@@ -45,18 +47,37 @@ while read line ; do
    else   # Space at begin -> library symbol
       symbol=`echo $line | sed -e "s/^ //g" -e "s/@Base .*$//g"`
       version=`echo $line | sed -e "s/^ .* //g"`
-      for replaceSymbol in $CPP_SYMBOLS_TO_BE_REPLACED ; do
-         demangledSymbol=`c++filt $symbol | sed -e "s/(\(.\)*)$//g"`
-         # echo >&2 "<$demangledSymbol> <--> <$replaceSymbol>"
-         if [ "$demangledSymbol" == "$replaceSymbol" ] ; then
-            echo " (c++|regex)\"^$replaceSymbol\(.*\)@Base\" $version" >>$replaceFile
+      fullDemangledSymbol=`c++filt $symbol`
+      demangledSymbol=`echo $fullDemangledSymbol | sed -e "s/(\(.\)*)$//g"`
+
+      # ====== Replace all symbols in list ==================================
+      if [ $CPP_SYMBOLS_REPLACE_ALL -ne 1 ] ; then
+         for replaceSymbol in $CPP_SYMBOLS_TO_BE_REPLACED ; do
+            # echo >&2 "<$demangledSymbol> <--> <$replaceSymbol>"
+            if [ "$demangledSymbol" == "$replaceSymbol" ] ; then
+               echo " (c++|regex)\"^$replaceSymbol\(.*\)@Base\" $version" >>$replaceFile
+               found=1
+               let replaceCount=$replaceCount+1
+               break
+            fi
+         done
+         if [ $found -eq 0 ] ; then
+            echo "$line"
+         fi
+
+      # ====== Replace ALL symbols ==========================================
+      else
+         # Symbol is like "symbol()"
+echo "   A=$fullDemangledSymbol  B=$demangledSymbol"
+         if [ "$fullDemangledSymbol" != "$demangledSymbol" ] ; then
+            echo " (c++|regex)\"^$demangledSymbol\(.*\)@Base\" $version" >>$replaceFile
             found=1
             let replaceCount=$replaceCount+1
-            break
+
+         # Symbol is just "symbol", no parameters -> leave as is.
+         else
+            echo "$line"
          fi
-      done
-      if [ $found -eq 0 ] ; then
-         echo "$line"
       fi
    fi
 done
