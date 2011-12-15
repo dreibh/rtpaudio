@@ -28,7 +28,7 @@ echo ""
 echo "Creating binary package ..."
 echo ""
 
-# ./bootstrap && debuild -b -us -uc || exit 1
+./bootstrap && debuild -b -us -uc || exit 1
 
 
 for LIBRARY_PACKAGE in $LIBRARY_PACKAGES ; do
@@ -43,21 +43,21 @@ for LIBRARY_PACKAGE in $LIBRARY_PACKAGES ; do
    find . -maxdepth 1 -name "dpkg-gensymbols*" | xargs --no-run-if-empty rm -f
    find . -maxdepth 1 -name "symbols-*.patch" | xargs --no-run-if-empty rm -f
 
-   echo "dpkg-gensymbols -p$LIBRARY_PACKAGE -Pdebian/$LIBRARY_PACKAGE"
+   echo "###### PACKAGE: $LIBRARY_PACKAGE ######"
+   echo "--> dpkg-gensymbols -p$LIBRARY_PACKAGE -Pdebian/$LIBRARY_PACKAGE"
    touch debian/$LIBRARY_PACKAGE.symbols
    dpkg-gensymbols -p$LIBRARY_PACKAGE -Pdebian/$LIBRARY_PACKAGE >symbols-$LIBRARY_PACKAGE.patch
-   patch -p0 <symbols-$LIBRARY_PACKAGE.patch
 
-#    # Replace C++ symbols which are different on 32- and 64-bit systems
-#    if [ -e "new_symbol_file" ] ; then
-#       echo "NEW!"
-#       ./replace-cpp-symbols <new_symbol_file >debian/$LIBRARY_PACKAGE.symbols || exit 1
-#    fi
-#    GENSYMBOLS=`find . -maxdepth 1 -name "dpkg-gensymbols*"`
-#    if [ "$GENSYMBOLS" != "" ] ; then
-#       echo "GENSYM!"
-#       ./replace-cpp-symbols <$GENSYMBOLS >debian/$LIBRARY_PACKAGE.symbols || exit 1
-#    fi
+   echo "--> patch -p0 --output=new_symbol_file <symbols-$LIBRARY_PACKAGE.patch"
+   patch -p0 --output=new_symbol_file <symbols-$LIBRARY_PACKAGE.patch
+
+   # Replace C++ symbols which are different on 32- and 64-bit systems
+   if [ -e "new_symbol_file" ] ; then
+      echo "--> ./replace-cpp-symbols <new_symbol_file >debian/$LIBRARY_PACKAGE.symbols"
+      ./replace-cpp-symbols <new_symbol_file >debian/$LIBRARY_PACKAGE.symbols || exit 1
+   else
+      echo "ERROR: patch has not created output file new_symbol_file!"
+   fi
 
    # Strip off ubuntu version!
    perl -pi -e 's/-\d.*//' debian/$LIBRARY_PACKAGE.symbols || exit 1

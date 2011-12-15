@@ -181,7 +181,7 @@ class Socket
      * @return Socket family.
      */
    inline integer getFamily() const;
-   
+
    /**
      * Get socket's type.
      *

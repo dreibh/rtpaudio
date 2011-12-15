@@ -26,13 +26,8 @@
 # Use case: symbols which are different on 32/64 bit systems,
 #           e.g. functions using size_t parameters.
 CPP_SYMBOLS_TO_BE_REPLACED='
-TCPLikeServer::handleCookieEcho
-TCPLikeServer::handleMessage
-TCPLikeServerList::TCPLikeServerList
-TCPLikeServer::poolElement
-UDPLikeServer::handleCookieEcho
-UDPLikeServer::handleMessage
-UDPLikeServer::poolElement
+SimpleAudioPacket::calculateQualityForLimits
+AdvancedAudioPacket::calculateQualityForLimits
 '
 # ###########################################################################
 
