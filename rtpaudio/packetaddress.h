@@ -88,7 +88,7 @@ class PacketAddress : virtual public SocketAddress
      * @param address sockaddr.
      * @param length Length of sockaddr.
      */
-   PacketAddress(sockaddr* address, cardinal length);
+   PacketAddress(const sockaddr* address, cardinal length);
 
    /**
      * Destructor.
@@ -186,7 +186,7 @@ class PacketAddress : virtual public SocketAddress
      *
      * @see SocketAddress#setSystemAddress
      */
-   bool setSystemAddress(sockaddr* address, const socklen_t length);
+   bool setSystemAddress(const sockaddr* address, const socklen_t length);
 
 
     // ====== Comparision operators =========================================

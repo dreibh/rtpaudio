@@ -72,7 +72,7 @@ PacketAddress::~PacketAddress()
 
 
 // ###### Packet address constructor ######################################
-PacketAddress::PacketAddress(sockaddr* address, const cardinal length)
+PacketAddress::PacketAddress(const sockaddr* address, const cardinal length)
 {
    setSystemAddress(address,length);
 }
@@ -198,7 +198,7 @@ cardinal PacketAddress::getSystemAddress(sockaddr*       address,
 
 
 // ###### Initialize internet address from sockaddr structure ###############
-bool PacketAddress::setSystemAddress(sockaddr* address, const socklen_t length)
+bool PacketAddress::setSystemAddress(const sockaddr* address, const socklen_t length)
 {
    sockaddr* packetAddress = (sockaddr*)address;
    switch(packetAddress->sa_family) {
