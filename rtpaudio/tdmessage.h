@@ -122,23 +122,16 @@ template<const size_t size> class SocketMessage
    inline void setBuffer(void* buffer, const size_t buffersize);
 
    /**
-     * Set size of control block. Sizes greater than the template parameter
-     * are adjusted to the maximum possible value.
-     *
-     * @param controlsize Size of controlblock.
-     */
-   inline void setControl(const size_t controlsize);
-
-   /**
      * Add control header of given cmsg level and type. Returns NULL,
      * if there is not enough free space in the control data block.
+     * The new control header is cleared (i.e. all bytes set to 0).
      *
      * @param payload Size of payload.
      * @param level Level (e.g. IPPROTO_SCTP).
      * @param type Type (e.g. SCTP_INIT).
      * @return Pointer to begin of *payload* area.
      */
-   inline void* addHeader(const size_t payload,
+   inline void* addHeader(const size_t payloadLength,
                           const int    level,
                           const int    type);
 

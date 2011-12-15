@@ -65,11 +65,8 @@ template<const size_t size> inline void SocketMessage<size>::clear()
    Header.msg_controllen = 0;
    Header.msg_flags      = 0;
    NextMsg               = NULL;
-   if(size >= sizeof(cmsghdr)) {
-      cmsghdr* cmsg = (cmsghdr*)&Control;
-      cmsg->cmsg_len   = 0;
-      cmsg->cmsg_level = 0;
-      cmsg->cmsg_type  = 0;
+   if(size > 0) {
+      memset(&Control, 0x00, sizeof(Control));
    }
 }
 
@@ -101,22 +98,9 @@ template<const size_t size> inline void SocketMessage<size>::setBuffer(void* buf
 }
 
 
-// ###### Set control size ##################################################
-template<const size_t size> inline void SocketMessage<size>::setControl(const size_t controlsize)
-{
-   Header.msg_control = &Control;
-   if(controlsize > size) {
-      std::cerr << "WARNING: SocketMessage<" << size << ">:setControl() - Size too large!" << std::endl;
-      Header.msg_controllen = size;
-      return;
-   }
-   Header.msg_controllen = controlsize;
-}
-
-
 // ###### Add cmsg header ###################################################
 template<const size_t size> inline void* SocketMessage<size>::addHeader(
-                                            const size_t payload,
+                                            const size_t payloadLength,
                                             const int    level,
                                             const int    type)
 {
@@ -134,13 +118,13 @@ template<const size_t size> inline void* SocketMessage<size>::addHeader(
    }
 
    cmsghdr* cmsg = NextMsg;
-   cmsg->cmsg_len   = CMSG_LEN(payload);
+   cmsg->cmsg_len   = CMSG_LEN(payloadLength);
    cmsg->cmsg_level = level;
    cmsg->cmsg_type  = type;
 
    Header.msg_controllen += cmsg->cmsg_len;
    NextMsg = CNextHeader(&Header, cmsg);
-
+   
    return(CData(cmsg));
 }
 
