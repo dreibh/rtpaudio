@@ -47,9 +47,9 @@ void MediaInfo::reset()
 {
    StartTimeStamp = 0;
    EndTimeStamp   = 0;
-   Title[0]       = 0x00;
-   Artist[0]      = 0x00;
-   Comment[0]     = 0x00;
+   memset(&Title,   0x00, sizeof(Title));
+   memset(&Artist,  0x00, sizeof(Artist));
+   memset(&Comment, 0x00, sizeof(Comment));
 }
 
 

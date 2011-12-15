@@ -68,7 +68,7 @@ const card64 PositionStepsPerSecond = (card64)1000000000;
   * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
-class MediaInfo
+struct MediaInfo
 {
    // ====== Constructor ====================================================
    /**
@@ -133,7 +133,7 @@ class MediaInfo
      * Comment string.
      */
    char Comment[MaxCommentLength + 1];
-};
+} __attribute((packed));
 
 
 /**

@@ -292,19 +292,19 @@ struct RTPPacket
    // ====== Private data ===================================================
    private:
 #if __BYTE_ORDER == __BIG_ENDIAN
-   card8 V:2;                 // Version
-   card8 P:1;                 // Padding
-   card8 X:1;                 // Extension
-   card8 CC:4;                // CSRC Count
-   card8 M:1;                 // Marker
-   card8 PT:7;                // Payload Type
+   card8 V:2;                       // Version
+   card8 P:1;                       // Padding
+   card8 X:1;                       // Extension
+   card8 CC:4;                      // CSRC Count
+   card8 M:1;                       // Marker
+   card8 PT:7;                      // Payload Type
 #elif  __BYTE_ORDER == __LITTLE_ENDIAN
-   card8 CC:4;                // CSRC Count
-   card8 X:1;                 // Extension
-   card8 P:1;                 // Padding
-   card8 V:2;                 // Version
-   card8 PT:7;                // Payload Type
-   card8 M:1;                 // Marker
+   card8 CC:4;                      // CSRC Count
+   card8 X:1;                       // Extension
+   card8 P:1;                       // Padding
+   card8 V:2;                       // Version
+   card8 PT:7;                      // Payload Type
+   card8 M:1;                       // Marker
 #else
 #error "Unknown __BYTE_ORDER setting!"
 #endif
@@ -312,7 +312,7 @@ struct RTPPacket
    card32 TimeStamp;                // TimeStamp
    card32 SSRC;                     // Synchronization Source (SSRC) identifier
    card32 CSRC[16];                 // Contributing Source (CSRC) identifiers
-   char   Data[RTPConstants::RTPMaxPayloadLimit];    // Payload data
+   char   Data[RTPConstants::RTPMaxPayloadLimit];   // Payload data
 } __attribute__((packed));
 
 
