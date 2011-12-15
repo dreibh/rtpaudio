@@ -88,8 +88,10 @@ template<const size_t size> class SocketMessage
      * Set address.
      *
      * @param address SocketAddress object.
+     * @param type Address type (AF_UNSPEC to take default from address).
      */
-   inline void setAddress(const SocketAddress& address);
+   inline void setAddress(const SocketAddress& address,
+                          const integer        family = AF_UNSPEC);
 
    /**
      * Set buffer.

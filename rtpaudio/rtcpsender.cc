@@ -131,7 +131,7 @@ integer RTCPSender::sendBye()
       // ====== Send packet =================================================
       SocketMessage<CSpace(sizeof(sctp_sndrcvinfo))> message;
       message.setBuffer(&packet, sizeof(packet));
-      message.setAddress(Flow);
+      message.setAddress(Flow, SenderSocket->getFamily());
       if(SenderSocket->getProtocol() == IPPROTO_SCTP) {
          sctp_sndrcvinfo* info = (sctp_sndrcvinfo*)message.addHeader(
                                     sizeof(sctp_sndrcvinfo),IPPROTO_SCTP,SCTP_SNDRCV);
@@ -165,7 +165,7 @@ integer RTCPSender::sendApp(const char*    name,
       // ====== Send packet =================================================
       SocketMessage<CSpace(sizeof(sctp_sndrcvinfo))> message;
       message.setBuffer(&packet, sizeof(packet));
-      message.setAddress(Flow);
+      message.setAddress(Flow, SenderSocket->getFamily());
       if(SenderSocket->getProtocol() == IPPROTO_SCTP) {
          sctp_sndrcvinfo* info = (sctp_sndrcvinfo*)message.addHeader(
                                     sizeof(sctp_sndrcvinfo),IPPROTO_SCTP,SCTP_SNDRCV);
@@ -269,7 +269,7 @@ integer RTCPSender::sendSDES()
          unsynchronized();
          SocketMessage<CSpace(sizeof(sctp_sndrcvinfo))> message;
          message.setBuffer((void*)sdes, bytes);
-         message.setAddress(Flow);
+         message.setAddress(Flow, SenderSocket->getFamily());
          if(SenderSocket->getProtocol() == IPPROTO_SCTP) {
             sctp_sndrcvinfo* info = (sctp_sndrcvinfo*)message.addHeader(
                                        sizeof(sctp_sndrcvinfo),IPPROTO_SCTP,SCTP_SNDRCV);
@@ -342,7 +342,7 @@ integer RTCPSender::sendReport()
       unsynchronized();
       SocketMessage<CSpace(sizeof(sctp_sndrcvinfo))> message;
       message.setBuffer((void*)report,length);
-      message.setAddress(Flow);
+      message.setAddress(Flow, SenderSocket->getFamily());
       if(SenderSocket->getProtocol() == IPPROTO_SCTP) {
          sctp_sndrcvinfo* info = (sctp_sndrcvinfo*)message.addHeader(
                                     sizeof(sctp_sndrcvinfo),IPPROTO_SCTP,SCTP_SNDRCV);

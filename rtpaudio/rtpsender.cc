@@ -263,7 +263,7 @@ void RTPSender::timerEvent()
 #else
       SocketMessage<CSpace(sizeof(sctp_sndrcvinfo))> message;
       message.setBuffer(&report,sizeof(RTCPSenderReport));
-      message.setAddress(Flow[0]);
+      message.setAddress(Flow[0],SenderSocket->getFamily());
       if(SenderSocket->getProtocol() == IPPROTO_SCTP) {
          sctp_sndrcvinfo* info = (sctp_sndrcvinfo*)message.addHeader(
                                     sizeof(sctp_sndrcvinfo),IPPROTO_SCTP,SCTP_SNDRCV);
@@ -383,7 +383,7 @@ void RTPSender::timerEvent()
 #else
             SocketMessage<CSpace(sizeof(sctp_sndrcvinfo))> message;
             message.setBuffer(&packet, packet.calculateHeaderSize() + bytesData);
-            message.setAddress(Flow[encoderPacket.Layer]);
+            message.setAddress(Flow[encoderPacket.Layer], SenderSocket->getFamily());
             if(SenderSocket->getProtocol() == IPPROTO_SCTP) {
                sctp_sndrcvinfo* info = (sctp_sndrcvinfo*)message.addHeader(
                                           sizeof(sctp_sndrcvinfo),IPPROTO_SCTP,SCTP_SNDRCV);

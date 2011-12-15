@@ -63,7 +63,7 @@ template<const size_t size> inline void SocketMessage<size>::clear()
    Header.msg_namelen    = 0;
    Header.msg_iov        = NULL;
    Header.msg_iovlen     = 0;
-   Header.msg_control    = (char*)&Control;
+   Header.msg_control    = NULL;
    Header.msg_controllen = 0;
    Header.msg_flags      = 0;
    NextMsg               = NULL;
@@ -85,9 +85,10 @@ template<const size_t size> inline SocketAddress* SocketMessage<size>::getAddres
 
 
 // ###### Set address #######################################################
-template<const size_t size> inline void SocketMessage<size>::setAddress(const SocketAddress& address)
+template<const size_t size> inline void SocketMessage<size>::setAddress(const SocketAddress& address,
+                                                                        const integer        family)
 {
-   Header.msg_namelen = address.getSystemAddress((sockaddr*)&Address,sizeof(Address));
+   Header.msg_namelen = address.getSystemAddress((sockaddr*)&Address,sizeof(Address),family);
    Header.msg_name    = (char*)&Address;
 }
 
