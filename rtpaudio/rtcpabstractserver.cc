@@ -88,6 +88,7 @@ void RTCPAbstractServer::receivedSourceDescription(const InternetFlow flow,
                                                    const card8        length)
 {
    synchronized();
+
    Client* client = findClient(source,flow);
    if(client == NULL) {
       // ====== Create new client ===========================================
@@ -111,10 +112,12 @@ void RTCPAbstractServer::receivedSourceDescription(const InternetFlow flow,
          }
       }
    }
-   else {
-      // ====== Forward SDES message to existing client =====================
+
+   // ====== Forward SDES message to client =================================
+   if(client) {
       sdesMessage(client,type,data,length);
    }
+
    unsynchronized();
 }
 

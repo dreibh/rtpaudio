@@ -217,12 +217,13 @@ void RTCPReceiver::run()
                   }
                   for ( ;rsp->Type;rsp = rspn) {
                      rspn = (RTCPSourceDescriptionItem*)((long)rsp + (long)rsp->Length + (long)sizeof(RTCPSourceDescriptionItem));
-                     if(rspn >= end) {
-                        rsp = rspn;
+                     if(rspn <= end) {
+                        Server->receivedSourceDescription(
+                            flow, sd->SRC, rsp->Type, rsp->Data, rsp->Length);
+                     }
+                     else {
                         break;
                      }
-                     Server->receivedSourceDescription(
-                         flow, sd->SRC, rsp->Type, rsp->Data, rsp->Length);
                   }
                   rsp = (RTCPSourceDescriptionItem*)((long)sd + (((char*)rsp - (char*)sd) >> 2) + 1);
                }
