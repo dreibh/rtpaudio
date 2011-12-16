@@ -189,8 +189,8 @@ bool AudioClient::play(const char* url)
 
       // ====== Create sockets ==============================================
       SenderSocket.create(Socket::IP,
-                          useSCTP ? Socket::Stream : Socket::Datagram,
-                          useSCTP ? Socket::SCTP : Socket::Default);
+                          useSCTP ? Socket::SeqPacket : Socket::Datagram,
+                          useSCTP ? Socket::SCTP      : Socket::Default);
       if(!SenderSocket.ready()) {
          std::cerr << "ERROR: AudioClient::play() - "
                  "Unable to bind socket for RTCPSender!" << std::endl;
@@ -200,7 +200,7 @@ bool AudioClient::play(const char* url)
       SenderSocket.setBlockingMode(false);
       ReceiverSocket.create(Socket::IP,
                             useSCTP ? Socket::SeqPacket : Socket::Datagram,
-                            useSCTP ? Socket::SCTP : Socket::Default);
+                            useSCTP ? Socket::SCTP      : Socket::Default);
       if(!ReceiverSocket.ready()) {
          std::cerr << "ERROR: AudioClient::play() - "
                       "Unable to bind socket for RTPReceiver!" << std::endl;
