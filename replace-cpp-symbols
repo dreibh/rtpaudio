@@ -45,10 +45,10 @@ while read line ; do
       truncate --size 0 $replaceFile
       echo "$line"
    else   # Space at begin -> library symbol
-      symbol=`echo $line | sed -e "s/^ //g" -e "s/@Base .*$//g"`
-      version=`echo $line | sed -e "s/^ .* //g"`
+      symbol=`echo $line | sed -e 's/^ //g' -e 's/@Base .*$//g'`
+      version=`echo $line | sed -e 's/^ .* //g'`
       fullDemangledSymbol=`c++filt $symbol`
-      demangledSymbol=`echo $fullDemangledSymbol | sed -e "s/(\(.\)*)$//g"`
+      demangledSymbol=`echo $fullDemangledSymbol | sed -e 's/(\(.\)*)$//g'`
 
       # ====== Replace all symbols in list ==================================
       if [ $CPP_SYMBOLS_REPLACE_ALL -ne 1 ] ; then
@@ -67,17 +67,19 @@ while read line ; do
 
       # ====== Replace ALL symbols ==========================================
       else
-         # Symbol is like "symbol()"
-echo "   A=$fullDemangledSymbol  B=$demangledSymbol"
-         if [ "$fullDemangledSymbol" != "$demangledSymbol" ] ; then
+         # Symbol is just "symbol" or "symbol()", no parameters -> leave as is.
+         if [[ "$fullDemangledSymbol" =~ \(\)$ ]] ; then
+            echo "$line"
+
+         # Symbol is like "symbol(parameter)"
+         else
+            # Replace "+", e.g. operator++, to avoid interference with regexp!
+            demangledSymbol=`echo $demangledSymbol | sed -e 's/[\+]/\\\+/g'`
             echo " (c++|regex)\"^$demangledSymbol\(.*\)@Base\" $version" >>$replaceFile
             found=1
             let replaceCount=$replaceCount+1
-
-         # Symbol is just "symbol", no parameters -> leave as is.
-         else
-            echo "$line"
          fi
+
       fi
    fi
 done
