@@ -82,24 +82,43 @@ void RTCPReceiver::run()
       return;
    }
 
-   char         packetData[8192];
+   char          packetData[8192];
    InternetFlow flow;
    for(;;) {
       // ====== Read RTCP packet ============================================
-      integer flags = 0;
-      integer receivedPacketSize =
-         ReceiverSocket->receiveFrom((char*)&packetData,sizeof(packetData),flow,flags);
-      if(receivedPacketSize < (ssize_t)sizeof(RTCPCommonHeader)) {
-         if(receivedPacketSize > 0) {
-            std::cerr << "WARNING: RTCPReceiver::run() - Received bad RTCP header" << std::endl;
+      cardinal receivedPacketSize = 0;
+      integer  flags;
+      integer  received;
+      do {
+         flags = 0;
+         received = ReceiverSocket->receiveFrom(
+                       (char*)&packetData[receivedPacketSize],
+                       sizeof(packetData) - receivedPacketSize,
+                       flow,flags);
+         if(received > 0) {
+            receivedPacketSize += (cardinal)received;
+            if( (ReceiverSocket->getProtocol() != Socket::SCTP) ||
+                (flags & MSG_EOR) ) {
+               break;
+            }
          }
-         continue;
+      } while(received >= 0);
+      if(receivedPacketSize <= 0) {
+         break;
       }
 
-
       // ====== Verify RTCP packet ==========================================
+      if(receivedPacketSize < (ssize_t)sizeof(RTCPCommonHeader)) {
+         std::cerr << "WARNING: RTCPReceiver::run() - Received too small RTCP header" << std::endl;
+         continue;
+      }
       RTCPCommonHeader* header  = (RTCPCommonHeader*)&packetData;
       const cardinal packetSize = header->getLength();
+      if(packetSize > receivedPacketSize) {
+         std::cerr << "WARNING: RTCPReceiver::run() - Invalid length in RTCP header (expected "
+                   << receivedPacketSize << " but got " << packetSize << ")" << std::endl;
+         continue;
+      }
 /*
       std::cout << "RTCP Common Header\n";
       std::cout << "   Version     : " << (cardinal)header->getVersion()    << "\n";
@@ -108,13 +127,6 @@ void RTCPReceiver::run()
       std::cout << "   Packet Type : " << (cardinal)header->getPacketType() << "\n";
       std::cout << "   Length      : " << (cardinal)header->getLength()     << std::endl;
 */
-      if(receivedPacketSize < (integer)packetSize) {
-#ifdef DEBUG
-         std::cerr << "RTCP packet: receivedPacketSize < packetSize: "
-              << receivedPacketSize << " <=> " << packetSize << std::endl;
-#endif
-         continue;
-      }
 
       if(header->getVersion() != RTPConstants::RTPVersion) {
 #ifdef DEBUG
