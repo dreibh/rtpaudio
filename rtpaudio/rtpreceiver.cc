@@ -92,20 +92,27 @@ void RTPReceiver::run()
       return;
    }
 
-   RTPPacket    packet;
+   char          packetData[8192];
    InternetFlow flow;
    for(;;) {
-      // ====== Read an RTP packet ==========================================
-      integer flags = 0;
-      integer bytes = ReceiverSocket->receiveFrom(&packet,sizeof(RTPPacket),flow,flags);
-
-      // ====== Verify RTP packet ===========================================
-      if(packet.getVersion() != RTPConstants::RTPVersion) {
-#ifdef DEBUG
-         std::cerr << "RTP packet: Invalid version " << packet.getVersion() << std::endl;
-#endif
-         continue;
-      }
+      // ====== Read RTCP packet ============================================
+      cardinal receivedPacketSize = 0;
+      integer  flags;
+      integer  received;
+      do {
+         flags = 0;
+         received = ReceiverSocket->receiveFrom(
+                       (char*)&packetData[receivedPacketSize],
+                       sizeof(packetData) - receivedPacketSize,
+                       flow,flags);
+         if(received > 0) {
+            receivedPacketSize += (cardinal)received;
+            if( (ReceiverSocket->getProtocol() != Socket::SCTP) ||
+                (flags & MSG_EOR) ) {
+               break;
+            }
+         }
+      } while(received >= 0);
 
 
       // ==== Packet loss simulation ========================================
@@ -117,34 +124,51 @@ void RTPReceiver::run()
 
 
       // ====== Process packet, if read was successful ======================
-      if(bytes > 0) {
-         synchronized();
+      if(receivedPacketSize > 0) {
+         RTPPacket* packet = (RTPPacket*)&packetData;
+
+         // ====== Verify RTP packet ===========================================
+         if(receivedPacketSize < RTPConstants::RTPDefaultHeaderSize) {
+            std::cerr << "WARNING: RTPReceiver::run() - Received too small RTP header" << std::endl;
+            continue;
+         }
+         if(packet->getVersion() != RTPConstants::RTPVersion) {
+            std::cerr << "WARNING: RTPReceiver::run() - Invalid version " << packet->getVersion() << std::endl;
+            continue;
+         }
+         const integer payloadLength = (integer)receivedPacketSize - (integer)packet->calculateHeaderSize();
+         if(payloadLength < 0) {
+            std::cerr << "WARNING: RTCPReceiver::run() - Invalid payload length" << std::endl;
+            continue;
+         }
 
          // ====== Check, if decoder accepts packet =========================
+         synchronized();
+
          DecoderPacket decoderPacket;
-         decoderPacket.Buffer         = packet.getPayloadData();
-         decoderPacket.Length         = bytes - packet.calculateHeaderSize();
-         decoderPacket.SequenceNumber = packet.getSequenceNumber();
-         decoderPacket.TimeStamp      = packet.getTimeStamp();
+         decoderPacket.Buffer         = packet->getPayloadData();
+         decoderPacket.Length         = payloadLength;
+         decoderPacket.SequenceNumber = packet->getSequenceNumber();
+         decoderPacket.TimeStamp      = packet->getTimeStamp();
          decoderPacket.SSIArray       = (SourceStateInfo**)&SSI;
-         decoderPacket.Marker         = packet.getMarker();
-         decoderPacket.PayloadType    = packet.getPayloadType();
+         decoderPacket.Marker         = packet->getMarker();
+         decoderPacket.PayloadType    = packet->getPayloadType();
          decoderPacket.Layer          = (cardinal)-1;
          decoderPacket.Layers         = (cardinal)-1;
 
-         // ====== Paket ist RTP-Paket fr den Decoder ======================
+         // ====== Paket ist RTP-Paket fr den Decoder =======================
          if(Decoder->checkNextPacket(&decoderPacket) == true) {
             // Check, if packet's layer number is valid. ==
             if(decoderPacket.Layers <= RTPConstants::RTPMaxQualityLayers) {
                if(decoderPacket.Layer < decoderPacket.Layers) {
                   // Update SSI and check, if packet's sequence number is valid.
                   SSI[decoderPacket.Layer].synchronized();
-                  SSI[decoderPacket.Layer].setSSRC(packet.getSSRC());
+                  SSI[decoderPacket.Layer].setSSRC(packet->getSSRC());
                   SeqNumValidator::ValidationResult valid =
-                     SSI[decoderPacket.Layer].validate(packet.getSequenceNumber(),packet.getTimeStamp());
+                     SSI[decoderPacket.Layer].validate(packet->getSequenceNumber(),packet->getTimeStamp());
                   SSI[decoderPacket.Layer].unsynchronized();
 
-                  // ====== Decoder packet ===================================
+                  // ====== Decoder packet ==================================
                   if(valid < SeqNumValidator::Invalid) {
                      Decoder->handleNextPacket(&decoderPacket);
 
@@ -157,7 +181,7 @@ void RTPReceiver::run()
                      for(cardinal i = decoderPacket.Layers;i < RTPConstants::RTPMaxQualityLayers;i++) {
                         Flow[i].setTrafficClass(0);
                      }
-                     BytesReceived[decoderPacket.Layer] += bytes;
+                     BytesReceived[decoderPacket.Layer] += receivedPacketSize;
                      PacketsReceived[decoderPacket.Layer]++;
                   }
                }
@@ -172,7 +196,7 @@ void RTPReceiver::run()
          // ====== Paket ist RTCP Sender Report =============================
          else {
             RTCPSenderReport* report = (RTCPSenderReport*)&packet;
-            if((bytes >= (ssize_t)sizeof(RTCPSenderReport)) &&
+            if((receivedPacketSize >= (ssize_t)sizeof(RTCPSenderReport)) &&
                (report->getPacketType() == RTCP_SR)) {
                for(cardinal i = 0;i < RTPConstants::RTPMaxQualityLayers;i++) {
                   SSI[i].synchronized();
