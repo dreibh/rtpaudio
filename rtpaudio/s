@@ -1,0 +1,3 @@
+#!/bin/sh
+
+make -j2 rtpa-server && ./rtpa-server $@

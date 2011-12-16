@@ -1,0 +1,3 @@
+#!/bin/sh
+
+make -j2 rtpa-client && padsp ./rtpa-client rtpa+sctp://[::1]/Test.list $@
