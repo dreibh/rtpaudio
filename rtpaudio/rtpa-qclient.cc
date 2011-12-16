@@ -815,7 +815,7 @@ void QClient::timerEvent()
 
       // ====== Display receiver statistics =================================
       InfoWidget->update("PR",card64ToQString(Client->getPacketsReceived((cardinal)-1)) +
-                              doubleToQString(Client->getRawBytesPerSecond() / 1024.0," (%1.2f KB/s)"));
+                              doubleToQString(Client->getRawBytesPerSecond() / 1024.0," (%1.2f KiB/s)"));
       InfoWidget->update("BR",bytesToQString(Client->getBytesReceived((cardinal)-1)));
 
 
