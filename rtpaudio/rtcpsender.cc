@@ -95,7 +95,7 @@ RTCPSender::~RTCPSender()
           SDESItemSet.begin();
        RTCPSourceDescriptionItem* item = sdesIterator->second;
        SDESItemSet.erase(sdesIterator);
-       delete item;
+       delete [] (char*)item;
    }
 }
 

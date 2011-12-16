@@ -316,6 +316,7 @@ void AudioClient::stop()
       if(Flow.getFlowLabel() !=0) {
          SenderSocket.freeFlow(Flow);
       }
+      delete Sender;
       Sender = NULL;
    }
    if(Receiver != NULL) {

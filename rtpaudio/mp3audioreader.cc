@@ -73,9 +73,11 @@ MP3AudioReader::~MP3AudioReader()
 // ###### Open input ########################################################
 bool MP3AudioReader::openMedia(const char* name)
 {
+   char fileName[strlen(name) + 1];
+
    closeMedia();
    Error = ME_BadMedia;
-   char* fileName = strdup(name);
+   strncpy((char*)&fileName, name, sizeof(fileName));
    if(name == NULL) {
       return(false);
    }
@@ -86,10 +88,9 @@ bool MP3AudioReader::openMedia(const char* name)
       closeMedia();
       return(false);
    }
-   bool ok = MP3Source->open(fileName);
+   bool ok = MP3Source->open((char*)&fileName);
    if(ok == false) {
       closeMedia();
-      delete fileName;
       return(false);
    }
 
@@ -99,14 +100,12 @@ bool MP3AudioReader::openMedia(const char* name)
       closeMedia();
       return(false);
    }
-   if(MP3Decoder->initialize(fileName) == false) {
+   if(MP3Decoder->initialize((const char*)&fileName) == false) {
       closeMedia();
-      delete fileName;
       return(false);
    }
    if(!MP3Decoder->run(-1)) {
       closeMedia();
-      delete fileName;
       return(false);
    }
 
@@ -117,7 +116,6 @@ bool MP3AudioReader::openMedia(const char* name)
    MaxPosition = (card64)floor(((double)(MP3Decoder->gettotalframe() - 1) * (double)PositionStepsPerSecond) /
                                FramesPerSecond);
    Error = ME_NoError;
-   delete fileName;
 
    return(true);
 }

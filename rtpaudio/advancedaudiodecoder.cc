@@ -425,9 +425,11 @@ void AdvancedAudioDecoder::handleNextPacket(const DecoderPacket* decoderPacket)
          const MediaInfo* mediaInfo = ((const MediaInfo*)&packet->Data[0]);
          Media = *mediaInfo;
          Media.translate();
+         delete [] (char*)fragment;
       }
       else {
          std::cerr << "WARNING: AdvancedAudioDecoder::handleNextPacket() - Bad Fragment!" << std::endl;
+         delete [] (char*)fragment;
       }
       unsynchronized();
    }
@@ -749,7 +751,7 @@ void AdvancedAudioDecoder::deleteFragments(std::multimap<const card16,FrameFragm
       while(fragmentIterator != set->end()) {
          FrameFragment* fragment = fragmentIterator->second;
          set->erase(fragmentIterator);
-         delete [] (char*)fragment;
+         delete [] fragment;
          fragmentIterator = set->begin();
       }
    }
