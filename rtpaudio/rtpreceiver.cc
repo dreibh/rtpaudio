@@ -92,13 +92,12 @@ void RTPReceiver::run()
       return;
    }
 
-   RTPPacket     packet;
-   integer       bytes;
-   InternetFlow  flow;
-
+   RTPPacket    packet;
+   InternetFlow flow;
    for(;;) {
       // ====== Read an RTP packet ==========================================
-      bytes = ReceiverSocket->receiveFrom(&packet,sizeof(RTPPacket),flow);
+      integer flags = 0;
+      integer bytes = ReceiverSocket->receiveFrom(&packet,sizeof(RTPPacket),flow,flags);
 
       // ====== Verify RTP packet ===========================================
       if(packet.getVersion() != RTPConstants::RTPVersion) {

@@ -82,12 +82,13 @@ void RTCPReceiver::run()
       return;
    }
 
+   char         packetData[8192];
    InternetFlow flow;
    for(;;) {
       // ====== Read RTCP packet ============================================
-      char packetData[8192];
+      integer flags = 0;
       integer receivedPacketSize =
-         ReceiverSocket->receiveFrom((char*)&packetData,sizeof(packetData),flow,0);
+         ReceiverSocket->receiveFrom((char*)&packetData,sizeof(packetData),flow,flags);
       if(receivedPacketSize < (ssize_t)sizeof(RTCPCommonHeader)) {
          if(receivedPacketSize > 0) {
             std::cerr << "WARNING: RTCPReceiver::run() - Received bad RTCP header" << std::endl;
