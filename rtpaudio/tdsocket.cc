@@ -676,7 +676,7 @@ bool Socket::connectx(const SocketAddress** addressArray,
 
 // ###### Receive message ###################################################
 ssize_t Socket::receiveMsg(struct msghdr* msg,
-                           integer&       flags,
+                           const integer  flags,
                            const bool     internalCall)
 {
 #ifdef SOCKETAPI_MAJOR_VERSION

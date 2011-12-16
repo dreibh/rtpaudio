@@ -536,7 +536,7 @@ O     * Bind socket to one or more given addresses. If no addresses are given,
      * @return Result of recvmsg() call.
      */
    ssize_t receiveMsg(struct msghdr* msg,
-                      integer&       flags,
+                      const integer  flags,
                       const bool     internalCall = false);
 
    /**
