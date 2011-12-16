@@ -61,6 +61,7 @@ libtdtoolbox_la_SOURCES = \
  tools.cc tools.h tools.icc \
  trafficclassvalues.cc trafficclassvalues.h trafficclassvalues.icc \
  unixaddress.cc unixaddress.h unixaddress.icc
+libtdtoolbox_la_LIBADD = $(sctplib_LIBS) $(socketapi_LIBS) $(glib_LIBS) -lpthread
 
 libmediainfo_la_SOURCES = \
  mediainfo.cc mediainfo.h
@@ -177,19 +178,24 @@ endif
 
 
 rtpa_server_SOURCES = rtpa-server.cc
-rtpa_server_LDADD   = librtpaudiocommon.la librtpaudioserver.la librtpserver.la libaudioreader.la libtdtoolbox.la -lpthread $(sctplib_LIBS) $(socketapi_LIBS) $(glib_LIBS)
+rtpa_server_LDADD   = librtpaudiocommon.la librtpaudioserver.la librtpserver.la libaudioreader.la libtdtoolbox.la
 
 rtpa_client_SOURCES = rtpa-client.cc
-rtpa_client_LDADD   = librtpaudiocommon.la librtpaudioclient.la libaudiodecoder.la librtpclient.la libaudiowriter.la libaudiocommon.la libtdtoolbox.la -lpthread $(sctplib_LIBS) $(socketapi_LIBS) $(glib_LIBS)
+rtpa_client_LDADD   = librtpaudiocommon.la librtpaudioclient.la libaudiodecoder.la librtpclient.la libaudiowriter.la libaudiocommon.la libtdtoolbox.la
 
 rtpa_vclient_SOURCES = rtpa-vclient.cc
-rtpa_vclient_LDADD   = librtpaudiocommon.la librtpaudioclient.la libaudiodecoder.la librtpclient.la libaudiowriter.la libaudiocommon.la libtdtoolbox.la -lpthread $(sctplib_LIBS) $(socketapi_LIBS) $(glib_LIBS)
-
+rtpa_vclient_LDADD   = librtpaudiocommon.la librtpaudioclient.la libaudiodecoder.la librtpclient.la libaudiowriter.la libaudiocommon.la libtdtoolbox.la
 
 if BUILD_QT_PROGRAMS
 rtpa_qclient_MOC      = rtpa-qclient.moc.cc qinfotabwidget.moc.cc qspectrumanalyzer.moc.cc qaudiomixer.moc.cc
 rtpa_qclient_CXXFLAGS = $(QT_CXXFLAGS)
 rtpa_qclient_CXXADD   = $(QT_CXXFLAGS)
 rtpa_qclient_SOURCES  = rtpa-qclient.cc rtpa-qclient.h qinfotabwidget.cc qinfotabwidget.h qspectrumanalyzer.cc qspectrumanalyzer.h qaudiomixer.cc qaudiomixer.h rtpa-qclient.moc.cc qinfotabwidget.moc.cc qspectrumanalyzer.moc.cc qaudiomixer.moc.cc
-rtpa_qclient_LDADD    = $(QT_LDADD) librtpaudiocommon.la librtpaudioclient.la libaudiodecoder.la librtpclient.la libaudiowriter.la libaudiocommon.la libtdtoolbox.la -lpthread $(sctplib_LIBS) $(socketapi_LIBS) $(glib_LIBS)
+rtpa_qclient_LDADD    = $(QT_LDADD) librtpaudiocommon.la librtpaudioclient.la libaudiodecoder.la librtpclient.la libaudiowriter.la libaudiocommon.la libtdtoolbox.la
 endif
+
+
+bin_PROGRAMS += t1
+
+t1_SOURCES = t1.cc
+t1_LDADD   = libaudioencoder.la libtdtoolbox.la
