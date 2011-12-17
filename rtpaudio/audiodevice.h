@@ -40,6 +40,10 @@
 #include "thread.h"
 #include "ringbuffer.h"
 
+#ifdef HAVE_PULSEAUDIO
+#include <pulse/simple.h>
+#endif
+
 
 /**
   * This class implements AudioWriterInterface for the audio device.
@@ -216,9 +220,13 @@ class AudioDevice : virtual public AudioWriterInterface,
 
    bool       IsReady;
 
+#ifdef HAVE_PULSEAUDIO
+   pa_simple* Device;
+#else
    int        DeviceFD;           // Device and its properties.
    int        DeviceCapabilities;
    int        DeviceFormats;
+#endif
    int        DeviceBlockSize;
    integer    DeviceFragmentSize;
    integer    DeviceOSpace;

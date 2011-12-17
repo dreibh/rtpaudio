@@ -90,7 +90,7 @@ libaudiowriter_la_SOURCES = \
  audionull.cc audionull.h \
  spectrumanalyzer.cc spectrumanalyzer.h \
  fft.cc fft.h
-libaudiowriter_la_LIBADD = libaudiocommon.la libmediainfo.la
+libaudiowriter_la_LIBADD = libaudiocommon.la libmediainfo.la $(PULSEAUDIO_LIBS)
 
 
 librtpcommon_la_SOURCES = \
