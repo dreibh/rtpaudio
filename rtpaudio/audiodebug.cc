@@ -42,7 +42,10 @@
 
 // ###### Audio debug constructor ###########################################
 AudioDebug::AudioDebug() {
-   setQuality(AudioQuality::HighestQuality);
+   AudioChannels      = 0;
+   AudioBits          = 0;
+   AudioSamplingRate  = 0;
+   AudioByteOrder     = BYTE_ORDER;
    LastWriteTimeStamp = 0;
    LastPrintTimeStamp = 0;
    BytesWritten       = 0;
@@ -165,8 +168,8 @@ bool AudioDebug::write(const void* data, const size_t length)
 
       if((Balance > - 100000) && (Balance < 100000)) {
          if(now - LastPrintTimeStamp > 250000) {
-            std::cout << "out=" << BytesWritten << "  ";
-            std::cout << "balance=" << Balance << "  ";
+            std::cout << "write="   << length  << "\t";
+            std::cout << "balance=" << Balance << "\t";
             std::cout << "rate=" << ((card64)BytesWritten * 1000000) / (now - LastPrintTimeStamp) << " [bps]";
             LastPrintTimeStamp = now;
             if(Balance < 0) {
