@@ -42,7 +42,7 @@
 
 // Debug mode: Display some information on error correction and sequence
 //             number checks.
-// #define DEBUG
+#define DEBUG
 
 
 // ###### Constructor #######################################################
@@ -440,6 +440,7 @@ void AdvancedAudioDecoder::handleNextPacket(const DecoderPacket* decoderPacket)
       node->Position     = packet->Position;
       node->MaxPosition  = packet->MaxPosition;
       node->SamplingRate = packet->SamplingRate;
+printf("SR=%d\n",node->SamplingRate);
       node->Channels     = packet->Channels;
       node->Bits         = packet->Bits;
       node->ErrorCode    = packet->ErrorCode;
@@ -517,7 +518,7 @@ void AdvancedAudioDecoder::timerEvent()
 /*
       const cardinal capacity = Device->getCurrentCapacity();
       if(capacity < node->FrameSize) {
-         printTimeStamp(cout);
+         printTimeStamp(std::cout);
          printf("%d < fs=%d\n",capacity,node->FrameSize);
          break;
       }
@@ -703,7 +704,7 @@ void AdvancedAudioDecoder::timerEvent()
 
 
       // ====== Write frame to output device ================================
-      if(pos > 0) {
+      if((pos > 0) && (node->ErrorCode == ME_NoError)) {
          // ====== Clear rest of frame ======================================
          for(;pos < node->FrameSize;pos++) {
             frameBuffer[pos] = 0;
