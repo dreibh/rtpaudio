@@ -114,7 +114,6 @@ void RTPReceiver::run()
          }
       } while(received >= 0);
 
-
       // ==== Packet loss simulation ========================================
 /*
       Randomizer r;
@@ -122,12 +121,11 @@ void RTPReceiver::run()
       if(i == 1) bytes = 0;
 */
 
-
       // ====== Process packet, if read was successful ======================
       if(receivedPacketSize > 0) {
          RTPPacket* packet = (RTPPacket*)&packetData;
 
-         // ====== Verify RTP packet ===========================================
+         // ====== Verify RTP packet ========================================
          if(receivedPacketSize < RTPConstants::RTPDefaultHeaderSize) {
             std::cerr << "WARNING: RTPReceiver::run() - Received too small RTP header" << std::endl;
             continue;
