@@ -41,7 +41,11 @@
 // ###### Check, if mixer is ready ##########################################
 bool AudioMixer::ready() const
 {
+#ifdef HAVE_PULSEAUDIO
+   return(true);
+#else
    return(Device >= 0);
+#endif
 }
 
 
