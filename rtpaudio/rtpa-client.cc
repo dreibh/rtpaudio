@@ -31,6 +31,7 @@
 // $Id$
 
 
+#include "multiaudiowriter.h"
 #include "audiodevice.h"
 #include "audiodebug.h"
 #include "audionull.h"
@@ -40,6 +41,7 @@
 #include "audioquality.h"
 #include "strings.h"
 
+#include <assert.h>
 #include <fstream>
 
 
@@ -189,30 +191,35 @@ int main(int argc, char* argv[])
    // ===== Check arguments =================================================
    if(argc < 2) {
       std::cerr << "Usage: " << argv[0] << std::endl
-           << "[URL] {-debug} {-null} {-encoding=number} {-prefix=name} {-info=infostring} {-force-ipv4}" << std::endl;
+           << "[URL] {[+/-]debug} {[+/-]null} {[+/-]device} {-encoding=number} {-prefix=name} {-info=infostring} {-force-ipv4}" << std::endl;
       exit(0);
    }
-   bool            optAudioDebug = false;
-   bool            optAudioNull  = false;
-   bool            optForceIPv4  = false;
-   const char*     info          = "";
-   cardinal        encoding      = 0;
-   char*           prefix        = NULL;
-   integer         rate          = AudioQuality::HighestSamplingRate;
-   integer         bits          = AudioQuality::HighestBits;
-   bool            stereo        = true;
+   bool            optAudioDevice = true;
+   bool            optAudioDebug  = false;
+   bool            optAudioNull   = false;
+   bool            optForceIPv4   = false;
+   const char*     info           = "";
+   cardinal        encoding       = 0;
+   char*           prefix         = NULL;
+   integer         rate           = AudioQuality::HighestSamplingRate;
+   integer         bits           = AudioQuality::HighestBits;
+   bool            stereo         = true;
    for(cardinal i = 1;i < (cardinal)argc;i++) {
-      if(!(strcasecmp(argv[i],"-debug")))           optAudioDebug = true;
-      else if(!(strcasecmp(argv[i],"-null")))       optAudioNull  = true;
-      else if(!(strcasecmp(argv[i],"-force-ipv4"))) optForceIPv4  = true;
-      else if(!(strcasecmp(argv[i],"-use-ipv4")))   optForceIPv4  = false;
-      else if(!(strncasecmp(argv[i],"-prefix=",8))) prefix        = &argv[i][8];
-      else if(!(strncasecmp(argv[i],"-info=",6)))   info          = &argv[i][6];
-      else if(!(strncasecmp(argv[i],"-rate=",6)))   rate          = atol(&argv[i][6]);
-      else if(!(strncasecmp(argv[i],"-bits=",6)))   bits          = atol(&argv[i][6]);
-      else if(!(strcasecmp(argv[i],"-stereo")))         stereo    = true;
-      else if(!(strcasecmp(argv[i],"-mono")))           stereo    = false;
-      else if(!(strncasecmp(argv[i],"-encoding=",10)))  encoding  = atol(&argv[i][10]);
+      if(!(strcasecmp(argv[i],"+debug")))               optAudioDebug  = 1;
+      else if(!(strcasecmp(argv[i],"+null")))           optAudioNull   = 1;
+      else if(!(strcasecmp(argv[i],"+device")))         optAudioDevice = 1;
+      else if(!(strcasecmp(argv[i],"-debug")))          optAudioDebug  = 0;
+      else if(!(strcasecmp(argv[i],"-null")))           optAudioNull   = 0;
+      else if(!(strcasecmp(argv[i],"-device")))         optAudioDevice = 0;
+      else if(!(strcasecmp(argv[i],"-force-ipv4")))     optForceIPv4  = true;
+      else if(!(strcasecmp(argv[i],"-use-ipv4")))       optForceIPv4  = false;
+      else if(!(strncasecmp(argv[i],"-prefix=",8)))     prefix        = &argv[i][8];
+      else if(!(strncasecmp(argv[i],"-info=",6)))       info          = &argv[i][6];
+      else if(!(strncasecmp(argv[i],"-rate=",6)))       rate          = atol(&argv[i][6]);
+      else if(!(strncasecmp(argv[i],"-bits=",6)))       bits          = atol(&argv[i][6]);
+      else if(!(strcasecmp(argv[i],"-stereo")))         stereo        = true;
+      else if(!(strcasecmp(argv[i],"-mono")))           stereo        = false;
+      else if(!(strncasecmp(argv[i],"-encoding=",10)))  encoding      = atol(&argv[i][10]);
       else if(argv[i][0] == '-') {
          std::cerr << "Wrong parameter: " << argv[i] << std::endl;
       }
@@ -226,22 +233,25 @@ int main(int argc, char* argv[])
 
 
    // ====== Initialize audio output device =================================
+   MultiAudioWriter* audioOutput = new MultiAudioWriter();
+   assert(audioOutput != NULL);
    if(optAudioDebug) {
-      audioOutput = new AudioDebug();
+      AudioDebug* audioDebug = new AudioDebug();
+      assert(audioDebug != NULL);
+      audioOutput->addWriter(audioDebug);
    }
-   else if(optAudioNull) {
-      audioOutput = new AudioNull();
+   if(optAudioNull) {
+      AudioNull* audioNull = new AudioNull();
+      assert(audioNull != NULL);
+      audioOutput->addWriter(audioNull);
    }
-   else {
-      audioOutput = new AudioDevice();
-      if((audioOutput != NULL) && (!audioOutput->ready())) {
-         std::cerr << "WARNING: Unable to open audio device - Using AudioNull!" << std::endl;
-         audioOutput = new AudioNull();
+   if(optAudioDevice) {
+      AudioDevice* audioDevice = new AudioDevice();
+      assert(audioDevice != NULL);
+      if(!audioOutput->ready()) {
+         std::cerr << "WARNING: Unable to open audio device!" << std::endl;
       }
-   }
-   if(audioOutput == NULL) {
-      std::cerr << "ERROR: Client::main() - Out of memory!" << std::endl;
-      cleanUp(1);
+      audioOutput->addWriter(audioDevice);
    }
 
 
