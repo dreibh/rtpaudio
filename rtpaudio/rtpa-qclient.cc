@@ -85,27 +85,24 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    MixerWindow            = NULL;
    MixerDevice            = mixer;
    InsertionRequired      = FALSE;
-   ResolveMode            = FALSE;
-   AutoSaveBookmarks      = FALSE;
-   AutoRepeat             = TRUE;
 
    // ====== Menu ===========================================================
    QMenuBar* menu = menuBar();
 
    QMenu* fileMenu = new QMenu("&File", this);
    Q_CHECK_PTR(fileMenu);
-   fileMenu->addAction("&Load Bookmarks",this,SLOT(loadBookmarks()),Qt::ALT+Qt::Key_M);
-   fileMenu->addAction("&Save Bookmarks",this,SLOT(saveBookmarks()),Qt::ALT+Qt::Key_O);
+   fileMenu->addAction("&Load Bookmarks",this,SLOT(loadBookmarks()),Qt::CTRL+Qt::Key_O);
+   fileMenu->addAction("&Save Bookmarks",this,SLOT(saveBookmarks()),Qt::CTRL+Qt::Key_W);
    fileMenu->addSeparator();
-   fileMenu->addAction("&Quit",this,SLOT(quit()),Qt::ALT+Qt::Key_Q);
+   fileMenu->addAction("&Quit",this,SLOT(quit()),Qt::CTRL+Qt::Key_Q);
    menu->addMenu(fileMenu);
 
    QMenu* controlMenu = new QMenu("&Control", this);
    Q_CHECK_PTR(controlMenu);
-   controlMenu->addAction("&Play",this,SLOT(play()),Qt::ALT+Qt::Key_P);
-   controlMenu->addAction("&Stop",this,SLOT(stop()),Qt::ALT+Qt::Key_S);
+   controlMenu->addAction("&Play",this,SLOT(play()),Qt::CTRL+Qt::Key_T);
+   controlMenu->addAction("&Stop",this,SLOT(stop()),Qt::CTRL+Qt::Key_Z);
    controlMenu->addSeparator();
-   controlMenu->addAction("&Toggle Pause",this,SLOT(togglePause()),Qt::ALT+Qt::Key_U);
+   controlMenu->addAction("&Toggle Pause",this,SLOT(togglePause()),Qt::CTRL+Qt::Key_U);
    menu->addMenu(controlMenu);
 
    URLMenu = new QMenu("&Bookmarks", this);
@@ -115,7 +112,7 @@ QClient::QClient(AudioWriterInterface* audioOutput,
       Q_CHECK_PTR(LocationAction[i]);
       LocationAction[i]->setEnabled(FALSE);
       if(i <= 9) {
-         LocationAction[i]->setShortcut(Qt::ALT+Qt::Key_0+i);
+         LocationAction[i]->setShortcut(Qt::Key_F1 + i);
       }
       if(i == 0) {
          URLMenu->addSeparator();
@@ -128,29 +125,39 @@ QClient::QClient(AudioWriterInterface* audioOutput,
 
    ToolsMenu = new QMenu("&Tools", this);
    Q_CHECK_PTR(ToolsMenu);
-   SpectrumAnalyzerAction = ToolsMenu->addAction("Spectrum Analyzer",this,SLOT(spectrumAnalyzer()),Qt::ALT+Qt::Key_A);
+   SpectrumAnalyzerAction = ToolsMenu->addAction("Spectrum Analyzer",this,SLOT(spectrumAnalyzer()),Qt::CTRL+Qt::Key_A);
    Q_CHECK_PTR(SpectrumAnalyzerAction);
    SpectrumAnalyzerAction->setCheckable(TRUE);
    SpectrumAnalyzerAction->setChecked(FALSE);
-   MixerAction = ToolsMenu->addAction("Audio Mixer",this,SLOT(audioMixer()),Qt::ALT+Qt::Key_M);
-   Q_CHECK_PTR(MixerAction);
-   MixerAction->setCheckable(TRUE);
-   MixerAction->setChecked(FALSE);
+   if(mixer != NULL) {
+      MixerAction = ToolsMenu->addAction("Audio Mixer",this,SLOT(audioMixer()),Qt::CTRL+Qt::Key_M);
+      Q_CHECK_PTR(MixerAction);
+      MixerAction->setCheckable(TRUE);
+      MixerAction->setChecked(FALSE);
+   }
+   else {
+      MixerAction = NULL;
+   }
    menu->addMenu(ToolsMenu);
 
    SettingsMenu = new QMenu("&Settings", this);
    Q_CHECK_PTR(SettingsMenu);
-   ResolverAction = SettingsMenu->addAction("&Resolve Addresses",this,SLOT(toggleResolver()),Qt::ALT+Qt::Key_R);
+   ResolverAction = SettingsMenu->addAction("&Resolve Addresses",this,SLOT(toggleAddressResolution(bool)),Qt::CTRL+Qt::Key_R);
    Q_CHECK_PTR(ResolverAction);
-   AutoRepeatAction = SettingsMenu->addAction("Auto Repeat",this,SLOT(toggleAutoRepeat()),Qt::ALT+Qt::Key_Y);
+   ResolverAction->setCheckable(TRUE);
+   AutoRepeatAction = SettingsMenu->addAction("Auto Repeat");
+   AutoRepeatAction->setShortcut(Qt::CTRL+Qt::Key_E);
    Q_CHECK_PTR(AutoRepeatAction);
-   AutoSaveBookmarksAction = SettingsMenu->addAction("Auto Save Bookmarks",this,SLOT(toggleAutoSaveBookmarks()),Qt::ALT+Qt::Key_L);
+   AutoRepeatAction->setCheckable(TRUE);
+   AutoSaveBookmarksAction = SettingsMenu->addAction("Auto Save Bookmarks");
    Q_CHECK_PTR(AutoSaveBookmarksAction);
+   AutoSaveBookmarksAction->setShortcut(Qt::CTRL+Qt::Key_B);
    menu->addMenu(SettingsMenu);
+   AutoSaveBookmarksAction->setCheckable(TRUE);
 
    QMenu* helpMenu = new QMenu("&Help", this);
    Q_CHECK_PTR(helpMenu);
-   helpMenu->addAction("&About",this,SLOT(information()),Qt::ALT+Qt::Key_T);
+   helpMenu->addAction("&About",this,SLOT(information()),Qt::Key_F11);
    helpMenu->addAction("&What's This?",this,SLOT(whatsThis()),Qt::Key_F12);
    menu->addSeparator();
    menu->addMenu(helpMenu);
@@ -191,7 +198,7 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    Q_CHECK_PTR(qualityLayout);
    QHBoxLayout* checkLayout   = new QHBoxLayout();
    Q_CHECK_PTR(checkLayout);
-   QCheckBox*   stereo        = new QCheckBox("S&tereo",qualityGroup);
+   QCheckBox*   stereo        = new QCheckBox("Ste&reo",qualityGroup);
    Q_CHECK_PTR(stereo);
    QComboBox*   bits          = new QComboBox(qualityGroup);
    Q_CHECK_PTR(bits);
@@ -517,10 +524,9 @@ void QClient::play()
    if(ok) {
       EOFRepeatDelay = 0;
       StatusBar->setText("Waiting for data from server...");
-      InternetAddress::PrintFormat format = InternetAddress::PF_Address;
-      if(ResolveMode) {
-         format = InternetAddress::PF_Hostname;
-      }
+      const InternetAddress::PrintFormat format =
+         (ResolverAction->isChecked()) ? InternetAddress::PF_Address :
+                                         InternetAddress::PF_Hostname;
       const String serverAddress = Client->getServerAddressString(format);
       const String ourAddress    = Client->getOurAddressString(format);
       InfoWidget->update("SA",serverAddress.getData());
@@ -572,37 +578,17 @@ void QClient::togglePause()
 
 
 // ###### Toggle address resolve mode #######################################
-void QClient::toggleResolver()
+void QClient::toggleAddressResolution(bool selected)
 {
-   ResolveMode = !ResolveMode;
-   ResolverAction->setChecked(ResolveMode);
-
    if(Client->playing()) {
-      InternetAddress::PrintFormat format = InternetAddress::PF_Address;
-      if(ResolveMode) {
-         format = InternetAddress::PF_Hostname;
-      }
+      const InternetAddress::PrintFormat format =
+         (ResolverAction->isChecked()) ? InternetAddress::PF_Address :
+                                         InternetAddress::PF_Hostname;
       const String serverAddress = Client->getServerAddressString(format);
       const String ourAddress    = Client->getOurAddressString(format);
       InfoWidget->update("SA",serverAddress.getData());
       InfoWidget->update("CA",ourAddress.getData());
    }
-}
-
-
-// ###### Toggle auto repeat mode ###########################################
-void QClient::toggleAutoRepeat()
-{
-   AutoRepeat = !AutoRepeat;
-   AutoRepeatAction->setChecked(AutoRepeat);
-}
-
-
-// ###### Toggle auto save bookmarks mode ###################################
-void QClient::toggleAutoSaveBookmarks()
-{
-   AutoSaveBookmarks = !AutoSaveBookmarks;
-   AutoSaveBookmarksAction->setChecked(AutoSaveBookmarks);
 }
 
 
@@ -674,7 +660,7 @@ void QClient::closeAudioMixer()
 void QClient::quit()
 {
    stop();
-   if(AutoSaveBookmarks) {
+   if(AutoSaveBookmarksAction->isChecked()) {
       saveBookmarks();
    }
    exit(0);
@@ -822,12 +808,8 @@ void QClient::timerEvent()
       // ====== Display layer statistics ====================================
       for(cardinal i = 0;i < MaxLayerInfo;i++) {
          InternetFlow flow = Client->getInternetFlow(i);
-         if(!ResolveMode) {
-            flow.setPrintFormat(InternetAddress::PF_Address);
-         }
-         else {
-            flow.setPrintFormat(InternetAddress::PF_Hostname);
-         }
+         flow.setPrintFormat((ResolverAction->isChecked()) ? InternetAddress::PF_Address :
+                                                             InternetAddress::PF_Hostname);
          LayerInfo[i]->update("LSA",((InternetAddress)flow).getAddressString().getData());
          LayerInfo[i]->update("LTF",flowInfoToQString(flow.getTrafficClass(),flow.getFlowLabel()));
          LayerInfo[i]->update("LBR",bytesToQString(Client->getBytesReceived(i)));
@@ -839,7 +821,7 @@ void QClient::timerEvent()
       if(error == ME_EOF) {
          // ====== End of media -> Auto-repeat ==============================
          if(!Pause->isChecked()) {
-            if(AutoRepeat) {
+            if(AutoRepeatAction->isChecked()) {
                EOFRepeatDelay++;
                snprintf((char*)&str,sizeof(str),
                         "End of media reached! Auto-restart in %d seconds...",
@@ -923,8 +905,10 @@ void QClient::timerEvent()
 void QClient::locationSelected(QAction* action)
 {
    if((Location->text() != action->text()) || (!Client->playing())) {
-      Location->setText(action->text());
-      play();
+      if(action->text().left(4) == "rtpa") {
+         Location->setText(action->text());
+         play();
+      }
    }
 }
 
@@ -1165,8 +1149,9 @@ int main(int argc, char* argv[])
       Q_CHECK_PTR(audioDebug);
       audioOutput->addWriter(audioDebug);
    }
+   AudioDevice* audioDevice = NULL;
    if(optAudioDevice > 0) {
-      AudioDevice* audioDevice = new AudioDevice();
+      audioDevice = new AudioDevice();
       Q_CHECK_PTR(audioDevice);
       if(audioDevice->ready()) {
          audioOutput->addWriter(audioDevice);
@@ -1192,10 +1177,10 @@ int main(int argc, char* argv[])
    // ====== Initialize audio mixer =========================================
    AudioMixer* mixer = NULL;
    if(optMixer > 0) {
-      mixer = new AudioMixer();
+      mixer = new AudioMixer(audioDevice);
       Q_CHECK_PTR(mixer);
       if(mixer->ready() == FALSE) {
-         std::cerr << "WARNING: Audio mixer not ready => Disabling mixer!" << std::endl;
+         std::cerr << "NOTE: Audio mixer not ready => Disabling mixer!" << std::endl;
          delete mixer;
          mixer = NULL;
       }

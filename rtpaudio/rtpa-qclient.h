@@ -208,17 +208,7 @@ class QClient : public QMainWindow
    /**
      * Slot for "Resolve Addresses" menu item.
      */
-   void toggleResolver();
-
-   /**
-     * Slot for "Auto Repeat" menu item.
-     */
-   void toggleAutoRepeat();
-
-   /**
-     * Slot for "Auto Save Bookmarks" menu item.
-     */
-   void toggleAutoSaveBookmarks();
+   void toggleAddressResolution(bool selected);
 
    /**
      * Slot for "Spectrum Analyzer" menu item.
@@ -324,7 +314,6 @@ class QClient : public QMainWindow
    QAction*              SpectrumAnalyzerAction;
    QAction*              AutoRepeatAction;
    QAction*              AutoSaveBookmarksAction;
-
    QAction*              LocationAction[LocationCount];
 
    QSpectrumAnalyzer*    SpectrumAnalyzerWindow;
@@ -350,14 +339,10 @@ class QClient : public QMainWindow
    QPushButton*          Pause;
    QWhatsThis*           WhatsThis;
 
+   AudioClient*          Client;
    QList<String*>        URLList;
    String                PlayingURL;
    bool                  InsertionRequired;
-   bool                  ResolveMode;
-   bool                  AutoRepeat;
-   bool                  AutoSaveBookmarks;
-
-   AudioClient*          Client;
 };
 
 
