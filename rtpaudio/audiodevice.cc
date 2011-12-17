@@ -32,10 +32,12 @@
 
 
 #include "tdsystem.h"
+#include "tools.h"
 #include "audiodevice.h"
 #include "audioconverter.h"
 
 
+#include <assert.h>
 #include <fcntl.h>
 #include <sys/ioctl.h>
 #include <sys/soundcard.h>
@@ -50,12 +52,17 @@ AudioDevice::AudioDevice(const char* name)
    : Thread("AudioDeviceThread")
 {
    // ====== Open Audio Device ==============================================
-   IsReady            = false;
+   IsReady                   = false;
+   IsFillingBuffer           = true;
 
-   AudioChannels      = 0;
-   AudioBits          = 0;
-   AudioSamplingRate  = 0;
-   AudioByteOrder     = BYTE_ORDER;
+   AudioChannels             = 0;
+   AudioBits                 = 0;
+   AudioSamplingRate         = 0;
+   AudioByteOrder            = BYTE_ORDER;
+
+   LastWriteTimeStamp        = 0;
+   Balance                   = 0;
+   JitterCompensationLatency = 100000;   // 100ms
 
    DeviceFD = open(name,O_WRONLY);
    if(DeviceFD < 0) {
@@ -84,10 +91,12 @@ AudioDevice::AudioDevice(const char* name)
                    "ioctl SNDCTL_DSP_GETBLKSIZE failed!" << std::endl;
       return;
    }
+#if 0
    if(ioctl(DeviceFD,SNDCTL_DSP_NONBLOCK,0) < 0) {
       std::cerr << "WARNING: AudioDevice::AudioDevice() - "
                    "ioctl SNDCTL_DSP_NONBLOCK failed!" << std::endl;
    }
+#endif
 
 
    // ====== Select audio format ============================================
@@ -181,7 +190,6 @@ AudioDevice::AudioDevice(const char* name)
    if(IsReady == false) {
       std::cerr << "ERROR: AudioDevice::AudioDevice() - Copy thread startup failed!" << std::endl;
    }
-   Thread::delay(1500000);
 }
 
 
@@ -315,6 +323,9 @@ void AudioDevice::sync()
    // ====== Do SNDCTL_DSP_RESET ============================================
    // SNDCTL_DSP_SYNC has been replaced by SNDCTL_DSP_RESET, because it seems
    // that SNDCTL_DSP_SYNC has a longer delay.
+#ifdef DEBUG
+   std::cout << "sync! buffered=" << Buffer.bytesReadable() << std::endl;
+#endif
    Buffer.flush();
    IsReady = (ioctl(DeviceFD,SNDCTL_DSP_RESET,0) >= 0);
    if(!IsReady) {
@@ -322,6 +333,9 @@ void AudioDevice::sync()
                 << strerror(errno) << ">" << std::endl;
       return;
    }
+   IsFillingBuffer    = true;
+   LastWriteTimeStamp = 0;
+   Balance            = 0;
    SyncCount++;
 }
 
@@ -354,12 +368,6 @@ bool AudioDevice::write(const void* data, const size_t length)
 
 
    Buffer.synchronized();
-
-   // Force moving data from ring buffer to audio device here.
-   // There may be not enough time to wait for the thread to do the
-   // job. Some soundcards have awfully small audio buffers...
-   moveAudioData();
-
 
    // ====== Write data to buffer ===========================================
    const bool ok = (Buffer.write((char*)buffer,len) == (ssize_t)len);
@@ -403,31 +411,69 @@ cardinal AudioDevice::getCurrentCapacity()
 }
 
 
-// ###### Copy data from ring buffer to device ##############################
-void AudioDevice::moveAudioData()
-{
-   if(IsReady == true) {
-      char buffer[512];
-      ssize_t length;
-      ssize_t result;
-      do {
-         length = Buffer.read((char*)&buffer,sizeof(buffer));
-         if(length > 0) {
-            result = ::write(DeviceFD,(char*)&buffer,length);
-         }
-         else {
-            result = -1;
-         }
-      } while(result == length);
-   }
-}
-
-
 // ###### Audio data copy thread ############################################
 void AudioDevice::run()
 {
    for(;;) {
       Buffer.wait();
-      moveAudioData();
+
+      const double bytesPerMicroSecond = (double)
+         (((cardinal)DeviceSamplingRate * (cardinal)DeviceChannels * (cardinal)DeviceBits) / 8) /
+         1000000.0;
+      const cardinal jitterCompensationBufferSize = (cardinal)
+         rint(JitterCompensationLatency * bytesPerMicroSecond);
+
+      if(IsFillingBuffer) {
+#ifdef DEBUG
+         std::cout << "filling: " << Buffer.bytesReadable() << "/"
+                   << jitterCompensationBufferSize << std::endl;
+#endif
+         if(Buffer.bytesReadable() >= jitterCompensationBufferSize) {
+            IsFillingBuffer    = false;
+            LastWriteTimeStamp = 0;
+         }
+      }
+
+      if((!IsFillingBuffer) && (IsReady == true)) {
+         const card64 now = getMicroTime();
+
+         if(LastWriteTimeStamp != 0) {
+            const card64 delay = now - LastWriteTimeStamp;
+            Balance -= (integer)((double)delay * bytesPerMicroSecond);
+         }
+
+#ifdef DEBUG
+         std::cout << "balance=" << Balance << "; min="
+                   << (jitterCompensationBufferSize / 2) << std::endl;
+#endif
+         if(Balance < (integer)(jitterCompensationBufferSize / 2)) {
+#ifdef DEBUG
+            std::cout << "  => reset << std::endl;
+#endif
+            Balance         = 0;
+            IsFillingBuffer = (Buffer.bytesReadable() < jitterCompensationBufferSize);
+         }
+
+         if(!IsFillingBuffer) {
+            char buffer[DeviceFragmentSize];
+            ssize_t dataRead;
+            ssize_t dataWritten;
+            do {
+               dataRead = Buffer.read((char*)&buffer,sizeof(buffer));
+               if(dataRead > 0) {
+                  dataWritten = ::write(DeviceFD,(char*)&buffer,dataRead);
+                  if(dataWritten > 0) {
+                     // ====== Update balance =====================================
+                     Balance += (integer)dataWritten;
+                  }
+               }
+               else {
+                  dataRead = -1;
+               }
+            } while(dataWritten == dataRead);
+         }
+
+         LastWriteTimeStamp = now;
+      }
    }
 }

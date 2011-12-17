@@ -212,7 +212,6 @@ class AudioDevice : virtual public AudioWriterInterface,
    // ====== Internal data ==================================================
    private:
    void run();
-   void moveAudioData();
 
 
    bool       IsReady;
@@ -237,7 +236,12 @@ class AudioDevice : virtual public AudioWriterInterface,
    card16     AudioByteOrder;
 
    RingBuffer Buffer;
+   bool       IsFillingBuffer;
    cardinal   ResizeThreshold;
+
+   cardinal   JitterCompensationLatency;
+   card64     LastWriteTimeStamp;
+   integer    Balance;
 };
 
 
