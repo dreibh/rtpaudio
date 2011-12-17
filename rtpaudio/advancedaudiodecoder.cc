@@ -440,7 +440,6 @@ void AdvancedAudioDecoder::handleNextPacket(const DecoderPacket* decoderPacket)
       node->Position     = packet->Position;
       node->MaxPosition  = packet->MaxPosition;
       node->SamplingRate = packet->SamplingRate;
-printf("SR=%d\n",node->SamplingRate);
       node->Channels     = packet->Channels;
       node->Bits         = packet->Bits;
       node->ErrorCode    = packet->ErrorCode;
@@ -493,7 +492,7 @@ void AdvancedAudioDecoder::timerEvent()
       if(diff > BufferCleanUpDifference) {
 #ifdef DEBUG
          std::cout << "Buffer clean-up necessary - difference is "
-              << diff << "." << std::endl;
+                   << diff << "." << std::endl;
 #endif
          frameIterator = FrameSet.begin();
          while(frameIterator != FrameSet.end()) {
