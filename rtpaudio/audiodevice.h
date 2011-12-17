@@ -221,6 +221,7 @@ class AudioDevice : virtual public AudioWriterInterface,
    bool       IsReady;
 
 #ifdef HAVE_PULSEAUDIO
+   friend class AudioMixer;
    pa_simple* Device;
 #else
    int        DeviceFD;           // Device and its properties.

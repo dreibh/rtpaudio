@@ -35,52 +35,110 @@
 #include "audiomixer.h"
 
 
+#ifdef HAVE_PULSEAUDIO
+#define UINT32_MAX (4294967295U)   // Needed by definitions in pulse/volume.h!
+#include <pulse/simple.h>
+#include <pulse/introspect.h>
+#include <pulse/pulseaudio.h>
+#include <pulse/thread-mainloop.h>
+#include <pulse/xmalloc.h>
+#else
 #include <fcntl.h>
 #include <sys/ioctl.h>
 #include <sys/types.h>
 #include <sys/soundcard.h>
+#endif
+
+
+#ifdef HAVE_PULSEAUDIO
+double AudioMixer::MinVolume = pa_sw_volume_to_linear(PA_VOLUME_MUTED);
+double AudioMixer::MaxVolume = pa_sw_volume_to_linear(2*PA_VOLUME_NORM);
+#endif
 
 
 // ###### Constructor #######################################################
-AudioMixer::AudioMixer(int mixerChannel, const char* name)
+AudioMixer::AudioMixer(AudioDevice* audioDevice,
+                       int          mixerChannel,
+                       const char*  name)
 {
+#ifdef HAVE_PULSEAUDIO
+   Device = audioDevice;
+   pa_cvolume_set(&Volume, 2, PA_VOLUME_NORM / 2);
+#else
    Channel = mixerChannel;
-   Device = open(name,O_RDWR);
+   Device  = open(name,O_RDWR);
    if(Device < 0) {
       std::cerr << "WARNING: Unable to open AudioMixer " << name << "." << std::endl;
    }
+#endif
 }
 
 
 // ###### Destructor ########################################################
 AudioMixer::~AudioMixer()
 {
+#ifndef HAVE_PULSEAUDIO
    if(Device >= 0) {
       close(Device);
    }
+#endif
 }
 
 
 // ###### Get volume ########################################################
 bool AudioMixer::getVolume(card8& left, card8& right)
 {
+#ifdef HAVE_PULSEAUDIO
+   left  = (card8)rint( (Volume.values[0] * 100) / PA_VOLUME_NORM );
+   right = (card8)rint( (Volume.values[1] * 100) / PA_VOLUME_NORM );
+   if(left > 100)  left  = 100;
+   if(right > 100) right = 100;
+#else
    int volume;
-   if(ioctl(Device,MIXER_READ(Channel),&volume) >= 0) {
-      left = (card8)(volume & 0x7f);
-      right = (card8)((volume >> 8) & 0x7f);
-      return(true);
+   if(ioctl(Device,MIXER_READ(Channel),&volume) < 0) {
+      return(false);
    }
-   return(false);
+   else {
+      left  = (card8)(volume & 0x7f);
+      right = (card8)((volume >> 8) & 0x7f);
+   }
+#endif
+   return(true);
 }
 
 
 // ###### Set volume ########################################################
 bool AudioMixer::setVolume(const card8 left, const card8 right)
 {
+#ifdef HAVE_PULSEAUDIO
+   assert(left  <= 100);
+   assert(right <= 100);
+   const double l = (left  / 100.0) * PA_VOLUME_NORM;
+   const double r = (right / 100.0) * PA_VOLUME_NORM;
+   Volume.values[0] = l;
+   Volume.values[1] = r;
+
+   // ====== Set the volume =================================================
+   // FIXME: This is rather ugly, but at least it works ...
+   struct my_pa_simple {
+      pa_threaded_mainloop *mainloop;
+      pa_context *context;
+      pa_stream *stream;
+      pa_stream_direction_t direction;
+      const void *read_data;
+      size_t read_index, read_length;
+      int operation_success;
+   };
+   my_pa_simple* mpa = (my_pa_simple*)Device->Device;
+   pa_operation* result =  pa_context_set_sink_volume_by_index(mpa->context, 0, &Volume, NULL, NULL);
+   pa_operation_unref(result);
+   return(true);
+#else
    unsigned int l = left;
    unsigned int r = right;
    if(l > 100) l = 100;
    if(r > 100) r = 100;
    int volume = left + (r << 8);
    return(ioctl(Device,MIXER_WRITE(Channel),&volume) >= 0);
+#endif
 }

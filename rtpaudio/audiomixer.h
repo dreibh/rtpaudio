@@ -36,8 +36,14 @@
 
 
 #include "tdsystem.h"
+#include "audiodevice.h"
 
+#ifdef HAVE_PULSEAUDIO
+#include <pulse/volume.h>
+#define SOUND_MIXER_PCM 0   // Dummy value
+#else
 #include <sys/soundcard.h>
+#endif
 
 
 /**
@@ -54,10 +60,13 @@ class AudioMixer
    /**
      * Constructor.
      *
+     * @param audioDevice AudioDevice object.
      * @param mixerChannel Mixer channel (e.g. SOUND_MIXER_PCM).
      * @param name Mixer device name (e.g. "/dev/mixer").
      */
-   AudioMixer(int mixerChannel = SOUND_MIXER_PCM, const char* name = "/dev/mixer");
+   AudioMixer(AudioDevice* audioDevice,
+              int          mixerChannel = SOUND_MIXER_PCM,
+              const char*  name         = "/dev/mixer");
 
    /**
      * Destructor.
@@ -94,8 +103,16 @@ class AudioMixer
 
    // ====== Private data ===================================================
    private:
-   int Device;
-   int Channel;
+#ifdef HAVE_PULSEAUDIO
+   AudioDevice*   Device;
+   static double  MinVolume;
+   static double  MaxVolume;
+   pa_channel_map Map;
+   pa_cvolume     Volume;
+#else
+   int            Device;
+   int            Channel;
+#endif
 };
 
 
