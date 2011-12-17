@@ -50,12 +50,6 @@
 #endif
 
 
-#ifdef HAVE_PULSEAUDIO
-double AudioMixer::MinVolume = pa_sw_volume_to_linear(PA_VOLUME_MUTED);
-double AudioMixer::MaxVolume = pa_sw_volume_to_linear(2*PA_VOLUME_NORM);
-#endif
-
-
 // ###### Constructor #######################################################
 AudioMixer::AudioMixer(AudioDevice* audioDevice,
                        int          mixerChannel,

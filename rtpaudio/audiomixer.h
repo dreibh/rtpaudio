@@ -105,8 +105,6 @@ class AudioMixer
    private:
 #ifdef HAVE_PULSEAUDIO
    AudioDevice*   Device;
-   static double  MinVolume;
-   static double  MaxVolume;
    pa_channel_map Map;
    pa_cvolume     Volume;
 #else
