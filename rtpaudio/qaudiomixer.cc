@@ -74,8 +74,11 @@ QAudioMixer::QAudioMixer(AudioMixer* mixer,
    controlLayout->addWidget(label1,0,0);
    Balance = new QSlider(Qt::Horizontal,controlGroup);
    Q_CHECK_PTR(Balance);
+   Balance->setMinimum(0);
+   Balance->setMaximum(100);
    Balance->setTickPosition(QSlider::TicksBelow);
    Balance->setTickInterval(10);
+   Balance->setMinimumWidth(200);
    controlLayout->addWidget(Balance,0,1);
    QPushButton* center = new QPushButton("Center",controlGroup);
    Q_CHECK_PTR(center);
@@ -89,6 +92,8 @@ QAudioMixer::QAudioMixer(AudioMixer* mixer,
    controlLayout->addWidget(label2,1,0);
    Volume = new QSlider(Qt::Horizontal,controlGroup);
    Q_CHECK_PTR(Volume);
+   Volume->setMinimum(0);
+   Volume->setMaximum(100);
    Volume->setTickPosition(QSlider::TicksBelow);
    Volume->setTickInterval(10);
    controlLayout->addWidget(Volume,1,1);
@@ -165,7 +170,7 @@ void QAudioMixer::update()
       }
 
       if(Mixer->setVolume(left,right) == false) {
-         std::cerr << "WARNING: QAudioMixer::update() - Error doing AudioMixer::setVolume()!" << std::endl;
+         std::cerr << "WARNING: QAudioMixer::update() - AudioMixer::setVolume() failed!" << std::endl;
       }
 
       char str[32];
