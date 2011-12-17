@@ -417,12 +417,17 @@ void AudioDevice::run()
    for(;;) {
       Buffer.wait();
 
+      // ====== Calculate some constants ====================================
       const double bytesPerMicroSecond = (double)
          (((cardinal)DeviceSamplingRate * (cardinal)DeviceChannels * (cardinal)DeviceBits) / 8) /
          1000000.0;
       const cardinal jitterCompensationBufferSize = (cardinal)
          rint(JitterCompensationLatency * bytesPerMicroSecond);
 
+
+      // ====== Fill buffer =================================================
+      // If buffer fill mode is on, collect at least a data amount of
+      // "jitterCompensationBufferSize" in the ring buffer, without playing.
       if(IsFillingBuffer) {
 #ifdef DEBUG
          std::cout << "filling: " << Buffer.bytesReadable() << "/"
@@ -434,26 +439,35 @@ void AudioDevice::run()
          }
       }
 
+      // ====== Play data ===================================================
+      // The buffer has been filled, now play it!
       if((!IsFillingBuffer) && (IsReady == true)) {
          const card64 now = getMicroTime();
 
+         // ====== Update balance ===========================================
          if(LastWriteTimeStamp != 0) {
             const card64 delay = now - LastWriteTimeStamp;
             Balance -= (integer)((double)delay * bytesPerMicroSecond);
          }
-
 #ifdef DEBUG
          std::cout << "balance=" << Balance << "; min="
                    << (jitterCompensationBufferSize / 2) << std::endl;
 #endif
+
+         // ====== Check balance ============================================
+         // The buffer is assumed to be underful, if the balance is less
+         // than (jitterCompensationBufferSize / 2).
          if(Balance < (integer)(jitterCompensationBufferSize / 2)) {
 #ifdef DEBUG
             std::cout << "  => reset << std::endl;
 #endif
-            Balance         = 0;
+            Balance         = 0;   // Reset balance
             IsFillingBuffer = (Buffer.bytesReadable() < jitterCompensationBufferSize);
+            // If we have not collected enough data yet, go into
+            // buffer filling mode!
          }
 
+         // ====== Really play data =========================================
          if(!IsFillingBuffer) {
             char buffer[DeviceFragmentSize];
             ssize_t dataRead;
@@ -463,7 +477,7 @@ void AudioDevice::run()
                if(dataRead > 0) {
                   dataWritten = ::write(DeviceFD,(char*)&buffer,dataRead);
                   if(dataWritten > 0) {
-                     // ====== Update balance =====================================
+                     // ====== Update balance ===============================
                      Balance += (integer)dataWritten;
                   }
                }
