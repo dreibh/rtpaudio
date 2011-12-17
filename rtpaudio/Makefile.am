@@ -143,8 +143,7 @@ libaudiodecoder_la_LIBADD = libaudiocodeccommon.la
 
 
 librtpaudiocommon_la_SOURCES = \
- audioclientapppacket.cc audioclientapppacket.h \
- staticglobals.cc
+ audioclientapppacket.cc audioclientapppacket.h
 librtpaudiocommon_la_LIBADD = libtdtoolbox.la
 
 librtpaudioserver_la_SOURCES = \
@@ -198,4 +197,4 @@ endif
 bin_PROGRAMS += t1
 
 t1_SOURCES = t1.cc
-t1_LDADD   = libaudioencoder.la libtdtoolbox.la
+t1_LDADD   = librtpaudiocommon.la libaudioencoder.la libtdtoolbox.la librtpserver.la

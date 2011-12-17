@@ -41,6 +41,7 @@
 
 
 #include "tdsystem.h"
+#include "tdstrings.h"
 
 
 #include <sys/socket.h>

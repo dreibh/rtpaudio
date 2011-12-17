@@ -32,6 +32,7 @@
 
 
 #include "tdsystem.h"
+#include "tools.h"
 #include "audioconverter.h"
 
 

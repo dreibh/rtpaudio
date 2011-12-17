@@ -71,10 +71,6 @@
 #endif
 
 
-// Use libefence for debugging
-// #define USE_EFENCE
-
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -196,16 +192,6 @@ typedef uint_least32_t cardinal;
 #else
 typedef card32 cardinal;
 #endif
-
-
-#ifdef DMALLOC
-#define USE_DMALLOC
-#include <dmalloc.h>
-#endif
-
-
-// Include tools.h with libefence replacement for new and delete.
-#include "tools.h"
 
 
 #endif

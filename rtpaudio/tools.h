@@ -233,32 +233,7 @@ template<class T> cardinal removeDuplicates(T*             array,
 void printTimeStamp(std::ostream& os = std::cout);
 
 
-#ifdef USE_EFENCE
-
-
-#include "synchronizable.h"
-
-
-extern Synchronizable MemoryManagementLock;
-
-
-/**
-  * operator new() replacement for usage with libefence.
-  */
-void* operator new(size_t size) throw (std::bad_alloc);
-
-
-/**
-  * operator delete() replacement for usage with libefence.
-  */
-void operator delete(void* ptr) throw ();
-
-
-#endif
-
-
 #include "tools.icc"
 
 
 #endif
-

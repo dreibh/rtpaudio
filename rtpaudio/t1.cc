@@ -39,10 +39,49 @@
 #include "advancedaudiopacket.h"
 #include "simpleaudiopacket.h"
 #include "audioquality.h"
+#include "abstractqosdescription.h"
 
 #include <netinet/udp.h>
 #include <netinet/ip.h>
 #include <netinet/ip6.h>
+
+
+class SimpleAudioQoSDescription : public AbstractQoSDescription
+{
+   public:
+   SimpleAudioQoSDescription();
+   ~SimpleAudioQoSDescription();
+
+   void updateDescription(const cardinal pktHeaderSize,
+                          const cardinal pktMaxSize);
+   cardinal getLayers() const;
+   AbstractLayerDescription* getLayer(const cardinal layer) const;
+};
+
+SimpleAudioQoSDescription::SimpleAudioQoSDescription()
+{
+}
+
+SimpleAudioQoSDescription::~SimpleAudioQoSDescription()
+{
+}
+
+void SimpleAudioQoSDescription::updateDescription(
+                                   const cardinal pktHeaderSize,
+                                   const cardinal pktMaxSize)
+{
+}
+
+cardinal SimpleAudioQoSDescription::getLayers() const
+{
+   return(1);
+}
+
+AbstractLayerDescription* SimpleAudioQoSDescription::getLayer(const cardinal layer) const
+{
+
+}
+
 
 
 // // ###### Print information on given quality #################################

@@ -48,9 +48,12 @@
 #include <ctype.h>
 
 
-
 // Print note, if IPv6 is not available.
 // #ifdef PRINT_NOIPV6_NOTE
+
+
+// Check, if IPv6 is available on this host.
+bool InternetAddress::UseIPv6 = checkIPv6();
 
 
 
