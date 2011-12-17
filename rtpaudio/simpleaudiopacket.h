@@ -114,16 +114,6 @@ struct SimpleAudioPacket
      */
    static const cardinal SimpleAudioQualityLevels = AudioQuality::QualityLevels;
 
-   /**
-     * Simple Audio loss threshold for quality decrement.
-     */
-   static const double SimpleAudioUpperLossThreshold = 0.04;
-
-   /**
-     * Simple Audio loss threshold for quality increment.
-     */
-   static const double SimpleAudioLowerLossThreshold = 0.01;
-
 
    /**
      * Quality calculation for given user quality limited by input quality,

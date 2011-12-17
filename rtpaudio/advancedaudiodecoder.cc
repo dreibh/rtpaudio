@@ -42,7 +42,7 @@
 
 // Debug mode: Display some information on error correction and sequence
 //             number checks.
-#define DEBUG
+// #define DEBUG
 
 
 // ###### Constructor #######################################################

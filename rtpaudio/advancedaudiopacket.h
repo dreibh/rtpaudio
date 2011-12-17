@@ -102,7 +102,8 @@ struct AdvancedAudioPacket
    /**
      * Advanced Audio frame size.
      */
-   static const cardinal AdvancedAudioFrameSize = 5040;
+   static const cardinal AdvancedAudioFrameSize =
+      44100 * 2 * 2 / AdvancedAudioFramesPerSecond;
 
    /**
      * Advanced Audio maximum transfer delay.
@@ -118,16 +119,6 @@ struct AdvancedAudioPacket
      * Advanced Audio quality levels.
      */
    static const cardinal AdvancedAudioQualityLevels = AudioQuality::QualityLevels;
-
-   /**
-     * Advanced Audio loss threshold for quality decrement.
-     */
-   static const double AdvancedAudioUpperLossThreshold = 0.05;
-
-   /**
-     * Advanced Audio loss threshold for quality increment.
-     */
-   static const double AdvancedAudioLowerLossThreshold = 0.025;
 
 
    /**
