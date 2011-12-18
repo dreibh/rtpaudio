@@ -8,8 +8,8 @@
 // ####           Copyright (C) 1999-2012 by Thomas Dreibholz            ####
 // ####                                                                  ####
 // #### Contact:                                                         ####
-// ####    EMail: dreibh@iem.uni-due.de.de                               ####
-// ####    WWW:   http://www.iem.uni-due.de.de/~dreibh/rn                ####
+// ####    EMail: dreibh@iem.uni-due.de                                  ####
+// ####    WWW:   http://www.iem.uni-due.de/~dreibh/rtpaudio             ####
 // ####                                                                  ####
 // #### ---------------------------------------------------------------- ####
 // ####                                                                  ####

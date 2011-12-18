@@ -2,11 +2,12 @@ Source: rtpaudio
 Section: net
 Priority: optional
 Maintainer: Thomas Dreibholz <dreibh@iem.uni-due.de>
-Homepage: http://www.iem.uni-due.de/~dreibh/rn/
+Homepage: http://www.iem.uni-due.de/~dreibh/rtpaudio/
 Build-Depends: autotools-dev,
                debhelper (>= 7.0.50~),
                libqt4-dev,
-               libsctp-dev (>= 1.0.5)
+               libsctp-dev (>= 1.0.5),
+               libpulse-dev
 Standards-Version: 3.9.2
 
 Package: libmpegsound0
@@ -15,7 +16,7 @@ Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends}
 Description: Sound decoder library
- libmpegsound decodes a couple of sound formats (e.g. MP3, OGG) and
+ libmpegsound decodes a couple of sound formats (e.g. MP3) and
  returns a raw data stream.
  .
  The library is provided by this package.
@@ -208,7 +209,6 @@ Depends: libaudiocodeccommon0,
          ${shlibs:Depends}
 Recommends: iputils-ping,
             iputils-tracepath,
-            pulseaudio-utils,
             rsplib-tools,
             subnetcalc,
             traceroute
