@@ -339,7 +339,6 @@ integer RTCPSender::sendReport()
 */
 
       // ====== Send packet ==============================================
-      unsynchronized();
       SocketMessage<sizeof(sctp_sndrcvinfo)> message;
       message.setBuffer((void*)report,length);
       message.setAddress(Flow, SenderSocket->getFamily());
