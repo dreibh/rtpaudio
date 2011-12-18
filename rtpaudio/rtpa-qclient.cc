@@ -125,7 +125,7 @@ QClient::QClient(AudioWriterInterface* audioOutput,
 
    ToolsMenu = new QMenu("&Tools", this);
    Q_CHECK_PTR(ToolsMenu);
-   SpectrumAnalyzerAction = ToolsMenu->addAction("Spectrum Analyzer",this,SLOT(spectrumAnalyzer()),Qt::CTRL+Qt::Key_A);
+   SpectrumAnalyzerAction = ToolsMenu->addAction("Spectrum Analyzer",this,SLOT(spectrumAnalyzer()),Qt::CTRL+Qt::Key_F);
    Q_CHECK_PTR(SpectrumAnalyzerAction);
    SpectrumAnalyzerAction->setCheckable(TRUE);
    SpectrumAnalyzerAction->setChecked(FALSE);
