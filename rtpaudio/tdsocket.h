@@ -197,32 +197,6 @@ class Socket
    inline integer getProtocol() const;
 
 
-   // ====== Statistics functions ===========================================
-   /**
-     * Get number of bytes sent.
-     *
-     * @return Number of bytes sent.
-     */
-   inline card64 getBytesSent() const;
-
-   /**
-     * Get number of bytes received.
-     *
-     * @return Number of bytes received.
-     */
-   inline card64 getBytesReceived() const;
-
-   /**
-     * Reset number of bytes sent.
-     */
-   inline void resetBytesSent();
-
-   /**
-     * Reset number of bytes received.
-     */
-   inline void resetBytesReceived();
-
-
    // ====== Socket control functions =======================================
    /**
      * Check, if socket is ready.

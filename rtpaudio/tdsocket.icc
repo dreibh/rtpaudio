@@ -109,34 +109,6 @@ inline card8 Socket::getReceivedTrafficClass() const
 }
 
 
-// ###### Get bytes sent ####################################################
-inline card64 Socket::getBytesSent() const
-{
-   return(BytesSent);
-}
-
-
-// ###### Get bytes received ################################################
-inline card64 Socket::getBytesReceived() const
-{
-   return(BytesReceived);
-}
-
-
-// ###### Reset bytes sent ##################################################
-inline void Socket::resetBytesSent()
-{
-   BytesSent = 0;
-}
-
-
-// ###### Reset bytes received ##############################################
-inline void Socket::resetBytesReceived()
-{
-   BytesReceived = 0;
-}
-
-
 // ###### Socket control ####################################################
 inline integer Socket::fcntl(const integer cmd, long arg)
 {
