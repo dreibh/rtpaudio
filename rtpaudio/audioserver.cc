@@ -38,31 +38,21 @@
 #include "advancedaudioencoder.h"
 #include "audioencoderrepository.h"
 #include "rtpsender.h"
-
 #include "rtcppacket.h"
 #include "rtcpreceiver.h"
 #include "rtcpabstractserver.h"
 #include "sourcestateinfo.h"
 #include "tools.h"
 #include "randomizer.h"
-
-
 #include "audioclientapppacket.h"
 #include "audioserver.h"
 
 
 // Verbose mode: Display some information on connections.
-#define VERBOSE
-
+// #define VERBOSE
 
 // Debug mode: Print debug information
 // #define QOSMGR_DEBUG
-
-// Test: Test of flow label changes
-// #define FLOWLABEL_TEST
-
-// Test: Test of traffic class changes
-// #define TC_TEST
 
 
 // ###### Constructor #######################################################

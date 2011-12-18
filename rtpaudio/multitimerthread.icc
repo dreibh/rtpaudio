@@ -100,6 +100,8 @@ template<const cardinal Timers> bool MultiTimerThread<Timers>::isShuttingDown()
 // ###### The thread's run() implementation #################################
 template<const cardinal Timers> void MultiTimerThread<Timers>::run()
 {
+   // ====== Initialize =====================================================
+   synchronized();
    Shutdown          = false;
    ParametersUpdated = true;
 
@@ -107,12 +109,14 @@ template<const cardinal Timers> void MultiTimerThread<Timers>::run()
    TimerParameters parameters[Timers];
    card64          calls[Timers];
    card64          next[Timers];
+
    for(cardinal i = 0;i < Timers;i++) {
       parameters[i] = Parameters[i];
       parameters[i].Updated = true;
       next[i]  = 0;
       calls[i] = 0;
    }
+   unsynchronized();
 
    card64 now           = getMicroTime();
    card64 nextTimeStamp = now;

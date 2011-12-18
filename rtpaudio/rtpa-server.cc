@@ -119,9 +119,11 @@ void initAll(const char*    directory,
 void cleanUp(const cardinal exitCode)
 {
    if(rtcpReceiver != NULL) {
+      rtcpReceiver->stop();
       delete rtcpReceiver;
    }
    if(server != NULL) {
+      server->stop();
       delete server;
    }
    if(rtcpServerSocket != NULL) {
@@ -343,10 +345,10 @@ int main(int argc, char* argv[])
 
 
    // ====== Print status ===================================================
-   std::cout << "RTP Audio Server - Copyright (C) 1999-2012 Thomas Dreibholz" << std::endl;
-   std::cout << "-----------------------------------------------------------" << std::endl;
-   std::cout << std::endl;
-   std::cout << "Version:          " << __DATE__ << ", " << __TIME__ << std::endl;
+   std::cout << "RTP Audio Server - Copyright (C) 1999-2012 Thomas Dreibholz" << std::endl
+             << "-----------------------------------------------------------" << std::endl
+             << std::endl
+             << "Version:          " << __DATE__ << ", " << __TIME__ << std::endl;
    if(optUseSCTP) {
       std::cout << "SCTP:             on" << std::endl;
    }
@@ -356,12 +358,12 @@ int main(int argc, char* argv[])
    std::cout << "Server Port:      " << port << std::endl;
    char str[32];
    snprintf((char*)&str,sizeof(str),"$%08x",server->getOurSSRC());
-   std::cout << "Server SSRC:      " << str << std::endl;
-   std::cout << "Client Timeout:   " << (timeout / 1000000) << " [s]" << std::endl;
-   std::cout << "Input Directory:  " << directory << std::endl;
-   std::cout << "Max Packet Size:  " << maxPacketSize << std::endl;
-   std::cout << "Loss Scalability: " << (lossScalability ? "on" : "off") << std::endl;
-   std::cout << std::endl;
+   std::cout << "Server SSRC:      " << str << std::endl
+             << "Client Timeout:   " << (timeout / 1000000) << " [s]" << std::endl
+             << "Input Directory:  " << directory << std::endl
+             << "Max Packet Size:  " << maxPacketSize << std::endl
+             << "Loss Scalability: " << (lossScalability ? "on" : "off") << std::endl
+             << std::endl;
 
 
    // ====== Main loop ======================================================

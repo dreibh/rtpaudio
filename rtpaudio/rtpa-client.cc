@@ -295,17 +295,17 @@ int main(int argc, char* argv[])
 
 
    // ====== Print status ===================================================
-   std::cout << "RTP Audio Client - Copyright (C) 1999-2012 Thomas Dreibholz" << std::endl;
-   std::cout << "-----------------------------------------------------------" << std::endl;
-   std::cout << std::endl;
-   std::cout << "Version:         " << __DATE__ << ", " << __TIME__ << std::endl;
-   std::cout << "Server Address:  " << client->getServerAddressString() << std::endl;
+   std::cout << "RTP Audio Client - Copyright (C) 1999-2012 Thomas Dreibholz" << std::endl
+             << "-----------------------------------------------------------" << std::endl
+             << std::endl
+             << "Version:         " << __DATE__ << ", " << __TIME__ << std::endl
+             << "Server Address:  " << client->getServerAddressString() << std::endl;
    char str[32];
    snprintf((char*)&str,sizeof(str),"$%08x",client->getOurSSRC());
-   std::cout << "Client SSRC:     " << str << std::endl;
-   std::cout << "Media URL:       " << argv[1] << std::endl;
-   std::cout << "Layers:          " << layers << std::endl;
-   std::cout << std::endl;
+   std::cout << "Client SSRC:     " << str     << std::endl
+             << "Media URL:       " << argv[1] << std::endl
+             << "Layers:          " << layers  << std::endl
+             << std::endl;
 
 
    // ====== Main loop ======================================================
