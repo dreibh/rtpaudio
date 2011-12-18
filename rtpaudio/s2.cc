@@ -1862,7 +1862,7 @@ int main(int argc, char* argv[])
 
 
    // ====== Print status ===================================================
-   cout << "RTP Audio Server - Copyright (C) 1999-2002 Thomas Dreibholz" << endl;
+   cout << "RTP Audio Server - Copyright (C) 1999-2012 Thomas Dreibholz" << endl;
    cout << "-----------------------------------------------------------" << endl;
    cout << endl;
    cout << "Version:          " << __DATE__ << ", " << __TIME__ << endl;

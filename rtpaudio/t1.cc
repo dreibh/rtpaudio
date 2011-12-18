@@ -222,7 +222,7 @@ int main(int argc, char** argv)
 
 
    // ====== Print information ==============================================
-   std::cout << "RTP Audio Encoder Info - Copyright (C) 1999-2001 Thomas Dreibholz" << std::endl;
+   std::cout << "RTP Audio Encoder Info - Copyright (C) 1999-2012 Thomas Dreibholz" << std::endl;
    std::cout << "-----------------------------------------------------------------" << std::endl;
    std::cout << std::endl;
    std::cout << "Max Packet Size: " << maxPacketSize << std::endl;

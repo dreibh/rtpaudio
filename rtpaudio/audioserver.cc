@@ -49,7 +49,7 @@
 
 
 // Verbose mode: Display some information on connections.
-// #define VERBOSE
+#define VERBOSE
 
 // Debug mode: Print debug information
 // #define QOSMGR_DEBUG
@@ -107,7 +107,7 @@ void* AudioServer::newClient(Client* client, const char* cname)
    // ====== Create and connect sender socket ===============================
    user->SenderSocket.create(Socket::IP,
                              UseSCTP ? Socket::SeqPacket : Socket::Datagram,
-                             UseSCTP ? Socket::SCTP : Socket::Default);
+                             UseSCTP ? Socket::SCTP      : Socket::Default);
    if(!user->SenderSocket.ready()) {
       std::cerr << "WARNING: AudioServer::newClient() - Unable to create socket!" << std::endl;
       deleteClient(client,DeleteReason_Error);
@@ -121,12 +121,12 @@ void* AudioServer::newClient(Client* client, const char* cname)
    user->Flow.setTrafficClass(AudioServerDefaultTrafficClass);
 
    // ====== Create repository and encoders =================================
-   user->LastSequenceNumber  = 0xffff;
-   user->PosChgSeqNumber     = 0xffff;
-   user->BandwidthLimit      = (card64)-1;
-   user->UserLimitPause      = false;
-   user->ManagerLimitPause   = false;
-   user->ClientPause         = false;
+   user->LastSequenceNumber = 0xffff;
+   user->PosChgSeqNumber    = 0xffff;
+   user->BandwidthLimit     = (card64)-1;
+   user->UserLimitPause     = false;
+   user->ManagerLimitPause  = false;
+   user->ClientPause        = false;
    user->Repository.setAutoDelete(true);
    const bool e1 = user->Repository.addEncoder(new AdvancedAudioEncoder(&user->Reader));
    const bool e2 = user->Repository.addEncoder(new SimpleAudioEncoder(&user->Reader));
@@ -165,16 +165,16 @@ void* AudioServer::newClient(Client* client, const char* cname)
    InternetAddress sourceAddress;
    user->SenderSocket.getSocketAddress(sourceAddress);
    sourceAddress.setPrintFormat(InternetAddress::PF_Address);
-   std::cout << "   CNAME:               " << cname << std::endl;
-   std::cout << "   Source Address:      " << sourceAddress << std::endl;
-   std::cout << "   Destination Address: " << (InternetAddress)client->ClientAddress << std::endl;
+   std::cout << "   CNAME:               " << cname << std::endl
+             << "   Source Address:      " << sourceAddress << std::endl
+             << "   Destination Address: " << (InternetAddress)client->ClientAddress << std::endl;
    if(user->SenderSocket.getSendFlowLabel() != 0) {
       snprintf((char*)&str,sizeof(str),"$%05x",user->SenderSocket.getSendFlowLabel());
       std::cout << "   Flow Label:          " << str << std::endl;
    }
    snprintf((char*)&str,sizeof(str),"$%02x",user->SenderSocket.getSendTrafficClass());
-   std::cout << "   Traffic Class:       " << str << std::endl;
-   std::cout << "   => We have " << getMembers() + 1 << " member(s) now!" << std::endl;
+   std::cout << "   Traffic Class:       " << str << std::endl
+             << "   => We have " << getMembers() + 1 << " member(s) now!" << std::endl;
 #endif
    return((void*)user);
 }
