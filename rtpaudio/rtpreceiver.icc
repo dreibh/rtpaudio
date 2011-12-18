@@ -40,29 +40,29 @@
 
 
 // ###### Get current position ##############################################
-inline card64 RTPReceiver::getPosition() const
+inline card64 RTPReceiver::getPosition()
 {
-   ((RTPReceiver*)this)->synchronized();
+   synchronized();
    const card64 position = Decoder->getPosition();
-   ((RTPReceiver*)this)->unsynchronized();
+   unsynchronized();
    return(position);
 }
 
 
 // ###### Get maximum position ##############################################
-inline card64 RTPReceiver::getMaxPosition() const
+inline card64 RTPReceiver::getMaxPosition()
 {
-   ((RTPReceiver*)this)->synchronized();
+   synchronized();
    const card64 position = Decoder->getMaxPosition();
-   ((RTPReceiver*)this)->unsynchronized();
+   unsynchronized();
    return(position);
 }
 
 
 // ###### Get bytes received ################################################
-inline card64 RTPReceiver::getBytesReceived(const cardinal layer) const
+inline card64 RTPReceiver::getBytesReceived(const cardinal layer)
 {
-   ((RTPReceiver*)this)->synchronized();
+   synchronized();
    card64 bytes;
    if(layer < RTPConstants::RTPMaxQualityLayers) {
       bytes = BytesReceived[layer];
@@ -73,7 +73,7 @@ inline card64 RTPReceiver::getBytesReceived(const cardinal layer) const
          bytes += BytesReceived[i];
       }
    }
-   ((RTPReceiver*)this)->unsynchronized();
+   unsynchronized();
    return(bytes);
 }
 
@@ -90,9 +90,9 @@ inline void RTPReceiver::resetBytesReceived(const cardinal layer)
 
 
 // ###### Get packets received ##############################################
-inline card64 RTPReceiver::getPacketsReceived(const cardinal layer) const
+inline card64 RTPReceiver::getPacketsReceived(const cardinal layer)
 {
-   ((RTPReceiver*)this)->synchronized();
+   synchronized();
    card64 packets;
    if(layer < RTPConstants::RTPMaxQualityLayers) {
       packets = PacketsReceived[layer];
@@ -103,7 +103,7 @@ inline card64 RTPReceiver::getPacketsReceived(const cardinal layer) const
          packets += PacketsReceived[i];
       }
    }
-   ((RTPReceiver*)this)->unsynchronized();
+   unsynchronized();
    return(packets);
 }
 
@@ -120,47 +120,46 @@ inline void RTPReceiver::resetPacketsReceived(const cardinal layer)
 
 
 // ###### Get number of layers ##############################################
-inline cardinal RTPReceiver::getLayers() const
+inline cardinal RTPReceiver::getLayers()
 {
    cardinal layers;
-   ((RTPReceiver*)this)->synchronized();
+   synchronized();
    layers = Layers;
-   ((RTPReceiver*)this)->unsynchronized();
+   unsynchronized();
    return(layers);
 }
 
 
 // ###### Get flow info #####################################################
-inline InternetFlow RTPReceiver::getInternetFlow(const cardinal layer) const
+inline InternetFlow RTPReceiver::getInternetFlow(const cardinal layer)
 {
    InternetFlow flow;
    if(layer >= RTPConstants::RTPMaxQualityLayers) {
       flow.reset();
    }
    else {
-      ((RTPReceiver*)this)->synchronized();
+      synchronized();
       flow = Flow[layer];
-      ((RTPReceiver*)this)->unsynchronized();
+      unsynchronized();
    }
    return(flow);
 }
 
 
 // ###### Get source state info #############################################
-inline SourceStateInfo RTPReceiver::getSSI(const cardinal layer) const
+inline SourceStateInfo RTPReceiver::getSSI(const cardinal layer)
 {
    SourceStateInfo ssi;
    if(layer >= RTPConstants::RTPMaxQualityLayers) {
       ssi.reset();
    }
    else {
-      ((RTPReceiver*)this)->SSI[layer].synchronized();
+      synchronized();
       ssi = SSI[layer];
-      ((RTPReceiver*)this)->SSI[layer].unsynchronized();
+      unsynchronized();
    }
    return(ssi);
 }
 
 
 #endif
-

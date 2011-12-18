@@ -73,11 +73,11 @@ inline cardinal RTPSender::setMaxPacketSize(const cardinal size)
 
 
 // ###### Get bytes sent ####################################################
-inline card64 RTPSender::getBytesSent() const
+inline card64 RTPSender::getBytesSent()
 {
-   ((RTPSender*)this)->synchronized();
+   synchronized();
    const card64 bytes = BytesSent;
-   ((RTPSender*)this)->synchronized();
+   synchronized();
    return(bytes);
 }
 
@@ -90,11 +90,11 @@ inline void RTPSender::resetBytesSent()
 
 
 // ###### Get packets sent ##################################################
-inline card64 RTPSender::getPacketsSent() const
+inline card64 RTPSender::getPacketsSent()
 {
-   ((RTPSender*)this)->synchronized();
+   synchronized();
    const card64 packets = PacketsSent;
-   ((RTPSender*)this)->synchronized();
+   synchronized();
    return(packets);
 }
 

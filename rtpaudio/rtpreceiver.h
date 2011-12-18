@@ -102,7 +102,7 @@ class RTPReceiver : public Thread
      *
      * @return Position in nanoseconds.
      */
-   inline card64 getPosition() const;
+   inline card64 getPosition();
 
    /**
      * Get maximum position of the encoder.
@@ -110,7 +110,7 @@ class RTPReceiver : public Thread
      *
      * @return Maximum position in nanoseconds.
      */
-   inline card64 getMaxPosition() const;
+   inline card64 getMaxPosition();
 
    /**
      * Get number of bytes received.
@@ -118,7 +118,7 @@ class RTPReceiver : public Thread
      * @param layer Layer number or (cardinal)-1 to get sum of all layers.
      * @return Bytes received.
      */
-   inline card64 getBytesReceived(const cardinal layer) const;
+   inline card64 getBytesReceived(const cardinal layer);
 
    /**
      * Get number of packets received.
@@ -126,7 +126,7 @@ class RTPReceiver : public Thread
      * @param layer Layer number or (cardinal)-1 to get sum of all layers.
      * @return Packets received.
      */
-   inline card64 getPacketsReceived(const cardinal layer) const;
+   inline card64 getPacketsReceived(const cardinal layer);
 
    /**
      * Reset number of bytes received.
@@ -147,7 +147,7 @@ class RTPReceiver : public Thread
      *
      * @return Number of layers.
      */
-   inline cardinal getLayers() const;
+   inline cardinal getLayers();
 
    /**
      * Get InternetFlow  of last transmission in a given layer.
@@ -155,12 +155,12 @@ class RTPReceiver : public Thread
      * @param layer Layer number.
      * @return InternetFlow.
      */
-   inline InternetFlow getInternetFlow(const cardinal layer = 0) const;
+   inline InternetFlow getInternetFlow(const cardinal layer = 0);
 
    /**
      * Get SourceStateInfo for given layer.
      */
-   inline SourceStateInfo getSSI(const cardinal layer = 0) const;
+   inline SourceStateInfo getSSI(const cardinal layer = 0);
 
 
    /**

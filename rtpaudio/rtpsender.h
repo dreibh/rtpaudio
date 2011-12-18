@@ -200,14 +200,14 @@ class RTPSender : virtual public ManagedStreamInterface,
      *
      * @return Bytes sent.
      */
-   inline card64 getBytesSent() const;
+   inline card64 getBytesSent();
 
    /**
      * Get number of packets sent.
      *
      * @return Packets sent.
      */
-   inline card64 getPacketsSent() const;
+   inline card64 getPacketsSent();
 
    /**
      * Reset number of bytes sent.

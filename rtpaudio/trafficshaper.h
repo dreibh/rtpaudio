@@ -195,7 +195,7 @@ class TrafficShaper : public Synchronizable
      *
      * @return Sequence number.
      */
-   inline cardinal getLastSeqNum() const;
+   inline cardinal getLastSeqNum();
 
 
    // ====== I/O functions ==================================================

@@ -77,11 +77,11 @@ inline void TrafficShaper::setBufferDelay(const double bufferDelay)
 
 
 // ###### Get last sequence number ##########################################
-inline cardinal TrafficShaper::getLastSeqNum() const
+inline cardinal TrafficShaper::getLastSeqNum()
 {
-   ((TrafficShaper*)this)->synchronized();
+   synchronized();
    const cardinal lastSeqNum = LastSeqNum;
-   ((TrafficShaper*)this)->unsynchronized();
+   unsynchronized();
    return(lastSeqNum);
 }
 
