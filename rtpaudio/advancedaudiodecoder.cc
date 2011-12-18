@@ -464,7 +464,7 @@ void AdvancedAudioDecoder::handleNextPacket(const DecoderPacket* decoderPacket)
 void AdvancedAudioDecoder::timerEvent()
 {
    // ====== Do nothing in case of an unrecoverable error ===================
-   if(ErrorCode >= ME_UnrecoverableError) {
+   if(getErrorCode() >= ME_UnrecoverableError) {
       return;
    }
    synchronized();
