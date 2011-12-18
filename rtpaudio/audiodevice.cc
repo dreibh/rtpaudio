@@ -353,7 +353,9 @@ void AudioDevice::sync()
 #ifdef DEBUG
    std::cout << "sync! buffered=" << Buffer.bytesReadable() << std::endl;
 #endif
+   synchronized();
 
+   // ====== Flush device ===================================================
 #ifdef HAVE_PULSEAUDIO
    if(Device) {
       int error;
@@ -361,15 +363,13 @@ void AudioDevice::sync()
    }
 #else
    if(DeviceFD >= 0) {
-      // ====== Do SNDCTL_DSP_RESET ============================================
-      // SNDCTL_DSP_SYNC has been replaced by SNDCTL_DSP_RESET, because it seems
-      // that SNDCTL_DSP_SYNC has a longer delay.
+      // SNDCTL_DSP_SYNC has been replaced by SNDCTL_DSP_RESET, because it
+      // seems that SNDCTL_DSP_SYNC has a longer delay.
       Buffer.flush();
       IsReady = (ioctl(DeviceFD,SNDCTL_DSP_RESET,0) >= 0);
       if(!IsReady) {
          std::cerr << "WARNING: AudioDevice::sync() - IOCTL error <"
                   << strerror(errno) << ">" << std::endl;
-         return;
       }
    }
 #endif
@@ -378,6 +378,8 @@ void AudioDevice::sync()
    LastWriteTimeStamp = 0;
    Balance            = 0;
    SyncCount++;
+
+   unsynchronized();
 }
 
 
@@ -462,13 +464,14 @@ void AudioDevice::run()
    for(;;) {
       Buffer.wait();
 
+      synchronized();
+
       // ====== Calculate some constants ====================================
       const double bytesPerMicroSecond = (double)
          (((cardinal)DeviceSamplingRate * (cardinal)DeviceChannels * (cardinal)DeviceBits) / 8) /
          1000000.0;
       const cardinal jitterCompensationBufferSize = (cardinal)
          rint(JitterCompensationLatency * bytesPerMicroSecond);
-
 
       // ====== Fill buffer =================================================
       // If buffer fill mode is on, collect at least a data amount of
@@ -484,10 +487,10 @@ void AudioDevice::run()
          }
       }
 
-      // ====== Play data ===================================================
+      // ====== Check balance ===============================================
       // The buffer has been filled, now play it!
+      const card64 now = getMicroTime();
       if((!IsFillingBuffer) && (IsReady == true)) {
-         const card64 now = getMicroTime();
 
          // ====== Update balance ===========================================
          if(LastWriteTimeStamp != 0) {
@@ -499,7 +502,7 @@ void AudioDevice::run()
                    << (jitterCompensationBufferSize / 2) << std::endl;
 #endif
 
-         // ====== Check balance ============================================
+         // ====== Reset, if necessary ======================================
          // The buffer is assumed to be underful, if the balance is less
          // than (jitterCompensationBufferSize / 2).
          if(Balance < (integer)(jitterCompensationBufferSize / 2)) {
@@ -511,38 +514,44 @@ void AudioDevice::run()
             // If we have not collected enough data yet, go into
             // buffer filling mode!
          }
+      }
 
-         // ====== Really play data =========================================
-         if(!IsFillingBuffer) {
-            char buffer[DeviceFragmentSize];
-            ssize_t dataRead;
-            ssize_t dataWritten;
-            do {
-               dataRead = Buffer.read((char*)&buffer,sizeof(buffer));
-               if(dataRead > 0) {
+      // ====== Play data ===================================================
+      if((!IsFillingBuffer) && (IsReady == true)) {
+         unsynchronized();
+         char buffer[DeviceFragmentSize];
+         ssize_t dataRead;
+         ssize_t dataWritten;
+         do {
+            dataRead = Buffer.read((char*)&buffer,sizeof(buffer));
+            if(dataRead > 0) {
 #ifdef HAVE_PULSEAUDIO
-                  int error;
-                  if (pa_simple_write(Device,(char*)&buffer,dataRead,&error) >= 0) {
-                     dataWritten = dataRead;
-                  }
-                  else {
-                     dataWritten = -1;
-                  }
-#else
-                  dataWritten = ::write(DeviceFD,(char*)&buffer,dataRead);
-#endif
-                  if(dataWritten > 0) {
-                     // ====== Update balance ===============================
-                     Balance += (integer)dataWritten;
-                  }
+               int error;
+               if (pa_simple_write(Device,(char*)&buffer,dataRead,&error) >= 0) {
+                  dataWritten = dataRead;
                }
                else {
-                  dataRead = -1;
+                  dataWritten = -1;
                }
-            } while(dataWritten == dataRead);
-         }
+#else
+               dataWritten = ::write(DeviceFD,(char*)&buffer,dataRead);
+#endif
+               if(dataWritten > 0) {
+                  // ====== Update balance ===============================
+                  synchronized();
+                  Balance += (integer)dataWritten;
+                  unsynchronized();
+               }
+            }
+            else {
+               dataRead = -1;
+            }
+         } while(dataWritten == dataRead);
+         synchronized();
 
          LastWriteTimeStamp = now;
       }
+
+      unsynchronized();
    }
 }
