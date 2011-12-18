@@ -779,17 +779,15 @@ O     * Bind socket to one or more given addresses. If no addresses are given,
                                sockaddr*               packedArray);
 
 
-   card64    BytesSent;
-   card64    BytesReceived;
-   card32    SendFlow;
-   card32    ReceivedFlow;
-   cardinal  Backlog;
-   integer   LastError;
    int       SocketDescriptor;
-   sockaddr* Destination;
    integer   Family;
    integer   Type;
    integer   Protocol;
+   card32    SendFlow;
+   card32    ReceivedFlow;
+   integer   LastError;
+   cardinal  Backlog;
+   sockaddr* Destination;
 };
 
 
