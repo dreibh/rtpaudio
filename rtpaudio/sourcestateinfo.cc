@@ -56,7 +56,8 @@ SourceStateInfo& SourceStateInfo::operator=(const SourceStateInfo& original)
    (SeqNumValidator)*this = (SeqNumValidator)original;
    LSR                    = original.LSR;
    LSRUpdateTimeStamp     = original.LSRUpdateTimeStamp;
-   SSRC                   = original.SSRC;   
+   SSRC                   = original.SSRC;
+   return(*this);
 }
 
 
