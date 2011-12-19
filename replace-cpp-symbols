@@ -45,13 +45,13 @@ while read line ; do
       truncate --size 0 $replaceFile
       echo "$line"
    else   # Space at begin -> library symbol
-      symbol=`echo $line | sed -e 's/^ //g' -e 's/@Base .*$//g'`
-      version=`echo $line | sed -e 's/^ .* //g'`
-      fullDemangledSymbol=`c++filt $symbol`
-      demangledSymbol=`echo $fullDemangledSymbol | sed -e 's/(\(.\)*)$//g'`
-
-      # ====== Replace all symbols in list ==================================
+      # ====== Replace symbols in list ======================================
       if [ $CPP_SYMBOLS_REPLACE_ALL -ne 1 ] ; then
+         symbol=`echo $line | sed -e 's/^ //g' -e 's/@Base .*$//g'`
+         version=`echo $line | sed -e 's/^ .* //g'`
+         fullDemangledSymbol=`c++filt $symbol`
+         demangledSymbol=`echo $fullDemangledSymbol | sed -e 's/(\(.\)*)$//g'`
+
          for replaceSymbol in $CPP_SYMBOLS_TO_BE_REPLACED ; do
             # echo >&2 "<$demangledSymbol> <--> <$replaceSymbol>"
             if [ "$demangledSymbol" == "$replaceSymbol" ] ; then
@@ -67,18 +67,52 @@ while read line ; do
 
       # ====== Replace ALL symbols ==========================================
       else
-         # Symbol is just "symbol" or "symbol()", no parameters -> leave as is.
-         if [[ "$fullDemangledSymbol" =~ \(\)$ ]] ; then
-            echo "$line"
+         originalSymbol="$line"
+         demangledSymbol=`echo $originalSymbol | c++filt `
+         echo "IN=$demangledSymbol"
+#          if [[ $fullDemangledSymbol =~ "^(.*)\((.*\))@Base (.\*)" ]] ; then
+         if [[ $demangledSymbol =~ ^( )([^\(\)]*)(\(.*\)|)( const|)(@Base )(.*) ]] ; then
+            symbol="${BASH_REMATCH[2]}"
+            parameters="${BASH_REMATCH[3]}"
+            qualifier="${BASH_REMATCH[4]}"
+            atBase="${BASH_REMATCH[5]}"
+            version="${BASH_REMATCH[6]}"
 
-         # Symbol is like "symbol(parameter)"
+#             echo "  symbol=${symbol}."
+#             echo "  parameters=${parameters}."
+#             echo "  qualifier=${qualifier}."
+#             echo "  atBase=${atBase}."
+#             echo "  version=${version}."
+
+            if [ "$parameters" = "" ] ; then
+               # Case #1: no function
+               echo $originalSymbol
+            elif [ "$parameters" = "()" ] ; then
+               # Case #2: no parameters
+               echo $originalSymbol
+            else
+               echo "REPLACE!  p=$parameters"
+            fi
+
          else
-            # Replace "+", e.g. operator++, to avoid interference with regexp!
-            demangledSymbol=`echo $demangledSymbol | sed -e 's/[\+]/\\\+/g'`
-            echo " (c++|regex)\"^$demangledSymbol\(.*\)@Base\" $version" >>$replaceFile
-            found=1
-            let replaceCount=$replaceCount+1
+            echo "NOT MATCHED!"
          fi
+
+
+
+#          # Symbol is just "symbol" or "symbol()", no parameters -> leave as is.
+#          if [[ "$fullDemangledSymbol" =~ \(\)$ ]] ; then
+#             echo "$line"
+#
+#          # Symbol is like "symbol(parameter)"
+#          else
+#             # Replace "+", e.g. operator++, to avoid interference with regexp!
+#             demangledSymbol=`echo $demangledSymbol | sed -e 's/[\+]/\\\+/g'`
+# echo " (c++)\"^$fullDemangledSymbol\" $version"  >>$replaceFile
+# #             echo " (c++|regex)\"^$demangledSymbol\(.*\)@Base\" $version" | sed -e "s/+/\\\+/g" >>$replaceFile
+#             found=1
+#             let replaceCount=$replaceCount+1
+#          fi
 
       fi
    fi
