@@ -68,8 +68,8 @@ hpux*)
     thread_LIBS="-lpthread"
    ;;
 linux*)
-    CFLAGS="$CFLAGS -DLINUX -D_GNU_SOURCE -std=c99"
-    CXXFLAGS="$CXXFLAGS -DLINUX -D_GNU_SOURCE -std=c++98"
+    CFLAGS="$CFLAGS -DLINUX -std=c99"
+    CXXFLAGS="$CXXFLAGS -DLINUX -std=c++98"
     LDFLAGS="$LDFLAGS"
     thread_LIBS="-lpthread"
     ;;
@@ -436,11 +436,12 @@ fi
 
 # ###### Maintainer mode ####################################################
 if test "$enable_maintainer_mode" = "yes"; then
-   CFLAGS="$CFLAGS -Wall -g3 -O0 -D_REENTRANT -D_THREAD_SAFE -DINCLUDE_SIMPLEREDBLACKTREE -DUSE_SIMPLEREDBLACKTREE"
-   CXXFLAGS="$CXXFLAGS -Wall -g3 -O0 -D_REENTRANT -D_THREAD_SAFE -DINCLUDE_SIMPLEREDBLACKTREE -DUSE_SIMPLEREDBLACKTREE"
+   CFLAGS="$CFLAGS -Wall -g3 -O0"
+   CXXFLAGS="$CXXFLAGS -Wall -g3 -O0"
 else
-   CFLAGS="$CFLAGS -Wall -g -O2 -D_REENTRANT -D_THREAD_SAFE -DINCLUDE_SIMPLEREDBLACKTREE -DUSE_SIMPLEREDBLACKTREE"
-   CXXFLAGS="$CXXFLAGS -Wall -g -O2 -D_REENTRANT -D_THREAD_SAFE -DINCLUDE_SIMPLEREDBLACKTREE -DUSE_SIMPLEREDBLACKTREE"
+   CFLAGS="$CFLAGS -Wall -fstack-protector --param=ssp-buffer-size=4"
+   CXXFLAGS="$CXXFLAGS -Wall -fstack-protector --param=ssp-buffer-size=4"
+   LDFLAGS="$LDFLAGS -Wl,-z,relro"
 fi
 
 
@@ -460,6 +461,7 @@ echo "   sctplib Libraries               : $sctplib_LIBS"
 echo "   socketapi Libraries             : $socketapi_LIBS"
 echo "   glib Libraries                  : $glib_LIBS"
 echo "   Thread Libraries                : $thread_LIBS"
+echo "   PulseAudio Libraries            : $PULSEAUDIO_LIBS"
 echo ""
 echo "   CFLAGS                          : $CFLAGS"
 echo "   CXXFLAGS                        : $CXXFLAGS"

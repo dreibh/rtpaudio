@@ -28,7 +28,7 @@ echo ""
 echo "Creating binary package ..."
 echo ""
 
-./bootstrap && debuild -b -us -uc || exit 1
+./bootstrap && debuild -i -us -uc -b || exit 1
 
 
 for LIBRARY_PACKAGE in $LIBRARY_PACKAGES ; do
@@ -39,7 +39,7 @@ for LIBRARY_PACKAGE in $LIBRARY_PACKAGES ; do
    # Symbol file generation according How-To at:
    # http://swik.net/Ubuntu/Planet+Ubuntu/Dmitrijs+Ledkovs%3A+Lintian+no-symbols-control-file/d4q9h
 
-   find . -maxdepth 1 -name "new_symbol_file" | xargs --no-run-if-empty rm -f
+   find . -maxdepth 1 -name "$LIBRARY_PACKAGE.new_symbol_file" | xargs --no-run-if-empty rm -f
    find . -maxdepth 1 -name "dpkg-gensymbols*" | xargs --no-run-if-empty rm -f
    find . -maxdepth 1 -name "symbols-*.patch" | xargs --no-run-if-empty rm -f
 
@@ -47,15 +47,15 @@ for LIBRARY_PACKAGE in $LIBRARY_PACKAGES ; do
    touch debian/$LIBRARY_PACKAGE.symbols
    dpkg-gensymbols -p$LIBRARY_PACKAGE -Pdebian/$LIBRARY_PACKAGE >symbols-$LIBRARY_PACKAGE.patch
 
-   echo "--> patch -p0 --output=new_symbol_file <symbols-$LIBRARY_PACKAGE.patch"
-   patch -p0 --output=new_symbol_file <symbols-$LIBRARY_PACKAGE.patch
+   echo "--> patch -p0 --output=$LIBRARY_PACKAGE.new_symbol_file <symbols-$LIBRARY_PACKAGE.patch"
+   patch -p0 --output=$LIBRARY_PACKAGE.new_symbol_file <symbols-$LIBRARY_PACKAGE.patch
 
    # Replace C++ symbols which are different on 32- and 64-bit systems
-   if [ -e "new_symbol_file" ] ; then
-      echo "--> ./replace-cpp-symbols <new_symbol_file >debian/$LIBRARY_PACKAGE.symbols"
-      ./replace-cpp-symbols <new_symbol_file >debian/$LIBRARY_PACKAGE.symbols || exit 1
+   if [ -e "$LIBRARY_PACKAGE.new_symbol_file" ] ; then
+      echo "--> ./replace-cpp-symbols <$LIBRARY_PACKAGE.new_symbol_file >debian/$LIBRARY_PACKAGE.symbols"
+      ./replace-cpp-symbols <$LIBRARY_PACKAGE.new_symbol_file >debian/$LIBRARY_PACKAGE.symbols || exit 1
    else
-      echo "ERROR: patch has not created output file new_symbol_file!"
+      echo "ERROR: patch has not created output file $LIBRARY_PACKAGE.new_symbol_file!"
    fi
 
    # Strip off ubuntu version!
