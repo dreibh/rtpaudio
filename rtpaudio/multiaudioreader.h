@@ -50,7 +50,7 @@
   * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
-class MultiAudioReader : public AudioReaderInterface,
+class MultiAudioReader : virtual public AudioReaderInterface,
                          public AudioQuality
 {
    // ====== Constructor/Destructor =========================================

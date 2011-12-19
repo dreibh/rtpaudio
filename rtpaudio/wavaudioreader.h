@@ -47,7 +47,7 @@
   * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
-class WavAudioReader : public AudioReaderInterface,
+class WavAudioReader : virtual public AudioReaderInterface,
                        public AudioQuality
 {
    // ====== Constructor/Destructor =========================================
