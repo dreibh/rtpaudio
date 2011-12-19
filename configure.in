@@ -409,9 +409,12 @@ if test "${enable_pulseaudio}" = "yes"; then
       if $PKG_CONFIG --atleast-pkgconfig-version 0.7 && $PKG_CONFIG --atleast-version $PULSEAUDIO_REQUIRED_VERSION libpulse-simple; then
          PULSEAUDIO_CFLAGS=`$PKG_CONFIG --cflags libpulse-simple`
          PULSEAUDIO_LIBS=`$PKG_CONFIG --libs libpulse-simple`
-         AC_MSG_RESULT($audio_pulse)
          AC_DEFINE(HAVE_PULSEAUDIO, 1, [Use PulseAudio instead of OSS])
+         AC_MSG_RESULT(yes)
+      else
+         AC_MSG_RESULT(no)
       fi
+      AC_MSG_RESULT(no)
    fi
 else
    PULSEAUDIO_CFLAGS=""
