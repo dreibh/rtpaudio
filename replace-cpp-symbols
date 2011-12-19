@@ -76,12 +76,12 @@ while read line ; do
             atBase="${BASH_REMATCH[5]}"
             version="${BASH_REMATCH[6]}"
 
-echo "-----------"
-            echo "  symbol=${symbol}."
-            echo "  parameters=${parameters}."
-            echo "  qualifier=${qualifier}."
-            echo "  atBase=${atBase}."
-            echo "  version=${version}."
+#             echo "-----------"
+#             echo "  symbol=${symbol}."
+#             echo "  parameters=${parameters}."
+#             echo "  qualifier=${qualifier}."
+#             echo "  atBase=${atBase}."
+#             echo "  version=${version}."
 
             if [ "$parameters" = "" ] ; then
                # Case #1: no function

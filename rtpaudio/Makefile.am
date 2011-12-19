@@ -9,7 +9,7 @@
 # ####                                                                  ####
 # #### Contact:                                                         ####
 # ####    EMail: dreibh@iem.uni-due.de                                  ####
-# ####    WWW:   http://www.iem.uni-due.de.de/~dreibh/rtpaudio                ####
+# ####    WWW:   http://www.iem.uni-due.de.de/~dreibh/rtpaudio          ####
 # ####                                                                  ####
 # #### ---------------------------------------------------------------- ####
 # ####                                                                  ####
@@ -65,7 +65,7 @@ libtdtoolbox_la_LIBADD = $(sctplib_LIBS) $(socketapi_LIBS) $(glib_LIBS) -lpthrea
 
 libmediainfo_la_SOURCES = \
  mediainfo.cc mediainfo.h
-libmediainfo_la_LIBADD = libtdtoolbox.la
+libmediainfo_la_LIBADD =
 
 
 libaudiocommon_la_SOURCES = \
@@ -79,7 +79,7 @@ libaudioreader_la_SOURCES = \
  mp3audioreader.cc mp3audioreader.h \
  multiaudioreader.cc multiaudioreader.h \
  wavaudioreader.cc wavaudioreader.h
-libaudioreader_la_LIBADD = libaudiocommon.la libmediainfo.la  ../libmpegsound/libmpegsound.la
+libaudioreader_la_LIBADD = libaudiocommon.la libmediainfo.la libtdtoolbox.la ../libmpegsound/libmpegsound.la
 
 libaudiowriter_la_SOURCES = \
  audiowriterinterface.cc audiowriterinterface.h \
@@ -90,13 +90,13 @@ libaudiowriter_la_SOURCES = \
  audionull.cc audionull.h \
  spectrumanalyzer.cc spectrumanalyzer.h \
  fft.cc fft.h
-libaudiowriter_la_LIBADD = libaudiocommon.la libmediainfo.la $(PULSEAUDIO_LIBS)
+libaudiowriter_la_LIBADD = libaudiocommon.la libtdtoolbox.la $(PULSEAUDIO_LIBS)
 
 
 librtpcommon_la_SOURCES = \
  rtcppacket.cc rtcppacket.h rtcppacket.icc \
  rtppacket.cc rtppacket.h rtppacket.icc
-librtpcommon_la_LIBADD = libtdtoolbox.la
+librtpcommon_la_LIBADD =
 
 librtpserver_la_SOURCES = \
  abstractlayerdescription.cc abstractlayerdescription.h abstractlayerdescription.icc \
@@ -112,14 +112,14 @@ librtpserver_la_SOURCES = \
  rtcpreceiver.cc rtcpreceiver.h \
  rtpsender.cc rtpsender.h rtpsender.icc \
  trafficshaper.cc trafficshaper.h trafficshaper.icc
-librtpserver_la_LIBADD = librtpcommon.la
+librtpserver_la_LIBADD = librtpcommon.la libtdtoolbox.la
 
 librtpclient_la_SOURCES = \
  decoderinterface.cc decoderinterface.h decoderrepositoryinterface.h \
  rtcpsender.cc rtcpsender.h \
  rtpreceiver.cc rtpreceiver.h rtpreceiver.icc \
  sourcestateinfo.cc sourcestateinfo.h sourcestateinfo.icc
-librtpclient_la_LIBADD = librtpcommon.la
+librtpclient_la_LIBADD = librtpcommon.la libtdtoolbox.la
 
 
 libaudiocodeccommon_la_SOURCES = \
@@ -132,27 +132,27 @@ libaudioencoder_la_SOURCES = \
  audioencoderinterface.h \
  audioencoderrepository.cc audioencoderrepository.h audioencoderrepository.icc \
  simpleaudioencoder.cc simpleaudioencoder.h
-libaudioencoder_la_LIBADD = libaudiocodeccommon.la
+libaudioencoder_la_LIBADD = librtpserver.la libaudiocodeccommon.la libaudiocommon.la
 
 libaudiodecoder_la_SOURCES = \
  advancedaudiodecoder.cc advancedaudiodecoder.h \
  audiodecoderinterface.h \
  audiodecoderrepository.cc audiodecoderrepository.h audiodecoderrepository.icc \
  simpleaudiodecoder.cc simpleaudiodecoder.h
-libaudiodecoder_la_LIBADD = libaudiocodeccommon.la
+libaudiodecoder_la_LIBADD = librtpclient.la libaudiocodeccommon.la libaudiocommon.la libmediainfo.la libtdtoolbox.la
 
 
 librtpaudiocommon_la_SOURCES = \
  audioclientapppacket.cc audioclientapppacket.h
-librtpaudiocommon_la_LIBADD = libtdtoolbox.la
+librtpaudiocommon_la_LIBADD =
 
 librtpaudioserver_la_SOURCES = \
  audioserver.cc audioserver.h audioserver.icc
-librtpaudioserver_la_LIBADD = librtpaudiocommon.la libaudioencoder.la librtpserver.la libaudioreader.la libmediainfo.la libtdtoolbox.la
+librtpaudioserver_la_LIBADD = librtpaudiocommon.la libaudioencoder.la librtpserver.la libaudioreader.la libtdtoolbox.la
 
 librtpaudioclient_la_SOURCES = \
  audioclient.cc audioclient.h audioclient.icc
-librtpaudioclient_la_LIBADD = librtpaudiocommon.la libaudiodecoder.la librtpclient.la libaudiowriter.la libmediainfo.la libtdtoolbox.la
+librtpaudioclient_la_LIBADD = librtpaudiocommon.la libaudiodecoder.la libaudiocommon.la librtpclient.la libmediainfo.la libtdtoolbox.la
 
 
 
@@ -177,20 +177,20 @@ endif
 
 
 rtpa_server_SOURCES = rtpa-server.cc
-rtpa_server_LDADD   = librtpaudiocommon.la librtpaudioserver.la librtpserver.la libaudioreader.la libtdtoolbox.la
+rtpa_server_LDADD   = librtpaudioserver.la librtpserver.la libtdtoolbox.la
 
 rtpa_client_SOURCES = rtpa-client.cc
-rtpa_client_LDADD   = librtpaudiocommon.la librtpaudioclient.la libaudiodecoder.la librtpclient.la libaudiowriter.la libaudiocommon.la libtdtoolbox.la
+rtpa_client_LDADD   = librtpaudioclient.la libaudiodecoder.la libaudiowriter.la libaudiocommon.la libtdtoolbox.la
 
 rtpa_vclient_SOURCES = rtpa-vclient.cc
-rtpa_vclient_LDADD   = librtpaudiocommon.la librtpaudioclient.la libaudiodecoder.la librtpclient.la libaudiowriter.la libaudiocommon.la libtdtoolbox.la
+rtpa_vclient_LDADD   = librtpaudioclient.la libaudiodecoder.la libaudiowriter.la libaudiocommon.la libtdtoolbox.la
 
 if BUILD_QT_PROGRAMS
 rtpa_qclient_MOC      = rtpa-qclient.moc.cc qinfotabwidget.moc.cc qspectrumanalyzer.moc.cc qaudiomixer.moc.cc
 rtpa_qclient_CXXFLAGS = $(QT_CXXFLAGS)
 rtpa_qclient_CXXADD   = $(QT_CXXFLAGS)
 rtpa_qclient_SOURCES  = rtpa-qclient.cc rtpa-qclient.h qinfotabwidget.cc qinfotabwidget.h qspectrumanalyzer.cc qspectrumanalyzer.h qaudiomixer.cc qaudiomixer.h rtpa-qclient.moc.cc qinfotabwidget.moc.cc qspectrumanalyzer.moc.cc qaudiomixer.moc.cc
-rtpa_qclient_LDADD    = $(QT_LDADD) librtpaudiocommon.la librtpaudioclient.la libaudiodecoder.la librtpclient.la libaudiowriter.la libaudiocommon.la libtdtoolbox.la
+rtpa_qclient_LDADD    = $(QT_LDADD) librtpaudioclient.la libaudiodecoder.la libaudiowriter.la libaudiocommon.la libtdtoolbox.la
 endif
 
 

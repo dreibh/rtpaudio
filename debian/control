@@ -56,27 +56,16 @@ Description: Shared libraries for RTP Audio (common audio data handling)
  .
  This package provides shared libraries for common audio data handling.
 
-Package: libaudiodecoder0
+Package: libmediainfo0
 Section: libs
 Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries for RTP Audio (audio decoding)
+Description: Shared libraries for RTP Audio (media information handling)
  The RTP Audio system is a network sound streaming systen. It has been
  designed for QoS performance analysis and teaching purposes.
  .
- This package provides shared libraries for audio decoding.
-
-Package: libaudioencoder0
-Section: libs
-Architecture: any
-Depends: ${misc:Depends},
-         ${shlibs:Depends}
-Description: Shared libraries for RTP Audio (audio encoding)
- The RTP Audio system is a network sound streaming systen. It has been
- designed for QoS performance analysis and teaching purposes.
- .
- This package provides shared libraries for audio encoding.
+ This package provides shared libraries for media information handling.
 
 Package: libaudioreader0
 Section: libs
@@ -100,16 +89,27 @@ Description: Shared libraries for RTP Audio (audio output writing)
  .
  This package provides shared libraries for audio output writing.
 
-Package: libmediainfo0
+Package: libaudioencoder0
 Section: libs
 Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries for RTP Audio (media information handling)
+Description: Shared libraries for RTP Audio (audio encoding)
  The RTP Audio system is a network sound streaming systen. It has been
  designed for QoS performance analysis and teaching purposes.
  .
- This package provides shared libraries for media information handling.
+ This package provides shared libraries for audio encoding.
+
+Package: libaudiodecoder0
+Section: libs
+Architecture: any
+Depends: ${misc:Depends},
+         ${shlibs:Depends}
+Description: Shared libraries for RTP Audio (audio decoding)
+ The RTP Audio system is a network sound streaming systen. It has been
+ designed for QoS performance analysis and teaching purposes.
+ .
+ This package provides shared libraries for audio decoding.
 
 Package: librtpaudiocommon0
 Section: libs
