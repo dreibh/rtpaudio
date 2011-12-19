@@ -193,7 +193,7 @@ void RTPReceiver::run()
 
          // ====== Paket ist RTCP Sender Report =============================
          else {
-            RTCPSenderReport* report = (RTCPSenderReport*)&packet;
+            const RTCPSenderReport* report = (const RTCPSenderReport*)&packet;
             if((receivedPacketSize >= (ssize_t)sizeof(RTCPSenderReport)) &&
                (report->getPacketType() == RTCP_SR)) {
                for(cardinal i = 0;i < RTPConstants::RTPMaxQualityLayers;i++) {

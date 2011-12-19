@@ -104,8 +104,7 @@ librtpserver_la_SOURCES = \
  bandwidthinfo.cc bandwidthinfo.h bandwidthinfo.icc \
  encoderinterface.h \
  encoderrepositoryinterface.h \
- frameratescalabilityinterface.h frameratescalabilityinterface.cc \
- framesizescalabilityinterface.h framesizescalabilityinterface.cc \
+ frameratescalabilityinterface.h framesizescalabilityinterface.h \
  managedstreaminterface.h qosmanagerinterface.h \
  resourceutilizationpoint.cc resourceutilizationpoint.h resourceutilizationpoint.icc \
  rtcpabstractserver.cc rtcpabstractserver.h rtcpabstractserver.icc \
@@ -132,14 +131,14 @@ libaudioencoder_la_SOURCES = \
  audioencoderinterface.h \
  audioencoderrepository.cc audioencoderrepository.h audioencoderrepository.icc \
  simpleaudioencoder.cc simpleaudioencoder.h
-libaudioencoder_la_LIBADD = librtpserver.la libaudiocodeccommon.la libaudiocommon.la
+libaudioencoder_la_LIBADD = libaudiocodeccommon.la libaudiocommon.la
 
 libaudiodecoder_la_SOURCES = \
  advancedaudiodecoder.cc advancedaudiodecoder.h \
  audiodecoderinterface.h \
  audiodecoderrepository.cc audiodecoderrepository.h audiodecoderrepository.icc \
  simpleaudiodecoder.cc simpleaudiodecoder.h
-libaudiodecoder_la_LIBADD = librtpclient.la libaudiocodeccommon.la libaudiocommon.la libmediainfo.la libtdtoolbox.la
+libaudiodecoder_la_LIBADD = libaudiocodeccommon.la libaudiocommon.la libmediainfo.la libtdtoolbox.la
 
 
 librtpaudiocommon_la_SOURCES = \

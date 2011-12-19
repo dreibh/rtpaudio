@@ -54,11 +54,6 @@ class FrameRateScalabilityInterface
    // ====== Scalability information methods ================================
    public:
    /**
-     * Destructor.
-     */
-   virtual ~FrameRateScalabilityInterface() = 0;
-
-   /**
      * Get name of the frame rate scalability class.
      *
      * @return Frame rate scalability class name.

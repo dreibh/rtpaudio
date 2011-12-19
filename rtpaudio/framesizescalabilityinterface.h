@@ -55,11 +55,6 @@ class FrameSizeScalabilityInterface
    // ====== Scalability information methods ================================
    public:
    /**
-     * Destructor.
-     */
-   virtual ~FrameSizeScalabilityInterface() = 0;
-
-   /**
      * Get name of the frame size scalability class.
      *
      * @return Frame size scalability class name.
