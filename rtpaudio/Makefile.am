@@ -125,7 +125,7 @@ librtpclient_la_LIBADD = librtpcommon.la
 libaudiocodeccommon_la_SOURCES = \
  advancedaudiopacket.cc advancedaudiopacket.h \
  simpleaudiopacket.cc simpleaudiopacket.h
-libaudiocodeccommon_la_LIBADD = libtdtoolbox.la libaudiocommon.la
+libaudiocodeccommon_la_LIBADD = libaudiocommon.la libtdtoolbox.la
 
 libaudioencoder_la_SOURCES = \
  advancedaudioencoder.cc advancedaudioencoder.h \
@@ -194,7 +194,6 @@ rtpa_qclient_LDADD    = $(QT_LDADD) librtpaudiocommon.la librtpaudioclient.la li
 endif
 
 
-bin_PROGRAMS += t1
-
-t1_SOURCES = t1.cc
-t1_LDADD   = librtpaudiocommon.la libaudioencoder.la libtdtoolbox.la librtpserver.la
+# bin_PROGRAMS += t1
+# t1_SOURCES = t1.cc
+# t1_LDADD   = librtpaudiocommon.la libaudioencoder.la libtdtoolbox.la librtpserver.la

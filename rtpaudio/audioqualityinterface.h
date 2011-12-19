@@ -50,11 +50,6 @@ class AudioQualityInterface
    // ====== Getting values =================================================
    public:
    /**
-     * Destructor.
-     */
-   virtual ~AudioQualityInterface() { };
-
-   /**
      * Get sampling rate.
      *
      * @return Sampling rate.
