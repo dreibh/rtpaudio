@@ -51,11 +51,6 @@ class AudioReaderInterface : virtual public AudioQualityInterface
 {
    public:
    /**
-     * Virtual destructor.
-     */
-   virtual ~AudioReaderInterface();
-
-   /**
      * Open media.
      *
      * @param name Name of media, e.g. a file name.

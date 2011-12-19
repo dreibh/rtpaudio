@@ -50,11 +50,6 @@ class AudioWriterInterface : virtual public AdjustableAudioQualityInterface
 {
    public:
    /**
-     * Virtual destructor.
-     */
-   virtual ~AudioWriterInterface();
-
-   /**
      * Check, if AudioWriter is ready for writing.
      *
      * @return true, if AudioWriter is ready; false otherwise.
@@ -75,13 +70,6 @@ class AudioWriterInterface : virtual public AdjustableAudioQualityInterface
      * @return length Length of data in bytes.
      */
    virtual bool write(const void* data, const size_t length) = 0;
-
-   /**
-     * Get current capacity of audio output buffer.
-     *
-     * @return Capacity in bytes.
-     */
-   virtual cardinal getCurrentCapacity();
 };
 
 

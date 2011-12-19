@@ -91,15 +91,8 @@ struct EncoderPacket
   */
 class EncoderInterface
 {
-   // ====== Destructor =====================================================
-   public:
-   /**
-     * Virtual destructor.
-     */
-   virtual ~EncoderInterface() = 0;
-
-
    // ====== Encoder type ===================================================
+   public:
    /**
      * Get the encoder's type ID.
      *

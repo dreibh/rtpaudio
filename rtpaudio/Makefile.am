@@ -75,14 +75,14 @@ libaudiocommon_la_SOURCES = \
 libaudiocommon_la_LIBADD = libtdtoolbox.la
 
 libaudioreader_la_SOURCES = \
- audioreaderinterface.cc audioreaderinterface.h \
+ audioreaderinterface.h \
  mp3audioreader.cc mp3audioreader.h \
  multiaudioreader.cc multiaudioreader.h \
  wavaudioreader.cc wavaudioreader.h
 libaudioreader_la_LIBADD = libaudiocommon.la libmediainfo.la libtdtoolbox.la ../libmpegsound/libmpegsound.la
 
 libaudiowriter_la_SOURCES = \
- audiowriterinterface.cc audiowriterinterface.h \
+ audiowriterinterface.h \
  multiaudiowriter.cc multiaudiowriter.h \
  audiodebug.cc audiodebug.h \
  audiodevice.cc audiodevice.h audiodevice.icc \
@@ -102,7 +102,7 @@ librtpserver_la_SOURCES = \
  abstractlayerdescription.cc abstractlayerdescription.h abstractlayerdescription.icc \
  abstractqosdescription.cc abstractqosdescription.h abstractqosdescription.icc \
  bandwidthinfo.cc bandwidthinfo.h bandwidthinfo.icc \
- encoderinterface.cc encoderinterface.h \
+ encoderinterface.h \
  encoderrepositoryinterface.h \
  frameratescalabilityinterface.h frameratescalabilityinterface.cc \
  framesizescalabilityinterface.h framesizescalabilityinterface.cc \
@@ -115,7 +115,7 @@ librtpserver_la_SOURCES = \
 librtpserver_la_LIBADD = librtpcommon.la libtdtoolbox.la
 
 librtpclient_la_SOURCES = \
- decoderinterface.cc decoderinterface.h decoderrepositoryinterface.h \
+ decoderinterface.h decoderrepositoryinterface.h \
  rtcpsender.cc rtcpsender.h \
  rtpreceiver.cc rtpreceiver.h rtpreceiver.icc \
  sourcestateinfo.cc sourcestateinfo.h sourcestateinfo.icc

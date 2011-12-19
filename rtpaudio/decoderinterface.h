@@ -112,15 +112,8 @@ struct DecoderPacket
   */
 class DecoderInterface
 {
-   // ====== Destructor =====================================================
-   public:
-   /**
-     * Virtual destructor.
-     */
-   virtual ~DecoderInterface() = 0;
-
-
    // ====== Decoder type ===================================================
+   public:
    /**
      * Get the decoder's type ID.
      *

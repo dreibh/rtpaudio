@@ -513,17 +513,8 @@ void AdvancedAudioDecoder::timerEvent()
    // ====== Copy data to frame buffer; try to repair missing data ==========
    frameIterator = FrameSet.begin();
    while(frameIterator != FrameSet.end()) {
-      FrameNode* node = (*frameIterator).Node;
-/*
-      const cardinal capacity = Device->getCurrentCapacity();
-      if(capacity < node->FrameSize) {
-         printTimeStamp(std::cout);
-         printf("%d < fs=%d\n",capacity,node->FrameSize);
-         break;
-      }
-*/
-
       // ====== Check, if there is a frame ready to play ====================
+      FrameNode* node = (*frameIterator).Node;
       if(FrameSet.size() < FrameBufferSize) {
          break;
       }

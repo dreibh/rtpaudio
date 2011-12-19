@@ -451,13 +451,6 @@ bool AudioDevice::write(const void* data, const size_t length)
 }
 
 
-// ###### Constructor #######################################################
-cardinal AudioDevice::getCurrentCapacity()
-{
-   return(Buffer.bytesWritable());
-}
-
-
 // ###### Audio data copy thread ############################################
 void AudioDevice::run()
 {
