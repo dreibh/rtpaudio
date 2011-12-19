@@ -69,8 +69,6 @@ while read line ; do
       else
          originalSymbol="$line"
          demangledSymbol=`echo $originalSymbol | c++filt `
-         echo "IN=$demangledSymbol"
-#          if [[ $fullDemangledSymbol =~ "^(.*)\((.*\))@Base (.\*)" ]] ; then
          if [[ $demangledSymbol =~ ^( )([^\(\)]*)(\(.*\)|)( const|)(@Base )(.*) ]] ; then
             symbol="${BASH_REMATCH[2]}"
             parameters="${BASH_REMATCH[3]}"
@@ -78,42 +76,35 @@ while read line ; do
             atBase="${BASH_REMATCH[5]}"
             version="${BASH_REMATCH[6]}"
 
-#             echo "  symbol=${symbol}."
-#             echo "  parameters=${parameters}."
-#             echo "  qualifier=${qualifier}."
-#             echo "  atBase=${atBase}."
-#             echo "  version=${version}."
+echo "-----------"
+            echo "  symbol=${symbol}."
+            echo "  parameters=${parameters}."
+            echo "  qualifier=${qualifier}."
+            echo "  atBase=${atBase}."
+            echo "  version=${version}."
 
             if [ "$parameters" = "" ] ; then
                # Case #1: no function
-               echo $originalSymbol
+               echo "$originalSymbol"
             elif [ "$parameters" = "()" ] ; then
                # Case #2: no parameters
-               echo $originalSymbol
+               echo "$originalSymbol"
             else
-               echo "REPLACE!  p=$parameters"
+# int\)|int,|
+               if [[ $parameters =~ (.*)(long\)|long,)(.*) ]] ; then
+                  # Case #3a: parameters with "int" or "long"
+                  symbolWithoutPlusPlus=`echo $symbol| sed -e "s/\+/\\\\\+/g"`
+                  echo " (c++|regex)\"^$symbolWithoutPlusPlus\(.*\)$qualifier@Base\" $version"
+                  let replaceCount=$replaceCount+1
+               else
+                  # Case #3b: parameters without problematic types
+                  echo "$originalSymbol"
+               fi
             fi
 
          else
-            echo "NOT MATCHED!"
+            echo "$originalSymbol"
          fi
-
-
-
-#          # Symbol is just "symbol" or "symbol()", no parameters -> leave as is.
-#          if [[ "$fullDemangledSymbol" =~ \(\)$ ]] ; then
-#             echo "$line"
-#
-#          # Symbol is like "symbol(parameter)"
-#          else
-#             # Replace "+", e.g. operator++, to avoid interference with regexp!
-#             demangledSymbol=`echo $demangledSymbol | sed -e 's/[\+]/\\\+/g'`
-# echo " (c++)\"^$fullDemangledSymbol\" $version"  >>$replaceFile
-# #             echo " (c++|regex)\"^$demangledSymbol\(.*\)@Base\" $version" | sed -e "s/+/\\\+/g" >>$replaceFile
-#             found=1
-#             let replaceCount=$replaceCount+1
-#          fi
-
       fi
    fi
 done
