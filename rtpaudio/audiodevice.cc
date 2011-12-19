@@ -544,7 +544,7 @@ void AudioDevice::run()
                }
             }
             else {
-               dataRead = -1;
+               break;
             }
          } while(dataWritten == dataRead);
          synchronized();
