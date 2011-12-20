@@ -83,29 +83,69 @@ while read line ; do
             #echo "  atBase=${atBase}."
             #echo "  version=${version}."
 
-            if [ "$parameters" = "" ] ; then
-               # Case #1: no function
-               echo "$originalSymbol"
-            elif [ "$parameters" = "()" ] ; then
-               # Case #2: no parameters
-               echo "$originalSymbol"
-            else
-               # Case #3: function with parameters
-# int\)|int,|
-               if [[ $symbol =~ (void ) ]] ; then
-                  # Case #3a: void ... (internal STL template stuff -> ignore it)
-                  echo " (optional|c++|regex)\"^void .*@Base\" $version" >>$replaceFile
-               elif [[ $parameters =~ (.*)(long\)|long,)(.*) ]] ; then
-                  # Case #3b: parameters with "int" or "long"
-                  symbolWithoutPlusPlus=`echo $symbol| sed -e "s/\+/\\\\\+/g"`
-                  echo " (c++|regex)\"^$symbolWithoutPlusPlus\(.*\)$qualifier@Base\" $version" >>$replaceFile
-                  let replaceCount=$replaceCount+1
-               else
-                  # Case #3c: parameters without problematic types
-                  echo "$originalSymbol"
-               fi
+
+            symbolIsOptional=0
+            needsReplacementOfSymbol=0
+            needsReplacementOfParameters=0
+            if [[ $parameters =~ (.*)(long\)|long,)(.*) ]] ; then
+               needsReplacementOfParameters=1
             fi
 
+
+            if [[ $symbol =~ (virtual thunk to |construction vtable for ) ]] ; then
+               # Case #1: C++ virtual function stuff
+               needsReplacementOfSymbol=1
+#                echo " (optional|c++|regex)\"^void .*@Base\" $version" >>$replaceFile
+
+            elif [[ $symbol =~ (void ) ]] ; then
+               # Case #2: C++ STL template stuff
+               needsReplacementOfSymbol=1
+               symbolIsOptional=1
+            fi
+
+            if [ "$parameters" = "" ] ; then
+               # Case #1: no parameters (non-function)
+               needsReplacementOfParameters=0
+            elif [ "$parameters" = "()" ] ; then
+               # Case #2: no parameters (function)
+               needsReplacementOfParameters=0
+               echo "$originalSymbol"
+            elif [[ $parameters =~ (.*)(long\)|long,)(.*) ]] ; then
+               # Case #3: parameters with "int" or "long" -> replace
+               needsReplacementOfParameters=1
+            fi
+
+
+            # ====== Apply replacements =====================================
+            if [ $needsReplacementOfSymbol -ne 0 -o $needsReplacementOfParameters -ne 0 ] ; then
+               # ------ Optional symbol (STL stuff, etc.) -------------------
+               optional=""
+               if [ $symbolIsOptional -ne 0 ] ; then
+                  optional="optional|"
+               fi
+
+               # ------ Get new symbol --------------------------------------
+               newSymbol=`echo $symbol| sed -e "s/\+/\\\\\+/g"`
+
+               # ------ Get new parameters ----------------------------------
+               newParameters=$parameters
+               if [[ "$parameters" =~ ^\(.*\) ]] ; then
+                  # This is a function, i.e. () or (parameters).
+                  pureParameterList=${BASH_REMATCH[1]}
+                  if [ $needsReplacementOfParameters -ne 0 ] ; then
+                     newParameters="\(.*\)"
+                  else
+                     newParameters="\(${pureParameterList}\)"
+                  fi
+               fi
+
+               # ------ Write replacement -----------------------------------
+               echo " (${optional}c++|regex)\"^$newSymbol${newParameters}$qualifier@Base\" $version" >>$replaceFile
+               let replaceCount=$replaceCount+1
+            else
+               # ------ No replacement -> write symbol as is ----------------
+               echo "$originalSymbol"
+            fi
          else
             echo "$originalSymbol"
          fi
