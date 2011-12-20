@@ -1,12 +1,5 @@
 librtpaudiocommon.so.0 librtpaudiocommon0 #MINVER#
- _ZN15InternetAddress7UseIPv6E@Base 2.0.0~alpha1.7
- _ZN20AudioClientAppPacket5resetEv@Base 2.0.0~alpha1.7
- _ZN20AudioClientAppPacket9translateEv@Base 2.0.0~alpha1.7
- _ZN20AudioClientAppPacketC1Ev@Base 2.0.0~alpha1.7
- _ZN20AudioClientAppPacketC2Ev@Base 2.0.0~alpha1.7
- _ZN6Thread11SyncSetLockE@Base 2.0.0~alpha1.7
- _ZN6Thread20MemoryManagementLockE@Base 2.0.0~alpha1.7
- _ZN6Thread9ThreadSetE@Base 2.0.0~alpha1.7
- _ZNSt3setIP6ThreadSt4lessIS1_ESaIS1_EED1Ev@Base 2.0.0~alpha1.7
- _ZNSt3setIP6ThreadSt4lessIS1_ESaIS1_EED2Ev@Base 2.0.0~alpha1.7
- _ZNSt8_Rb_treeIP6ThreadS1_St9_IdentityIS1_ESt4lessIS1_ESaIS1_EE8_M_eraseEPSt13_Rb_tree_nodeIS1_E@Base 2.0.0~alpha1.7
+ _ZN20AudioClientAppPacket5resetEv@Base 2.0.0~alpha1.8
+ _ZN20AudioClientAppPacket9translateEv@Base 2.0.0~alpha1.8
+ _ZN20AudioClientAppPacketC1Ev@Base 2.0.0~alpha1.8
+ _ZN20AudioClientAppPacketC2Ev@Base 2.0.0~alpha1.8

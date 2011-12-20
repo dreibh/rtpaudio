@@ -76,12 +76,12 @@ while read line ; do
             atBase="${BASH_REMATCH[5]}"
             version="${BASH_REMATCH[6]}"
 
-#             echo "-----------"
-#             echo "  symbol=${symbol}."
-#             echo "  parameters=${parameters}."
-#             echo "  qualifier=${qualifier}."
-#             echo "  atBase=${atBase}."
-#             echo "  version=${version}."
+            #echo "-----------"
+            #echo "  symbol=${symbol}."
+            #echo "  parameters=${parameters}."
+            #echo "  qualifier=${qualifier}."
+            #echo "  atBase=${atBase}."
+            #echo "  version=${version}."
 
             if [ "$parameters" = "" ] ; then
                # Case #1: no function
@@ -90,14 +90,18 @@ while read line ; do
                # Case #2: no parameters
                echo "$originalSymbol"
             else
+               # Case #3: function with parameters
 # int\)|int,|
-               if [[ $parameters =~ (.*)(long\)|long,)(.*) ]] ; then
-                  # Case #3a: parameters with "int" or "long"
+               if [[ $symbol =~ (void ) ]] ; then
+                  # Case #3a: void ... (internal STL template stuff -> ignore it)
+                  echo " (optional|c++|regex)\"^void .*@Base\" $version" >>$replaceFile
+               elif [[ $parameters =~ (.*)(long\)|long,)(.*) ]] ; then
+                  # Case #3b: parameters with "int" or "long"
                   symbolWithoutPlusPlus=`echo $symbol| sed -e "s/\+/\\\\\+/g"`
-                  echo " (c++|regex)\"^$symbolWithoutPlusPlus\(.*\)$qualifier@Base\" $version"
+                  echo " (c++|regex)\"^$symbolWithoutPlusPlus\(.*\)$qualifier@Base\" $version" >>$replaceFile
                   let replaceCount=$replaceCount+1
                else
-                  # Case #3b: parameters without problematic types
+                  # Case #3c: parameters without problematic types
                   echo "$originalSymbol"
                fi
             fi
