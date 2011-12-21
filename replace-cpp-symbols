@@ -86,6 +86,7 @@ while read line ; do
 
             skipSymbol=0
             symbolIsOptional=0
+            needsRegEx=0
             needsReplacementOfSymbol=0
             needsReplacementOfParameters=0
 
@@ -93,12 +94,25 @@ while read line ; do
             if [[ $symbol =~ (virtual thunk to |construction vtable for ) ]] ; then
                # Case #1: C++ virtual function stuff
                needsReplacementOfSymbol=1
-
-            elif [[ $symbol =~ (void std::__) ]] ; then
+            elif [[ $symbol =~ (void std::) ]] ; then
                # Case #2: C++ STL template stuff -> skip it!
                skipSymbol=1
                # Write C++ regexp to avoid warnings
-               echo " (optional|c++|regex)\"^void std::__.*@Base\$\" $version" >>$replaceFile
+               echo " (optional|c++|regex)\"^void std::.*@Base\$\" $version" >>$replaceFile
+            elif [[ $symbol =~ ^([^\<]*)\<(.*)\>([^\<\>]*) ]] ; then
+               # Case #3: template symbol
+               nonTemplateSymbolBegin="${BASH_REMATCH[1]}"
+               template="${BASH_REMATCH[2]}"
+               nonTemplateSymbolEnd="${BASH_REMATCH[3]}"
+               if [[ $template =~ (.*)(long,|long const,|long\)|long const\)|long\>|long const\>|long$|long const$)(.*) ]] ; then
+                  # Case #3a: template with "long" -> replace
+                  symbol="${nonTemplateSymbolBegin}<.*>${nonTemplateSymbolEnd}"
+                  needsRegEx=1
+                  needsReplacementOfSymbol=1
+               else
+                  # Case 3a: no need to replace
+                  true
+               fi
             fi
 
 
@@ -109,8 +123,8 @@ while read line ; do
             elif [ "$parameters" = "()" ] ; then
                # Case #2: no parameters (function)
                needsReplacementOfParameters=0
-            elif [[ $parameters =~ (.*)(long\)|long,)(.*) ]] ; then
-               # Case #3: parameters with "int" or "long" -> replace
+            elif [[ $parameters =~ (.*)(long*|long const*|long&|long const&|long,|long const,|long\)|long const\)|long\>|long const\>|long$|long const$)(.*) ]] ; then
+               # Case #3: parameters with "long" -> replace
                needsReplacementOfParameters=1
             fi
 
@@ -130,7 +144,6 @@ while read line ; do
                newSymbol=`echo $symbol| sed -e "s/\+/\\\\\+/g"`
 
                # ------ Get new parameters ----------------------------------
-               needsRegEx=0
                newParameters=$parameters
                if [[ "$parameters" =~ ^\((.*)\) ]] ; then
                   # This is a function, i.e. () or (parameters).
@@ -140,6 +153,9 @@ while read line ; do
                      needsRegEx=1
                   else
                      newParameters="(${pureParameterList})"
+                     if [ $needsRegEx -ne 0 ] ; then   # with RegExp -> \(...\)
+                        newParameters=`echo $newParameters| sed -e "s/\*/\\\\\*/g" -e "s/(/\\\\\(/g" -e "s/)/\\\\\)/g"`
+                     fi
                   fi
                fi
 
