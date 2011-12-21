@@ -1,0 +1,155 @@
+librtpserver.so.0 librtpserver0 #MINVER#
+ _ZN12InternetFlowD1Ev@Base 2.0.0~alpha1.8
+ _ZN12RTCPReceiver3runEv@Base 2.0.0~alpha1.8
+ _ZN12RTCPReceiver4initEP18RTCPAbstractServerP6Socket@Base 2.0.0~alpha1.8
+ _ZN12RTCPReceiverC1EP18RTCPAbstractServerP6Socket@Base 2.0.0~alpha1.8
+ _ZN12RTCPReceiverC1Ev@Base 2.0.0~alpha1.8
+ _ZN12RTCPReceiverC2EP18RTCPAbstractServerP6Socket@Base 2.0.0~alpha1.8
+ _ZN12RTCPReceiverC2Ev@Base 2.0.0~alpha1.8
+ _ZN12RTCPReceiverD0Ev@Base 2.0.0~alpha1.8
+ _ZN12RTCPReceiverD1Ev@Base 2.0.0~alpha1.8
+ _ZN12RTCPReceiverD2Ev@Base 2.0.0~alpha1.8
+ _ZN13BandwidthInfo5resetEv@Base 2.0.0~alpha1.8
+ _ZN13TrafficShaper13refreshBufferEhb@Base 2.0.0~alpha1.8
+ _ZN13TrafficShaper4initEP6Socket@Base 2.0.0~alpha1.8
+ _ZN13TrafficShaper5flushEv@Base 2.0.0~alpha1.8
+ _ZN13TrafficShaper7sendAllEv@Base 2.0.0~alpha1.8
+ _ZN13TrafficShaper9SingletonE@Base 2.0.0~alpha1.8
+ _ZN13TrafficShaper9addPacketEPKvjjR12InternetFlowjj@Base 2.0.0~alpha1.8
+ _ZN13TrafficShaperC1EP6Socket@Base 2.0.0~alpha1.8
+ _ZN13TrafficShaperC1Ev@Base 2.0.0~alpha1.8
+ _ZN13TrafficShaperC2EP6Socket@Base 2.0.0~alpha1.8
+ _ZN13TrafficShaperC2Ev@Base 2.0.0~alpha1.8
+ _ZN13TrafficShaperD1Ev@Base 2.0.0~alpha1.8
+ _ZN13TrafficShaperD2Ev@Base 2.0.0~alpha1.8
+ _ZN16MultiTimerThreadILj1EE3runEv@Base 2.0.0~alpha1.8
+ _ZN16MultiTimerThreadILj1EE4stopEv@Base 2.0.0~alpha1.8
+ _ZN16MultiTimerThreadILj1EE6cancelEv@Base 2.0.0~alpha1.8
+ _ZN18RTCPAbstractServer10findClientEj12InternetFlow@Base 2.0.0~alpha1.8
+ _ZN18RTCPAbstractServer10timerEventEv@Base 2.0.0~alpha1.8
+ _ZN18RTCPAbstractServer11receivedAppE12InternetFlowjPKcPvj@Base 2.0.0~alpha1.8
+ _ZN18RTCPAbstractServer11receivedByeE12InternetFlowjNS_12DeleteReasonE@Base 2.0.0~alpha1.8
+ _ZN18RTCPAbstractServer18outOfMemoryWarningEv@Base 2.0.0~alpha1.8
+ _ZN18RTCPAbstractServer20receivedSenderReportE12InternetFlowjP24RTCPReceptionReportBlockj@Base 2.0.0~alpha1.8
+ _ZN18RTCPAbstractServer22receivedReceiverReportE12InternetFlowjP24RTCPReceptionReportBlockj@Base 2.0.0~alpha1.8
+ _ZN18RTCPAbstractServer25receivedSourceDescriptionE12InternetFlowjhPch@Base 2.0.0~alpha1.8
+ _ZN18RTCPAbstractServer4stopEv@Base 2.0.0~alpha1.8
+ _ZN18RTCPAbstractServerC1Ev@Base 2.0.0~alpha1.8
+ _ZN18RTCPAbstractServerC2Ev@Base 2.0.0~alpha1.8
+ _ZN18RTCPAbstractServerD0Ev@Base 2.0.0~alpha1.8
+ _ZN18RTCPAbstractServerD1Ev@Base 2.0.0~alpha1.8
+ _ZN18RTCPAbstractServerD2Ev@Base 2.0.0~alpha1.8
+ _ZN22AbstractQoSDescription12setResourcesERK24ResourceUtilizationPoint@Base 2.0.0~alpha1.8
+ _ZN22AbstractQoSDescriptionC1Ev@Base 2.0.0~alpha1.8
+ _ZN22AbstractQoSDescriptionC2Ev@Base 2.0.0~alpha1.8
+ _ZN22AbstractQoSDescriptionD0Ev@Base 2.0.0~alpha1.8
+ _ZN22AbstractQoSDescriptionD1Ev@Base 2.0.0~alpha1.8
+ _ZN22AbstractQoSDescriptionD2Ev@Base 2.0.0~alpha1.8
+ _ZN22ManagedStreamInterfaceD0Ev@Base 2.0.0~alpha1.8
+ _ZN22ManagedStreamInterfaceD1Ev@Base 2.0.0~alpha1.8
+ _ZN22ManagedStreamInterfaceD2Ev@Base 2.0.0~alpha1.8
+ _ZN22TrafficShaperSingleton10timerEventEv@Base 2.0.0~alpha1.8
+ _ZN22TrafficShaperSingleton16addTrafficShaperEP13TrafficShaper@Base 2.0.0~alpha1.8
+ _ZN22TrafficShaperSingleton19removeTrafficShaperEP13TrafficShaper@Base 2.0.0~alpha1.8
+ _ZN22TrafficShaperSingletonC1Ev@Base 2.0.0~alpha1.8
+ _ZN22TrafficShaperSingletonC2Ev@Base 2.0.0~alpha1.8
+ _ZN22TrafficShaperSingletonD0Ev@Base 2.0.0~alpha1.8
+ _ZN22TrafficShaperSingletonD1Ev@Base 2.0.0~alpha1.8
+ _ZN22TrafficShaperSingletonD2Ev@Base 2.0.0~alpha1.8
+ _ZN24AbstractLayerDescription14setBufferDelayEj@Base 2.0.0~alpha1.8
+ _ZN24AbstractLayerDescriptionC1Ev@Base 2.0.0~alpha1.8
+ _ZN24AbstractLayerDescriptionC2Ev@Base 2.0.0~alpha1.8
+ _ZN24AbstractLayerDescriptionD0Ev@Base 2.0.0~alpha1.8
+ _ZN24AbstractLayerDescriptionD1Ev@Base 2.0.0~alpha1.8
+ _ZN24AbstractLayerDescriptionD2Ev@Base 2.0.0~alpha1.8
+ _ZN24ResourceUtilizationPoint27sortResourceUtilizationListEPS_ii@Base 2.0.0~alpha1.8
+ _ZN24ResourceUtilizationPoint29mergeResourceUtilizationListsEPS_PS0_PKjj@Base 2.0.0~alpha1.8
+ _ZN24ResourceUtilizationPoint29swapResourceUtilizationPointsERS_S0_@Base 2.0.0~alpha1.8
+ _ZN24ResourceUtilizationPoint31optimizeResourceUtilizationListEPS_j@Base 2.0.0~alpha1.8
+ _ZN24ResourceUtilizationPoint33grahamScanResourceUtilizationListEPS_j@Base 2.0.0~alpha1.8
+ _ZN24ResourceUtilizationPoint5resetEv@Base 2.0.0~alpha1.8
+ _ZN9RTPSender10timerEventEv@Base 2.0.0~alpha1.8
+ _ZN9RTPSender13updateQualityEPK22AbstractQoSDescription@Base 2.0.0~alpha1.8
+ _ZN9RTPSender15updateFrameRateEPK22AbstractQoSDescription@Base 2.0.0~alpha1.8
+ _ZN9RTPSender4initERK12InternetFlowjP16EncoderInterfaceP6SocketjjjP19QoSManagerInterface@Base 2.0.0~alpha1.8
+ _ZN9RTPSender4lockEv@Base 2.0.0~alpha1.8
+ _ZN9RTPSender6unlockEv@Base 2.0.0~alpha1.8
+ _ZN9RTPSenderC1ERK12InternetFlowjP16EncoderInterfaceP6SocketjjjP19QoSManagerInterface@Base 2.0.0~alpha1.8
+ _ZN9RTPSenderC1Ev@Base 2.0.0~alpha1.8
+ _ZN9RTPSenderC2ERK12InternetFlowjP16EncoderInterfaceP6SocketjjjP19QoSManagerInterface@Base 2.0.0~alpha1.8
+ _ZN9RTPSenderC2Ev@Base 2.0.0~alpha1.8
+ _ZN9RTPSenderD0Ev@Base 2.0.0~alpha1.8
+ _ZN9RTPSenderD1Ev@Base 2.0.0~alpha1.8
+ _ZN9RTPSenderD2Ev@Base 2.0.0~alpha1.8
+ _ZNK22AbstractQoSDescription12getResourcesER24ResourceUtilizationPoint@Base 2.0.0~alpha1.8
+ _ZNK22AbstractQoSDescription15getMaxBandwidthEv@Base 2.0.0~alpha1.8
+ _ZNK22AbstractQoSDescription15getMinBandwidthEv@Base 2.0.0~alpha1.8
+ _ZNK22AbstractQoSDescription22calculateBandwidthInfoEjR13BandwidthInfo@Base 2.0.0~alpha1.8
+ _ZNK24AbstractLayerDescription12payloadToRawEdjj@Base 2.0.0~alpha1.8
+ _ZNK24AbstractLayerDescription12rawToPayloadEdjj@Base 2.0.0~alpha1.8
+ _ZNK24AbstractLayerDescription13getPacketRateEd@Base 2.0.0~alpha1.8
+ _ZNK24AbstractLayerDescription21frameSizeToPacketRateEdj@Base 2.0.0~alpha1.8
+ _ZNSt11_Deque_baseIN13TrafficShaper19TrafficShaperPacketESaIS1_EED1Ev@Base 2.0.0~alpha1.8
+ _ZNSt11_Deque_baseIN13TrafficShaper19TrafficShaperPacketESaIS1_EED2Ev@Base 2.0.0~alpha1.8
+ _ZNSt5dequeIN13TrafficShaper19TrafficShaperPacketESaIS1_EE16_M_push_back_auxERKS1_@Base 2.0.0~alpha1.8
+ _ZNSt5dequeIN13TrafficShaper19TrafficShaperPacketESaIS1_EE5eraseESt15_Deque_iteratorIS1_RS1_PS1_E@Base 2.0.0~alpha1.8
+ _ZNSt5dequeIN13TrafficShaper19TrafficShaperPacketESaIS1_EED1Ev@Base 2.0.0~alpha1.8
+ _ZNSt5dequeIN13TrafficShaper19TrafficShaperPacketESaIS1_EED2Ev@Base 2.0.0~alpha1.8
+ _ZNSt6vectorIP13TrafficShaperSaIS1_EE13_M_insert_auxEN9__gnu_cxx17__normal_iteratorIPS1_S3_EERKS1_@Base 2.0.0~alpha1.8
+ _ZNSt6vectorIP13TrafficShaperSaIS1_EE5eraseEN9__gnu_cxx17__normal_iteratorIPS1_S3_EE@Base 2.0.0~alpha1.8
+ _ZNSt8_Rb_treeIKjSt4pairIS0_PN18RTCPAbstractServer6ClientEESt10_Select1stIS5_ESt4lessIS0_ESaIS5_EE15_M_insert_equalERKS5_@Base 2.0.0~alpha1.8
+ _ZNSt8_Rb_treeIKjSt4pairIS0_PN18RTCPAbstractServer6ClientEESt10_Select1stIS5_ESt4lessIS0_ESaIS5_EE8_M_eraseEPSt13_Rb_tree_nodeIS5_E@Base 2.0.0~alpha1.8
+ _ZSt13copy_backwardIN13TrafficShaper19TrafficShaperPacketEESt15_Deque_iteratorIT_RS3_PS3_ES2_IS3_RKS3_PS7_ESA_S6_@Base 2.0.0~alpha1.8
+ _ZSt21__unguarded_partitionISt15_Deque_iteratorIN13TrafficShaper19TrafficShaperPacketERS2_PS2_ES2_ET_S6_S6_RKT0_@Base 2.0.0~alpha1.8
+ _ZSt4copyIN13TrafficShaper19TrafficShaperPacketEESt15_Deque_iteratorIT_RS3_PS3_ES2_IS3_RKS3_PS7_ESA_S6_@Base 2.0.0~alpha1.8
+ _ZTI12RTCPReceiver@Base 2.0.0~alpha1.8
+ _ZTI18RTCPAbstractServer@Base 2.0.0~alpha1.8
+ _ZTI22AbstractQoSDescription@Base 2.0.0~alpha1.8
+ _ZTI22ManagedStreamInterface@Base 2.0.0~alpha1.8
+ _ZTI22TrafficShaperSingleton@Base 2.0.0~alpha1.8
+ _ZTI24AbstractLayerDescription@Base 2.0.0~alpha1.8
+ _ZTI29FrameRateScalabilityInterface@Base 2.0.0~alpha1.8
+ _ZTI29FrameSizeScalabilityInterface@Base 2.0.0~alpha1.8
+ _ZTI9RTPSender@Base 2.0.0~alpha1.8
+ _ZTS12RTCPReceiver@Base 2.0.0~alpha1.8
+ _ZTS18RTCPAbstractServer@Base 2.0.0~alpha1.8
+ _ZTS22AbstractQoSDescription@Base 2.0.0~alpha1.8
+ _ZTS22ManagedStreamInterface@Base 2.0.0~alpha1.8
+ _ZTS22TrafficShaperSingleton@Base 2.0.0~alpha1.8
+ _ZTS24AbstractLayerDescription@Base 2.0.0~alpha1.8
+ _ZTS29FrameRateScalabilityInterface@Base 2.0.0~alpha1.8
+ _ZTS29FrameSizeScalabilityInterface@Base 2.0.0~alpha1.8
+ _ZTS9RTPSender@Base 2.0.0~alpha1.8
+ _ZTT22AbstractQoSDescription@Base 2.0.0~alpha1.8
+ _ZTT24AbstractLayerDescription@Base 2.0.0~alpha1.8
+ _ZTT9RTPSender@Base 2.0.0~alpha1.8
+ _ZTV12RTCPReceiver@Base 2.0.0~alpha1.8
+ _ZTV18RTCPAbstractServer@Base 2.0.0~alpha1.8
+ _ZTV22AbstractQoSDescription@Base 2.0.0~alpha1.8
+ _ZTV22ManagedStreamInterface@Base 2.0.0~alpha1.8
+ _ZTV22TrafficShaperSingleton@Base 2.0.0~alpha1.8
+ _ZTV24AbstractLayerDescription@Base 2.0.0~alpha1.8
+ _ZTV29FrameRateScalabilityInterface@Base 2.0.0~alpha1.8
+ _ZTV29FrameSizeScalabilityInterface@Base 2.0.0~alpha1.8
+ _ZTV9RTPSender@Base 2.0.0~alpha1.8
+ _ZlsRSoRK13BandwidthInfo@Base 2.0.0~alpha1.8
+ _ZlsRSoRK22AbstractQoSDescription@Base 2.0.0~alpha1.8
+ _ZlsRSoRK24ResourceUtilizationPoint@Base 2.0.0~alpha1.8
+ (c++|regex)"^AbstractLayerDescription::payloadBandwidthToBandwidth\(.*\) const@Base$" 2.0.0~alpha1.8
+ (c++|regex)"^AbstractQoSDescription::calculateMaxUtilizationForBandwidthArray\(.*\) const@Base$" 2.0.0~alpha1.8
+ (c++|regex)"^AbstractQoSDescription::calculateResourceUtilizationList\(.*\) const@Base$" 2.0.0~alpha1.8
+ (c++|regex)"^AbstractQoSDescription::calculateUtilizationForLayerBandwidths\(.*\) const@Base$" 2.0.0~alpha1.8
+ (c++|regex)"^AbstractQoSDescription::doResourceUtilizationIteration\(.*\) const@Base$" 2.0.0~alpha1.8
+ (c++|regex)"^RTPSender::getQoSDescription\(.*\)@Base$" 2.0.0~alpha1.8
+ (c++|regex)"^std::_Deque_base<TrafficShaper::TrafficShaperPacket, std::allocator<TrafficShaper::TrafficShaperPacket> >::_M_initialize_map\(.*\)@Base$" 2.0.0~alpha1.8
+ (c++|regex)"^std::deque<TrafficShaper::TrafficShaperPacket, std::allocator<TrafficShaper::TrafficShaperPacket> >::_M_reallocate_map\(.*\)@Base$" 2.0.0~alpha1.8
+ (c++|regex)"^TrafficShaper::send\(.*\)@Base$" 2.0.0~alpha1.8
+ (c++|regex)"^TrafficShaper::sendTo\(.*\)@Base$" 2.0.0~alpha1.8
+ (c++|regex)"^TrafficShaper::write\(.*\)@Base$" 2.0.0~alpha1.8
+ (c++|regex)"^virtual thunk to RTPSender::getQoSDescription\(.*\)@Base$" 2.0.0~alpha1.8
+ (c++)"virtual thunk to InternetFlow::~InternetFlow()@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to RTPSender::lock()@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to RTPSender::~RTPSender()@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to RTPSender::unlock()@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to RTPSender::updateQuality(AbstractQoSDescription const*)@Base" 2.0.0~alpha1.8
+ (optional|c++|regex)"^void std::.*@Base$" 2.0.0~alpha1.8

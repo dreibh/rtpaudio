@@ -1,0 +1,141 @@
+libaudioencoder.so.0 libaudioencoder0 #MINVER#
+ _ZN18SimpleAudioEncoder10deactivateEv@Base 2.0.0~alpha1.8
+ _ZN18SimpleAudioEncoder13getNextPacketEP13EncoderPacket@Base 2.0.0~alpha1.8
+ _ZN18SimpleAudioEncoder13updateQualityEPK22AbstractQoSDescription@Base 2.0.0~alpha1.8
+ _ZN18SimpleAudioEncoder16prepareNextFrameEjjj@Base 2.0.0~alpha1.8
+ _ZN18SimpleAudioEncoder5resetEv@Base 2.0.0~alpha1.8
+ _ZN18SimpleAudioEncoder8activateEv@Base 2.0.0~alpha1.8
+ _ZN18SimpleAudioEncoderC1EP20AudioReaderInterface@Base 2.0.0~alpha1.8
+ _ZN18SimpleAudioEncoderC2EP20AudioReaderInterface@Base 2.0.0~alpha1.8
+ _ZN18SimpleAudioEncoderD1Ev@Base 2.0.0~alpha1.8
+ _ZN18SimpleAudioEncoderD2Ev@Base 2.0.0~alpha1.8
+ _ZN20AdvancedAudioEncoder10deactivateEv@Base 2.0.0~alpha1.8
+ _ZN20AdvancedAudioEncoder13getNextPacketEP13EncoderPacket@Base 2.0.0~alpha1.8
+ _ZN20AdvancedAudioEncoder13updateQualityEPK22AbstractQoSDescription@Base 2.0.0~alpha1.8
+ _ZN20AdvancedAudioEncoder16prepareNextFrameEjjj@Base 2.0.0~alpha1.8
+ _ZN20AdvancedAudioEncoder5resetEv@Base 2.0.0~alpha1.8
+ _ZN20AdvancedAudioEncoder8activateEv@Base 2.0.0~alpha1.8
+ _ZN20AdvancedAudioEncoderC1EP20AudioReaderInterface@Base 2.0.0~alpha1.8
+ _ZN20AdvancedAudioEncoderC2EP20AudioReaderInterface@Base 2.0.0~alpha1.8
+ _ZN20AdvancedAudioEncoderD1Ev@Base 2.0.0~alpha1.8
+ _ZN20AdvancedAudioEncoderD2Ev@Base 2.0.0~alpha1.8
+ _ZN22AudioEncoderRepository10addEncoderEP21AudioEncoderInterface@Base 2.0.0~alpha1.8
+ _ZN22AudioEncoderRepository10deactivateEv@Base 2.0.0~alpha1.8
+ _ZN22AudioEncoderRepository11setChannelsEh@Base 2.0.0~alpha1.8
+ _ZN22AudioEncoderRepository12setByteOrderEt@Base 2.0.0~alpha1.8
+ _ZN22AudioEncoderRepository13getNextPacketEP13EncoderPacket@Base 2.0.0~alpha1.8
+ _ZN22AudioEncoderRepository13removeEncoderEP21AudioEncoderInterface@Base 2.0.0~alpha1.8
+ _ZN22AudioEncoderRepository13updateQualityEPK22AbstractQoSDescription@Base 2.0.0~alpha1.8
+ _ZN22AudioEncoderRepository15setSamplingRateEt@Base 2.0.0~alpha1.8
+ _ZN22AudioEncoderRepository16prepareNextFrameEjjj@Base 2.0.0~alpha1.8
+ _ZN22AudioEncoderRepository22selectEncoderForTypeIDEt@Base 2.0.0~alpha1.8
+ _ZN22AudioEncoderRepository5resetEv@Base 2.0.0~alpha1.8
+ _ZN22AudioEncoderRepository7setBitsEh@Base 2.0.0~alpha1.8
+ _ZN22AudioEncoderRepository8activateEv@Base 2.0.0~alpha1.8
+ _ZN22AudioEncoderRepositoryC1Ev@Base 2.0.0~alpha1.8
+ _ZN22AudioEncoderRepositoryC2Ev@Base 2.0.0~alpha1.8
+ _ZN22AudioEncoderRepositoryD1Ev@Base 2.0.0~alpha1.8
+ _ZN22AudioEncoderRepositoryD2Ev@Base 2.0.0~alpha1.8
+ _ZNK18SimpleAudioEncoder11getTypeNameEv@Base 2.0.0~alpha1.8
+ _ZNK18SimpleAudioEncoder12getFrameRateEv@Base 2.0.0~alpha1.8
+ _ZNK18SimpleAudioEncoder9getTypeIDEv@Base 2.0.0~alpha1.8
+ _ZNK20AdvancedAudioEncoder11getTypeNameEv@Base 2.0.0~alpha1.8
+ _ZNK20AdvancedAudioEncoder12getFrameRateEv@Base 2.0.0~alpha1.8
+ _ZNK20AdvancedAudioEncoder9getTypeIDEv@Base 2.0.0~alpha1.8
+ _ZNK22AudioEncoderRepository11getChannelsEv@Base 2.0.0~alpha1.8
+ _ZNK22AudioEncoderRepository11getTypeNameEv@Base 2.0.0~alpha1.8
+ _ZNK22AudioEncoderRepository12getByteOrderEv@Base 2.0.0~alpha1.8
+ _ZNK22AudioEncoderRepository12getFrameRateEv@Base 2.0.0~alpha1.8
+ _ZNK22AudioEncoderRepository15getSamplingRateEv@Base 2.0.0~alpha1.8
+ _ZNK22AudioEncoderRepository16getBitsPerSampleEv@Base 2.0.0~alpha1.8
+ _ZNK22AudioEncoderRepository17getBytesPerSecondEv@Base 2.0.0~alpha1.8
+ _ZNK22AudioEncoderRepository17getCurrentEncoderEv@Base 2.0.0~alpha1.8
+ _ZNK22AudioEncoderRepository22getCurrentAudioEncoderEv@Base 2.0.0~alpha1.8
+ _ZNK22AudioEncoderRepository7getBitsEv@Base 2.0.0~alpha1.8
+ _ZNK22AudioEncoderRepository9getTypeIDEv@Base 2.0.0~alpha1.8
+ _ZNSt8_Rb_treeIKtSt4pairIS0_P21AudioEncoderInterfaceESt10_Select1stIS4_ESt4lessIS0_ESaIS4_EE15_M_insert_equalERKS4_@Base 2.0.0~alpha1.8
+ _ZNSt8_Rb_treeIKtSt4pairIS0_P21AudioEncoderInterfaceESt10_Select1stIS4_ESt4lessIS0_ESaIS4_EE8_M_eraseEPSt13_Rb_tree_nodeIS4_E@Base 2.0.0~alpha1.8
+ _ZTI16EncoderInterface@Base 2.0.0~alpha1.8
+ _ZTI18SimpleAudioEncoder@Base 2.0.0~alpha1.8
+ _ZTI20AdvancedAudioEncoder@Base 2.0.0~alpha1.8
+ _ZTI21AudioEncoderInterface@Base 2.0.0~alpha1.8
+ _ZTI21AudioQualityInterface@Base 2.0.0~alpha1.8
+ _ZTI22AudioEncoderRepository@Base 2.0.0~alpha1.8
+ _ZTI26EncoderRepositoryInterface@Base 2.0.0~alpha1.8
+ _ZTI31AdjustableAudioQualityInterface@Base 2.0.0~alpha1.8
+ _ZTS16EncoderInterface@Base 2.0.0~alpha1.8
+ _ZTS18SimpleAudioEncoder@Base 2.0.0~alpha1.8
+ _ZTS20AdvancedAudioEncoder@Base 2.0.0~alpha1.8
+ _ZTS21AudioEncoderInterface@Base 2.0.0~alpha1.8
+ _ZTS21AudioQualityInterface@Base 2.0.0~alpha1.8
+ _ZTS22AudioEncoderRepository@Base 2.0.0~alpha1.8
+ _ZTS26EncoderRepositoryInterface@Base 2.0.0~alpha1.8
+ _ZTS31AdjustableAudioQualityInterface@Base 2.0.0~alpha1.8
+ _ZTT18SimpleAudioEncoder@Base 2.0.0~alpha1.8
+ _ZTT20AdvancedAudioEncoder@Base 2.0.0~alpha1.8
+ _ZTT22AudioEncoderRepository@Base 2.0.0~alpha1.8
+ _ZTV16EncoderInterface@Base 2.0.0~alpha1.8
+ _ZTV18SimpleAudioEncoder@Base 2.0.0~alpha1.8
+ _ZTV20AdvancedAudioEncoder@Base 2.0.0~alpha1.8
+ _ZTV21AudioQualityInterface@Base 2.0.0~alpha1.8
+ _ZTV22AudioEncoderRepository@Base 2.0.0~alpha1.8
+ (c++)"construction vtable for AdjustableAudioQualityInterface-in-AdvancedAudioEncoder@Base" 2.0.0~alpha1.8
+ (c++)"construction vtable for AdjustableAudioQualityInterface-in-AudioEncoderRepository@Base" 2.0.0~alpha1.8
+ (c++)"construction vtable for AdjustableAudioQualityInterface-in-SimpleAudioEncoder@Base" 2.0.0~alpha1.8
+ (c++)"construction vtable for AudioEncoderInterface-in-AdvancedAudioEncoder@Base" 2.0.0~alpha1.8
+ (c++)"construction vtable for AudioEncoderInterface-in-AudioEncoderRepository@Base" 2.0.0~alpha1.8
+ (c++)"construction vtable for AudioEncoderInterface-in-SimpleAudioEncoder@Base" 2.0.0~alpha1.8
+ (c++)"construction vtable for AudioQuality-in-AdvancedAudioEncoder@Base" 2.0.0~alpha1.8
+ (c++)"construction vtable for AudioQuality-in-SimpleAudioEncoder@Base" 2.0.0~alpha1.8
+ (c++)"construction vtable for EncoderRepositoryInterface-in-AudioEncoderRepository@Base" 2.0.0~alpha1.8
+ (c++|regex)"^AdvancedAudioEncoder::checkInterval\(.*\)@Base$" 2.0.0~alpha1.8
+ (c++|regex)"^AdvancedAudioEncoder::getQoSDescription\(.*\)@Base$" 2.0.0~alpha1.8
+ (c++|regex)"^AudioEncoderRepository::checkInterval\(.*\)@Base$" 2.0.0~alpha1.8
+ (c++|regex)"^AudioEncoderRepository::getQoSDescription\(.*\)@Base$" 2.0.0~alpha1.8
+ (c++|regex)"^SimpleAudioEncoder::checkInterval\(.*\)@Base$" 2.0.0~alpha1.8
+ (c++|regex)"^SimpleAudioEncoder::getQoSDescription\(.*\)@Base$" 2.0.0~alpha1.8
+ (c++|regex)"^virtual thunk to AdvancedAudioEncoder::checkInterval\(.*\)@Base$" 2.0.0~alpha1.8
+ (c++|regex)"^virtual thunk to AdvancedAudioEncoder::getQoSDescription\(.*\)@Base$" 2.0.0~alpha1.8
+ (c++|regex)"^virtual thunk to AudioEncoderRepository::checkInterval\(.*\)@Base$" 2.0.0~alpha1.8
+ (c++|regex)"^virtual thunk to AudioEncoderRepository::getQoSDescription\(.*\)@Base$" 2.0.0~alpha1.8
+ (c++|regex)"^virtual thunk to SimpleAudioEncoder::checkInterval\(.*\)@Base$" 2.0.0~alpha1.8
+ (c++|regex)"^virtual thunk to SimpleAudioEncoder::getQoSDescription\(.*\)@Base$" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AdvancedAudioEncoder::activate()@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AdvancedAudioEncoder::deactivate()@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AdvancedAudioEncoder::getFrameRate() const@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AdvancedAudioEncoder::getNextPacket(EncoderPacket*)@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AdvancedAudioEncoder::getTypeID() const@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AdvancedAudioEncoder::getTypeName() const@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AdvancedAudioEncoder::prepareNextFrame(unsigned int, unsigned int, unsigned int)@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AdvancedAudioEncoder::reset()@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AdvancedAudioEncoder::updateQuality(AbstractQoSDescription const*)@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AudioEncoderRepository::activate()@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AudioEncoderRepository::deactivate()@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AudioEncoderRepository::getBits() const@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AudioEncoderRepository::getBitsPerSample() const@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AudioEncoderRepository::getByteOrder() const@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AudioEncoderRepository::getBytesPerSecond() const@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AudioEncoderRepository::getChannels() const@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AudioEncoderRepository::getCurrentEncoder() const@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AudioEncoderRepository::getFrameRate() const@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AudioEncoderRepository::getNextPacket(EncoderPacket*)@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AudioEncoderRepository::getSamplingRate() const@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AudioEncoderRepository::getTypeID() const@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AudioEncoderRepository::getTypeName() const@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AudioEncoderRepository::prepareNextFrame(unsigned int, unsigned int, unsigned int)@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AudioEncoderRepository::reset()@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AudioEncoderRepository::selectEncoderForTypeID(unsigned short)@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AudioEncoderRepository::setBits(unsigned char)@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AudioEncoderRepository::setByteOrder(unsigned short)@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AudioEncoderRepository::setChannels(unsigned char)@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AudioEncoderRepository::setSamplingRate(unsigned short)@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to AudioEncoderRepository::updateQuality(AbstractQoSDescription const*)@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to SimpleAudioEncoder::activate()@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to SimpleAudioEncoder::deactivate()@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to SimpleAudioEncoder::getFrameRate() const@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to SimpleAudioEncoder::getNextPacket(EncoderPacket*)@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to SimpleAudioEncoder::getTypeID() const@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to SimpleAudioEncoder::getTypeName() const@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to SimpleAudioEncoder::prepareNextFrame(unsigned int, unsigned int, unsigned int)@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to SimpleAudioEncoder::reset()@Base" 2.0.0~alpha1.8
+ (c++)"virtual thunk to SimpleAudioEncoder::updateQuality(AbstractQoSDescription const*)@Base" 2.0.0~alpha1.8

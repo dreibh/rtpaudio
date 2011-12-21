@@ -184,10 +184,20 @@ rtpa_client_LDADD   = librtpaudioclient.la libaudiodecoder.la libaudiowriter.la 
 rtpa_vclient_SOURCES = rtpa-vclient.cc
 rtpa_vclient_LDADD   = librtpaudioclient.la libaudiodecoder.la libaudiowriter.la libaudiocommon.la libtdtoolbox.la
 
+
 if BUILD_QT_PROGRAMS
-rtpa_qclient_MOC      = rtpa-qclient.moc.cc qinfotabwidget.moc.cc qspectrumanalyzer.moc.cc qaudiomixer.moc.cc
+RTPAQCLIENTMOCHEADER = rtpa-qclient.h qinfotabwidget.h qspectrumanalyzer.h qaudiomixer.h
+RTPAQCLIENTMOCEDFILES = $(RTPAQCLIENTMOCHEADER:%.h=%_moc.cc)
+CLEANFILES = $(RTPAQCLIENTMOCEDFILES)
+
+%_moc.cc: %.h
+	$(MOC) -o $@ $<
+
+# To compile (i.e. generate object files), first create MOC file.
+# This MOC file is included by rtpa_qclient.cc, so no compile step is necessary.
+$(rtpa_qclient_OBJECTS): $(RTPAQCLIENTMOCEDFILES)
+
 rtpa_qclient_CXXFLAGS = $(QT_CXXFLAGS)
-rtpa_qclient_CXXADD   = $(QT_CXXFLAGS)
 rtpa_qclient_SOURCES  = rtpa-qclient.cc rtpa-qclient.h qinfotabwidget.cc qinfotabwidget.h qspectrumanalyzer.cc qspectrumanalyzer.h qaudiomixer.cc qaudiomixer.h rtpa-qclient.moc.cc qinfotabwidget.moc.cc qspectrumanalyzer.moc.cc qaudiomixer.moc.cc
 rtpa_qclient_LDADD    = $(QT_LDADD) librtpaudioclient.la libaudiodecoder.la libaudiowriter.la libaudiocommon.la libtdtoolbox.la
 endif
