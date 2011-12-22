@@ -55,7 +55,7 @@
   * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
-class MP3AudioReader : virtual public AudioReaderInterface,
+class MP3AudioReader : public AudioReaderInterface,
                        public AudioQuality,
                        public Soundplayer
 {
