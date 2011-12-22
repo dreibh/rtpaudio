@@ -1,8 +1,8 @@
 // ##########################################################################
 // ####                                                                  ####
-// ####                    Master Thesis Implementation                  ####
+// ####                   Master Thesis Implementation                   ####
 // ####  Management of Layered Variable Bitrate Multimedia Streams over  ####
-// ####                  DiffServ with A Priori Knowledge                ####
+// ####                 DiffServ with A Priori Knowledge                 ####
 // ####                                                                  ####
 // #### ================================================================ ####
 // ####                                                                  ####
