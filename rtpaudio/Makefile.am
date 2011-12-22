@@ -198,7 +198,7 @@ CLEANFILES = $(RTPAQCLIENTMOCEDFILES)
 $(rtpa_qclient_OBJECTS): $(RTPAQCLIENTMOCEDFILES)
 
 rtpa_qclient_CXXFLAGS = $(QT_CXXFLAGS)
-rtpa_qclient_SOURCES  = rtpa-qclient.cc rtpa-qclient.h qinfotabwidget.cc qinfotabwidget.h qspectrumanalyzer.cc qspectrumanalyzer.h qaudiomixer.cc qaudiomixer.h $(RTPAQCLIENTMOCEDFILES)
+rtpa_qclient_SOURCES  = rtpa-qclient.cc rtpa-qclient.h qinfotabwidget.cc qinfotabwidget.h qspectrumanalyzer.cc qspectrumanalyzer.h qaudiomixer.cc qaudiomixer.h
 rtpa_qclient_LDADD    = $(QT_LDADD) librtpaudioclient.la libaudiodecoder.la libaudiowriter.la libaudiocommon.la libtdtoolbox.la
 endif
 
