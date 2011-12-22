@@ -33,6 +33,7 @@
 
 #include "tdsystem.h"
 #include "qaudiomixer.h"
+#include "qaudiomixer_moc.cc"
 #include "audiodevice.h"
 #include "audiodebug.h"
 #include "audioconverter.h"

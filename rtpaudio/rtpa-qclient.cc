@@ -31,6 +31,20 @@
 // $Id$
 
 
+#include "tdsystem.h"
+#include "rtpa-qclient.h"
+#include "rtpa-qclient_moc.cc"
+#include "audiodevice.h"
+#include "audiodebug.h"
+#include "audionull.h"
+#include "spectrumanalyzer.h"
+#include "multiaudiowriter.h"
+#include "tdsocket.h"
+#include "tools.h"
+#include "audioclient.h"
+#include "trafficclassvalues.h"
+
+
 #include <qapplication.h>
 #include <qlayout.h>
 #include <qpushbutton.h>
@@ -53,19 +67,6 @@
 #include <fstream>
 #include <assert.h>
 
-
-#include "tdsystem.h"
-#include "audiodevice.h"
-#include "audiodebug.h"
-#include "audionull.h"
-#include "spectrumanalyzer.h"
-#include "multiaudiowriter.h"
-#include "tdsocket.h"
-#include "tools.h"
-#include "audioclient.h"
-#include "trafficclassvalues.h"
-
-#include "rtpa-qclient.h"
 
 
 // ###### Constructor #######################################################

@@ -33,6 +33,7 @@
 
 #include "tdsystem.h"
 #include "qinfotabwidget.h"
+#include "qinfotabwidget_moc.cc"
 
 
 #include <qapplication.h>

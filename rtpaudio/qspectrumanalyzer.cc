@@ -32,6 +32,8 @@
 
 
 #include "tdsystem.h"
+#include "qspectrumanalyzer.h"
+#include "qspectrumanalyzer_moc.cc"
 #include "audiodevice.h"
 #include "audiodebug.h"
 #include "audioconverter.h"
@@ -49,7 +51,6 @@
 #include <qcheckbox.h>
 #include <qmainwindow.h>
 
-#include "qspectrumanalyzer.h"
 
 
 // ###### Constructor #######################################################
