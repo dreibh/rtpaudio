@@ -1,0 +1,103 @@
+// ##########################################################################
+// ####                                                                  ####
+// ####                      RTP Audio Server Project                    ####
+// ####                    ============================                  ####
+// ####                                                                  ####
+// #### Round Trip Time Pinger                                           ####
+// ####                                                                  ####
+// ####           Copyright (C) 1999-2012 by Thomas Dreibholz            ####
+// ####                                                                  ####
+// #### Contact:                                                         ####
+// ####    EMail: dreibh@iem.uni-due.de                                  ####
+// ####    WWW:   http://www.iem.uni-due.de/~dreibh/rtpaudio             ####
+// ####                                                                  ####
+// #### ---------------------------------------------------------------- ####
+// ####                                                                  ####
+// #### This program is free software: you can redistribute it and/or    ####
+// #### modify it under the terms of the GNU General Public License as   ####
+// #### published by the Free Software Foundation, either version 3 of   ####
+// #### the License, or (at your option) any later version.              ####
+// ####                                                                  ####
+// #### This program is distributed in the hope that it will be useful,  ####
+// #### but WITHOUT ANY WARRANTY; without even the implied warranty of   ####
+// #### MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the    ####
+// #### GNU General Public License for more details.                     ####
+// ####                                                                  ####
+// #### You should have received a copy of the GNU General Public        ####
+// #### License along with this program.  If not, see                    ####
+// #### <http://www.gnu.org/licenses/>.                                  ####
+// ####                                                                  ####
+// ##########################################################################
+// $Id$
+
+
+#ifndef ROUNDTRIPTIMEPINGER_ICC
+#define ROUNDTRIPTIMEPINGER_ICC
+
+
+#include "roundtriptimepinger.h"
+
+
+// ###### Check, if RoundTripTimePinger is ready ############################
+inline bool RoundTripTimePinger::ready() const
+{
+   return(Ready);
+}
+
+
+// ###### Check, if logger is running #######################################
+inline bool RoundTripTimePinger::isLogging() const
+{
+   return(Logger);
+}
+
+
+// ###### Get number of hosts ###############################################
+inline cardinal RoundTripTimePinger::getHosts()
+{
+   synchronized();
+   const cardinal hosts = HostSet.size();
+   unsynchronized();
+   return(hosts);
+}
+
+
+// ###### Get alpha #########################################################
+inline double RoundTripTimePinger::getAlpha()
+{
+   synchronized();
+   const double alpha = RoundTripTimeAlpha;
+   unsynchronized();
+   return(alpha);
+}
+
+
+// ###### Set alpha #########################################################
+inline void RoundTripTimePinger::setAlpha(const double alpha)
+{
+   synchronized();
+   RoundTripTimeAlpha = alpha;
+   unsynchronized();
+}
+
+
+// ###### Get maximum delay between to pings ################################
+inline card64 RoundTripTimePinger::getMaxPingDelay()
+{
+   synchronized();
+   const card64 pingDelay = MaxPingDelay;
+   unsynchronized();
+   return(pingDelay);
+}
+
+
+// ###### Set maximum delay between to pings ################################
+inline void RoundTripTimePinger::setMaxPingDelay(const card64 delay)
+{
+   synchronized();
+   MaxPingDelay = delay;
+   unsynchronized();
+}
+
+
+#endif

@@ -186,6 +186,17 @@ Description: Shared libraries for RTP Audio (common helper functions)
  .
  This package provides shared libraries for common helper functions.
 
+Package: libqosmgr0
+Section: libs
+Architecture: any
+Depends: ${misc:Depends},
+         ${shlibs:Depends}
+Description: Shared libraries for RTP Audio (QoS management)
+ The RTP Audio system is a network sound streaming systen. It has been
+ designed for QoS performance analysis and teaching purposes.
+ .
+ This package provides shared libraries for the QoS manager.
+
 Package: rtpaudio
 Architecture: any
 Depends: libaudiocodeccommon0,
@@ -196,6 +207,7 @@ Depends: libaudiocodeccommon0,
          libaudiowriter0,
          libmediainfo0,
          libmpegsound0,
+         libqosmgr0,
          librtpaudioclient0,
          librtpaudiocommon0,
          librtpaudioserver0,

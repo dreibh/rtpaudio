@@ -1,58 +1,58 @@
 librtpaudioclient.so.0 librtpaudioclient0 #MINVER#
- _ZN11AudioClient11getPositionEv@Base 2.0.0~alpha1.8
- _ZN11AudioClient11sendCommandEb@Base 2.0.0~alpha1.8
- _ZN11AudioClient11setChannelsEh@Base 2.0.0~alpha1.8
- _ZN11AudioClient11setEncodingEj@Base 2.0.0~alpha1.8
- _ZN11AudioClient12setByteOrderEt@Base 2.0.0~alpha1.8
- _ZN11AudioClient15getEncodingNameEj@Base 2.0.0~alpha1.8
- _ZN11AudioClient15setSamplingRateEt@Base 2.0.0~alpha1.8
- _ZN11AudioClient20getRawBytesPerSecondEv@Base 2.0.0~alpha1.8
- _ZN11AudioClient4playEPKc@Base 2.0.0~alpha1.8
- _ZN11AudioClient4stopEv@Base 2.0.0~alpha1.8
- _ZN11AudioClient6changeEPKc@Base 2.0.0~alpha1.8
- _ZN11AudioClient7setBitsEh@Base 2.0.0~alpha1.8
- _ZN11AudioClient8setPauseEb@Base 2.0.0~alpha1.8
- _ZN11AudioClientC1EP20AudioWriterInterface@Base 2.0.0~alpha1.8
- _ZN11AudioClientC2EP20AudioWriterInterface@Base 2.0.0~alpha1.8
- _ZN11AudioClientD0Ev@Base 2.0.0~alpha1.8
- _ZN11AudioClientD1Ev@Base 2.0.0~alpha1.8
- _ZN11AudioClientD2Ev@Base 2.0.0~alpha1.8
- _ZN12InternetFlowD1Ev@Base 2.0.0~alpha1.8
- _ZNK11AudioClient11getChannelsEv@Base 2.0.0~alpha1.8
- _ZNK11AudioClient12getByteOrderEv@Base 2.0.0~alpha1.8
- _ZNK11AudioClient12getMediaInfoEv@Base 2.0.0~alpha1.8
- _ZNK11AudioClient13getServerSSRCEj@Base 2.0.0~alpha1.8
- _ZNK11AudioClient14getPacketsLostEj@Base 2.0.0~alpha1.8
- _ZNK11AudioClient15getFractionLostEj@Base 2.0.0~alpha1.8
- _ZNK11AudioClient15getSamplingRateEv@Base 2.0.0~alpha1.8
- _ZNK11AudioClient16getBitsPerSampleEv@Base 2.0.0~alpha1.8
- _ZNK11AudioClient17getBytesPerSecondEv@Base 2.0.0~alpha1.8
- _ZNK11AudioClient19getOurAddressStringEN13SocketAddress11PrintFormatE@Base 2.0.0~alpha1.8
- _ZNK11AudioClient22getServerAddressStringEN13SocketAddress11PrintFormatE@Base 2.0.0~alpha1.8
- _ZNK11AudioClient7getBitsEv@Base 2.0.0~alpha1.8
- _ZNK11AudioClient9getJitterEj@Base 2.0.0~alpha1.8
- _ZNSt8_Rb_treeIKjSt4pairIS0_P21AudioDecoderInterfaceESt10_Select1stIS4_ESt4lessIS0_ESaIS4_EE15_M_insert_equalERKS4_@Base 2.0.0~alpha1.8
- _ZNSt8_Rb_treeIKjSt4pairIS0_P21AudioDecoderInterfaceESt10_Select1stIS4_ESt4lessIS0_ESaIS4_EE8_M_eraseEPSt13_Rb_tree_nodeIS4_E@Base 2.0.0~alpha1.8
- _ZNSt8multimapIKjP21AudioDecoderInterfaceSt4lessIS0_ESaISt4pairIS0_S2_EEED1Ev@Base 2.0.0~alpha1.8
- _ZNSt8multimapIKjP21AudioDecoderInterfaceSt4lessIS0_ESaISt4pairIS0_S2_EEED2Ev@Base 2.0.0~alpha1.8
- _ZTI11AudioClient@Base 2.0.0~alpha1.8
- _ZTI21AudioQualityInterface@Base 2.0.0~alpha1.8
- _ZTI31AdjustableAudioQualityInterface@Base 2.0.0~alpha1.8
- _ZTS11AudioClient@Base 2.0.0~alpha1.8
- _ZTS21AudioQualityInterface@Base 2.0.0~alpha1.8
- _ZTS31AdjustableAudioQualityInterface@Base 2.0.0~alpha1.8
- _ZTT11AudioClient@Base 2.0.0~alpha1.8
- _ZTV11AudioClient@Base 2.0.0~alpha1.8
- _ZTV21AudioQualityInterface@Base 2.0.0~alpha1.8
- (c++)"construction vtable for AdjustableAudioQualityInterface-in-AudioClient@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioClient::getBits() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioClient::getBitsPerSample() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioClient::getByteOrder() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioClient::getBytesPerSecond() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioClient::getChannels() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioClient::getSamplingRate() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioClient::setBits(unsigned char)@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioClient::setByteOrder(unsigned short)@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioClient::setChannels(unsigned char)@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioClient::setSamplingRate(unsigned short)@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to InternetFlow::~InternetFlow()@Base" 2.0.0~alpha1.8
+ _ZN11AudioClient11getPositionEv@Base 2.0.0~alpha1.10
+ _ZN11AudioClient11sendCommandEb@Base 2.0.0~alpha1.10
+ _ZN11AudioClient11setChannelsEh@Base 2.0.0~alpha1.10
+ _ZN11AudioClient11setEncodingEj@Base 2.0.0~alpha1.10
+ _ZN11AudioClient12setByteOrderEt@Base 2.0.0~alpha1.10
+ _ZN11AudioClient15getEncodingNameEj@Base 2.0.0~alpha1.10
+ _ZN11AudioClient15setSamplingRateEt@Base 2.0.0~alpha1.10
+ _ZN11AudioClient20getRawBytesPerSecondEv@Base 2.0.0~alpha1.10
+ _ZN11AudioClient4playEPKc@Base 2.0.0~alpha1.10
+ _ZN11AudioClient4stopEv@Base 2.0.0~alpha1.10
+ _ZN11AudioClient6changeEPKc@Base 2.0.0~alpha1.10
+ _ZN11AudioClient7setBitsEh@Base 2.0.0~alpha1.10
+ _ZN11AudioClient8setPauseEb@Base 2.0.0~alpha1.10
+ _ZN11AudioClientC1EP20AudioWriterInterface@Base 2.0.0~alpha1.10
+ _ZN11AudioClientC2EP20AudioWriterInterface@Base 2.0.0~alpha1.10
+ _ZN11AudioClientD0Ev@Base 2.0.0~alpha1.10
+ _ZN11AudioClientD1Ev@Base 2.0.0~alpha1.10
+ _ZN11AudioClientD2Ev@Base 2.0.0~alpha1.10
+ _ZN12InternetFlowD1Ev@Base 2.0.0~alpha1.10
+ _ZNK11AudioClient11getChannelsEv@Base 2.0.0~alpha1.10
+ _ZNK11AudioClient12getByteOrderEv@Base 2.0.0~alpha1.10
+ _ZNK11AudioClient12getMediaInfoEv@Base 2.0.0~alpha1.10
+ _ZNK11AudioClient13getServerSSRCEj@Base 2.0.0~alpha1.10
+ _ZNK11AudioClient14getPacketsLostEj@Base 2.0.0~alpha1.10
+ _ZNK11AudioClient15getFractionLostEj@Base 2.0.0~alpha1.10
+ _ZNK11AudioClient15getSamplingRateEv@Base 2.0.0~alpha1.10
+ _ZNK11AudioClient16getBitsPerSampleEv@Base 2.0.0~alpha1.10
+ _ZNK11AudioClient17getBytesPerSecondEv@Base 2.0.0~alpha1.10
+ _ZNK11AudioClient19getOurAddressStringEN13SocketAddress11PrintFormatE@Base 2.0.0~alpha1.10
+ _ZNK11AudioClient22getServerAddressStringEN13SocketAddress11PrintFormatE@Base 2.0.0~alpha1.10
+ _ZNK11AudioClient7getBitsEv@Base 2.0.0~alpha1.10
+ _ZNK11AudioClient9getJitterEj@Base 2.0.0~alpha1.10
+ _ZNSt8_Rb_treeIKjSt4pairIS0_P21AudioDecoderInterfaceESt10_Select1stIS4_ESt4lessIS0_ESaIS4_EE15_M_insert_equalERKS4_@Base 2.0.0~alpha1.10
+ _ZNSt8_Rb_treeIKjSt4pairIS0_P21AudioDecoderInterfaceESt10_Select1stIS4_ESt4lessIS0_ESaIS4_EE8_M_eraseEPSt13_Rb_tree_nodeIS4_E@Base 2.0.0~alpha1.10
+ _ZNSt8multimapIKjP21AudioDecoderInterfaceSt4lessIS0_ESaISt4pairIS0_S2_EEED1Ev@Base 2.0.0~alpha1.10
+ _ZNSt8multimapIKjP21AudioDecoderInterfaceSt4lessIS0_ESaISt4pairIS0_S2_EEED2Ev@Base 2.0.0~alpha1.10
+ _ZTI11AudioClient@Base 2.0.0~alpha1.10
+ _ZTI21AudioQualityInterface@Base 2.0.0~alpha1.10
+ _ZTI31AdjustableAudioQualityInterface@Base 2.0.0~alpha1.10
+ _ZTS11AudioClient@Base 2.0.0~alpha1.10
+ _ZTS21AudioQualityInterface@Base 2.0.0~alpha1.10
+ _ZTS31AdjustableAudioQualityInterface@Base 2.0.0~alpha1.10
+ _ZTT11AudioClient@Base 2.0.0~alpha1.10
+ _ZTV11AudioClient@Base 2.0.0~alpha1.10
+ _ZTV21AudioQualityInterface@Base 2.0.0~alpha1.10
+ (c++)"construction vtable for AdjustableAudioQualityInterface-in-AudioClient@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioClient::getBits() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioClient::getBitsPerSample() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioClient::getByteOrder() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioClient::getBytesPerSecond() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioClient::getChannels() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioClient::getSamplingRate() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioClient::setBits(unsigned char)@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioClient::setByteOrder(unsigned short)@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioClient::setChannels(unsigned char)@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioClient::setSamplingRate(unsigned short)@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to InternetFlow::~InternetFlow()@Base" 2.0.0~alpha1.10

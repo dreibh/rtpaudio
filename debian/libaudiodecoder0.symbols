@@ -1,175 +1,175 @@
 libaudiodecoder.so.0 libaudiodecoder0 #MINVER#
- _ZN16MultiTimerThreadILj1EE3runEv@Base 2.0.0~alpha1.8
- _ZN16MultiTimerThreadILj1EE4stopEv@Base 2.0.0~alpha1.8
- _ZN16MultiTimerThreadILj1EE6cancelEv@Base 2.0.0~alpha1.8
- _ZN18SimpleAudioDecoder10deactivateEv@Base 2.0.0~alpha1.8
- _ZN18SimpleAudioDecoder15checkNextPacketEP13DecoderPacket@Base 2.0.0~alpha1.8
- _ZN18SimpleAudioDecoder16handleNextPacketEPK13DecoderPacket@Base 2.0.0~alpha1.8
- _ZN18SimpleAudioDecoder16setWantedQualityERK21AudioQualityInterface@Base 2.0.0~alpha1.8
- _ZN18SimpleAudioDecoder5resetEv@Base 2.0.0~alpha1.8
- _ZN18SimpleAudioDecoder8activateEv@Base 2.0.0~alpha1.8
- _ZN18SimpleAudioDecoderC1EP20AudioWriterInterface@Base 2.0.0~alpha1.8
- _ZN18SimpleAudioDecoderC2EP20AudioWriterInterface@Base 2.0.0~alpha1.8
- _ZN18SimpleAudioDecoderD1Ev@Base 2.0.0~alpha1.8
- _ZN18SimpleAudioDecoderD2Ev@Base 2.0.0~alpha1.8
- _ZN20AdvancedAudioDecoder10deactivateEv@Base 2.0.0~alpha1.8
- _ZN20AdvancedAudioDecoder10timerEventEv@Base 2.0.0~alpha1.8
- _ZN20AdvancedAudioDecoder11getFragmentEPSt8multimapIKtPNS_13FrameFragmentESt4lessIS1_ESaISt4pairIS1_S3_EEEt@Base 2.0.0~alpha1.8
- _ZN20AdvancedAudioDecoder15checkNextPacketEP13DecoderPacket@Base 2.0.0~alpha1.8
- _ZN20AdvancedAudioDecoder15deleteFragmentsEPSt8multimapIKtPNS_13FrameFragmentESt4lessIS1_ESaISt4pairIS1_S3_EEE@Base 2.0.0~alpha1.8
- _ZN20AdvancedAudioDecoder16handleNextPacketEPK13DecoderPacket@Base 2.0.0~alpha1.8
- _ZN20AdvancedAudioDecoder16setWantedQualityERK21AudioQualityInterface@Base 2.0.0~alpha1.8
- _ZN20AdvancedAudioDecoder5resetEv@Base 2.0.0~alpha1.8
- _ZN20AdvancedAudioDecoder8activateEv@Base 2.0.0~alpha1.8
- _ZN20AdvancedAudioDecoderC1EP20AudioWriterInterface@Base 2.0.0~alpha1.8
- _ZN20AdvancedAudioDecoderC2EP20AudioWriterInterface@Base 2.0.0~alpha1.8
- _ZN20AdvancedAudioDecoderD0Ev@Base 2.0.0~alpha1.8
- _ZN20AdvancedAudioDecoderD1Ev@Base 2.0.0~alpha1.8
- _ZN20AdvancedAudioDecoderD2Ev@Base 2.0.0~alpha1.8
- _ZN22AudioDecoderRepository10addDecoderEP21AudioDecoderInterface@Base 2.0.0~alpha1.8
- _ZN22AudioDecoderRepository10deactivateEv@Base 2.0.0~alpha1.8
- _ZN22AudioDecoderRepository13removeDecoderEP21AudioDecoderInterface@Base 2.0.0~alpha1.8
- _ZN22AudioDecoderRepository15checkNextPacketEP13DecoderPacket@Base 2.0.0~alpha1.8
- _ZN22AudioDecoderRepository16handleNextPacketEPK13DecoderPacket@Base 2.0.0~alpha1.8
- _ZN22AudioDecoderRepository16setWantedQualityERK21AudioQualityInterface@Base 2.0.0~alpha1.8
- _ZN22AudioDecoderRepository22selectDecoderForTypeIDEt@Base 2.0.0~alpha1.8
- _ZN22AudioDecoderRepository5resetEv@Base 2.0.0~alpha1.8
- _ZN22AudioDecoderRepository8activateEv@Base 2.0.0~alpha1.8
- _ZN22AudioDecoderRepositoryC1Ev@Base 2.0.0~alpha1.8
- _ZN22AudioDecoderRepositoryC2Ev@Base 2.0.0~alpha1.8
- _ZN22AudioDecoderRepositoryD1Ev@Base 2.0.0~alpha1.8
- _ZN22AudioDecoderRepositoryD2Ev@Base 2.0.0~alpha1.8
- _ZNK18SimpleAudioDecoder11getChannelsEv@Base 2.0.0~alpha1.8
- _ZNK18SimpleAudioDecoder11getPositionEv@Base 2.0.0~alpha1.8
- _ZNK18SimpleAudioDecoder11getTypeNameEv@Base 2.0.0~alpha1.8
- _ZNK18SimpleAudioDecoder12getByteOrderEv@Base 2.0.0~alpha1.8
- _ZNK18SimpleAudioDecoder12getErrorCodeEv@Base 2.0.0~alpha1.8
- _ZNK18SimpleAudioDecoder12getMediaInfoER9MediaInfo@Base 2.0.0~alpha1.8
- _ZNK18SimpleAudioDecoder14getMaxPositionEv@Base 2.0.0~alpha1.8
- _ZNK18SimpleAudioDecoder15getSamplingRateEv@Base 2.0.0~alpha1.8
- _ZNK18SimpleAudioDecoder16getBitsPerSampleEv@Base 2.0.0~alpha1.8
- _ZNK18SimpleAudioDecoder16getWantedQualityEv@Base 2.0.0~alpha1.8
- _ZNK18SimpleAudioDecoder17getBytesPerSecondEv@Base 2.0.0~alpha1.8
- _ZNK18SimpleAudioDecoder7getBitsEv@Base 2.0.0~alpha1.8
- _ZNK18SimpleAudioDecoder9getTypeIDEv@Base 2.0.0~alpha1.8
- _ZNK20AdvancedAudioDecoder11getChannelsEv@Base 2.0.0~alpha1.8
- _ZNK20AdvancedAudioDecoder11getPositionEv@Base 2.0.0~alpha1.8
- _ZNK20AdvancedAudioDecoder11getTypeNameEv@Base 2.0.0~alpha1.8
- _ZNK20AdvancedAudioDecoder12getByteOrderEv@Base 2.0.0~alpha1.8
- _ZNK20AdvancedAudioDecoder12getErrorCodeEv@Base 2.0.0~alpha1.8
- _ZNK20AdvancedAudioDecoder12getMediaInfoER9MediaInfo@Base 2.0.0~alpha1.8
- _ZNK20AdvancedAudioDecoder14getMaxPositionEv@Base 2.0.0~alpha1.8
- _ZNK20AdvancedAudioDecoder15getSamplingRateEv@Base 2.0.0~alpha1.8
- _ZNK20AdvancedAudioDecoder16getBitsPerSampleEv@Base 2.0.0~alpha1.8
- _ZNK20AdvancedAudioDecoder16getWantedQualityEv@Base 2.0.0~alpha1.8
- _ZNK20AdvancedAudioDecoder17getBytesPerSecondEv@Base 2.0.0~alpha1.8
- _ZNK20AdvancedAudioDecoder7getBitsEv@Base 2.0.0~alpha1.8
- _ZNK20AdvancedAudioDecoder9getTypeIDEv@Base 2.0.0~alpha1.8
- _ZNK22AudioDecoderRepository11getChannelsEv@Base 2.0.0~alpha1.8
- _ZNK22AudioDecoderRepository11getPositionEv@Base 2.0.0~alpha1.8
- _ZNK22AudioDecoderRepository11getTypeNameEv@Base 2.0.0~alpha1.8
- _ZNK22AudioDecoderRepository12getByteOrderEv@Base 2.0.0~alpha1.8
- _ZNK22AudioDecoderRepository12getErrorCodeEv@Base 2.0.0~alpha1.8
- _ZNK22AudioDecoderRepository12getMediaInfoER9MediaInfo@Base 2.0.0~alpha1.8
- _ZNK22AudioDecoderRepository14getMaxPositionEv@Base 2.0.0~alpha1.8
- _ZNK22AudioDecoderRepository15getSamplingRateEv@Base 2.0.0~alpha1.8
- _ZNK22AudioDecoderRepository16getBitsPerSampleEv@Base 2.0.0~alpha1.8
- _ZNK22AudioDecoderRepository16getWantedQualityEv@Base 2.0.0~alpha1.8
- _ZNK22AudioDecoderRepository17getBytesPerSecondEv@Base 2.0.0~alpha1.8
- _ZNK22AudioDecoderRepository17getCurrentDecoderEv@Base 2.0.0~alpha1.8
- _ZNK22AudioDecoderRepository22getCurrentAudioDecoderEv@Base 2.0.0~alpha1.8
- _ZNK22AudioDecoderRepository7getBitsEv@Base 2.0.0~alpha1.8
- _ZNK22AudioDecoderRepository9getTypeIDEv@Base 2.0.0~alpha1.8
- _ZNSt8_Rb_treeIKtSt4pairIS0_P21AudioDecoderInterfaceESt10_Select1stIS4_ESt4lessIS0_ESaIS4_EE15_M_insert_equalERKS4_@Base 2.0.0~alpha1.8
- _ZNSt8_Rb_treeIKtSt4pairIS0_P21AudioDecoderInterfaceESt10_Select1stIS4_ESt4lessIS0_ESaIS4_EE8_M_eraseEPSt13_Rb_tree_nodeIS4_E@Base 2.0.0~alpha1.8
- _ZNSt8_Rb_treeIKtSt4pairIS0_PN20AdvancedAudioDecoder13FrameFragmentEESt10_Select1stIS5_ESt4lessIS0_ESaIS5_EE15_M_insert_equalERKS5_@Base 2.0.0~alpha1.8
- _ZNSt8_Rb_treeIKtSt4pairIS0_PN20AdvancedAudioDecoder13FrameFragmentEESt10_Select1stIS5_ESt4lessIS0_ESaIS5_EE8_M_eraseEPSt13_Rb_tree_nodeIS5_E@Base 2.0.0~alpha1.8
- _ZNSt8_Rb_treeIN20AdvancedAudioDecoder13FrameNodeItemES1_St9_IdentityIS1_ESt4lessIS1_ESaIS1_EE15_M_insert_equalERKS1_@Base 2.0.0~alpha1.8
- _ZNSt8_Rb_treeIN20AdvancedAudioDecoder13FrameNodeItemES1_St9_IdentityIS1_ESt4lessIS1_ESaIS1_EE8_M_eraseEPSt13_Rb_tree_nodeIS1_E@Base 2.0.0~alpha1.8
- _ZNSt8multisetIN20AdvancedAudioDecoder13FrameNodeItemESt4lessIS1_ESaIS1_EED1Ev@Base 2.0.0~alpha1.8
- _ZNSt8multisetIN20AdvancedAudioDecoder13FrameNodeItemESt4lessIS1_ESaIS1_EED2Ev@Base 2.0.0~alpha1.8
- _ZTI14Synchronizable@Base 2.0.0~alpha1.8
- _ZTI16DecoderInterface@Base 2.0.0~alpha1.8
- _ZTI18SimpleAudioDecoder@Base 2.0.0~alpha1.8
- _ZTI20AdvancedAudioDecoder@Base 2.0.0~alpha1.8
- _ZTI21AudioDecoderInterface@Base 2.0.0~alpha1.8
- _ZTI21AudioQualityInterface@Base 2.0.0~alpha1.8
- _ZTI22AudioDecoderRepository@Base 2.0.0~alpha1.8
- _ZTI26DecoderRepositoryInterface@Base 2.0.0~alpha1.8
- _ZTS14Synchronizable@Base 2.0.0~alpha1.8
- _ZTS16DecoderInterface@Base 2.0.0~alpha1.8
- _ZTS18SimpleAudioDecoder@Base 2.0.0~alpha1.8
- _ZTS20AdvancedAudioDecoder@Base 2.0.0~alpha1.8
- _ZTS21AudioDecoderInterface@Base 2.0.0~alpha1.8
- _ZTS21AudioQualityInterface@Base 2.0.0~alpha1.8
- _ZTS22AudioDecoderRepository@Base 2.0.0~alpha1.8
- _ZTS26DecoderRepositoryInterface@Base 2.0.0~alpha1.8
- _ZTT18SimpleAudioDecoder@Base 2.0.0~alpha1.8
- _ZTT20AdvancedAudioDecoder@Base 2.0.0~alpha1.8
- _ZTT22AudioDecoderRepository@Base 2.0.0~alpha1.8
- _ZTV16DecoderInterface@Base 2.0.0~alpha1.8
- _ZTV18SimpleAudioDecoder@Base 2.0.0~alpha1.8
- _ZTV20AdvancedAudioDecoder@Base 2.0.0~alpha1.8
- _ZTV21AudioQualityInterface@Base 2.0.0~alpha1.8
- _ZTV22AudioDecoderRepository@Base 2.0.0~alpha1.8
- (c++)"construction vtable for AudioDecoderInterface-in-AdvancedAudioDecoder@Base" 2.0.0~alpha1.8
- (c++)"construction vtable for AudioDecoderInterface-in-AudioDecoderRepository@Base" 2.0.0~alpha1.8
- (c++)"construction vtable for AudioDecoderInterface-in-SimpleAudioDecoder@Base" 2.0.0~alpha1.8
- (c++)"construction vtable for DecoderRepositoryInterface-in-AudioDecoderRepository@Base" 2.0.0~alpha1.8
- (c++)"non-virtual thunk to AdvancedAudioDecoder::~AdvancedAudioDecoder()@Base" 2.0.0~alpha1.8
- (c++)"non-virtual thunk to AdvancedAudioDecoder::timerEvent()@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AdvancedAudioDecoder::activate()@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AdvancedAudioDecoder::checkNextPacket(DecoderPacket*)@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AdvancedAudioDecoder::deactivate()@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AdvancedAudioDecoder::getBits() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AdvancedAudioDecoder::getBitsPerSample() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AdvancedAudioDecoder::getByteOrder() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AdvancedAudioDecoder::getBytesPerSecond() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AdvancedAudioDecoder::getChannels() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AdvancedAudioDecoder::getErrorCode() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AdvancedAudioDecoder::getMaxPosition() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AdvancedAudioDecoder::getMediaInfo(MediaInfo&) const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AdvancedAudioDecoder::getPosition() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AdvancedAudioDecoder::getSamplingRate() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AdvancedAudioDecoder::getTypeID() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AdvancedAudioDecoder::getTypeName() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AdvancedAudioDecoder::handleNextPacket(DecoderPacket const*)@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AdvancedAudioDecoder::reset()@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioDecoderRepository::activate()@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioDecoderRepository::checkNextPacket(DecoderPacket*)@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioDecoderRepository::deactivate()@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioDecoderRepository::getBits() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioDecoderRepository::getBitsPerSample() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioDecoderRepository::getByteOrder() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioDecoderRepository::getBytesPerSecond() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioDecoderRepository::getChannels() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioDecoderRepository::getCurrentDecoder() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioDecoderRepository::getErrorCode() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioDecoderRepository::getMaxPosition() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioDecoderRepository::getMediaInfo(MediaInfo&) const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioDecoderRepository::getPosition() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioDecoderRepository::getSamplingRate() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioDecoderRepository::getTypeID() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioDecoderRepository::getTypeName() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioDecoderRepository::getWantedQuality() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioDecoderRepository::handleNextPacket(DecoderPacket const*)@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioDecoderRepository::reset()@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioDecoderRepository::selectDecoderForTypeID(unsigned short)@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to AudioDecoderRepository::setWantedQuality(AudioQualityInterface const&)@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to SimpleAudioDecoder::activate()@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to SimpleAudioDecoder::checkNextPacket(DecoderPacket*)@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to SimpleAudioDecoder::deactivate()@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to SimpleAudioDecoder::getBits() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to SimpleAudioDecoder::getBitsPerSample() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to SimpleAudioDecoder::getByteOrder() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to SimpleAudioDecoder::getBytesPerSecond() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to SimpleAudioDecoder::getChannels() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to SimpleAudioDecoder::getErrorCode() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to SimpleAudioDecoder::getMaxPosition() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to SimpleAudioDecoder::getMediaInfo(MediaInfo&) const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to SimpleAudioDecoder::getPosition() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to SimpleAudioDecoder::getSamplingRate() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to SimpleAudioDecoder::getTypeID() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to SimpleAudioDecoder::getTypeName() const@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to SimpleAudioDecoder::handleNextPacket(DecoderPacket const*)@Base" 2.0.0~alpha1.8
- (c++)"virtual thunk to SimpleAudioDecoder::reset()@Base" 2.0.0~alpha1.8
+ _ZN16MultiTimerThreadILj1EE3runEv@Base 2.0.0~alpha1.10
+ _ZN16MultiTimerThreadILj1EE4stopEv@Base 2.0.0~alpha1.10
+ _ZN16MultiTimerThreadILj1EE6cancelEv@Base 2.0.0~alpha1.10
+ _ZN18SimpleAudioDecoder10deactivateEv@Base 2.0.0~alpha1.10
+ _ZN18SimpleAudioDecoder15checkNextPacketEP13DecoderPacket@Base 2.0.0~alpha1.10
+ _ZN18SimpleAudioDecoder16handleNextPacketEPK13DecoderPacket@Base 2.0.0~alpha1.10
+ _ZN18SimpleAudioDecoder16setWantedQualityERK21AudioQualityInterface@Base 2.0.0~alpha1.10
+ _ZN18SimpleAudioDecoder5resetEv@Base 2.0.0~alpha1.10
+ _ZN18SimpleAudioDecoder8activateEv@Base 2.0.0~alpha1.10
+ _ZN18SimpleAudioDecoderC1EP20AudioWriterInterface@Base 2.0.0~alpha1.10
+ _ZN18SimpleAudioDecoderC2EP20AudioWriterInterface@Base 2.0.0~alpha1.10
+ _ZN18SimpleAudioDecoderD1Ev@Base 2.0.0~alpha1.10
+ _ZN18SimpleAudioDecoderD2Ev@Base 2.0.0~alpha1.10
+ _ZN20AdvancedAudioDecoder10deactivateEv@Base 2.0.0~alpha1.10
+ _ZN20AdvancedAudioDecoder10timerEventEv@Base 2.0.0~alpha1.10
+ _ZN20AdvancedAudioDecoder11getFragmentEPSt8multimapIKtPNS_13FrameFragmentESt4lessIS1_ESaISt4pairIS1_S3_EEEt@Base 2.0.0~alpha1.10
+ _ZN20AdvancedAudioDecoder15checkNextPacketEP13DecoderPacket@Base 2.0.0~alpha1.10
+ _ZN20AdvancedAudioDecoder15deleteFragmentsEPSt8multimapIKtPNS_13FrameFragmentESt4lessIS1_ESaISt4pairIS1_S3_EEE@Base 2.0.0~alpha1.10
+ _ZN20AdvancedAudioDecoder16handleNextPacketEPK13DecoderPacket@Base 2.0.0~alpha1.10
+ _ZN20AdvancedAudioDecoder16setWantedQualityERK21AudioQualityInterface@Base 2.0.0~alpha1.10
+ _ZN20AdvancedAudioDecoder5resetEv@Base 2.0.0~alpha1.10
+ _ZN20AdvancedAudioDecoder8activateEv@Base 2.0.0~alpha1.10
+ _ZN20AdvancedAudioDecoderC1EP20AudioWriterInterface@Base 2.0.0~alpha1.10
+ _ZN20AdvancedAudioDecoderC2EP20AudioWriterInterface@Base 2.0.0~alpha1.10
+ _ZN20AdvancedAudioDecoderD0Ev@Base 2.0.0~alpha1.10
+ _ZN20AdvancedAudioDecoderD1Ev@Base 2.0.0~alpha1.10
+ _ZN20AdvancedAudioDecoderD2Ev@Base 2.0.0~alpha1.10
+ _ZN22AudioDecoderRepository10addDecoderEP21AudioDecoderInterface@Base 2.0.0~alpha1.10
+ _ZN22AudioDecoderRepository10deactivateEv@Base 2.0.0~alpha1.10
+ _ZN22AudioDecoderRepository13removeDecoderEP21AudioDecoderInterface@Base 2.0.0~alpha1.10
+ _ZN22AudioDecoderRepository15checkNextPacketEP13DecoderPacket@Base 2.0.0~alpha1.10
+ _ZN22AudioDecoderRepository16handleNextPacketEPK13DecoderPacket@Base 2.0.0~alpha1.10
+ _ZN22AudioDecoderRepository16setWantedQualityERK21AudioQualityInterface@Base 2.0.0~alpha1.10
+ _ZN22AudioDecoderRepository22selectDecoderForTypeIDEt@Base 2.0.0~alpha1.10
+ _ZN22AudioDecoderRepository5resetEv@Base 2.0.0~alpha1.10
+ _ZN22AudioDecoderRepository8activateEv@Base 2.0.0~alpha1.10
+ _ZN22AudioDecoderRepositoryC1Ev@Base 2.0.0~alpha1.10
+ _ZN22AudioDecoderRepositoryC2Ev@Base 2.0.0~alpha1.10
+ _ZN22AudioDecoderRepositoryD1Ev@Base 2.0.0~alpha1.10
+ _ZN22AudioDecoderRepositoryD2Ev@Base 2.0.0~alpha1.10
+ _ZNK18SimpleAudioDecoder11getChannelsEv@Base 2.0.0~alpha1.10
+ _ZNK18SimpleAudioDecoder11getPositionEv@Base 2.0.0~alpha1.10
+ _ZNK18SimpleAudioDecoder11getTypeNameEv@Base 2.0.0~alpha1.10
+ _ZNK18SimpleAudioDecoder12getByteOrderEv@Base 2.0.0~alpha1.10
+ _ZNK18SimpleAudioDecoder12getErrorCodeEv@Base 2.0.0~alpha1.10
+ _ZNK18SimpleAudioDecoder12getMediaInfoER9MediaInfo@Base 2.0.0~alpha1.10
+ _ZNK18SimpleAudioDecoder14getMaxPositionEv@Base 2.0.0~alpha1.10
+ _ZNK18SimpleAudioDecoder15getSamplingRateEv@Base 2.0.0~alpha1.10
+ _ZNK18SimpleAudioDecoder16getBitsPerSampleEv@Base 2.0.0~alpha1.10
+ _ZNK18SimpleAudioDecoder16getWantedQualityEv@Base 2.0.0~alpha1.10
+ _ZNK18SimpleAudioDecoder17getBytesPerSecondEv@Base 2.0.0~alpha1.10
+ _ZNK18SimpleAudioDecoder7getBitsEv@Base 2.0.0~alpha1.10
+ _ZNK18SimpleAudioDecoder9getTypeIDEv@Base 2.0.0~alpha1.10
+ _ZNK20AdvancedAudioDecoder11getChannelsEv@Base 2.0.0~alpha1.10
+ _ZNK20AdvancedAudioDecoder11getPositionEv@Base 2.0.0~alpha1.10
+ _ZNK20AdvancedAudioDecoder11getTypeNameEv@Base 2.0.0~alpha1.10
+ _ZNK20AdvancedAudioDecoder12getByteOrderEv@Base 2.0.0~alpha1.10
+ _ZNK20AdvancedAudioDecoder12getErrorCodeEv@Base 2.0.0~alpha1.10
+ _ZNK20AdvancedAudioDecoder12getMediaInfoER9MediaInfo@Base 2.0.0~alpha1.10
+ _ZNK20AdvancedAudioDecoder14getMaxPositionEv@Base 2.0.0~alpha1.10
+ _ZNK20AdvancedAudioDecoder15getSamplingRateEv@Base 2.0.0~alpha1.10
+ _ZNK20AdvancedAudioDecoder16getBitsPerSampleEv@Base 2.0.0~alpha1.10
+ _ZNK20AdvancedAudioDecoder16getWantedQualityEv@Base 2.0.0~alpha1.10
+ _ZNK20AdvancedAudioDecoder17getBytesPerSecondEv@Base 2.0.0~alpha1.10
+ _ZNK20AdvancedAudioDecoder7getBitsEv@Base 2.0.0~alpha1.10
+ _ZNK20AdvancedAudioDecoder9getTypeIDEv@Base 2.0.0~alpha1.10
+ _ZNK22AudioDecoderRepository11getChannelsEv@Base 2.0.0~alpha1.10
+ _ZNK22AudioDecoderRepository11getPositionEv@Base 2.0.0~alpha1.10
+ _ZNK22AudioDecoderRepository11getTypeNameEv@Base 2.0.0~alpha1.10
+ _ZNK22AudioDecoderRepository12getByteOrderEv@Base 2.0.0~alpha1.10
+ _ZNK22AudioDecoderRepository12getErrorCodeEv@Base 2.0.0~alpha1.10
+ _ZNK22AudioDecoderRepository12getMediaInfoER9MediaInfo@Base 2.0.0~alpha1.10
+ _ZNK22AudioDecoderRepository14getMaxPositionEv@Base 2.0.0~alpha1.10
+ _ZNK22AudioDecoderRepository15getSamplingRateEv@Base 2.0.0~alpha1.10
+ _ZNK22AudioDecoderRepository16getBitsPerSampleEv@Base 2.0.0~alpha1.10
+ _ZNK22AudioDecoderRepository16getWantedQualityEv@Base 2.0.0~alpha1.10
+ _ZNK22AudioDecoderRepository17getBytesPerSecondEv@Base 2.0.0~alpha1.10
+ _ZNK22AudioDecoderRepository17getCurrentDecoderEv@Base 2.0.0~alpha1.10
+ _ZNK22AudioDecoderRepository22getCurrentAudioDecoderEv@Base 2.0.0~alpha1.10
+ _ZNK22AudioDecoderRepository7getBitsEv@Base 2.0.0~alpha1.10
+ _ZNK22AudioDecoderRepository9getTypeIDEv@Base 2.0.0~alpha1.10
+ _ZNSt8_Rb_treeIKtSt4pairIS0_P21AudioDecoderInterfaceESt10_Select1stIS4_ESt4lessIS0_ESaIS4_EE15_M_insert_equalERKS4_@Base 2.0.0~alpha1.10
+ _ZNSt8_Rb_treeIKtSt4pairIS0_P21AudioDecoderInterfaceESt10_Select1stIS4_ESt4lessIS0_ESaIS4_EE8_M_eraseEPSt13_Rb_tree_nodeIS4_E@Base 2.0.0~alpha1.10
+ _ZNSt8_Rb_treeIKtSt4pairIS0_PN20AdvancedAudioDecoder13FrameFragmentEESt10_Select1stIS5_ESt4lessIS0_ESaIS5_EE15_M_insert_equalERKS5_@Base 2.0.0~alpha1.10
+ _ZNSt8_Rb_treeIKtSt4pairIS0_PN20AdvancedAudioDecoder13FrameFragmentEESt10_Select1stIS5_ESt4lessIS0_ESaIS5_EE8_M_eraseEPSt13_Rb_tree_nodeIS5_E@Base 2.0.0~alpha1.10
+ _ZNSt8_Rb_treeIN20AdvancedAudioDecoder13FrameNodeItemES1_St9_IdentityIS1_ESt4lessIS1_ESaIS1_EE15_M_insert_equalERKS1_@Base 2.0.0~alpha1.10
+ _ZNSt8_Rb_treeIN20AdvancedAudioDecoder13FrameNodeItemES1_St9_IdentityIS1_ESt4lessIS1_ESaIS1_EE8_M_eraseEPSt13_Rb_tree_nodeIS1_E@Base 2.0.0~alpha1.10
+ _ZNSt8multisetIN20AdvancedAudioDecoder13FrameNodeItemESt4lessIS1_ESaIS1_EED1Ev@Base 2.0.0~alpha1.10
+ _ZNSt8multisetIN20AdvancedAudioDecoder13FrameNodeItemESt4lessIS1_ESaIS1_EED2Ev@Base 2.0.0~alpha1.10
+ _ZTI14Synchronizable@Base 2.0.0~alpha1.10
+ _ZTI16DecoderInterface@Base 2.0.0~alpha1.10
+ _ZTI18SimpleAudioDecoder@Base 2.0.0~alpha1.10
+ _ZTI20AdvancedAudioDecoder@Base 2.0.0~alpha1.10
+ _ZTI21AudioDecoderInterface@Base 2.0.0~alpha1.10
+ _ZTI21AudioQualityInterface@Base 2.0.0~alpha1.10
+ _ZTI22AudioDecoderRepository@Base 2.0.0~alpha1.10
+ _ZTI26DecoderRepositoryInterface@Base 2.0.0~alpha1.10
+ _ZTS14Synchronizable@Base 2.0.0~alpha1.10
+ _ZTS16DecoderInterface@Base 2.0.0~alpha1.10
+ _ZTS18SimpleAudioDecoder@Base 2.0.0~alpha1.10
+ _ZTS20AdvancedAudioDecoder@Base 2.0.0~alpha1.10
+ _ZTS21AudioDecoderInterface@Base 2.0.0~alpha1.10
+ _ZTS21AudioQualityInterface@Base 2.0.0~alpha1.10
+ _ZTS22AudioDecoderRepository@Base 2.0.0~alpha1.10
+ _ZTS26DecoderRepositoryInterface@Base 2.0.0~alpha1.10
+ _ZTT18SimpleAudioDecoder@Base 2.0.0~alpha1.10
+ _ZTT20AdvancedAudioDecoder@Base 2.0.0~alpha1.10
+ _ZTT22AudioDecoderRepository@Base 2.0.0~alpha1.10
+ _ZTV16DecoderInterface@Base 2.0.0~alpha1.10
+ _ZTV18SimpleAudioDecoder@Base 2.0.0~alpha1.10
+ _ZTV20AdvancedAudioDecoder@Base 2.0.0~alpha1.10
+ _ZTV21AudioQualityInterface@Base 2.0.0~alpha1.10
+ _ZTV22AudioDecoderRepository@Base 2.0.0~alpha1.10
+ (c++)"construction vtable for AudioDecoderInterface-in-AdvancedAudioDecoder@Base" 2.0.0~alpha1.10
+ (c++)"construction vtable for AudioDecoderInterface-in-AudioDecoderRepository@Base" 2.0.0~alpha1.10
+ (c++)"construction vtable for AudioDecoderInterface-in-SimpleAudioDecoder@Base" 2.0.0~alpha1.10
+ (c++)"construction vtable for DecoderRepositoryInterface-in-AudioDecoderRepository@Base" 2.0.0~alpha1.10
+ (c++)"non-virtual thunk to AdvancedAudioDecoder::~AdvancedAudioDecoder()@Base" 2.0.0~alpha1.10
+ (c++)"non-virtual thunk to AdvancedAudioDecoder::timerEvent()@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AdvancedAudioDecoder::activate()@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AdvancedAudioDecoder::checkNextPacket(DecoderPacket*)@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AdvancedAudioDecoder::deactivate()@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AdvancedAudioDecoder::getBits() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AdvancedAudioDecoder::getBitsPerSample() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AdvancedAudioDecoder::getByteOrder() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AdvancedAudioDecoder::getBytesPerSecond() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AdvancedAudioDecoder::getChannels() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AdvancedAudioDecoder::getErrorCode() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AdvancedAudioDecoder::getMaxPosition() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AdvancedAudioDecoder::getMediaInfo(MediaInfo&) const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AdvancedAudioDecoder::getPosition() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AdvancedAudioDecoder::getSamplingRate() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AdvancedAudioDecoder::getTypeID() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AdvancedAudioDecoder::getTypeName() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AdvancedAudioDecoder::handleNextPacket(DecoderPacket const*)@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AdvancedAudioDecoder::reset()@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioDecoderRepository::activate()@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioDecoderRepository::checkNextPacket(DecoderPacket*)@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioDecoderRepository::deactivate()@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioDecoderRepository::getBits() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioDecoderRepository::getBitsPerSample() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioDecoderRepository::getByteOrder() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioDecoderRepository::getBytesPerSecond() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioDecoderRepository::getChannels() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioDecoderRepository::getCurrentDecoder() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioDecoderRepository::getErrorCode() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioDecoderRepository::getMaxPosition() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioDecoderRepository::getMediaInfo(MediaInfo&) const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioDecoderRepository::getPosition() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioDecoderRepository::getSamplingRate() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioDecoderRepository::getTypeID() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioDecoderRepository::getTypeName() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioDecoderRepository::getWantedQuality() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioDecoderRepository::handleNextPacket(DecoderPacket const*)@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioDecoderRepository::reset()@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioDecoderRepository::selectDecoderForTypeID(unsigned short)@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to AudioDecoderRepository::setWantedQuality(AudioQualityInterface const&)@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to SimpleAudioDecoder::activate()@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to SimpleAudioDecoder::checkNextPacket(DecoderPacket*)@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to SimpleAudioDecoder::deactivate()@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to SimpleAudioDecoder::getBits() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to SimpleAudioDecoder::getBitsPerSample() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to SimpleAudioDecoder::getByteOrder() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to SimpleAudioDecoder::getBytesPerSecond() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to SimpleAudioDecoder::getChannels() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to SimpleAudioDecoder::getErrorCode() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to SimpleAudioDecoder::getMaxPosition() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to SimpleAudioDecoder::getMediaInfo(MediaInfo&) const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to SimpleAudioDecoder::getPosition() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to SimpleAudioDecoder::getSamplingRate() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to SimpleAudioDecoder::getTypeID() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to SimpleAudioDecoder::getTypeName() const@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to SimpleAudioDecoder::handleNextPacket(DecoderPacket const*)@Base" 2.0.0~alpha1.10
+ (c++)"virtual thunk to SimpleAudioDecoder::reset()@Base" 2.0.0~alpha1.10

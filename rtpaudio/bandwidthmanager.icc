@@ -1,0 +1,256 @@
+// ##########################################################################
+// ####                                                                  ####
+// ####                   Master Thesis Implementation                   ####
+// ####  Management of Layered Variable Bitrate Multimedia Streams over  ####
+// ####                 DiffServ with A Priori Knowledge                 ####
+// ####                                                                  ####
+// #### ================================================================ ####
+// ####                                                                  ####
+// ####                                                                  ####
+// #### Bandwidth Manager                                                ####
+// ####                                                                  ####
+// ####           Copyright (C) 1999-2012 by Thomas Dreibholz            ####
+// ####                                                                  ####
+// #### Contact:                                                         ####
+// ####    EMail: dreibh@iem.uni-due.de                                  ####
+// ####    WWW:   http://www.iem.uni-due.de/~dreibh/rtpaudio             ####
+// ####                                                                  ####
+// #### ---------------------------------------------------------------- ####
+// ####                                                                  ####
+// #### This program is free software: you can redistribute it and/or    ####
+// #### modify it under the terms of the GNU General Public License as   ####
+// #### published by the Free Software Foundation, either version 3 of   ####
+// #### the License, or (at your option) any later version.              ####
+// ####                                                                  ####
+// #### This program is distributed in the hope that it will be useful,  ####
+// #### but WITHOUT ANY WARRANTY; without even the implied warranty of   ####
+// #### MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the    ####
+// #### GNU General Public License for more details.                     ####
+// ####                                                                  ####
+// #### You should have received a copy of the GNU General Public        ####
+// #### License along with this program.  If not, see                    ####
+// #### <http://www.gnu.org/licenses/>.                                  ####
+// ####                                                                  ####
+// ##########################################################################
+// $Id$
+
+
+#ifndef BANDWIDTHMANAGER_ICC
+#define BANDWIDTHMANAGER_ICC
+
+
+#include "bandwidthmanager.h"
+
+
+// ###### Force a complete remapping ########################################
+inline void BandwidthManager::forceCompleteRemapping()
+{
+   Changed = true;
+   doCompleteRemapping();
+}
+
+
+// ###### Check, if partial remappings are enabled ##########################
+inline void BandwidthManager::getPartialRemapping(bool&   enabled,
+                                                  double& reservedPortion,
+                                                  double& utilizationTolerance,
+                                                  double& maxRemappingInterval) const
+{
+   ((BandwidthManager*)this)->synchronized();
+   enabled              = EnablePartialRemappings;
+   reservedPortion      = PartialRemappingPortion;
+   utilizationTolerance = PartialRemappingUtilizationTolerance;
+   maxRemappingInterval = (double)MaxRemappingInterval;
+   ((BandwidthManager*)this)->unsynchronized();
+}
+
+
+// ###### Switch partial remappings on/off ##################################
+inline void BandwidthManager::setPartialRemapping(const bool   enabled,
+                                                  const double reservedPortion,
+                                                  const double utilizationTolerance,
+                                                  const double maxRemappingInterval)
+{
+   ((BandwidthManager*)this)->synchronized();
+   EnablePartialRemappings = enabled;
+   PartialRemappingPortion = reservedPortion;
+   if(PartialRemappingPortion < 0.0) {
+      PartialRemappingPortion = 0.0;
+   }
+   else if(PartialRemappingPortion > 0.9) {
+      PartialRemappingPortion = 0.9;
+   }
+   PartialRemappingUtilizationTolerance = utilizationTolerance;
+   if(PartialRemappingUtilizationTolerance < 0.0001) {
+      PartialRemappingUtilizationTolerance = 0.0001;
+   }
+   else if(PartialRemappingUtilizationTolerance > 25.0) {
+      PartialRemappingUtilizationTolerance = 25.0;
+   }
+   MaxRemappingInterval = (card64)maxRemappingInterval;
+   ((BandwidthManager*)this)->unsynchronized();
+}
+
+
+// ###### Get fairness ######################################################
+inline void BandwidthManager::getFairness(double& fairnessSession,
+                                          double& fairnessStream) const
+{
+   ((BandwidthManager*)this)->synchronized();
+   fairnessStream  = FairnessStream;
+   fairnessSession = FairnessSession;
+   ((BandwidthManager*)this)->unsynchronized();
+}
+
+
+// ###### Set fairness ######################################################
+inline void BandwidthManager::setFairness(const double fairnessSession,
+                                          const double fairnessStream)
+{
+   ((BandwidthManager*)this)->synchronized();
+   FairnessStream  = fairnessStream;
+   if(FairnessStream < 0.0) {
+      FairnessStream = 0.0;
+   }
+   else if(FairnessStream > 1.0) {
+      FairnessStream = 1.0;
+   }
+   FairnessSession = fairnessSession;
+   if(FairnessSession < 0.0) {
+      FairnessSession = 0.0;
+   }
+   else if(FairnessSession > 1.0) {
+      FairnessSession = 1.0;
+   }
+   ((BandwidthManager*)this)->unsynchronized();
+}
+
+
+// ###### Get QoS optimization parameters ###################################
+inline void BandwidthManager::getQoSOptimizationParameters(
+                                 cardinal& maxRUPoints,
+                                 double&   utilizationThreshold,
+                                 card64&   bandwidthThreshold,
+                                 double&   systemDelayTolerance,
+                                 bool&     unlayeredAllocation) const
+{
+   ((BandwidthManager*)this)->synchronized();
+   maxRUPoints          = MaxRUPoints;
+   utilizationThreshold = UtilizationThreshold;
+   bandwidthThreshold   = BandwidthThreshold;
+   systemDelayTolerance = SystemDelayTolerance;
+   unlayeredAllocation  = UnlayeredAllocation;
+   ((BandwidthManager*)this)->unsynchronized();
+}
+
+
+// ###### Set QoS optimization parameters ###################################
+inline void BandwidthManager::setQoSOptimizationParameters(
+                                 const cardinal maxRUPoints,
+                                 const double   utilizationThreshold,
+                                 const card64   bandwidthThreshold,
+                                 const double   systemDelayTolerance,
+                                 const bool     unlayeredAllocation)
+{
+   ((BandwidthManager*)this)->synchronized();
+   MaxRUPoints = maxRUPoints;
+   if(MaxRUPoints > MaxRUEntries) {
+      MaxRUPoints = MaxRUEntries;
+   }
+   SystemDelayTolerance = systemDelayTolerance;
+   if(SystemDelayTolerance < 0.0) {
+      SystemDelayTolerance = 0.0;
+   }
+   else if(SystemDelayTolerance > 1000000.0) {
+      SystemDelayTolerance = 1000000.0;
+   }
+   UtilizationThreshold = utilizationThreshold;
+   if(UtilizationThreshold < 0.0) {
+      UtilizationThreshold = 0.0;
+   }
+   else if(UtilizationThreshold > 0.25) {
+      UtilizationThreshold = 0.25;
+   }
+   BandwidthThreshold = bandwidthThreshold;
+   UnlayeredAllocation = unlayeredAllocation;
+   ((BandwidthManager*)this)->unsynchronized();
+}
+
+
+// ###### Comparision operator for resource/utilization multipoints #########
+inline int ResourceUtilizationMultiPoint::operator<(
+              const ResourceUtilizationMultiPoint& srup) const
+{
+   return(SortingValue < srup.SortingValue);
+}
+
+
+// ###### Comparision operator for resource/utilization multipoints #########
+inline int ResourceUtilizationMultiPoint::operator>(
+              const ResourceUtilizationMultiPoint& srup) const
+{
+   return(SortingValue > srup.SortingValue);
+}
+
+
+// ###### Get priority factor from priority #################################
+inline double BandwidthManager::getPriorityFactor(const int8 priority) const
+{
+   const double priorityFactor =
+      (1.0 / 256.0) * (256.0 - ((double)priority + 128.0));
+   return(priorityFactor);
+}
+
+
+// ###### Get resource part from simple point for sorting value calculation #
+inline double BandwidthManager::getResourcePart(
+                 const ResourceUtilizationSimplePoint& srup) const
+{
+   const double resource = (double)srup.Bandwidth / (double)TotalBandwidth;
+   return(resource);
+}
+
+
+// ###### Get resource part from multipoint for sorting value calculation ###
+inline double BandwidthManager::getResourcePart(
+                 const ResourceUtilizationMultiPoint& srup) const
+{
+   const double resource = (double)srup.Bandwidth / (double)TotalBandwidth;
+   return(resource);
+}
+
+
+// ###### Get session's sorting value #######################################
+inline double BandwidthManager::getStreamSortingValue(
+                 const ResourceUtilizationSimplePoint& srup) const
+{
+   const double sorting =
+      (srup.StreamPriorityFactor * ((getResourcePart(srup) * (1.0 - FairnessStream)) +
+                                      srup.Utilization * FairnessStream));
+   return(sorting);
+}
+
+
+// ###### Get global sorting value ##########################################
+inline double BandwidthManager::getSessionSortingValue(
+                 const ResourceUtilizationMultiPoint& srup) const
+{
+   const double sorting =
+      (srup.SessionPriorityFactor * ((getResourcePart(srup) * (1.0 - FairnessSession)) +
+                                       srup.Utilization * FairnessSession));
+   return(sorting);
+}
+
+
+// ###### Calculated smoothed value #########################################
+// ###### Value := alpha*Value + (1-alpha)*measured #########################
+inline void BandwidthManager::smoothedUpdate(
+                                 double&      value,
+                                 const double measured,
+                                 const double alpha)
+{
+   value = (alpha * value) + ((1.0 - alpha) * measured);
+}
+
+
+#endif
