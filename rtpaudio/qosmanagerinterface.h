@@ -47,13 +47,8 @@
 
 class QoSManagerInterface
 {
-   public:
-   /**
-     * Destructor.
-     */
-   virtual ~QoSManagerInterface() = 0;
-
    // ====== Stream management ==============================================
+   public:
    /**
      * Add stream to management.
      *
@@ -101,9 +96,9 @@ class QoSManagerInterface
      * @param report Report.
      * @param layer Layer.
      */
-   virtual void reportEvent(ManagedStreamInterface*   stream,
-                            RTCPReceptionReportBlock* report,
-                            const cardinal            layer) = 0;
+   virtual void reportEvent(ManagedStreamInterface*         stream,
+                            const RTCPReceptionReportBlock* report,
+                            const cardinal                  layer) = 0;
 
    /**
      * Buffer flush for a given layer.

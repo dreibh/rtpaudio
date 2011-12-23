@@ -38,21 +38,36 @@
 #include "rtcpreceiver.h"
 #include "rtcpabstractserver.h"
 #include "audioclientapppacket.h"
+#include "audioserver.h"
 #include "tools.h"
 #include "breakdetector.h"
 
+#define WITH_QOSMGR
+#ifdef WITH_QOSMGR
+#include "bandwidthmanager.h"
+#include "servicelevelagreement.h"
+#if 0
+#include "roundtriptimepinger.h"
+#endif
+#endif
 
-#include "audioserver.h"
+#include <fstream>
+
 
 
 // Fast Break: Disable break detector to debug thread deadlocks
 // #define FAST_BREAK
 
 
-static Socket*              rtcpServerSocket  = NULL;
-static RTCPReceiver*        rtcpReceiver      = NULL;
-static AudioServer*         server            = NULL;
-static QoSManagerInterface* qosManager        = NULL;
+static Socket*                rtcpServerSocket  = NULL;
+static RTCPReceiver*          rtcpReceiver      = NULL;
+static AudioServer*           server            = NULL;
+static BandwidthManager*      qosManager        = NULL;
+static ServiceLevelAgreement* sla               = NULL;
+static Socket*                pingSocket4       = NULL;
+static Socket*                pingSocket6       = NULL;
+static RoundTripTimePinger*   pinger            = NULL;
+static std::ofstream*         logStream         = NULL;
 
 
 void cleanUp(const cardinal exitCode = 0);
@@ -121,19 +136,21 @@ void cleanUp(const cardinal exitCode)
    if(rtcpReceiver != NULL) {
       rtcpReceiver->stop();
       delete rtcpReceiver;
+      rtcpReceiver = NULL;
    }
    if(server != NULL) {
       server->stop();
       delete server;
+      server = NULL;
    }
    if(rtcpServerSocket != NULL) {
       delete rtcpServerSocket;
+      rtcpServerSocket = NULL;
    }
-   /*
    if(qosManager != NULL) {
       delete qosManager;
+      qosManager = NULL;
    }
-   */
    if(exitCode == 0) {
       std::cout << "Terminated!" << std::endl;
    }
@@ -145,14 +162,27 @@ void cleanUp(const cardinal exitCode)
 int main(int argc, char* argv[])
 {
    // ===== Initialize ======================================================
-   bool   optForceIPv4    = false;
-   bool   optUseSCTP      = false;
-   bool   lossScalability = true;
-   bool   disableQM       = false;
-   cardinal maxPacketSize = 1500;
-   card64 timeout         = 10000000;
-   card16 port            = RTPAudioDefaultPort;
-   String directory;
+   bool     optForceIPv4           = false;
+   bool     optUseSCTP             = false;
+   bool     lossScalability        = true;
+   bool     disableQM              = false;
+   double   fairnessSession        = 0.0;
+   double   fairnessStream         = 1.0;
+   bool     prEnabled              = true;
+   double   prReservedPortion      = 0.1;
+   double   prUtilizationTolerance = 0.05;
+   double   prMaxRemappingInterval = 5000000.0;
+   cardinal maxRUPoints            = 32;
+   double   utThreshold            = 0.01;
+   card64   bwThreshold            = (card64)-1;
+   double   sdTolerance            = 50000.0;
+   bool     unlayered              = false;
+   cardinal maxPacketSize          = 1500;
+   card64   timeout                = 10000000;
+   card16   port                   = RTPAudioDefaultPort;
+   char*    logName                = NULL;
+   String   slaFile("SLA.config");
+   String   directory;
 
 
    // ====== Read configuration from file ===================================
@@ -250,6 +280,30 @@ int main(int argc, char* argv[])
                         }
                         optForceIPv4 = (on != 0) ? true : false;
                      }
+                     else if(name == "SET PARTIAL REMAPPING") {
+                        int    on;
+                        if(sscanf(value.getData(),
+                                  "%d R=%lf T=%lf X=%lf",
+                                  &on,&prReservedPortion,&prUtilizationTolerance,
+                                  &prMaxRemappingInterval) > 0) {
+                           prEnabled = (on != 0);
+                        }
+                     }
+                     else if(name == "SET FAIRNESS") {
+                        sscanf(value.getData(),
+                               "%lf %lf",
+                               &fairnessSession,&fairnessStream);
+                     }
+                     else if(name == "SET QOS OPTIMIZATION") {
+                        int maxInt;
+                        if(sscanf(value.getData(),
+                                  "%u U=%lf B=%llu T=%lf",
+                                  &maxInt,&utThreshold,
+                                  (unsigned long long*)&bwThreshold,
+                                  &sdTolerance) > 0) {
+                           maxRUPoints = (cardinal)maxInt;
+                        }
+                     }
                      else if(name == "SCTP") {
                         int on;
                         if(sscanf(value.getData(),"%d",&on) != 1) {
@@ -289,6 +343,8 @@ int main(int argc, char* argv[])
       else if(!(strcasecmp(argv[i],"-enable-qm")))       disableQM = false;
       else if(!(strcasecmp(argv[i],"-disable-ls")))      lossScalability = false;
       else if(!(strcasecmp(argv[i],"-enable-ls")))       lossScalability = true;
+      else if(!(strncasecmp(argv[i],"-sla=",5)))         slaFile       = &argv[i][5];
+      else if(!(strncasecmp(argv[i],"-log=",5)))         logName      = &argv[i][5];
       else if(!(strncasecmp(argv[i],"-directory=",11)))  directory = String(&argv[i][11]);
       else {
          std::cerr << "Usage: " << argv[0] << " {-port=port} {-directory=path} {-manager=host:port} {-timeout=secs} {-maxpktsize=bytes} {-disable-qm|-enable-qm} {-disable-ls|-enable-ls} {-force-ipv4|-use-ipv6}" << std::endl;
@@ -321,13 +377,80 @@ int main(int argc, char* argv[])
 
    // ====== Initialize QoS manager =========================================
    if(disableQM == false) {
-      /*
-      qosManager = new QoSManager();
+      if(logName != NULL) {
+         logStream = new std::ofstream(logName);
+         if((logStream == NULL) || (!logStream->good())) {
+            std::cerr << "ERROR: Unable to create log file!" << std::endl;
+            exit(1);
+         }
+      }
+
+      // ====== Check EUID ==================================================
+      uid_t uid = geteuid();
+      if(uid != 0) {
+         std::cerr << "ERROR: Only root is allowed to run this program!" << std::endl;
+         exit(1);
+      }
+
+      // ====== Open sockets ================================================
+      pingSocket4 = new Socket(Socket::IPv4,Socket::Raw,Socket::ICMPv4);
+      if(pingSocket4 == NULL) {
+         std::cerr << "ERROR: Server::main() - Out of memory!" << std::endl;
+         cleanUp(1);
+      }
+      if(!pingSocket4->bind()) {
+         std::cerr << "ERROR: Unable to bind socket for ICMPv4!" << std::endl;
+         exit(1);
+      }
+      pingSocket6 = NULL;
+      if(InternetAddress::hasIPv6()) {
+         pingSocket6 = new Socket(Socket::IPv6,Socket::Raw,Socket::ICMPv6);
+         if(pingSocket6 == NULL) {
+            std::cerr << "ERROR: Out of memory!" << std::endl;
+            exit(1);
+         }
+         if(!pingSocket6->bind()) {
+            std::cerr << "ERROR: Unable to bind socket for ICMPv6!" << std::endl;
+            exit(1);
+         }
+      }
+
+      // ====== Create RoundTripTimePinger =====================================
+      pinger = new RoundTripTimePinger(pingSocket4,pingSocket6);
+      if(pinger == NULL) {
+         std::cerr << "ERROR: Server::main() - Out of memory!" << std::endl;
+         cleanUp(1);
+      }
+      if(!pinger->ready()) {
+         std::cerr << "ERROR: RoundTripTimePinger not ready!" << std::endl;
+         exit(1);
+      }
+
+      // ====== Initialize QoS manager ======================================
+      sla = new ServiceLevelAgreement();
+      if(sla->load(slaFile.getData()) == false) {
+         std::cerr << "ERROR: Unable to load SLA configuration file <"
+                   << slaFile << ">!"<< std::endl;
+         cleanUp(1);
+      }
+      qosManager = new BandwidthManager(sla,NULL);
       if(qosManager == NULL) {
          std::cerr << "ERROR: Server::main() - Out of memory!" << std::endl;
          cleanUp(1);
       }
-      */
+      qosManager->setLogStream(logStream);
+      qosManager->setFairness(fairnessSession,fairnessStream);
+      qosManager->setQoSOptimizationParameters(maxRUPoints,utThreshold,bwThreshold,sdTolerance,unlayered);
+      qosManager->setPartialRemapping(prEnabled,prReservedPortion,
+                                     prUtilizationTolerance,prMaxRemappingInterval);
+      qosManager->getFairness(fairnessSession,fairnessStream);
+      qosManager->getQoSOptimizationParameters(maxRUPoints,utThreshold,bwThreshold,sdTolerance,unlayered);
+      qosManager->getPartialRemapping(prEnabled,prReservedPortion,
+                                     prUtilizationTolerance,prMaxRemappingInterval);
+      qosManager->start();
+#if 0
+      pinger->start();
+#endif
    }
 
 

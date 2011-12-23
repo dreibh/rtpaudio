@@ -1,0 +1,11 @@
+# DiffServ Class:
+#           Name    Bandwidth CostFactor MaxTr.Delay Variability  MaxLossRate  MaxJitter
+
+New Class = BE   100000000000 1.00          600000.0   0.25       0.1000           200.0
+
+New Class = AF11 100000000000 2.00          300000.0   0.10       0.0200           100.0
+New Class = AF21 100000000000 2.35          260000.0   0.10       0.0100            80.0
+New Class = AF31 100000000000 2.65          230000.0   0.10       0.0075            65.0
+New Class = AF41 100000000000 3.00          200000.0   0.10       0.0025            50.0
+
+New Class = EF   100000000000 4.00          100000.0   0.05       0.0005            10.0

@@ -34,10 +34,10 @@
 INCLUDES = $(all_includes) -I../libmpegsound
 
 
-EXTRA_DIST = AudioServer.config Makefile.am SLA.config Test.list
+EXTRA_DIST = AudioServer.config StandardAllClasses.sla Test.list
 
 
-lib_LTLIBRARIES = libtdtoolbox.la libmediainfo.la libaudiocommon.la libaudioreader.la libaudiowriter.la librtpcommon.la librtpserver.la librtpclient.la libaudiocodeccommon.la libaudioencoder.la libaudiodecoder.la librtpaudiocommon.la librtpaudioserver.la librtpaudioclient.la
+lib_LTLIBRARIES = libtdtoolbox.la libmediainfo.la libaudiocommon.la libaudioreader.la libaudiowriter.la librtpcommon.la librtpserver.la librtpclient.la libaudiocodeccommon.la libaudioencoder.la libaudiodecoder.la librtpaudiocommon.la librtpaudioserver.la librtpaudioclient.la libqosmgr.la
 
 
 libtdtoolbox_la_SOURCES = \
@@ -153,6 +153,14 @@ librtpaudioclient_la_SOURCES = \
  audioclient.cc audioclient.h audioclient.icc
 librtpaudioclient_la_LIBADD = librtpaudiocommon.la libaudiodecoder.la libaudiocommon.la librtpclient.la libmediainfo.la libtdtoolbox.la
 
+libqosmgr_la_SOURCES = \
+ bandwidthmanager.cc bandwidthmanager.h bandwidthmanager.icc \
+ servicelevelagreement.cc servicelevelagreement.h servicelevelagreement.icc \
+ pingerhost.h pingerhost.icc \
+ roundtriptimepinger.cc roundtriptimepinger.h roundtriptimepinger.icc \
+ sessiondescription.h \
+ streamdescription.h  streamdescription.cc
+libqosmgr_la_LIBADD = librtpserver.la libtdtoolbox.la
 
 
 if BUILD_QT_PROGRAMS
@@ -176,7 +184,7 @@ endif
 
 
 rtpa_server_SOURCES = rtpa-server.cc
-rtpa_server_LDADD   = librtpaudioserver.la librtpserver.la libtdtoolbox.la
+rtpa_server_LDADD   = libqosmgr.la librtpaudioserver.la librtpserver.la libtdtoolbox.la
 
 rtpa_client_SOURCES = rtpa-client.cc
 rtpa_client_LDADD   = librtpaudioclient.la libaudiodecoder.la libaudiowriter.la libaudiocommon.la libtdtoolbox.la
