@@ -247,7 +247,6 @@ void SimpleAudioDecoder::handleNextPacket(const DecoderPacket* decoderPacket)
 {
    synchronized();
 
-
    SimpleAudioPacket* packet = (SimpleAudioPacket*)decoderPacket->Buffer;
    packet->translate();
 
