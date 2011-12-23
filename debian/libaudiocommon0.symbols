@@ -1,68 +1,68 @@
 libaudiocommon.so.0 libaudiocommon0 #MINVER#
- _Z13getConvParamsjjRjS_Rf@Base 2.0.0~alpha1.10
- _Z14AudioConverterRK21AudioQualityInterfaceS1_PKhPhjj@Base 2.0.0~alpha1.10
- _Z16getAlignedLengthRK21AudioQualityInterfaceS1_j@Base 2.0.0~alpha1.10
- _ZN12AudioQuality10LowestBitsE@Base 2.0.0~alpha1.10
- _ZN12AudioQuality10ValidRatesE@Base 2.0.0~alpha1.10
- _ZN12AudioQuality11HighestBitsE@Base 2.0.0~alpha1.10
- _ZN12AudioQuality11setChannelsEh@Base 2.0.0~alpha1.10
- _ZN12AudioQuality12setByteOrderEt@Base 2.0.0~alpha1.10
- _ZN12AudioQuality13LowestQualityE@Base 2.0.0~alpha1.10
- _ZN12AudioQuality13QualityLevelsE@Base 2.0.0~alpha1.10
- _ZN12AudioQuality13ValidChannelsE@Base 2.0.0~alpha1.10
- _ZN12AudioQuality14HighestQualityE@Base 2.0.0~alpha1.10
- _ZN12AudioQuality14LowestChannelsE@Base 2.0.0~alpha1.10
- _ZN12AudioQuality14ValidBitsTableE@Base 2.0.0~alpha1.10
- _ZN12AudioQuality15HighestChannelsE@Base 2.0.0~alpha1.10
- _ZN12AudioQuality15ValidRatesTableE@Base 2.0.0~alpha1.10
- _ZN12AudioQuality15setSamplingRateEt@Base 2.0.0~alpha1.10
- _ZN12AudioQuality16getRandomQualityEP10Randomizer@Base 2.0.0~alpha1.10
- _ZN12AudioQuality16nextSamplingRateEv@Base 2.0.0~alpha1.10
- _ZN12AudioQuality16prevSamplingRateEv@Base 2.0.0~alpha1.10
- _ZN12AudioQuality18LowestSamplingRateE@Base 2.0.0~alpha1.10
- _ZN12AudioQuality18ValidChannelsTableE@Base 2.0.0~alpha1.10
- _ZN12AudioQuality19HighestSamplingRateE@Base 2.0.0~alpha1.10
- _ZN12AudioQuality21getQualityForByteRateEj@Base 2.0.0~alpha1.10
- _ZN12AudioQuality7setBitsEh@Base 2.0.0~alpha1.10
- _ZN12AudioQuality8decreaseEj@Base 2.0.0~alpha1.10
- _ZN12AudioQuality8increaseEj@Base 2.0.0~alpha1.10
- _ZN12AudioQuality9ValidBitsE@Base 2.0.0~alpha1.10
- _ZN12AudioQualityC1ERK21AudioQualityInterface@Base 2.0.0~alpha1.10
- _ZN12AudioQualityC1Ethht@Base 2.0.0~alpha1.10
- _ZN12AudioQualityC1Ev@Base 2.0.0~alpha1.10
- _ZN12AudioQualityC2ERK21AudioQualityInterface@Base 2.0.0~alpha1.10
- _ZN12AudioQualityC2Ethht@Base 2.0.0~alpha1.10
- _ZN12AudioQualityC2Ev@Base 2.0.0~alpha1.10
- _ZN12AudioQualityaSERK21AudioQualityInterface@Base 2.0.0~alpha1.10
- _ZN12AudioQualitymmEi@Base 2.0.0~alpha1.10
- _ZN12AudioQualityppEi@Base 2.0.0~alpha1.10
- _ZNK12AudioQuality11getChannelsEv@Base 2.0.0~alpha1.10
- _ZNK12AudioQuality12getByteOrderEv@Base 2.0.0~alpha1.10
- _ZNK12AudioQuality15getSamplingRateEv@Base 2.0.0~alpha1.10
- _ZNK12AudioQuality16getBitsPerSampleEv@Base 2.0.0~alpha1.10
- _ZNK12AudioQuality17getBytesPerSecondEv@Base 2.0.0~alpha1.10
- _ZNK12AudioQuality7getBitsEv@Base 2.0.0~alpha1.10
- _ZTI12AudioQuality@Base 2.0.0~alpha1.10
- _ZTI21AudioQualityInterface@Base 2.0.0~alpha1.10
- _ZTI31AdjustableAudioQualityInterface@Base 2.0.0~alpha1.10
- _ZTS12AudioQuality@Base 2.0.0~alpha1.10
- _ZTS21AudioQualityInterface@Base 2.0.0~alpha1.10
- _ZTS31AdjustableAudioQualityInterface@Base 2.0.0~alpha1.10
- _ZTT12AudioQuality@Base 2.0.0~alpha1.10
- _ZTV12AudioQuality@Base 2.0.0~alpha1.10
- _ZTV21AudioQualityInterface@Base 2.0.0~alpha1.10
- _ZlsRSoRK21AudioQualityInterface@Base 2.0.0~alpha1.10
- _ZmiRK21AudioQualityInterfaceS1_@Base 2.0.0~alpha1.10
- _ZmiRK21AudioQualityInterfacej@Base 2.0.0~alpha1.10
- _ZplRK21AudioQualityInterfaceS1_@Base 2.0.0~alpha1.10
- (c++)"construction vtable for AdjustableAudioQualityInterface-in-AudioQuality@Base" 2.0.0~alpha1.10
- (c++)"virtual thunk to AudioQuality::getBits() const@Base" 2.0.0~alpha1.10
- (c++)"virtual thunk to AudioQuality::getBitsPerSample() const@Base" 2.0.0~alpha1.10
- (c++)"virtual thunk to AudioQuality::getByteOrder() const@Base" 2.0.0~alpha1.10
- (c++)"virtual thunk to AudioQuality::getBytesPerSecond() const@Base" 2.0.0~alpha1.10
- (c++)"virtual thunk to AudioQuality::getChannels() const@Base" 2.0.0~alpha1.10
- (c++)"virtual thunk to AudioQuality::getSamplingRate() const@Base" 2.0.0~alpha1.10
- (c++)"virtual thunk to AudioQuality::setBits(unsigned char)@Base" 2.0.0~alpha1.10
- (c++)"virtual thunk to AudioQuality::setByteOrder(unsigned short)@Base" 2.0.0~alpha1.10
- (c++)"virtual thunk to AudioQuality::setChannels(unsigned char)@Base" 2.0.0~alpha1.10
- (c++)"virtual thunk to AudioQuality::setSamplingRate(unsigned short)@Base" 2.0.0~alpha1.10
+ _Z13getConvParamsjjRjS_Rf@Base 2.0.0~alpha1.12
+ _Z14AudioConverterRK21AudioQualityInterfaceS1_PKhPhjj@Base 2.0.0~alpha1.12
+ _Z16getAlignedLengthRK21AudioQualityInterfaceS1_j@Base 2.0.0~alpha1.12
+ _ZN12AudioQuality10LowestBitsE@Base 2.0.0~alpha1.12
+ _ZN12AudioQuality10ValidRatesE@Base 2.0.0~alpha1.12
+ _ZN12AudioQuality11HighestBitsE@Base 2.0.0~alpha1.12
+ _ZN12AudioQuality11setChannelsEh@Base 2.0.0~alpha1.12
+ _ZN12AudioQuality12setByteOrderEt@Base 2.0.0~alpha1.12
+ _ZN12AudioQuality13LowestQualityE@Base 2.0.0~alpha1.12
+ _ZN12AudioQuality13QualityLevelsE@Base 2.0.0~alpha1.12
+ _ZN12AudioQuality13ValidChannelsE@Base 2.0.0~alpha1.12
+ _ZN12AudioQuality14HighestQualityE@Base 2.0.0~alpha1.12
+ _ZN12AudioQuality14LowestChannelsE@Base 2.0.0~alpha1.12
+ _ZN12AudioQuality14ValidBitsTableE@Base 2.0.0~alpha1.12
+ _ZN12AudioQuality15HighestChannelsE@Base 2.0.0~alpha1.12
+ _ZN12AudioQuality15ValidRatesTableE@Base 2.0.0~alpha1.12
+ _ZN12AudioQuality15setSamplingRateEt@Base 2.0.0~alpha1.12
+ _ZN12AudioQuality16getRandomQualityEP10Randomizer@Base 2.0.0~alpha1.12
+ _ZN12AudioQuality16nextSamplingRateEv@Base 2.0.0~alpha1.12
+ _ZN12AudioQuality16prevSamplingRateEv@Base 2.0.0~alpha1.12
+ _ZN12AudioQuality18LowestSamplingRateE@Base 2.0.0~alpha1.12
+ _ZN12AudioQuality18ValidChannelsTableE@Base 2.0.0~alpha1.12
+ _ZN12AudioQuality19HighestSamplingRateE@Base 2.0.0~alpha1.12
+ _ZN12AudioQuality21getQualityForByteRateEj@Base 2.0.0~alpha1.12
+ _ZN12AudioQuality7setBitsEh@Base 2.0.0~alpha1.12
+ _ZN12AudioQuality8decreaseEj@Base 2.0.0~alpha1.12
+ _ZN12AudioQuality8increaseEj@Base 2.0.0~alpha1.12
+ _ZN12AudioQuality9ValidBitsE@Base 2.0.0~alpha1.12
+ _ZN12AudioQualityC1ERK21AudioQualityInterface@Base 2.0.0~alpha1.12
+ _ZN12AudioQualityC1Ethht@Base 2.0.0~alpha1.12
+ _ZN12AudioQualityC1Ev@Base 2.0.0~alpha1.12
+ _ZN12AudioQualityC2ERK21AudioQualityInterface@Base 2.0.0~alpha1.12
+ _ZN12AudioQualityC2Ethht@Base 2.0.0~alpha1.12
+ _ZN12AudioQualityC2Ev@Base 2.0.0~alpha1.12
+ _ZN12AudioQualityaSERK21AudioQualityInterface@Base 2.0.0~alpha1.12
+ _ZN12AudioQualitymmEi@Base 2.0.0~alpha1.12
+ _ZN12AudioQualityppEi@Base 2.0.0~alpha1.12
+ _ZNK12AudioQuality11getChannelsEv@Base 2.0.0~alpha1.12
+ _ZNK12AudioQuality12getByteOrderEv@Base 2.0.0~alpha1.12
+ _ZNK12AudioQuality15getSamplingRateEv@Base 2.0.0~alpha1.12
+ _ZNK12AudioQuality16getBitsPerSampleEv@Base 2.0.0~alpha1.12
+ _ZNK12AudioQuality17getBytesPerSecondEv@Base 2.0.0~alpha1.12
+ _ZNK12AudioQuality7getBitsEv@Base 2.0.0~alpha1.12
+ _ZTI12AudioQuality@Base 2.0.0~alpha1.12
+ _ZTI21AudioQualityInterface@Base 2.0.0~alpha1.12
+ _ZTI31AdjustableAudioQualityInterface@Base 2.0.0~alpha1.12
+ _ZTS12AudioQuality@Base 2.0.0~alpha1.12
+ _ZTS21AudioQualityInterface@Base 2.0.0~alpha1.12
+ _ZTS31AdjustableAudioQualityInterface@Base 2.0.0~alpha1.12
+ _ZTT12AudioQuality@Base 2.0.0~alpha1.12
+ _ZTV12AudioQuality@Base 2.0.0~alpha1.12
+ _ZTV21AudioQualityInterface@Base 2.0.0~alpha1.12
+ _ZlsRSoRK21AudioQualityInterface@Base 2.0.0~alpha1.12
+ _ZmiRK21AudioQualityInterfaceS1_@Base 2.0.0~alpha1.12
+ _ZmiRK21AudioQualityInterfacej@Base 2.0.0~alpha1.12
+ _ZplRK21AudioQualityInterfaceS1_@Base 2.0.0~alpha1.12
+ (c++)"construction vtable for AdjustableAudioQualityInterface-in-AudioQuality@Base" 2.0.0~alpha1.12
+ (c++)"virtual thunk to AudioQuality::getBits() const@Base" 2.0.0~alpha1.12
+ (c++)"virtual thunk to AudioQuality::getBitsPerSample() const@Base" 2.0.0~alpha1.12
+ (c++)"virtual thunk to AudioQuality::getByteOrder() const@Base" 2.0.0~alpha1.12
+ (c++)"virtual thunk to AudioQuality::getBytesPerSecond() const@Base" 2.0.0~alpha1.12
+ (c++)"virtual thunk to AudioQuality::getChannels() const@Base" 2.0.0~alpha1.12
+ (c++)"virtual thunk to AudioQuality::getSamplingRate() const@Base" 2.0.0~alpha1.12
+ (c++)"virtual thunk to AudioQuality::setBits(unsigned char)@Base" 2.0.0~alpha1.12
+ (c++)"virtual thunk to AudioQuality::setByteOrder(unsigned short)@Base" 2.0.0~alpha1.12
+ (c++)"virtual thunk to AudioQuality::setChannels(unsigned char)@Base" 2.0.0~alpha1.12
+ (c++)"virtual thunk to AudioQuality::setSamplingRate(unsigned short)@Base" 2.0.0~alpha1.12
