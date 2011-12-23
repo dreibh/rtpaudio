@@ -167,18 +167,18 @@ struct RTCPCommonHeader
    // ====== Protected data =================================================
    protected:
 #if BYTE_ORDER == BIG_ENDIAN
-   card8 V:2;		                  // Protocol Version
-   card8 P:1;		                  // Padding Flag
-   card8 C:5;		                  // Count varies by Packet Type (RC/SC)
+   card8 V:2;                         // Protocol Version
+   card8 P:1;                         // Padding Flag
+   card8 C:5;                         // Count varies by Packet Type (RC/SC)
 #elif BYTE_ORDER == LITTLE_ENDIAN
-   card8 C:5;		                  // Count varies by Packet Type (RC/SC)
-   card8 P:1;		                  // Padding Flag
-   card8 V:2;		                  // Protocol Version
+   card8 C:5;                         // Count varies by Packet Type (RC/SC)
+   card8 P:1;                         // Padding Flag
+   card8 V:2;                         // Protocol Version
 #else
 #error "Unknown CPU_BYTEORDER setting!"
 #endif
-   card8 PT:8;		                  // RTCP Packet Type
-   card16 Length;                         // Packet length in words minus one
+   card8 PT:8;                         // RTCP Packet Type
+   card16 Length;                      // Packet length in words minus one
 } __attribute__((packed));
 
 
