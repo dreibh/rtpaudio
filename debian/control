@@ -223,7 +223,7 @@ Recommends: iputils-ping,
             subnetcalc,
             traceroute
 Description: RTP Audio sound streaming system
- The RTP Audio system consists of a server and several clients, which are
- served with audio data from the server. The transmission is realized using
- the RTP protocol (Real-Time Protocol, see RFC 1889) based on UDP. RTP Audio
- supports IPv4 and IPv6 including flowlabels and traffic classes.
+ The RTP Audio system is a network sound streaming systen. It has been
+ designed for QoS performance analysis and teaching purposes.
+ RTP Audio supports IPv4 and IPv6 including flowlabels and traffic
+ classes, QoS management as well as transport via UDP and SCTP.
