@@ -254,8 +254,8 @@ class RoundTripTimePinger : public TimedThread
 
    struct Ping4Packet
    {
-      icmphdr Header;
-      card64  TimeStamp;
+      icmp   Header;
+      card64 TimeStamp;
    };
 
    struct Ping6Packet

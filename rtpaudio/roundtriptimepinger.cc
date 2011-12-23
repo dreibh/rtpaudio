@@ -50,7 +50,7 @@
 #define ICMP_FILTER 1
 
 struct icmp_filter {
-   __u32           data;
+   card32 data;
 };
 
 
@@ -74,7 +74,7 @@ RoundTripTimePinger::RoundTripTimePinger(Socket*      ping4socket,
    if(Ping4Socket != NULL) {
       struct icmp_filter filter;
       filter.data = ~(1 << ICMP_ECHOREPLY);
-      if(Ping4Socket->setSocketOption(SOL_RAW,
+      if(Ping4Socket->setSocketOption(SOL_SOCKET, // SOL_RAW,
                                       ICMP_FILTER,
                                       (void*)&filter, sizeof(filter)) == -1) {
          std::cerr << "ERROR: Unable to set ICMPv4 filter!" << std::endl;
@@ -99,14 +99,14 @@ RoundTripTimePinger::RoundTripTimePinger(Socket*      ping4socket,
       struct icmp6_filter filter;
       ICMP6_FILTER_SETBLOCKALL(&filter);
       ICMP6_FILTER_SETPASS(ICMP6_ECHO_REPLY,&filter);
-      if(Ping6Socket->setSocketOption(SOL_ICMPV6,
+      if(Ping6Socket->setSocketOption(SOL_SOCKET, // SOL_ICMPV6,
                                       ICMP6_FILTER,
                                       (void*)&filter, sizeof(filter)) == -1) {
          std::cerr << "ERROR: Unable to set ICMPv6 filter!" << std::endl;
          return;
       }
       int opt = 2;  // Position of checksum field in ICMPv6 header!
-      if(Ping6Socket->setSocketOption(SOL_RAW,
+      if(Ping6Socket->setSocketOption(SOL_SOCKET, // SOL_RAW,
                                       IPV6_CHECKSUM,
                                       &opt,sizeof(opt)) == -1) {
          std::cerr << "ERROR: Unable to set IPv6 checksum option!" << std::endl;
@@ -328,15 +328,15 @@ card64 RoundTripTimePinger::sendPing4(const InternetAddress& destination,
 {
    Ping4Packet packet;
 
-   packet.Header.type             = ICMP_ECHO;
-   packet.Header.code             = 0;
-   packet.Header.checksum         = 0;
-   packet.Header.un.echo.sequence = sequenceNumber;
-   packet.Header.un.echo.id       = 0x3300 | (card16)trafficClass;
+   packet.Header.icmp_type  = ICMP_ECHO;
+   packet.Header.icmp_code  = 0;
+   packet.Header.icmp_cksum = 0;
+   packet.Header.icmp_seq   = sequenceNumber;
+   packet.Header.icmp_id    = 0x3300 | (card16)trafficClass;
 
    Thread::yield();
-   packet.TimeStamp               = getMicroTime();
-   packet.Header.checksum         = calculateChecksum((card16*)&packet,sizeof(packet),0);
+   packet.TimeStamp         = getMicroTime();
+   packet.Header.icmp_cksum = calculateChecksum((card16*)&packet,sizeof(packet),0);
    ssize_t sent = Ping4Socket->sendTo((void*)&packet,sizeof(packet),0,
                                       destination,trafficClass);
    if(sent == sizeof(packet)) {
@@ -362,7 +362,7 @@ card64 RoundTripTimePinger::sendPing6(const InternetAddress& destination,
    packet.Header.icmp6_id    = 0x3300 | (card16)trafficClass;
 
    Thread::yield();
-   packet.TimeStamp          = getMicroTime();
+   packet.TimeStamp = getMicroTime();
    ssize_t sent = Ping6Socket->sendTo((void*)&packet,sizeof(packet),0,
                                       destination,trafficClass);
 
@@ -389,24 +389,27 @@ bool RoundTripTimePinger::receiveEcho4()
       const Ping4Packet* packet = (Ping4Packet*)&buffer[IPv4HeaderSize];
 
       // ====== Verify packet ===============================================
-      const card16 oldChecksum = packet->Header.checksum;
-      const card16 newChecksum = calculateChecksum((card16*)packet,sizeof(Ping4Packet),-(packet->Header.checksum + 1));
+      const card16 oldChecksum = packet->Header.icmp_cksum;
+      const card16 newChecksum = calculateChecksum((card16*)packet,sizeof(Ping4Packet),-(packet->Header.icmp_cksum + 1));
       if((newChecksum == oldChecksum)   &&
-         (packet->Header.type == ICMP_ECHOREPLY) &&
-         ((packet->Header.un.echo.id & 0xff00) == 0x3300)) {
+         (packet->Header.icmp_type == ICMP_ECHOREPLY) &&
+         ((packet->Header.icmp_id & 0xff00) == 0x3300)) {
 
          // ====== Get arrival time =========================================
+#if (SYSTEM == OS_Linux)
          timeval socketTimeStamp;
          if(Ping4Socket->ioctl(SIOCGSTAMP,(void*)&socketTimeStamp) < 0) {
             return(false);
          }
-
-         // ====== Calculate RoundTripTime ==================================
          const card64 arrivalTime = ((card64)socketTimeStamp.tv_sec * (card64)1000000) +
                                        (card64)socketTimeStamp.tv_usec;
-         const card64 sendTime = packet->TimeStamp;
+#else
+         const card64 arrivalTime = getMicroTime();
+#endif
 
-         calculateRoundTripTime(source,(packet->Header.un.echo.id & 0x00ff),
+         // ====== Calculate RoundTripTime ==================================
+         const card64 sendTime = packet->TimeStamp;
+         calculateRoundTripTime(source,(packet->Header.icmp_id & 0x00ff),
                                 sendTime,arrivalTime);
          return(true);
       }
@@ -432,16 +435,19 @@ bool RoundTripTimePinger::receiveEcho6()
          ((packet.Header.icmp6_id & 0xff00) == 0x3300)) {
 
          // ====== Get arrival time =========================================
+#if (SYSTEM == OS_Linux)
          timeval socketTimeStamp;
          if(Ping6Socket->ioctl(SIOCGSTAMP,(void*)&socketTimeStamp) < 0) {
             return(false);
          }
-
-         // ====== Calculate RoundTripTime ==================================
          const card64 arrivalTime = ((card64)socketTimeStamp.tv_sec * (card64)1000000) +
                                        (card64)socketTimeStamp.tv_usec;
-         const card64 sendTime = packet.TimeStamp;
+#else
+         const card64 arrivalTime = getMicroTime();
+#endif
 
+         // ====== Calculate RoundTripTime ==================================
+         const card64 sendTime = packet.TimeStamp;
          calculateRoundTripTime(source,(packet.Header.icmp6_id & 0x00ff),
                                 sendTime,arrivalTime);
          return(true);
