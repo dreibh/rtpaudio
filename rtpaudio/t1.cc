@@ -184,12 +184,10 @@ void printQualities(const cardinal maxPacketSize)
 // ###### Print quality levels ##############################################
 void printQualityLevels()
 {
-   AudioQuality q = AudioQuality::LowestQuality;
-   for(int i = 0;i < 256;i++) {
-      std::cout << "#" << i << ":   " << q << "   " << q.getBytesPerSecond() << " Bytes/s" << std::endl;
-      if(q == AudioQuality::HighestQuality)
-         break;
-      q++;
+   cardinal i = 1;
+   for(AudioQuality q = AudioQuality::LowestQuality; q != AudioQuality::HighestQuality; q++) {
+      std::cout << "#" << i << ":\t" << q << "\t" << q.getBytesPerSecond() << " B/s" << std::endl;
+      i++;
    }
 }
 
