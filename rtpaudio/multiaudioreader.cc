@@ -324,23 +324,26 @@ AudioReaderInterface* MultiAudioReader::getAudioReader(const char*    name,
 {
    // ====== Try to load file with WAV reader ===============================
    WavAudioReader* wavreader = new WavAudioReader(name);
-   if(wavreader->ready())
+   if(wavreader->ready()) {
       return(wavreader);
+   }
    delete wavreader;
 
 
    // ====== Try to load file with MP3 reader ===============================
    MP3AudioReader* mp3reader = new MP3AudioReader(name);
-   if(mp3reader->ready())
+   if(mp3reader->ready()) {
       return(mp3reader);
+   }
    delete mp3reader;
 
 
    // ====== Try to load file with Multi reader =============================
    if(level < 4) {
       MultiAudioReader* multireader = new MultiAudioReader(name,level + 1);
-      if(multireader->ready())
+      if(multireader->ready()) {
          return(multireader);
+      }
       delete multireader;
    }
    else {
