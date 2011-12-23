@@ -14,15 +14,16 @@ libaudiowriter.so.0 libaudiowriter0 #MINVER#
  _ZN10AudioMixerC2EP11AudioDeviceiPKc@Base 2.0.0~alpha1.10
  _ZN10AudioMixerD1Ev@Base 2.0.0~alpha1.10
  _ZN10AudioMixerD2Ev@Base 2.0.0~alpha1.10
+ _ZN11AudioDevice10openStreamEv@Base 2.0.0~alpha1.10
+ _ZN11AudioDevice11closeStreamEv@Base 2.0.0~alpha1.10
  _ZN11AudioDevice11setChannelsEh@Base 2.0.0~alpha1.10
  _ZN11AudioDevice12setByteOrderEt@Base 2.0.0~alpha1.10
  _ZN11AudioDevice15setSamplingRateEt@Base 2.0.0~alpha1.10
- _ZN11AudioDevice3runEv@Base 2.0.0~alpha1.10
+ _ZN11AudioDevice22context_state_callbackEP10pa_contextPv@Base 2.0.0~alpha1.10
  _ZN11AudioDevice4syncEv@Base 2.0.0~alpha1.10
  _ZN11AudioDevice7setBitsEh@Base 2.0.0~alpha1.10
  _ZN11AudioDeviceC1EPKc@Base 2.0.0~alpha1.10
  _ZN11AudioDeviceC2EPKc@Base 2.0.0~alpha1.10
- _ZN11AudioDeviceD0Ev@Base 2.0.0~alpha1.10
  _ZN11AudioDeviceD1Ev@Base 2.0.0~alpha1.10
  _ZN11AudioDeviceD2Ev@Base 2.0.0~alpha1.10
  _ZN16MultiAudioWriter11setChannelsEh@Base 2.0.0~alpha1.10
