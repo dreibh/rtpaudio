@@ -236,7 +236,13 @@ cardinal SimpleAudioEncoder::getNextPacket(EncoderPacket* encoderPacket)
       // ====== Ensure correct alignment of data ============================
       cardinal bytes = std::min((cardinal)(encoderPacket->MaxLength - sizeof(SimpleAudioPacket)),
                                 FrameBufferSize - FrameBufferPos);
-      if(packet->Bits == 12) {
+      if(packet->Bits == 16) {
+         if(packet->Channels == 2)
+            bytes = bytes - (bytes % 4);
+         else
+            bytes = bytes - (bytes % 2);
+      }
+      else if(packet->Bits == 12) {
          if(packet->Channels == 2)
             bytes = bytes - (bytes % 6);
          else
