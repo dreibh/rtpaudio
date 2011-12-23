@@ -39,7 +39,9 @@
 #include "audiodevice.h"
 
 #ifdef HAVE_PULSEAUDIO
+#include "condition.h"
 #include <pulse/volume.h>
+#include <pulse/introspect.h>
 #define SOUND_MIXER_PCM 0   // Dummy value
 #else
 #include <sys/soundcard.h>
@@ -104,9 +106,12 @@ class AudioMixer
    // ====== Private data ===================================================
    private:
 #ifdef HAVE_PULSEAUDIO
+   static void sink_info_cb(pa_context* context, const pa_sink_info* si, int eol, void* userData);
+
    AudioDevice*   Device;
    pa_channel_map Map;
    pa_cvolume     Volume;
+   Condition      VolumeUpdated;
 #else
    int            Device;
    int            Channel;

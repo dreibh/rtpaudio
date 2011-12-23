@@ -79,12 +79,34 @@ AudioMixer::~AudioMixer()
 }
 
 
+#ifdef HAVE_PULSEAUDIO
+// ###### Get sink info #####################################################
+void AudioMixer::sink_info_cb(pa_context* context, const pa_sink_info* si, int eol, void* userData)
+{
+   AudioMixer* audioMixer = (AudioMixer*)userData;
+   if(!eol) {
+      audioMixer->Volume = si->volume;
+   }
+   audioMixer->VolumeUpdated.signal();
+}
+#endif
+
+
 // ###### Get volume ########################################################
 bool AudioMixer::getVolume(card8& left, card8& right)
 {
 #ifdef HAVE_PULSEAUDIO
-   left  = (card8)rint( (Volume.values[0] * 100) / PA_VOLUME_NORM );
-   right = (card8)rint( (Volume.values[1] * 100) / PA_VOLUME_NORM );
+   pa_threaded_mainloop_lock(Device->MainLoop);
+   VolumeUpdated.fired();
+   pa_operation* result =  pa_context_get_sink_info_by_index(Device->Context, 0, &sink_info_cb, (void*)this);
+   pa_operation_unref(result);
+   pa_threaded_mainloop_unlock(Device->MainLoop);
+   if(result != NULL) {
+      VolumeUpdated.wait();
+   }
+
+   left  = (card8)rint( Volume.values[0] * 100.0 / PA_VOLUME_NORM );
+   right = (card8)rint( Volume.values[1] * 100.0 / PA_VOLUME_NORM );
    if(left > 100)  left  = 100;
    if(right > 100) right = 100;
 #else

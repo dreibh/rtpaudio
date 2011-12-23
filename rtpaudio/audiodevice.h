@@ -227,39 +227,39 @@ class AudioDevice : virtual public AudioWriterInterface
    static void context_state_callback(pa_context* context, void* userData);
 #endif
 
-   bool             IsReady;
-   cardinal         SyncCount;
-   cardinal         JitterCompensationLatency;
+   bool                  IsReady;
+   cardinal              SyncCount;
+   cardinal              JitterCompensationLatency;
 
-   card16           AudioSamplingRate;  // Format of data written to AudioDevice.
-   card8            AudioBits;
-   card8            AudioChannels;
-   card16           AudioByteOrder;
+   card16                AudioSamplingRate;  // Format of data written to AudioDevice.
+   card8                 AudioBits;
+   card8                 AudioChannels;
+   card16                AudioByteOrder;
 
-   card16           DeviceSamplingRate; // Format of data written to real device.
-   card8            DeviceBits;
-   card8            DeviceChannels;
-   card16           DeviceByteOrder;
+   card16                DeviceSamplingRate; // Format of data written to real device.
+   card8                 DeviceBits;
+   card8                 DeviceChannels;
+   card16                DeviceByteOrder;
 
 #ifdef HAVE_PULSEAUDIO
-   friend class     AudioMixer;
-   pa_threaded_mainloop*     MainLoop;
-   pa_mainloop_api* MainLoopAPI;
-   pa_context*      Context;
-   pa_stream*       Stream;
+   friend class          AudioMixer;
+   pa_threaded_mainloop* MainLoop;
+   pa_mainloop_api*      MainLoopAPI;
+   pa_context*           Context;
+   pa_stream*            Stream;
 #else
-   int              DeviceFD;           // Device and its properties.
-   int              DeviceCapabilities;
-   int              DeviceFormats;
-   integer          DeviceBlockSize;
-   integer          DeviceFragmentSize;
-   integer          DeviceOSpace;
+   int                   DeviceFD;           // Device and its properties.
+   int                   DeviceCapabilities;
+   int                   DeviceFormats;
+   integer               DeviceBlockSize;
+   integer               DeviceFragmentSize;
+   integer               DeviceOSpace;
 
-   RingBuffer       Buffer;             // Jitter buffer and jitter compensation
-   cardinal         ResizeThreshold;
-   card64           LastWriteTimeStamp;
-   integer          Balance;
-   bool             IsFillingBuffer;
+   RingBuffer            Buffer;             // Jitter buffer and jitter compensation
+   cardinal              ResizeThreshold;
+   card64                LastWriteTimeStamp;
+   integer               Balance;
+   bool                  IsFillingBuffer;
 #endif
 };
 
