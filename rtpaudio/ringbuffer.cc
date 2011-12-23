@@ -97,7 +97,7 @@ void RingBuffer::flush()
 
 
 // ###### Write bytes into buffer ###########################################
-ssize_t RingBuffer::write(char*        data,
+ssize_t RingBuffer::write(const char*  data,
                           const size_t length)
 {
    synchronized();

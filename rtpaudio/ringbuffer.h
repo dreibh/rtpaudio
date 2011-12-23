@@ -111,7 +111,7 @@ class RingBuffer : public Condition
      * @param length Length of data to write.
      * @return Bytes written into ring buffer.
      */
-   ssize_t write(char*        data,
+   ssize_t write(const char*  data,
                  const size_t length);
 
 
