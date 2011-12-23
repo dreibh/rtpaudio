@@ -245,7 +245,7 @@ cardinal AudioConverter(const AudioQualityInterface& from,
    float    c;
    if((getConvParams(from.getSamplingRate(),to.getSamplingRate(),a,b,c)) == false) {
       std::cerr << "WARNING: AudioConverter: Unable to convert rate "
-                << a << " to " << b << "!" << std::endl;
+                << from.getSamplingRate() << " to " << to.getSamplingRate() << "!" << std::endl;
       return(length);
    }
 
