@@ -113,7 +113,6 @@ bool AudioMixer::setVolume(const card8 left, const card8 right)
    Volume.values[1] = r;
 
    // ====== Set the volume =================================================
-::abort();
    pa_threaded_mainloop_lock(Device->MainLoop);
    pa_operation* result =  pa_context_set_sink_volume_by_index(Device->Context, 0, &Volume, NULL, NULL);
    pa_operation_unref(result);
