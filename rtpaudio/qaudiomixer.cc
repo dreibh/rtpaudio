@@ -47,6 +47,7 @@
 #include <qslider.h>
 #include <qgroupbox.h>
 #include <qmainwindow.h>
+#include <qtimer.h>
 
 
 // ###### Constructor #######################################################
@@ -63,7 +64,7 @@ QAudioMixer::QAudioMixer(AudioMixer* mixer,
    Q_CHECK_PTR(layout);
 
    // ====== New group ======================================================
-   QGroupBox* controlGroup = new QGroupBox("AudioMixer",centralWidget);
+   QGroupBox* controlGroup = new QGroupBox("Stereo Audio Mixer",centralWidget);
    Q_CHECK_PTR(controlGroup);
    layout->addWidget(controlGroup);
    QGridLayout* controlLayout = new QGridLayout(controlGroup);
@@ -104,6 +105,10 @@ QAudioMixer::QAudioMixer(AudioMixer* mixer,
    controlLayout->addWidget(Mute,1,2);
    QObject::connect(Mute,SIGNAL(clicked()),this,SLOT(mute()));
    QObject::connect(Volume,SIGNAL(valueChanged(int)),this,SLOT(volume(int)));
+   QTimer* timer = new QTimer(this);
+   Q_CHECK_PTR(timer);
+   QObject::connect(timer,SIGNAL(timeout()),this,SLOT(updateVolumeFromDevice()));
+   timer->start(1000);
 
    // ====== Values =========================================================
    QLabel* label3 = new QLabel("Values:",controlGroup);
@@ -115,34 +120,7 @@ QAudioMixer::QAudioMixer(AudioMixer* mixer,
 
    setCentralWidget(centralWidget);
    setWindowTitle("Audio Mixer");
-
-
-   // ====== Set start values from mixer device =============================
-   card8 left,right;
-   if(Mixer->getVolume(left,right)) {
-      if(left > right) {
-         VolumeSetting       = (integer)left;
-         const integer value = (integer)VolumeSetting - (integer)right;
-         BalanceSetting      = 50 - ((value * 50) / VolumeSetting);
-      }
-      else if(right > left) {
-         VolumeSetting       = (integer)right;
-         const integer value = (integer)VolumeSetting - (integer)left;
-         BalanceSetting      = 50 + ((value * 50) / VolumeSetting);
-      }
-      else {
-         VolumeSetting  = (integer)left;
-         BalanceSetting = 50;
-      }
-
-      Volume->setValue(VolumeSetting);
-      Balance->setValue(BalanceSetting);
-
-      char str[32];
-      snprintf((char*)&str,sizeof(str),
-               "Left %d %%  /  Right %d %%",(int)left,(int)right);
-      Values->setText((char*)&str);
-   }
+   updateVolumeFromDevice();
 }
 
 
@@ -152,8 +130,39 @@ QAudioMixer::~QAudioMixer()
 }
 
 
+// ###### Update volume from device #########################################
+void QAudioMixer::updateVolumeFromDevice()
+{
+   if(Mute->isChecked() == false) {
+      // ====== Set start values from mixer device ==========================
+      card8 left,right;
+      if(Mixer->getVolume(left,right)) {
+         if(left > right) {
+            VolumeSetting       = (integer)left;
+            const integer value = (integer)VolumeSetting - (integer)right;
+            BalanceSetting      = 50 - ((value * 50) / VolumeSetting);
+         }
+         else if(right > left) {
+            VolumeSetting       = (integer)right;
+            const integer value = (integer)VolumeSetting - (integer)left;
+            BalanceSetting      = 50 + ((value * 50) / VolumeSetting);
+         }
+         else {
+            VolumeSetting  = (integer)left;
+            BalanceSetting = 50;
+         }
+
+         Volume->setValue(VolumeSetting);
+         Balance->setValue(BalanceSetting);
+
+         updateText(left, right);
+      }
+   }
+}
+
+
 // ###### Update volumes on mixer device ####################################
-void QAudioMixer::update()
+void QAudioMixer::setVolumeOnDevice()
 {
    if(Mute->isChecked() == false) {
       integer balance = (integer)BalanceSetting - 50;
@@ -171,12 +180,40 @@ void QAudioMixer::update()
       }
 
       if(Mixer->setVolume(left,right) == false) {
-         std::cerr << "WARNING: QAudioMixer::update() - AudioMixer::setVolume() failed!" << std::endl;
+         std::cerr << "WARNING: QAudioMixer::setVolumeOnDevice() - AudioMixer::setVolume() failed!" << std::endl;
       }
+      updateText(left, right);
+   }
+   else {
+      Mixer->setVolume(0,0);
+      updateText(0, 0);
+   }
+}
 
+
+// ###### Changed balance ###################################################
+void QAudioMixer::balance(int value)
+{
+   BalanceSetting = (integer)value;
+   setVolumeOnDevice();
+}
+
+
+// ###### Changed volume ####################################################
+void QAudioMixer::volume(int value)
+{
+   VolumeSetting = (integer)value;
+   setVolumeOnDevice();
+}
+
+
+// ###### Update volume #####################################################
+void QAudioMixer::updateText(const card8 left, const card8 right)
+{
+   if(Mute->isChecked() == false) {
       char str[32];
       snprintf((char*)&str,sizeof(str),
-               "Left %d %% / Right %d %%",(int)left,(int)right);
+               "Left %d %%  /  Right %d %%",(int)left,(int)right);
       Values->setText((char*)&str);
    }
    else {
@@ -186,26 +223,10 @@ void QAudioMixer::update()
 }
 
 
-// ###### Changed balance ###################################################
-void QAudioMixer::balance(int value)
-{
-   BalanceSetting = (integer)value;
-   update();
-}
-
-
-// ###### Changed volume ####################################################
-void QAudioMixer::volume(int value)
-{
-   VolumeSetting = (integer)value;
-   update();
-}
-
-
 // ###### Mute ##############################################################
 void QAudioMixer::mute()
 {
-   update();
+   setVolumeOnDevice();
 }
 
 

@@ -88,6 +88,11 @@ class QAudioMixer : public QMainWindow
    void volume(int value);
 
    /**
+     * Qt slot: Update volume.
+     */
+   void updateVolumeFromDevice();
+
+   /**
      * Qt slot: Center balance slider.
      */
    void centerBalance();
@@ -109,7 +114,8 @@ class QAudioMixer : public QMainWindow
    // ====== Private data ===================================================
    private:
    void closeEvent(QCloseEvent* event);
-   void update();
+   void setVolumeOnDevice();
+   void updateText(const card8 left, const card8 right);
 
 
    integer      VolumeSetting;
