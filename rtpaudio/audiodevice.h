@@ -37,11 +37,14 @@
 
 #include "tdsystem.h"
 #include "audiowriterinterface.h"
-#include "thread.h"
-#include "ringbuffer.h"
 
 #ifdef HAVE_PULSEAUDIO
-#include <pulse/simple.h>
+#include <pulse/thread-mainloop.h>
+#include <pulse/context.h>
+#include <pulse/stream.h>
+#else
+#include "thread.h"
+#include "ringbuffer.h"
 #endif
 
 
@@ -52,8 +55,10 @@
   * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
   * @version 1.0
   */
-class AudioDevice : virtual public AudioWriterInterface,
-                    public Thread
+class AudioDevice : virtual public AudioWriterInterface
+#ifndef HAVE_PULSEAUDIO
+                    , public Thread
+#endif
 {
    // ====== Constructor/Destructor =========================================
    public:
@@ -216,41 +221,46 @@ class AudioDevice : virtual public AudioWriterInterface,
    // ====== Internal data ==================================================
    private:
    void run();
+#ifdef HAVE_PULSEAUDIO
+   bool openStream();
+   void closeStream();
+   static void context_state_callback(pa_context* context, void* userData);
+#endif
 
+   bool             IsReady;
+   cardinal         SyncCount;
+   cardinal         JitterCompensationLatency;
 
-   bool       IsReady;
+   card16           AudioSamplingRate;  // Format of data written to AudioDevice.
+   card8            AudioBits;
+   card8            AudioChannels;
+   card16           AudioByteOrder;
+
+   card16           DeviceSamplingRate; // Format of data written to real device.
+   card8            DeviceBits;
+   card8            DeviceChannels;
+   card16           DeviceByteOrder;
 
 #ifdef HAVE_PULSEAUDIO
-   friend class AudioMixer;
-   pa_simple* Device;
+   friend class     AudioMixer;
+   pa_threaded_mainloop*     MainLoop;
+   pa_mainloop_api* MainLoopAPI;
+   pa_context*      Context;
+   pa_stream*       Stream;
 #else
-   int        DeviceFD;           // Device and its properties.
-   int        DeviceCapabilities;
-   int        DeviceFormats;
+   int              DeviceFD;           // Device and its properties.
+   int              DeviceCapabilities;
+   int              DeviceFormats;
+   integer          DeviceBlockSize;
+   integer          DeviceFragmentSize;
+   integer          DeviceOSpace;
+
+   RingBuffer       Buffer;             // Jitter buffer and jitter compensation
+   cardinal         ResizeThreshold;
+   card64           LastWriteTimeStamp;
+   integer          Balance;
+   bool             IsFillingBuffer;
 #endif
-   int        DeviceBlockSize;
-   integer    DeviceFragmentSize;
-   integer    DeviceOSpace;
-
-   cardinal   SyncCount;
-
-   card16     DeviceSamplingRate; // Format of data written to real device.
-   card8      DeviceBits;
-   card8      DeviceChannels;
-   card16     DeviceByteOrder;
-
-   card16     AudioSamplingRate;  // Format of data written to AudioDevice.
-   card8      AudioBits;
-   card8      AudioChannels;
-   card16     AudioByteOrder;
-
-   RingBuffer Buffer;
-   bool       IsFillingBuffer;
-   cardinal   ResizeThreshold;
-
-   cardinal   JitterCompensationLatency;
-   card64     LastWriteTimeStamp;
-   integer    Balance;
 };
 
 

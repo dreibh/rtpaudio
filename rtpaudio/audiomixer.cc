@@ -113,21 +113,11 @@ bool AudioMixer::setVolume(const card8 left, const card8 right)
    Volume.values[1] = r;
 
    // ====== Set the volume =================================================
-   Device->synchronized();
-   // FIXME: This is rather ugly, but at least it works ...
-   struct my_pa_simple {
-      pa_threaded_mainloop *mainloop;
-      pa_context *context;
-      pa_stream *stream;
-      pa_stream_direction_t direction;
-      const void *read_data;
-      size_t read_index, read_length;
-      int operation_success;
-   };
-   my_pa_simple* mpa = (my_pa_simple*)Device->Device;
-   pa_operation* result =  pa_context_set_sink_volume_by_index(mpa->context, 0, &Volume, NULL, NULL);
+::abort();
+   pa_threaded_mainloop_lock(Device->MainLoop);
+   pa_operation* result =  pa_context_set_sink_volume_by_index(Device->Context, 0, &Volume, NULL, NULL);
    pa_operation_unref(result);
-   Device->unsynchronized();
+   pa_threaded_mainloop_unlock(Device->MainLoop);
    return(true);
 #else
    unsigned int l = left;

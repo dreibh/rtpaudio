@@ -42,7 +42,6 @@
 #include <sys/soundcard.h>
 
 #ifdef HAVE_PULSEAUDIO
-#include <pulse/simple.h>
 #include <pulse/error.h>
 #endif
 
@@ -53,44 +52,60 @@
 
 // ###### Audio device constructor ##########################################
 AudioDevice::AudioDevice(const char* name)
+#ifndef HAVE_PULSEAUDIO
    : Thread("AudioDeviceThread")
+#endif
 {
    // ====== Initialize =====================================================
    IsReady                   = false;
-   IsFillingBuffer           = true;
+   SyncCount                 = 0;
+   JitterCompensationLatency = 250000;   // 250ms
 
    AudioChannels             = 0;
    AudioBits                 = 0;
    AudioSamplingRate         = 0;
    AudioByteOrder            = BYTE_ORDER;
 
-   ResizeThreshold           = (RingBufferSize * ResizeThresholdPercent) / 100;
-
-   LastWriteTimeStamp        = 0;
-   Balance                   = 0;
-   JitterCompensationLatency = 100000;   // 100ms
-
    // ====== Open Audio Device ==============================================
 #ifdef HAVE_PULSEAUDIO
-   const pa_sample_spec sampleSpec = {
-      PA_SAMPLE_S16LE, 44100, 2
-   };
-   int error;
-   Device = pa_simple_new(NULL, "AudioDevice", PA_STREAM_PLAYBACK, NULL,
-                          "playback", &sampleSpec, NULL, NULL, &error);
-   if(Device == NULL) {
-      std::cerr << "************************************************************" << std::endl
-                << "WARNING: AudioDevice::AudioDevice() - Unable to open device!" << std::endl
-                << pa_strerror(error)                                             << std::endl
-                << "************************************************************" << std::endl;
+   MainLoop    = NULL;
+   MainLoopAPI = NULL;
+   Context     = NULL;
+   Stream      = NULL;
+
+   MainLoop    = pa_threaded_mainloop_new();
+   if(MainLoop == NULL) {
+      std::cerr << "ERROR: AudioDevice::AudioDevice() - pa_mainloop_new() failed!" << std::endl;
       return;
    }
+   MainLoopAPI = pa_threaded_mainloop_get_api(MainLoop);
+   Context     = pa_context_new(MainLoopAPI, "AudioDevice");
+   if(MainLoop == NULL) {
+      std::cerr << "ERROR: AudioDevice::AudioDevice() - pa_context_new() failed!" << std::endl;
+      return;
+   }
+   pa_context_set_state_callback(Context, context_state_callback, (void*)this);
+   const pa_context_flags_t flags = (pa_context_flags_t)0;
+   if(pa_context_connect(Context, NULL, flags, NULL) < 0) {
+      std::cerr << "ERROR: AudioDevice::AudioDevice() - pa_context_connect() failed: "
+               << pa_strerror(pa_context_errno(Context)) << std::endl;
+      return;
+   }
+   pa_threaded_mainloop_lock(MainLoop);
+   int result = pa_threaded_mainloop_start(MainLoop);
+   if(result >= 0) {
+      pa_threaded_mainloop_wait(MainLoop);
+   }
+   pa_threaded_mainloop_unlock(MainLoop);
+   if(result < 0) {
+      std::cerr << "ERROR: AudioDevice::AudioDevice() - pa_threaded_mainloop_start() failed!" << std::endl;
+      return;
+   }
+
    DeviceByteOrder    = LITTLE_ENDIAN;
    DeviceSamplingRate = 44100;
-   DeviceChannels     = 2;
    DeviceBits         = 16;
-   DeviceOSpace       = 65536;
-   DeviceFragmentSize = 16384;
+   DeviceChannels     = 2;
 #else
    DeviceFD = open(name,O_WRONLY);
    if(DeviceFD < 0) {
@@ -181,27 +196,36 @@ AudioDevice::AudioDevice(const char* name)
              << "   DeviceSamplingRate = " << DeviceSamplingRate << std::endl
              << "   DeviceBits         = " << (cardinal)DeviceBits << std::endl
              << "   DeviceChannels     = " << (cardinal)DeviceChannels << std::endl
-             << "   DeviceByteOrder    = " << ((DeviceByteOrder == LITTLE_ENDIAN) ? "Little Endian" : "Big Endian") << std::endl
-             << "   DeviceFragmentSize = " << DeviceFragmentSize << std::endl
-             << "   DeviceOSpace       = " << DeviceOSpace
-             << " = " << AudioQuality(DeviceSamplingRate,DeviceBits,DeviceChannels).bytesToTime(DeviceOSpace) << " [s]" << std::endl;
+             << "   DeviceByteOrder    = " << ((DeviceByteOrder == LITTLE_ENDIAN) ? "Little Endian" : "Big Endian") << std::endl;
 #ifndef HAVE_PULSEAUDIO
-   std::cout << "   Capabilities       = ";
+   std::cout << "   DeviceFragmentSize = " << DeviceFragmentSize << std::endl
+             << "   DeviceOSpace       = " << DeviceOSpace
+             << " = " << AudioQuality(DeviceSamplingRate,DeviceBits,DeviceChannels).bytesToTime(DeviceOSpace) << " [s]" << std::endl
+             << "   Capabilities       = ";
    if(DeviceCapabilities & DSP_CAP_REALTIME) std::cout << "<Real-time> ";
    if(DeviceCapabilities & DSP_CAP_BATCH)    std::cout << "<Batch> ";
    if(DeviceCapabilities & DSP_CAP_DUPLEX)   std::cout << "<Duplex> ";
    if(DeviceCapabilities & DSP_CAP_TRIGGER)  std::cout << "<Trigger> ";
    if(DeviceCapabilities & DSP_CAP_MMAP)     std::cout << "<MMap> ";
-#endif
    std::cout << std::endl
              << "RingBuffer:" << std::endl
              << "   ResizeThreshold    = " << ResizeThreshold
              << " = " << AudioQuality(DeviceSamplingRate,DeviceBits,DeviceChannels).bytesToTime(ResizeThreshold) << " [s]" << std::endl;
 #endif
+#endif
 
 
+#ifdef HAVE_PULSEAUDIO
+   IsReady = true;
+#else
    // ====== Start thread ===================================================
-   SyncCount = 0;
+   IsFillingBuffer           = true;
+   ResizeThreshold           = (RingBufferSize * ResizeThresholdPercent) / 100;
+   LastWriteTimeStamp        = 0;
+   Balance                   = 0;
+   JitterCompensationLatency = 100000;   // 100ms
+
+
    IsReady = Buffer.init(RingBufferSize);
    if(IsReady == false) {
       std::cerr << "ERROR: AudioDevice::AudioDevice() - Ring buffer initialization failed!" << std::endl;
@@ -210,6 +234,7 @@ AudioDevice::AudioDevice(const char* name)
    if(IsReady == false) {
       std::cerr << "ERROR: AudioDevice::AudioDevice() - Copy thread startup failed!" << std::endl;
    }
+#endif
 }
 
 
@@ -217,18 +242,104 @@ AudioDevice::AudioDevice(const char* name)
 AudioDevice::~AudioDevice()
 {
    IsReady = false;
+#ifdef HAVE_PULSEAUDIO
+   closeStream();
+   if(MainLoop) {
+      pa_threaded_mainloop_stop(MainLoop);
+   }
+   if(Context) {
+      pa_context_unref(Context);
+      Context = NULL;
+   }
+   if(MainLoop) {
+      pa_threaded_mainloop_free(MainLoop);
+      MainLoop    = NULL;
+      MainLoopAPI = NULL;
+   }
+#else
    Buffer.flush();
    stop();
-#ifdef HAVE_PULSEAUDIO
-    pa_simple_free(Device);
-    Device = NULL;
-#else
    if(DeviceFD >= 0) {
       close(DeviceFD);
       DeviceFD = -1;
    }
 #endif
 }
+
+
+#ifdef HAVE_PULSEAUDIO
+// ###### PulseAudio context callback #######################################
+void AudioDevice::context_state_callback(pa_context* context, void* userData)
+{
+   AudioDevice* device = (AudioDevice*)userData;
+   // printf("CALLBACK: %d\n", pa_context_get_state(context));
+   switch(pa_context_get_state(context)) {
+        case PA_CONTEXT_READY:
+        case PA_CONTEXT_TERMINATED:
+        case PA_CONTEXT_FAILED:
+            pa_threaded_mainloop_signal(device->MainLoop, 0);
+         break;
+        case PA_CONTEXT_UNCONNECTED:
+        case PA_CONTEXT_CONNECTING:
+        case PA_CONTEXT_AUTHORIZING:
+        case PA_CONTEXT_SETTING_NAME:
+         break;
+    }
+}
+
+// ###### Open PulseAudio stream ############################################
+bool AudioDevice::openStream()
+{
+   bool result = false;
+
+   assert(Stream == NULL);
+
+   pa_threaded_mainloop_lock(MainLoop);
+   pa_sample_spec sampleSpec;
+   sampleSpec.format   = PA_SAMPLE_S16LE;
+   sampleSpec.rate     = DeviceSamplingRate;
+   sampleSpec.channels = DeviceChannels;
+   Stream = pa_stream_new(Context, "AudioDeviceStream", &sampleSpec, NULL);
+   if(Stream != NULL) {
+      pa_buffer_attr attr;
+      memset(&attr, 0, sizeof(attr));
+      const double bps = DeviceSamplingRate * DeviceChannels * DeviceBits / 8;
+      attr.tlength   = (uint32_t)rint(bps * JitterCompensationLatency / 1000000.0);
+      attr.maxlength = (uint32_t)4*attr.tlength;
+      attr.prebuf    = (uint32_t)-1;
+      attr.minreq    = (uint32_t)-1;
+
+      const pa_stream_flags_t flags = (pa_stream_flags_t)(PA_STREAM_INTERPOLATE_TIMING|PA_STREAM_AUTO_TIMING_UPDATE|PA_STREAM_EARLY_REQUESTS);
+      if(pa_stream_connect_playback(Stream, NULL, &attr, flags, NULL, NULL) >= 0) {
+         result = true;
+      }
+      else {
+         std::cerr << "ERROR: AudioDevice::openStream() - pa_stream_connect_playback() failed: "
+                   << pa_strerror(pa_context_errno(Context)) << std::endl;
+      }
+   }
+   else {
+      std::cerr << "ERROR: AudioDevice::openStream() - pa_stream_new() failed: "
+                << pa_strerror(pa_context_errno(Context)) << std::endl;
+   }
+   pa_threaded_mainloop_unlock(MainLoop);
+
+   return(result);
+}
+
+
+// ###### Close PulseAudio stream ###########################################
+void AudioDevice::closeStream()
+{
+   if(Stream) {
+      pa_threaded_mainloop_lock(MainLoop);
+      pa_stream_disconnect(Stream);
+      pa_stream_unref(Stream);
+      pa_threaded_mainloop_unlock(MainLoop);
+      Stream = NULL;
+   }
+}
+#endif
 
 
 // ###### Get number of channels ############################################
@@ -261,7 +372,9 @@ card16 AudioDevice::getByteOrder() const
 
 // ###### Set number of bits ################################################
 card8 AudioDevice::setBits(const card8 bits) {
-   AudioBits = bits;
+   if(bits != AudioBits) {
+      AudioBits = bits;
+   }
    return(AudioBits);
 }
 
@@ -269,12 +382,17 @@ card8 AudioDevice::setBits(const card8 bits) {
 // ###### Set number of channels ############################################
 card8 AudioDevice::setChannels(const card8 channels) {
 #ifdef HAVE_PULSEAUDIO
-   AudioChannels = channels;
+   if(channels != AudioChannels) {
+      AudioChannels  = channels;
+      DeviceChannels = channels;
+      sync();
+   }
 #else
    if(DeviceFD < 0) {
       return(AudioChannels);
    }
 
+   synchronized();
    if(channels != AudioChannels) {
       AudioChannels = channels;
       int arg = channels;
@@ -288,6 +406,7 @@ card8 AudioDevice::setChannels(const card8 channels) {
          DeviceChannels = arg;
       }
    }
+   unsynchronized();
 #endif
    return(AudioChannels);
 }
@@ -296,12 +415,17 @@ card8 AudioDevice::setChannels(const card8 channels) {
 // ###### Set sampling rate #################################################
 card16 AudioDevice::setSamplingRate(const card16 rate) {
 #ifdef HAVE_PULSEAUDIO
-   AudioSamplingRate = rate;
+   if(rate != AudioSamplingRate) {
+      AudioSamplingRate  = rate;
+      DeviceSamplingRate = rate;
+      sync();
+   }
 #else
    if(DeviceFD < 0) {
       return(AudioSamplingRate);
    }
 
+   synchronized();
    if(rate != AudioSamplingRate) {
       AudioSamplingRate = rate;
       int arg = rate;
@@ -321,6 +445,7 @@ card16 AudioDevice::setSamplingRate(const card16 rate) {
          }
       }
    }
+   unsynchronized();
 #endif
    return(AudioSamplingRate);
 }
@@ -350,18 +475,18 @@ cardinal AudioDevice::getBitsPerSample() const
 // ###### Force buffers to be written to device #############################
 void AudioDevice::sync()
 {
+   // ====== Flush device ===================================================
+#ifdef HAVE_PULSEAUDIO
+#ifdef DEBUG
+   std::cout << "sync!" << std::endl;
+#endif
+   closeStream();
+   openStream();
+#else
 #ifdef DEBUG
    std::cout << "sync! buffered=" << Buffer.bytesReadable() << std::endl;
 #endif
    synchronized();
-
-   // ====== Flush device ===================================================
-#ifdef HAVE_PULSEAUDIO
-   if(Device) {
-      int error;
-      pa_simple_flush(Device, &error);
-   }
-#else
    if(DeviceFD >= 0) {
       // SNDCTL_DSP_SYNC has been replaced by SNDCTL_DSP_RESET, because it
       // seems that SNDCTL_DSP_SYNC has a longer delay.
@@ -372,14 +497,13 @@ void AudioDevice::sync()
                   << strerror(errno) << ">" << std::endl;
       }
    }
-#endif
-
    IsFillingBuffer    = true;
    LastWriteTimeStamp = 0;
    Balance            = 0;
-   SyncCount++;
-
    unsynchronized();
+#endif
+
+   SyncCount++;
 }
 
 
@@ -394,12 +518,14 @@ bool AudioDevice::ready() const
 bool AudioDevice::write(const void* data, const size_t length)
 {
 #ifdef HAVE_PULSEAUDIO
-   if(Device == NULL) {
-#else
-   if(DeviceFD < 0) {
-#endif
+   if(Stream == NULL) {
       return(false);
    }
+#else
+   if(DeviceFD < 0) {
+      return(false);
+   }
+#endif
 
    // ====== Always convert to 16 bit for better output quality =============
    // (Even if quality is 8 bits, most soundcards will produce better output,
@@ -412,13 +538,44 @@ bool AudioDevice::write(const void* data, const size_t length)
                      *this,
                      AudioQuality(DeviceSamplingRate,DeviceBits,DeviceChannels,DeviceByteOrder),
                      (card8*)data,(card8*)&buffer,length,required);
+   if(len % (DeviceBits * DeviceChannels / 8)) {
+      std::cerr << "ERROR: AudioDevice::AudioDevice() - Bad input length: " << len
+                << " at bytes/sample=" << (DeviceBits * DeviceChannels / 8) << std::endl;
+      return(false);
+   }
 
+#ifdef HAVE_PULSEAUDIO
+   // ====== Write data into buffer =========================================
+   pa_threaded_mainloop_lock(MainLoop);
+   const int allowedBytes = pa_stream_writable_size(Stream);
+   bool      ok           = false;
+   if(allowedBytes > 0) {
+      // If the buffer would be filled higher than the target length,
+      // cut off some existing data to fully store the new frame.
+      const int64_t delta = std::min((int64_t)0, (int64_t)allowedBytes - (int64_t)len);
+#ifdef DEBUG
+      if(delta < 0) {
+         std::cout << "buffer almost full => delta=" << delta << std::endl;
+      }
+#endif
+      ok = (pa_stream_write(Stream,(const char*)&buffer,len,NULL,delta,PA_SEEK_RELATIVE) >= 0);
+      if(!ok) {
+         std::cerr << "ERROR: AudioDevice::AudioDevice() - pa_stream_write() failed: "
+                   << pa_strerror(pa_context_errno(Context)) << std::endl;
+      }
+   }
+#ifdef DEBUG
+   else {
+      std::cout << "buffer full => drop!" << std::endl;
+   }
+#endif
+   pa_threaded_mainloop_unlock(MainLoop);
 
+#else
+
+   // ====== Write data into buffer =========================================
    Buffer.synchronized();
-
-   // ====== Write data to buffer ===========================================
-   const bool ok = (Buffer.write((char*)buffer,len) == (ssize_t)len);
-
+   const bool ok = (Buffer.write((const char*)buffer,len) == (ssize_t)len);
    const size_t bytes = Buffer.bytesReadable();
    if(bytes >= ResizeThreshold) {
 #ifdef DEBUG
@@ -446,11 +603,13 @@ bool AudioDevice::write(const void* data, const size_t length)
    }
 
    Buffer.unsynchronized();
+#endif
 
    return(ok);
 }
 
 
+#ifndef HAVE_PULSEAUDIO
 // ###### Audio data copy thread ############################################
 void AudioDevice::run()
 {
@@ -518,17 +677,7 @@ void AudioDevice::run()
          do {
             dataRead = Buffer.read((char*)&buffer,sizeof(buffer));
             if(dataRead > 0) {
-#ifdef HAVE_PULSEAUDIO
-               int error;
-               if (pa_simple_write(Device,(char*)&buffer,dataRead,&error) >= 0) {
-                  dataWritten = dataRead;
-               }
-               else {
-                  dataWritten = -1;
-               }
-#else
                dataWritten = ::write(DeviceFD,(char*)&buffer,dataRead);
-#endif
                if(dataWritten > 0) {
                   // ====== Update balance ===============================
                   synchronized();
@@ -548,3 +697,4 @@ void AudioDevice::run()
       unsynchronized();
    }
 }
+#endif
