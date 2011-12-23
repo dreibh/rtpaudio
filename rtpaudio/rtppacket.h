@@ -291,14 +291,14 @@ struct RTPPacket
 
    // ====== Private data ===================================================
    private:
-#if __BYTE_ORDER == __BIG_ENDIAN
+#if BYTE_ORDER == BIG_ENDIAN
    card8 V:2;                       // Version
    card8 P:1;                       // Padding
    card8 X:1;                       // Extension
    card8 CC:4;                      // CSRC Count
    card8 M:1;                       // Marker
    card8 PT:7;                      // Payload Type
-#elif  __BYTE_ORDER == __LITTLE_ENDIAN
+#elif  BYTE_ORDER == LITTLE_ENDIAN
    card8 CC:4;                      // CSRC Count
    card8 X:1;                       // Extension
    card8 P:1;                       // Padding
@@ -306,7 +306,7 @@ struct RTPPacket
    card8 PT:7;                      // Payload Type
    card8 M:1;                       // Marker
 #else
-#error "Unknown __BYTE_ORDER setting!"
+#error "Unknown BYTE_ORDER setting!"
 #endif
    card16 SequenceNumber;           // Sequence number
    card32 TimeStamp;                // TimeStamp

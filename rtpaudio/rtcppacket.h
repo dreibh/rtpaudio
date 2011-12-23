@@ -166,11 +166,11 @@ struct RTCPCommonHeader
 
    // ====== Protected data =================================================
    protected:
-#if __BYTE_ORDER == __BIG_ENDIAN
+#if BYTE_ORDER == BIG_ENDIAN
    card8 V:2;		                  // Protocol Version
    card8 P:1;		                  // Padding Flag
    card8 C:5;		                  // Count varies by Packet Type (RC/SC)
-#elif __BYTE_ORDER == __LITTLE_ENDIAN
+#elif BYTE_ORDER == LITTLE_ENDIAN
    card8 C:5;		                  // Count varies by Packet Type (RC/SC)
    card8 P:1;		                  // Padding Flag
    card8 V:2;		                  // Protocol Version
