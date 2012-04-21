@@ -1,5 +1,5 @@
 #!/bin/bash
-# $Id: clean-deb 2415 2011-01-21 20:55:32Z dreibh $
+# $Id: clean-deb 917 2011-01-21 23:40:38Z dreibh $
 #
 # Debian Packaging Scripts
 # Copyright (C) 2002-2011 by Thomas Dreibholz

@@ -1,6 +1,6 @@
-rtpaudio (2.0.0~alpha2-1ubuntu1) precise; urgency=low
+rtpaudio (2.0.0~alpha3-1ubuntu1) precise; urgency=low
 
-  * Initial Debian release (Closes: #xxxxxx).
-  * Initial Ubuntu release (LP: #xxxxxx).
+  * New upstream package.
+  * Initial Debian release (Closes: #669908).
 
- -- Thomas Dreibholz <dreibh@iem.uni-due.de>  Fri, 06 Jan 2012 10:10:10 +0200
+ -- Thomas Dreibholz <dreibh@iem.uni-due.de>  Fri, 20 Apr 2012 10:10:10 +0200
