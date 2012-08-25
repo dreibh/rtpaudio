@@ -1,193 +1,193 @@
 libaudiowriter.so.0 libaudiowriter0 #MINVER#
- _ZN10AudioDebug11setChannelsEh@Base 2.0.0~alpha1.12
- _ZN10AudioDebug12setByteOrderEt@Base 2.0.0~alpha1.12
- _ZN10AudioDebug15setSamplingRateEt@Base 2.0.0~alpha1.12
- _ZN10AudioDebug4syncEv@Base 2.0.0~alpha1.12
- _ZN10AudioDebug7setBitsEh@Base 2.0.0~alpha1.12
- _ZN10AudioDebugC1Ev@Base 2.0.0~alpha1.12
- _ZN10AudioDebugC2Ev@Base 2.0.0~alpha1.12
- _ZN10AudioDebugD1Ev@Base 2.0.0~alpha1.12
- _ZN10AudioDebugD2Ev@Base 2.0.0~alpha1.12
- _ZN10AudioMixer12sink_info_cbEP10pa_contextPK12pa_sink_infoiPv@Base 2.0.0~alpha1.12
- _ZN10AudioMixer9getVolumeERhS0_@Base 2.0.0~alpha1.12
- _ZN10AudioMixer9setVolumeEhh@Base 2.0.0~alpha1.12
- _ZN10AudioMixerC1EP11AudioDeviceiPKc@Base 2.0.0~alpha1.12
- _ZN10AudioMixerC2EP11AudioDeviceiPKc@Base 2.0.0~alpha1.12
- _ZN10AudioMixerD1Ev@Base 2.0.0~alpha1.12
- _ZN10AudioMixerD2Ev@Base 2.0.0~alpha1.12
- _ZN11AudioDevice10openStreamEv@Base 2.0.0~alpha1.12
- _ZN11AudioDevice11closeStreamEv@Base 2.0.0~alpha1.12
- _ZN11AudioDevice11setChannelsEh@Base 2.0.0~alpha1.12
- _ZN11AudioDevice12setByteOrderEt@Base 2.0.0~alpha1.12
- _ZN11AudioDevice15setSamplingRateEt@Base 2.0.0~alpha1.12
- _ZN11AudioDevice22context_state_callbackEP10pa_contextPv@Base 2.0.0~alpha1.12
- _ZN11AudioDevice4syncEv@Base 2.0.0~alpha1.12
- _ZN11AudioDevice7setBitsEh@Base 2.0.0~alpha1.12
- _ZN11AudioDeviceC1EPKc@Base 2.0.0~alpha1.12
- _ZN11AudioDeviceC2EPKc@Base 2.0.0~alpha1.12
- _ZN11AudioDeviceD1Ev@Base 2.0.0~alpha1.12
- _ZN11AudioDeviceD2Ev@Base 2.0.0~alpha1.12
- _ZN16MultiAudioWriter11setChannelsEh@Base 2.0.0~alpha1.12
- _ZN16MultiAudioWriter12removeWriterEP20AudioWriterInterface@Base 2.0.0~alpha1.12
- _ZN16MultiAudioWriter12setByteOrderEt@Base 2.0.0~alpha1.12
- _ZN16MultiAudioWriter15setSamplingRateEt@Base 2.0.0~alpha1.12
- _ZN16MultiAudioWriter4syncEv@Base 2.0.0~alpha1.12
- _ZN16MultiAudioWriter7setBitsEh@Base 2.0.0~alpha1.12
- _ZN16MultiAudioWriter9addWriterEP20AudioWriterInterface@Base 2.0.0~alpha1.12
- _ZN16MultiAudioWriterC1Ev@Base 2.0.0~alpha1.12
- _ZN16MultiAudioWriterC2Ev@Base 2.0.0~alpha1.12
- _ZN16MultiAudioWriterD1Ev@Base 2.0.0~alpha1.12
- _ZN16MultiAudioWriterD2Ev@Base 2.0.0~alpha1.12
- _ZN16SpectrumAnalyzer11getSpectrumEPjS0_j@Base 2.0.0~alpha1.12
- _ZN16SpectrumAnalyzer11setChannelsEh@Base 2.0.0~alpha1.12
- _ZN16SpectrumAnalyzer12setByteOrderEt@Base 2.0.0~alpha1.12
- _ZN16SpectrumAnalyzer15setSamplingRateEt@Base 2.0.0~alpha1.12
- _ZN16SpectrumAnalyzer23doFourierTransformationEPtPjj@Base 2.0.0~alpha1.12
- _ZN16SpectrumAnalyzer4syncEv@Base 2.0.0~alpha1.12
- _ZN16SpectrumAnalyzer7setBitsEh@Base 2.0.0~alpha1.12
- _ZN16SpectrumAnalyzerC1Ev@Base 2.0.0~alpha1.12
- _ZN16SpectrumAnalyzerC2Ev@Base 2.0.0~alpha1.12
- _ZN16SpectrumAnalyzerD1Ev@Base 2.0.0~alpha1.12
- _ZN16SpectrumAnalyzerD2Ev@Base 2.0.0~alpha1.12
- _ZN25FastFourierTransformation14getBitReversedEv@Base 2.0.0~alpha1.12
- _ZN25FastFourierTransformation3fftEPs@Base 2.0.0~alpha1.12
- _ZN25FastFourierTransformationC1Ei@Base 2.0.0~alpha1.12
- _ZN25FastFourierTransformationC2Ei@Base 2.0.0~alpha1.12
- _ZN25FastFourierTransformationD1Ev@Base 2.0.0~alpha1.12
- _ZN25FastFourierTransformationD2Ev@Base 2.0.0~alpha1.12
- _ZN9AudioNull4syncEv@Base 2.0.0~alpha1.12
- _ZN9AudioNullC1Ev@Base 2.0.0~alpha1.12
- _ZN9AudioNullC2Ev@Base 2.0.0~alpha1.12
- _ZN9AudioNullD1Ev@Base 2.0.0~alpha1.12
- _ZN9AudioNullD2Ev@Base 2.0.0~alpha1.12
- _ZNK10AudioDebug11getChannelsEv@Base 2.0.0~alpha1.12
- _ZNK10AudioDebug12getByteOrderEv@Base 2.0.0~alpha1.12
- _ZNK10AudioDebug15getSamplingRateEv@Base 2.0.0~alpha1.12
- _ZNK10AudioDebug16getBitsPerSampleEv@Base 2.0.0~alpha1.12
- _ZNK10AudioDebug17getBytesPerSecondEv@Base 2.0.0~alpha1.12
- _ZNK10AudioDebug5readyEv@Base 2.0.0~alpha1.12
- _ZNK10AudioDebug7getBitsEv@Base 2.0.0~alpha1.12
- _ZNK11AudioDevice11getChannelsEv@Base 2.0.0~alpha1.12
- _ZNK11AudioDevice12getByteOrderEv@Base 2.0.0~alpha1.12
- _ZNK11AudioDevice15getSamplingRateEv@Base 2.0.0~alpha1.12
- _ZNK11AudioDevice16getBitsPerSampleEv@Base 2.0.0~alpha1.12
- _ZNK11AudioDevice17getBytesPerSecondEv@Base 2.0.0~alpha1.12
- _ZNK11AudioDevice5readyEv@Base 2.0.0~alpha1.12
- _ZNK11AudioDevice7getBitsEv@Base 2.0.0~alpha1.12
- _ZNK16MultiAudioWriter11getChannelsEv@Base 2.0.0~alpha1.12
- _ZNK16MultiAudioWriter12getByteOrderEv@Base 2.0.0~alpha1.12
- _ZNK16MultiAudioWriter15getSamplingRateEv@Base 2.0.0~alpha1.12
- _ZNK16MultiAudioWriter16getBitsPerSampleEv@Base 2.0.0~alpha1.12
- _ZNK16MultiAudioWriter17getBytesPerSecondEv@Base 2.0.0~alpha1.12
- _ZNK16MultiAudioWriter5readyEv@Base 2.0.0~alpha1.12
- _ZNK16MultiAudioWriter7getBitsEv@Base 2.0.0~alpha1.12
- _ZNK16SpectrumAnalyzer11getChannelsEv@Base 2.0.0~alpha1.12
- _ZNK16SpectrumAnalyzer12getByteOrderEv@Base 2.0.0~alpha1.12
- _ZNK16SpectrumAnalyzer15getSamplingRateEv@Base 2.0.0~alpha1.12
- _ZNK16SpectrumAnalyzer16getBitsPerSampleEv@Base 2.0.0~alpha1.12
- _ZNK16SpectrumAnalyzer17getBytesPerSecondEv@Base 2.0.0~alpha1.12
- _ZNK16SpectrumAnalyzer5readyEv@Base 2.0.0~alpha1.12
- _ZNK16SpectrumAnalyzer7getBitsEv@Base 2.0.0~alpha1.12
- _ZNK9AudioNull5readyEv@Base 2.0.0~alpha1.12
- _ZNSt8_Rb_treeIP20AudioWriterInterfaceS1_St9_IdentityIS1_ESt4lessIS1_ESaIS1_EE15_M_insert_equalERKS1_@Base 2.0.0~alpha1.12
- _ZNSt8_Rb_treeIP20AudioWriterInterfaceS1_St9_IdentityIS1_ESt4lessIS1_ESaIS1_EE8_M_eraseEPSt13_Rb_tree_nodeIS1_E@Base 2.0.0~alpha1.12
- _ZTI10AudioDebug@Base 2.0.0~alpha1.12
- _ZTI11AudioDevice@Base 2.0.0~alpha1.12
- _ZTI14Synchronizable@Base 2.0.0~alpha1.12
- _ZTI16MultiAudioWriter@Base 2.0.0~alpha1.12
- _ZTI16SpectrumAnalyzer@Base 2.0.0~alpha1.12
- _ZTI20AudioWriterInterface@Base 2.0.0~alpha1.12
- _ZTI21AudioQualityInterface@Base 2.0.0~alpha1.12
- _ZTI31AdjustableAudioQualityInterface@Base 2.0.0~alpha1.12
- _ZTI9AudioNull@Base 2.0.0~alpha1.12
- _ZTS10AudioDebug@Base 2.0.0~alpha1.12
- _ZTS11AudioDevice@Base 2.0.0~alpha1.12
- _ZTS14Synchronizable@Base 2.0.0~alpha1.12
- _ZTS16MultiAudioWriter@Base 2.0.0~alpha1.12
- _ZTS16SpectrumAnalyzer@Base 2.0.0~alpha1.12
- _ZTS20AudioWriterInterface@Base 2.0.0~alpha1.12
- _ZTS21AudioQualityInterface@Base 2.0.0~alpha1.12
- _ZTS31AdjustableAudioQualityInterface@Base 2.0.0~alpha1.12
- _ZTS9AudioNull@Base 2.0.0~alpha1.12
- _ZTT10AudioDebug@Base 2.0.0~alpha1.12
- _ZTT11AudioDevice@Base 2.0.0~alpha1.12
- _ZTT16MultiAudioWriter@Base 2.0.0~alpha1.12
- _ZTT16SpectrumAnalyzer@Base 2.0.0~alpha1.12
- _ZTT9AudioNull@Base 2.0.0~alpha1.12
- _ZTV10AudioDebug@Base 2.0.0~alpha1.12
- _ZTV11AudioDevice@Base 2.0.0~alpha1.12
- _ZTV16MultiAudioWriter@Base 2.0.0~alpha1.12
- _ZTV16SpectrumAnalyzer@Base 2.0.0~alpha1.12
- _ZTV21AudioQualityInterface@Base 2.0.0~alpha1.12
- _ZTV9AudioNull@Base 2.0.0~alpha1.12
- (c++)"construction vtable for AdjustableAudioQualityInterface-in-AudioDebug@Base" 2.0.0~alpha1.12
- (c++)"construction vtable for AdjustableAudioQualityInterface-in-AudioDevice@Base" 2.0.0~alpha1.12
- (c++)"construction vtable for AdjustableAudioQualityInterface-in-AudioNull@Base" 2.0.0~alpha1.12
- (c++)"construction vtable for AdjustableAudioQualityInterface-in-MultiAudioWriter@Base" 2.0.0~alpha1.12
- (c++)"construction vtable for AdjustableAudioQualityInterface-in-SpectrumAnalyzer@Base" 2.0.0~alpha1.12
- (c++)"construction vtable for AudioQuality-in-AudioNull@Base" 2.0.0~alpha1.12
- (c++)"construction vtable for AudioWriterInterface-in-AudioDebug@Base" 2.0.0~alpha1.12
- (c++)"construction vtable for AudioWriterInterface-in-AudioDevice@Base" 2.0.0~alpha1.12
- (c++)"construction vtable for AudioWriterInterface-in-AudioNull@Base" 2.0.0~alpha1.12
- (c++)"construction vtable for AudioWriterInterface-in-MultiAudioWriter@Base" 2.0.0~alpha1.12
- (c++)"construction vtable for AudioWriterInterface-in-SpectrumAnalyzer@Base" 2.0.0~alpha1.12
- (c++|regex)"^AudioDebug::write\(.*\)@Base$" 2.0.0~alpha1.12
- (c++|regex)"^AudioDevice::write\(.*\)@Base$" 2.0.0~alpha1.12
- (c++|regex)"^AudioNull::write\(.*\)@Base$" 2.0.0~alpha1.12
- (c++|regex)"^MultiAudioWriter::write\(.*\)@Base$" 2.0.0~alpha1.12
- (c++|regex)"^SpectrumAnalyzer::write\(.*\)@Base$" 2.0.0~alpha1.12
- (c++|regex)"^virtual thunk to AudioDebug::write\(.*\)@Base$" 2.0.0~alpha1.12
- (c++|regex)"^virtual thunk to AudioDevice::write\(.*\)@Base$" 2.0.0~alpha1.12
- (c++|regex)"^virtual thunk to AudioNull::write\(.*\)@Base$" 2.0.0~alpha1.12
- (c++|regex)"^virtual thunk to MultiAudioWriter::write\(.*\)@Base$" 2.0.0~alpha1.12
- (c++|regex)"^virtual thunk to SpectrumAnalyzer::write\(.*\)@Base$" 2.0.0~alpha1.12
- (c++)"virtual thunk to AudioDebug::getBits() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to AudioDebug::getBitsPerSample() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to AudioDebug::getByteOrder() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to AudioDebug::getBytesPerSecond() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to AudioDebug::getChannels() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to AudioDebug::getSamplingRate() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to AudioDebug::ready() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to AudioDebug::setBits(unsigned char)@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to AudioDebug::setByteOrder(unsigned short)@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to AudioDebug::setChannels(unsigned char)@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to AudioDebug::setSamplingRate(unsigned short)@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to AudioDebug::sync()@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to AudioDevice::getBits() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to AudioDevice::getBitsPerSample() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to AudioDevice::getByteOrder() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to AudioDevice::getBytesPerSecond() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to AudioDevice::getChannels() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to AudioDevice::getSamplingRate() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to AudioDevice::ready() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to AudioDevice::setBits(unsigned char)@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to AudioDevice::setByteOrder(unsigned short)@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to AudioDevice::setChannels(unsigned char)@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to AudioDevice::setSamplingRate(unsigned short)@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to AudioDevice::sync()@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to AudioNull::ready() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to AudioNull::sync()@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to MultiAudioWriter::getBits() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to MultiAudioWriter::getBitsPerSample() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to MultiAudioWriter::getByteOrder() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to MultiAudioWriter::getBytesPerSecond() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to MultiAudioWriter::getChannels() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to MultiAudioWriter::getSamplingRate() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to MultiAudioWriter::ready() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to MultiAudioWriter::setBits(unsigned char)@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to MultiAudioWriter::setByteOrder(unsigned short)@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to MultiAudioWriter::setChannels(unsigned char)@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to MultiAudioWriter::setSamplingRate(unsigned short)@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to MultiAudioWriter::sync()@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to SpectrumAnalyzer::getBits() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to SpectrumAnalyzer::getBitsPerSample() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to SpectrumAnalyzer::getByteOrder() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to SpectrumAnalyzer::getBytesPerSecond() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to SpectrumAnalyzer::getChannels() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to SpectrumAnalyzer::getSamplingRate() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to SpectrumAnalyzer::ready() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to SpectrumAnalyzer::setBits(unsigned char)@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to SpectrumAnalyzer::setByteOrder(unsigned short)@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to SpectrumAnalyzer::setChannels(unsigned char)@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to SpectrumAnalyzer::setSamplingRate(unsigned short)@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to SpectrumAnalyzer::sync()@Base" 2.0.0~alpha1.12
+ _ZN10AudioDebug11setChannelsEh@Base 2.0.0~beta1.1
+ _ZN10AudioDebug12setByteOrderEt@Base 2.0.0~beta1.1
+ _ZN10AudioDebug15setSamplingRateEt@Base 2.0.0~beta1.1
+ _ZN10AudioDebug4syncEv@Base 2.0.0~beta1.1
+ _ZN10AudioDebug7setBitsEh@Base 2.0.0~beta1.1
+ _ZN10AudioDebugC1Ev@Base 2.0.0~beta1.1
+ _ZN10AudioDebugC2Ev@Base 2.0.0~beta1.1
+ _ZN10AudioDebugD1Ev@Base 2.0.0~beta1.1
+ _ZN10AudioDebugD2Ev@Base 2.0.0~beta1.1
+ _ZN10AudioMixer12sink_info_cbEP10pa_contextPK12pa_sink_infoiPv@Base 2.0.0~beta1.1
+ _ZN10AudioMixer9getVolumeERhS0_@Base 2.0.0~beta1.1
+ _ZN10AudioMixer9setVolumeEhh@Base 2.0.0~beta1.1
+ _ZN10AudioMixerC1EP11AudioDeviceiPKc@Base 2.0.0~beta1.1
+ _ZN10AudioMixerC2EP11AudioDeviceiPKc@Base 2.0.0~beta1.1
+ _ZN10AudioMixerD1Ev@Base 2.0.0~beta1.1
+ _ZN10AudioMixerD2Ev@Base 2.0.0~beta1.1
+ _ZN11AudioDevice10openStreamEv@Base 2.0.0~beta1.1
+ _ZN11AudioDevice11closeStreamEv@Base 2.0.0~beta1.1
+ _ZN11AudioDevice11setChannelsEh@Base 2.0.0~beta1.1
+ _ZN11AudioDevice12setByteOrderEt@Base 2.0.0~beta1.1
+ _ZN11AudioDevice15setSamplingRateEt@Base 2.0.0~beta1.1
+ _ZN11AudioDevice22context_state_callbackEP10pa_contextPv@Base 2.0.0~beta1.1
+ _ZN11AudioDevice4syncEv@Base 2.0.0~beta1.1
+ _ZN11AudioDevice7setBitsEh@Base 2.0.0~beta1.1
+ _ZN11AudioDeviceC1EPKc@Base 2.0.0~beta1.1
+ _ZN11AudioDeviceC2EPKc@Base 2.0.0~beta1.1
+ _ZN11AudioDeviceD1Ev@Base 2.0.0~beta1.1
+ _ZN11AudioDeviceD2Ev@Base 2.0.0~beta1.1
+ _ZN16MultiAudioWriter11setChannelsEh@Base 2.0.0~beta1.1
+ _ZN16MultiAudioWriter12removeWriterEP20AudioWriterInterface@Base 2.0.0~beta1.1
+ _ZN16MultiAudioWriter12setByteOrderEt@Base 2.0.0~beta1.1
+ _ZN16MultiAudioWriter15setSamplingRateEt@Base 2.0.0~beta1.1
+ _ZN16MultiAudioWriter4syncEv@Base 2.0.0~beta1.1
+ _ZN16MultiAudioWriter7setBitsEh@Base 2.0.0~beta1.1
+ _ZN16MultiAudioWriter9addWriterEP20AudioWriterInterface@Base 2.0.0~beta1.1
+ _ZN16MultiAudioWriterC1Ev@Base 2.0.0~beta1.1
+ _ZN16MultiAudioWriterC2Ev@Base 2.0.0~beta1.1
+ _ZN16MultiAudioWriterD1Ev@Base 2.0.0~beta1.1
+ _ZN16MultiAudioWriterD2Ev@Base 2.0.0~beta1.1
+ _ZN16SpectrumAnalyzer11getSpectrumEPjS0_j@Base 2.0.0~beta1.1
+ _ZN16SpectrumAnalyzer11setChannelsEh@Base 2.0.0~beta1.1
+ _ZN16SpectrumAnalyzer12setByteOrderEt@Base 2.0.0~beta1.1
+ _ZN16SpectrumAnalyzer15setSamplingRateEt@Base 2.0.0~beta1.1
+ _ZN16SpectrumAnalyzer23doFourierTransformationEPtPjj@Base 2.0.0~beta1.1
+ _ZN16SpectrumAnalyzer4syncEv@Base 2.0.0~beta1.1
+ _ZN16SpectrumAnalyzer7setBitsEh@Base 2.0.0~beta1.1
+ _ZN16SpectrumAnalyzerC1Ev@Base 2.0.0~beta1.1
+ _ZN16SpectrumAnalyzerC2Ev@Base 2.0.0~beta1.1
+ _ZN16SpectrumAnalyzerD1Ev@Base 2.0.0~beta1.1
+ _ZN16SpectrumAnalyzerD2Ev@Base 2.0.0~beta1.1
+ _ZN25FastFourierTransformation14getBitReversedEv@Base 2.0.0~beta1.1
+ _ZN25FastFourierTransformation3fftEPs@Base 2.0.0~beta1.1
+ _ZN25FastFourierTransformationC1Ei@Base 2.0.0~beta1.1
+ _ZN25FastFourierTransformationC2Ei@Base 2.0.0~beta1.1
+ _ZN25FastFourierTransformationD1Ev@Base 2.0.0~beta1.1
+ _ZN25FastFourierTransformationD2Ev@Base 2.0.0~beta1.1
+ _ZN9AudioNull4syncEv@Base 2.0.0~beta1.1
+ _ZN9AudioNullC1Ev@Base 2.0.0~beta1.1
+ _ZN9AudioNullC2Ev@Base 2.0.0~beta1.1
+ _ZN9AudioNullD1Ev@Base 2.0.0~beta1.1
+ _ZN9AudioNullD2Ev@Base 2.0.0~beta1.1
+ _ZNK10AudioDebug11getChannelsEv@Base 2.0.0~beta1.1
+ _ZNK10AudioDebug12getByteOrderEv@Base 2.0.0~beta1.1
+ _ZNK10AudioDebug15getSamplingRateEv@Base 2.0.0~beta1.1
+ _ZNK10AudioDebug16getBitsPerSampleEv@Base 2.0.0~beta1.1
+ _ZNK10AudioDebug17getBytesPerSecondEv@Base 2.0.0~beta1.1
+ _ZNK10AudioDebug5readyEv@Base 2.0.0~beta1.1
+ _ZNK10AudioDebug7getBitsEv@Base 2.0.0~beta1.1
+ _ZNK11AudioDevice11getChannelsEv@Base 2.0.0~beta1.1
+ _ZNK11AudioDevice12getByteOrderEv@Base 2.0.0~beta1.1
+ _ZNK11AudioDevice15getSamplingRateEv@Base 2.0.0~beta1.1
+ _ZNK11AudioDevice16getBitsPerSampleEv@Base 2.0.0~beta1.1
+ _ZNK11AudioDevice17getBytesPerSecondEv@Base 2.0.0~beta1.1
+ _ZNK11AudioDevice5readyEv@Base 2.0.0~beta1.1
+ _ZNK11AudioDevice7getBitsEv@Base 2.0.0~beta1.1
+ _ZNK16MultiAudioWriter11getChannelsEv@Base 2.0.0~beta1.1
+ _ZNK16MultiAudioWriter12getByteOrderEv@Base 2.0.0~beta1.1
+ _ZNK16MultiAudioWriter15getSamplingRateEv@Base 2.0.0~beta1.1
+ _ZNK16MultiAudioWriter16getBitsPerSampleEv@Base 2.0.0~beta1.1
+ _ZNK16MultiAudioWriter17getBytesPerSecondEv@Base 2.0.0~beta1.1
+ _ZNK16MultiAudioWriter5readyEv@Base 2.0.0~beta1.1
+ _ZNK16MultiAudioWriter7getBitsEv@Base 2.0.0~beta1.1
+ _ZNK16SpectrumAnalyzer11getChannelsEv@Base 2.0.0~beta1.1
+ _ZNK16SpectrumAnalyzer12getByteOrderEv@Base 2.0.0~beta1.1
+ _ZNK16SpectrumAnalyzer15getSamplingRateEv@Base 2.0.0~beta1.1
+ _ZNK16SpectrumAnalyzer16getBitsPerSampleEv@Base 2.0.0~beta1.1
+ _ZNK16SpectrumAnalyzer17getBytesPerSecondEv@Base 2.0.0~beta1.1
+ _ZNK16SpectrumAnalyzer5readyEv@Base 2.0.0~beta1.1
+ _ZNK16SpectrumAnalyzer7getBitsEv@Base 2.0.0~beta1.1
+ _ZNK9AudioNull5readyEv@Base 2.0.0~beta1.1
+ _ZNSt8_Rb_treeIP20AudioWriterInterfaceS1_St9_IdentityIS1_ESt4lessIS1_ESaIS1_EE15_M_insert_equalERKS1_@Base 2.0.0~beta1.1
+ _ZNSt8_Rb_treeIP20AudioWriterInterfaceS1_St9_IdentityIS1_ESt4lessIS1_ESaIS1_EE8_M_eraseEPSt13_Rb_tree_nodeIS1_E@Base 2.0.0~beta1.1
+ _ZTI10AudioDebug@Base 2.0.0~beta1.1
+ _ZTI11AudioDevice@Base 2.0.0~beta1.1
+ _ZTI14Synchronizable@Base 2.0.0~beta1.1
+ _ZTI16MultiAudioWriter@Base 2.0.0~beta1.1
+ _ZTI16SpectrumAnalyzer@Base 2.0.0~beta1.1
+ _ZTI20AudioWriterInterface@Base 2.0.0~beta1.1
+ _ZTI21AudioQualityInterface@Base 2.0.0~beta1.1
+ _ZTI31AdjustableAudioQualityInterface@Base 2.0.0~beta1.1
+ _ZTI9AudioNull@Base 2.0.0~beta1.1
+ _ZTS10AudioDebug@Base 2.0.0~beta1.1
+ _ZTS11AudioDevice@Base 2.0.0~beta1.1
+ _ZTS14Synchronizable@Base 2.0.0~beta1.1
+ _ZTS16MultiAudioWriter@Base 2.0.0~beta1.1
+ _ZTS16SpectrumAnalyzer@Base 2.0.0~beta1.1
+ _ZTS20AudioWriterInterface@Base 2.0.0~beta1.1
+ _ZTS21AudioQualityInterface@Base 2.0.0~beta1.1
+ _ZTS31AdjustableAudioQualityInterface@Base 2.0.0~beta1.1
+ _ZTS9AudioNull@Base 2.0.0~beta1.1
+ _ZTT10AudioDebug@Base 2.0.0~beta1.1
+ _ZTT11AudioDevice@Base 2.0.0~beta1.1
+ _ZTT16MultiAudioWriter@Base 2.0.0~beta1.1
+ _ZTT16SpectrumAnalyzer@Base 2.0.0~beta1.1
+ _ZTT9AudioNull@Base 2.0.0~beta1.1
+ _ZTV10AudioDebug@Base 2.0.0~beta1.1
+ _ZTV11AudioDevice@Base 2.0.0~beta1.1
+ _ZTV16MultiAudioWriter@Base 2.0.0~beta1.1
+ _ZTV16SpectrumAnalyzer@Base 2.0.0~beta1.1
+ _ZTV21AudioQualityInterface@Base 2.0.0~beta1.1
+ _ZTV9AudioNull@Base 2.0.0~beta1.1
+ (c++)"construction vtable for AdjustableAudioQualityInterface-in-AudioDebug@Base" 2.0.0~beta1.1
+ (c++)"construction vtable for AdjustableAudioQualityInterface-in-AudioDevice@Base" 2.0.0~beta1.1
+ (c++)"construction vtable for AdjustableAudioQualityInterface-in-AudioNull@Base" 2.0.0~beta1.1
+ (c++)"construction vtable for AdjustableAudioQualityInterface-in-MultiAudioWriter@Base" 2.0.0~beta1.1
+ (c++)"construction vtable for AdjustableAudioQualityInterface-in-SpectrumAnalyzer@Base" 2.0.0~beta1.1
+ (c++)"construction vtable for AudioQuality-in-AudioNull@Base" 2.0.0~beta1.1
+ (c++)"construction vtable for AudioWriterInterface-in-AudioDebug@Base" 2.0.0~beta1.1
+ (c++)"construction vtable for AudioWriterInterface-in-AudioDevice@Base" 2.0.0~beta1.1
+ (c++)"construction vtable for AudioWriterInterface-in-AudioNull@Base" 2.0.0~beta1.1
+ (c++)"construction vtable for AudioWriterInterface-in-MultiAudioWriter@Base" 2.0.0~beta1.1
+ (c++)"construction vtable for AudioWriterInterface-in-SpectrumAnalyzer@Base" 2.0.0~beta1.1
+ (c++|regex)"^AudioDebug::write\(.*\)@Base$" 2.0.0~beta1.1
+ (c++|regex)"^AudioDevice::write\(.*\)@Base$" 2.0.0~beta1.1
+ (c++|regex)"^AudioNull::write\(.*\)@Base$" 2.0.0~beta1.1
+ (c++|regex)"^MultiAudioWriter::write\(.*\)@Base$" 2.0.0~beta1.1
+ (c++|regex)"^SpectrumAnalyzer::write\(.*\)@Base$" 2.0.0~beta1.1
+ (c++|regex)"^virtual thunk to AudioDebug::write\(.*\)@Base$" 2.0.0~beta1.1
+ (c++|regex)"^virtual thunk to AudioDevice::write\(.*\)@Base$" 2.0.0~beta1.1
+ (c++|regex)"^virtual thunk to AudioNull::write\(.*\)@Base$" 2.0.0~beta1.1
+ (c++|regex)"^virtual thunk to MultiAudioWriter::write\(.*\)@Base$" 2.0.0~beta1.1
+ (c++|regex)"^virtual thunk to SpectrumAnalyzer::write\(.*\)@Base$" 2.0.0~beta1.1
+ (c++)"virtual thunk to AudioDebug::getBits() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to AudioDebug::getBitsPerSample() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to AudioDebug::getByteOrder() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to AudioDebug::getBytesPerSecond() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to AudioDebug::getChannels() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to AudioDebug::getSamplingRate() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to AudioDebug::ready() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to AudioDebug::setBits(unsigned char)@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to AudioDebug::setByteOrder(unsigned short)@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to AudioDebug::setChannels(unsigned char)@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to AudioDebug::setSamplingRate(unsigned short)@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to AudioDebug::sync()@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to AudioDevice::getBits() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to AudioDevice::getBitsPerSample() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to AudioDevice::getByteOrder() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to AudioDevice::getBytesPerSecond() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to AudioDevice::getChannels() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to AudioDevice::getSamplingRate() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to AudioDevice::ready() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to AudioDevice::setBits(unsigned char)@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to AudioDevice::setByteOrder(unsigned short)@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to AudioDevice::setChannels(unsigned char)@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to AudioDevice::setSamplingRate(unsigned short)@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to AudioDevice::sync()@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to AudioNull::ready() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to AudioNull::sync()@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to MultiAudioWriter::getBits() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to MultiAudioWriter::getBitsPerSample() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to MultiAudioWriter::getByteOrder() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to MultiAudioWriter::getBytesPerSecond() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to MultiAudioWriter::getChannels() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to MultiAudioWriter::getSamplingRate() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to MultiAudioWriter::ready() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to MultiAudioWriter::setBits(unsigned char)@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to MultiAudioWriter::setByteOrder(unsigned short)@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to MultiAudioWriter::setChannels(unsigned char)@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to MultiAudioWriter::setSamplingRate(unsigned short)@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to MultiAudioWriter::sync()@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to SpectrumAnalyzer::getBits() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to SpectrumAnalyzer::getBitsPerSample() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to SpectrumAnalyzer::getByteOrder() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to SpectrumAnalyzer::getBytesPerSecond() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to SpectrumAnalyzer::getChannels() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to SpectrumAnalyzer::getSamplingRate() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to SpectrumAnalyzer::ready() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to SpectrumAnalyzer::setBits(unsigned char)@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to SpectrumAnalyzer::setByteOrder(unsigned short)@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to SpectrumAnalyzer::setChannels(unsigned char)@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to SpectrumAnalyzer::setSamplingRate(unsigned short)@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to SpectrumAnalyzer::sync()@Base" 2.0.0~beta1.1

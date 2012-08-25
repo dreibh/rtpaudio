@@ -1,110 +1,110 @@
 libaudioreader.so.0 libaudioreader0 #MINVER#
- _Z5debugPKcz@Base 2.0.0~alpha1.12
- _ZN14MP3AudioReader10closeMediaEv@Base 2.0.0~alpha1.12
- _ZN14MP3AudioReader10initializeEPc@Base 2.0.0~alpha1.12
- _ZN14MP3AudioReader11putblock_ntEPvi@Base 2.0.0~alpha1.12
- _ZN14MP3AudioReader11set8bitmodeEv@Base 2.0.0~alpha1.12
- _ZN14MP3AudioReader12attachdeviceEv@Base 2.0.0~alpha1.12
- _ZN14MP3AudioReader12getNextBlockEPvj@Base 2.0.0~alpha1.12
- _ZN14MP3AudioReader12setsoundtypeEiii@Base 2.0.0~alpha1.12
- _ZN14MP3AudioReader13readNextFrameEv@Base 2.0.0~alpha1.12
- _ZN14MP3AudioReader13releasedeviceEv@Base 2.0.0~alpha1.12
- _ZN14MP3AudioReader8putblockEPvi@Base 2.0.0~alpha1.12
- _ZN14MP3AudioReader9openMediaEPKc@Base 2.0.0~alpha1.12
- _ZN14MP3AudioReaderC1EPKc@Base 2.0.0~alpha1.12
- _ZN14MP3AudioReaderC2EPKc@Base 2.0.0~alpha1.12
- _ZN14MP3AudioReaderD0Ev@Base 2.0.0~alpha1.12
- _ZN14MP3AudioReaderD1Ev@Base 2.0.0~alpha1.12
- _ZN14MP3AudioReaderD2Ev@Base 2.0.0~alpha1.12
- _ZN14WavAudioReader10closeMediaEv@Base 2.0.0~alpha1.12
- _ZN14WavAudioReader12getNextBlockEPvj@Base 2.0.0~alpha1.12
- _ZN14WavAudioReader8getChunkERNS_10RIFF_ChunkE@Base 2.0.0~alpha1.12
- _ZN14WavAudioReader9openMediaEPKc@Base 2.0.0~alpha1.12
- _ZN14WavAudioReaderC1EPKc@Base 2.0.0~alpha1.12
- _ZN14WavAudioReaderC2EPKc@Base 2.0.0~alpha1.12
- _ZN14WavAudioReaderD1Ev@Base 2.0.0~alpha1.12
- _ZN14WavAudioReaderD2Ev@Base 2.0.0~alpha1.12
- _ZN16MultiAudioReader10closeMediaEv@Base 2.0.0~alpha1.12
- _ZN16MultiAudioReader11ReaderEntryD1Ev@Base 2.0.0~alpha1.12
- _ZN16MultiAudioReader11ReaderEntryD2Ev@Base 2.0.0~alpha1.12
- _ZN16MultiAudioReader12getNextBlockEPvj@Base 2.0.0~alpha1.12
- _ZN16MultiAudioReader14getAudioReaderEPKcj@Base 2.0.0~alpha1.12
- _ZN16MultiAudioReader9openMediaEPKc@Base 2.0.0~alpha1.12
- _ZN16MultiAudioReaderC1EPKcj@Base 2.0.0~alpha1.12
- _ZN16MultiAudioReaderC2EPKcj@Base 2.0.0~alpha1.12
- _ZN16MultiAudioReaderD1Ev@Base 2.0.0~alpha1.12
- _ZN16MultiAudioReaderD2Ev@Base 2.0.0~alpha1.12
- _ZNK14MP3AudioReader11getPositionEv@Base 2.0.0~alpha1.12
- _ZNK14MP3AudioReader12getErrorCodeEv@Base 2.0.0~alpha1.12
- _ZNK14MP3AudioReader12getMediaInfoER9MediaInfo@Base 2.0.0~alpha1.12
- _ZNK14MP3AudioReader14getMaxPositionEv@Base 2.0.0~alpha1.12
- _ZNK14MP3AudioReader5readyEv@Base 2.0.0~alpha1.12
- _ZNK14WavAudioReader11getPositionEv@Base 2.0.0~alpha1.12
- _ZNK14WavAudioReader12getErrorCodeEv@Base 2.0.0~alpha1.12
- _ZNK14WavAudioReader12getMediaInfoER9MediaInfo@Base 2.0.0~alpha1.12
- _ZNK14WavAudioReader14getMaxPositionEv@Base 2.0.0~alpha1.12
- _ZNK14WavAudioReader5readyEv@Base 2.0.0~alpha1.12
- _ZNK16MultiAudioReader11getPositionEv@Base 2.0.0~alpha1.12
- _ZNK16MultiAudioReader12getErrorCodeEv@Base 2.0.0~alpha1.12
- _ZNK16MultiAudioReader12getMediaInfoER9MediaInfo@Base 2.0.0~alpha1.12
- _ZNK16MultiAudioReader14getMaxPositionEv@Base 2.0.0~alpha1.12
- _ZNK16MultiAudioReader5readyEv@Base 2.0.0~alpha1.12
- _ZTI14MP3AudioReader@Base 2.0.0~alpha1.12
- _ZTI14WavAudioReader@Base 2.0.0~alpha1.12
- _ZTI16MultiAudioReader@Base 2.0.0~alpha1.12
- _ZTI20AudioReaderInterface@Base 2.0.0~alpha1.12
- _ZTI21AudioQualityInterface@Base 2.0.0~alpha1.12
- _ZTI31AdjustableAudioQualityInterface@Base 2.0.0~alpha1.12
- _ZTS14MP3AudioReader@Base 2.0.0~alpha1.12
- _ZTS14WavAudioReader@Base 2.0.0~alpha1.12
- _ZTS16MultiAudioReader@Base 2.0.0~alpha1.12
- _ZTS20AudioReaderInterface@Base 2.0.0~alpha1.12
- _ZTS21AudioQualityInterface@Base 2.0.0~alpha1.12
- _ZTS31AdjustableAudioQualityInterface@Base 2.0.0~alpha1.12
- _ZTT14MP3AudioReader@Base 2.0.0~alpha1.12
- _ZTT14WavAudioReader@Base 2.0.0~alpha1.12
- _ZTT16MultiAudioReader@Base 2.0.0~alpha1.12
- _ZTV14MP3AudioReader@Base 2.0.0~alpha1.12
- _ZTV14WavAudioReader@Base 2.0.0~alpha1.12
- _ZTV16MultiAudioReader@Base 2.0.0~alpha1.12
- _ZTV21AudioQualityInterface@Base 2.0.0~alpha1.12
- (c++)"construction vtable for AdjustableAudioQualityInterface-in-MP3AudioReader@Base" 2.0.0~alpha1.12
- (c++)"construction vtable for AdjustableAudioQualityInterface-in-MultiAudioReader@Base" 2.0.0~alpha1.12
- (c++)"construction vtable for AdjustableAudioQualityInterface-in-WavAudioReader@Base" 2.0.0~alpha1.12
- (c++)"construction vtable for AudioQuality-in-MP3AudioReader@Base" 2.0.0~alpha1.12
- (c++)"construction vtable for AudioQuality-in-MultiAudioReader@Base" 2.0.0~alpha1.12
- (c++)"construction vtable for AudioQuality-in-WavAudioReader@Base" 2.0.0~alpha1.12
- (c++)"construction vtable for AudioReaderInterface-in-MP3AudioReader@Base" 2.0.0~alpha1.12
- (c++)"construction vtable for AudioReaderInterface-in-MultiAudioReader@Base" 2.0.0~alpha1.12
- (c++)"construction vtable for AudioReaderInterface-in-WavAudioReader@Base" 2.0.0~alpha1.12
- (c++)"non-virtual thunk to MP3AudioReader::attachdevice()@Base" 2.0.0~alpha1.12
- (c++)"non-virtual thunk to MP3AudioReader::~MP3AudioReader()@Base" 2.0.0~alpha1.12
- (c++)"non-virtual thunk to MP3AudioReader::putblock_nt(void*, int)@Base" 2.0.0~alpha1.12
- (c++)"non-virtual thunk to MP3AudioReader::putblock(void*, int)@Base" 2.0.0~alpha1.12
- (c++)"non-virtual thunk to MP3AudioReader::releasedevice()@Base" 2.0.0~alpha1.12
- (c++)"non-virtual thunk to MP3AudioReader::set8bitmode()@Base" 2.0.0~alpha1.12
- (c++)"non-virtual thunk to MP3AudioReader::setsoundtype(int, int, int)@Base" 2.0.0~alpha1.12
- (c++|regex)"^MP3AudioReader::setPosition\(.*\)@Base$" 2.0.0~alpha1.12
- (c++|regex)"^MultiAudioReader::setPosition\(.*\)@Base$" 2.0.0~alpha1.12
- (c++|regex)"^std::multimap<.*>::~multimap\(\)@Base$" 2.0.0~alpha1.12
- (c++|regex)"^std::_Rb_tree<.*>::_M_erase\(.*\)@Base$" 2.0.0~alpha1.12
- (c++|regex)"^std::_Rb_tree<.*>::_M_insert_\(.*\)@Base$" 2.0.0~alpha1.12
- (c++|regex)"^virtual thunk to MultiAudioReader::setPosition\(.*\)@Base$" 2.0.0~alpha1.12
- (c++|regex)"^virtual thunk to WavAudioReader::setPosition\(.*\)@Base$" 2.0.0~alpha1.12
- (c++|regex)"^WavAudioReader::setPosition\(.*\)@Base$" 2.0.0~alpha1.12
- (c++)"virtual thunk to MultiAudioReader::closeMedia()@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to MultiAudioReader::getErrorCode() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to MultiAudioReader::getMaxPosition() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to MultiAudioReader::getMediaInfo(MediaInfo&) const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to MultiAudioReader::getNextBlock(void*, unsigned int)@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to MultiAudioReader::getPosition() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to MultiAudioReader::openMedia(char const*)@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to MultiAudioReader::ready() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to WavAudioReader::closeMedia()@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to WavAudioReader::getErrorCode() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to WavAudioReader::getMaxPosition() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to WavAudioReader::getMediaInfo(MediaInfo&) const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to WavAudioReader::getNextBlock(void*, unsigned int)@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to WavAudioReader::getPosition() const@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to WavAudioReader::openMedia(char const*)@Base" 2.0.0~alpha1.12
- (c++)"virtual thunk to WavAudioReader::ready() const@Base" 2.0.0~alpha1.12
+ _Z5debugPKcz@Base 2.0.0~beta1.1
+ _ZN14MP3AudioReader10closeMediaEv@Base 2.0.0~beta1.1
+ _ZN14MP3AudioReader10initializeEPc@Base 2.0.0~beta1.1
+ _ZN14MP3AudioReader11putblock_ntEPvi@Base 2.0.0~beta1.1
+ _ZN14MP3AudioReader11set8bitmodeEv@Base 2.0.0~beta1.1
+ _ZN14MP3AudioReader12attachdeviceEv@Base 2.0.0~beta1.1
+ _ZN14MP3AudioReader12getNextBlockEPvj@Base 2.0.0~beta1.1
+ _ZN14MP3AudioReader12setsoundtypeEiii@Base 2.0.0~beta1.1
+ _ZN14MP3AudioReader13readNextFrameEv@Base 2.0.0~beta1.1
+ _ZN14MP3AudioReader13releasedeviceEv@Base 2.0.0~beta1.1
+ _ZN14MP3AudioReader8putblockEPvi@Base 2.0.0~beta1.1
+ _ZN14MP3AudioReader9openMediaEPKc@Base 2.0.0~beta1.1
+ _ZN14MP3AudioReaderC1EPKc@Base 2.0.0~beta1.1
+ _ZN14MP3AudioReaderC2EPKc@Base 2.0.0~beta1.1
+ _ZN14MP3AudioReaderD0Ev@Base 2.0.0~beta1.1
+ _ZN14MP3AudioReaderD1Ev@Base 2.0.0~beta1.1
+ _ZN14MP3AudioReaderD2Ev@Base 2.0.0~beta1.1
+ _ZN14WavAudioReader10closeMediaEv@Base 2.0.0~beta1.1
+ _ZN14WavAudioReader12getNextBlockEPvj@Base 2.0.0~beta1.1
+ _ZN14WavAudioReader8getChunkERNS_10RIFF_ChunkE@Base 2.0.0~beta1.1
+ _ZN14WavAudioReader9openMediaEPKc@Base 2.0.0~beta1.1
+ _ZN14WavAudioReaderC1EPKc@Base 2.0.0~beta1.1
+ _ZN14WavAudioReaderC2EPKc@Base 2.0.0~beta1.1
+ _ZN14WavAudioReaderD1Ev@Base 2.0.0~beta1.1
+ _ZN14WavAudioReaderD2Ev@Base 2.0.0~beta1.1
+ _ZN16MultiAudioReader10closeMediaEv@Base 2.0.0~beta1.1
+ _ZN16MultiAudioReader11ReaderEntryD1Ev@Base 2.0.0~beta1.1
+ _ZN16MultiAudioReader11ReaderEntryD2Ev@Base 2.0.0~beta1.1
+ _ZN16MultiAudioReader12getNextBlockEPvj@Base 2.0.0~beta1.1
+ _ZN16MultiAudioReader14getAudioReaderEPKcj@Base 2.0.0~beta1.1
+ _ZN16MultiAudioReader9openMediaEPKc@Base 2.0.0~beta1.1
+ _ZN16MultiAudioReaderC1EPKcj@Base 2.0.0~beta1.1
+ _ZN16MultiAudioReaderC2EPKcj@Base 2.0.0~beta1.1
+ _ZN16MultiAudioReaderD1Ev@Base 2.0.0~beta1.1
+ _ZN16MultiAudioReaderD2Ev@Base 2.0.0~beta1.1
+ _ZNK14MP3AudioReader11getPositionEv@Base 2.0.0~beta1.1
+ _ZNK14MP3AudioReader12getErrorCodeEv@Base 2.0.0~beta1.1
+ _ZNK14MP3AudioReader12getMediaInfoER9MediaInfo@Base 2.0.0~beta1.1
+ _ZNK14MP3AudioReader14getMaxPositionEv@Base 2.0.0~beta1.1
+ _ZNK14MP3AudioReader5readyEv@Base 2.0.0~beta1.1
+ _ZNK14WavAudioReader11getPositionEv@Base 2.0.0~beta1.1
+ _ZNK14WavAudioReader12getErrorCodeEv@Base 2.0.0~beta1.1
+ _ZNK14WavAudioReader12getMediaInfoER9MediaInfo@Base 2.0.0~beta1.1
+ _ZNK14WavAudioReader14getMaxPositionEv@Base 2.0.0~beta1.1
+ _ZNK14WavAudioReader5readyEv@Base 2.0.0~beta1.1
+ _ZNK16MultiAudioReader11getPositionEv@Base 2.0.0~beta1.1
+ _ZNK16MultiAudioReader12getErrorCodeEv@Base 2.0.0~beta1.1
+ _ZNK16MultiAudioReader12getMediaInfoER9MediaInfo@Base 2.0.0~beta1.1
+ _ZNK16MultiAudioReader14getMaxPositionEv@Base 2.0.0~beta1.1
+ _ZNK16MultiAudioReader5readyEv@Base 2.0.0~beta1.1
+ _ZTI14MP3AudioReader@Base 2.0.0~beta1.1
+ _ZTI14WavAudioReader@Base 2.0.0~beta1.1
+ _ZTI16MultiAudioReader@Base 2.0.0~beta1.1
+ _ZTI20AudioReaderInterface@Base 2.0.0~beta1.1
+ _ZTI21AudioQualityInterface@Base 2.0.0~beta1.1
+ _ZTI31AdjustableAudioQualityInterface@Base 2.0.0~beta1.1
+ _ZTS14MP3AudioReader@Base 2.0.0~beta1.1
+ _ZTS14WavAudioReader@Base 2.0.0~beta1.1
+ _ZTS16MultiAudioReader@Base 2.0.0~beta1.1
+ _ZTS20AudioReaderInterface@Base 2.0.0~beta1.1
+ _ZTS21AudioQualityInterface@Base 2.0.0~beta1.1
+ _ZTS31AdjustableAudioQualityInterface@Base 2.0.0~beta1.1
+ _ZTT14MP3AudioReader@Base 2.0.0~beta1.1
+ _ZTT14WavAudioReader@Base 2.0.0~beta1.1
+ _ZTT16MultiAudioReader@Base 2.0.0~beta1.1
+ _ZTV14MP3AudioReader@Base 2.0.0~beta1.1
+ _ZTV14WavAudioReader@Base 2.0.0~beta1.1
+ _ZTV16MultiAudioReader@Base 2.0.0~beta1.1
+ _ZTV21AudioQualityInterface@Base 2.0.0~beta1.1
+ (c++)"construction vtable for AdjustableAudioQualityInterface-in-MP3AudioReader@Base" 2.0.0~beta1.1
+ (c++)"construction vtable for AdjustableAudioQualityInterface-in-MultiAudioReader@Base" 2.0.0~beta1.1
+ (c++)"construction vtable for AdjustableAudioQualityInterface-in-WavAudioReader@Base" 2.0.0~beta1.1
+ (c++)"construction vtable for AudioQuality-in-MP3AudioReader@Base" 2.0.0~beta1.1
+ (c++)"construction vtable for AudioQuality-in-MultiAudioReader@Base" 2.0.0~beta1.1
+ (c++)"construction vtable for AudioQuality-in-WavAudioReader@Base" 2.0.0~beta1.1
+ (c++)"construction vtable for AudioReaderInterface-in-MP3AudioReader@Base" 2.0.0~beta1.1
+ (c++)"construction vtable for AudioReaderInterface-in-MultiAudioReader@Base" 2.0.0~beta1.1
+ (c++)"construction vtable for AudioReaderInterface-in-WavAudioReader@Base" 2.0.0~beta1.1
+ (c++)"non-virtual thunk to MP3AudioReader::attachdevice()@Base" 2.0.0~beta1.1
+ (c++)"non-virtual thunk to MP3AudioReader::~MP3AudioReader()@Base" 2.0.0~beta1.1
+ (c++)"non-virtual thunk to MP3AudioReader::putblock_nt(void*, int)@Base" 2.0.0~beta1.1
+ (c++)"non-virtual thunk to MP3AudioReader::putblock(void*, int)@Base" 2.0.0~beta1.1
+ (c++)"non-virtual thunk to MP3AudioReader::releasedevice()@Base" 2.0.0~beta1.1
+ (c++)"non-virtual thunk to MP3AudioReader::set8bitmode()@Base" 2.0.0~beta1.1
+ (c++)"non-virtual thunk to MP3AudioReader::setsoundtype(int, int, int)@Base" 2.0.0~beta1.1
+ (c++|regex)"^MP3AudioReader::setPosition\(.*\)@Base$" 2.0.0~beta1.1
+ (c++|regex)"^MultiAudioReader::setPosition\(.*\)@Base$" 2.0.0~beta1.1
+ (c++|regex)"^std::multimap<.*>::~multimap\(\)@Base$" 2.0.0~beta1.1
+ (c++|regex)"^std::_Rb_tree<.*>::_M_erase\(.*\)@Base$" 2.0.0~beta1.1
+ (c++|regex)"^std::_Rb_tree<.*>::_M_insert_\(.*\)@Base$" 2.0.0~beta1.1
+ (c++|regex)"^virtual thunk to MultiAudioReader::setPosition\(.*\)@Base$" 2.0.0~beta1.1
+ (c++|regex)"^virtual thunk to WavAudioReader::setPosition\(.*\)@Base$" 2.0.0~beta1.1
+ (c++|regex)"^WavAudioReader::setPosition\(.*\)@Base$" 2.0.0~beta1.1
+ (c++)"virtual thunk to MultiAudioReader::closeMedia()@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to MultiAudioReader::getErrorCode() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to MultiAudioReader::getMaxPosition() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to MultiAudioReader::getMediaInfo(MediaInfo&) const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to MultiAudioReader::getNextBlock(void*, unsigned int)@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to MultiAudioReader::getPosition() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to MultiAudioReader::openMedia(char const*)@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to MultiAudioReader::ready() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to WavAudioReader::closeMedia()@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to WavAudioReader::getErrorCode() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to WavAudioReader::getMaxPosition() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to WavAudioReader::getMediaInfo(MediaInfo&) const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to WavAudioReader::getNextBlock(void*, unsigned int)@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to WavAudioReader::getPosition() const@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to WavAudioReader::openMedia(char const*)@Base" 2.0.0~beta1.1
+ (c++)"virtual thunk to WavAudioReader::ready() const@Base" 2.0.0~beta1.1

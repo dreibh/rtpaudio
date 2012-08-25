@@ -3,7 +3,7 @@ AC_INIT(rtpaudio/rtpa-server.cc)
 AC_CONFIG_AUX_DIR(admin)
 AC_CONFIG_MACRO_DIR([m4])
 AC_CANONICAL_HOST
-AM_INIT_AUTOMAKE(rtpaudio, 2.0.0~alpha4)
+AM_INIT_AUTOMAKE(rtpaudio, 2.0.0~beta1.1)
 AC_PREFIX_DEFAULT(/usr/local)
 if test "x$prefix" = "xNONE"; then
   prefix=$ac_default_prefix
@@ -432,6 +432,16 @@ if test "${enable_qt}" = "yes"; then
    AC_DEFINE(ENABLE_QT, 1, [QT is usable])
 else
    echo "Skipping checks for QT, since it is not requested."
+fi
+
+
+# ###### colorgcc ###########################################################
+AC_CHECK_PROG([COLORGCC], [colorgcc], [yes], [no])
+if test "$COLORGCC" == "yes"
+then
+   AC_MSG_NOTICE([Compiling using colorgcc])
+   CC=colorgcc
+   CXX=colorgcc
 fi
 
 

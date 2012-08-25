@@ -1,4 +1,4 @@
-rtpaudio (2.0.0~alpha4-1ubuntu1) precise; urgency=low
+rtpaudio (2.0.0~beta1.1-1ubuntu1) quantal; urgency=low
 
   * New upstream package.
   * Initial Debian release (Closes: #669908).
