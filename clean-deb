@@ -1,8 +1,8 @@
 #!/bin/bash
-# $Id: clean-deb 1365 2012-04-21 19:21:13Z dreibh $
+# $Id: clean-deb 2777 2013-05-30 11:33:33Z dreibh $
 #
 # Debian Packaging Scripts
-# Copyright (C) 2002-2012 by Thomas Dreibholz
+# Copyright (C) 2002-2013 by Thomas Dreibholz
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
