@@ -3,7 +3,7 @@ AC_INIT(rtpaudio/rtpa-server.cc)
 AC_CONFIG_AUX_DIR(admin)
 AC_CONFIG_MACRO_DIR([m4])
 AC_CANONICAL_HOST
-AM_INIT_AUTOMAKE(rtpaudio, 2.0.0~beta1.1)
+AM_INIT_AUTOMAKE(rtpaudio, 2.0.0~beta1.2)
 AC_PREFIX_DEFAULT(/usr/local)
 if test "x$prefix" = "xNONE"; then
   prefix=$ac_default_prefix
@@ -436,12 +436,17 @@ fi
 
 
 # ###### colorgcc ###########################################################
-AC_CHECK_PROG([COLORGCC], [colorgcc], [yes], [no])
-if test "$COLORGCC" == "yes"
-then
-   AC_MSG_NOTICE([Compiling using colorgcc])
-   CC=colorgcc
-   CXX=colorgcc
+AC_ARG_ENABLE([colorgcc],
+              [  --enable-colorgcc       enable colorgcc support ][default=yes]],
+              enable_colorgcc=$enableval, enable_colorgcc=yes)
+if test "${enable_colorgcc}" = "yes"; then
+   AC_CHECK_PROG([COLORGCC], [colorgcc], [yes], [no])
+   if test "$COLORGCC" == "yes"
+   then
+      AC_MSG_NOTICE([Compiling using colorgcc])
+      CC="colorgcc"
+      CXX="colorgcc -lstdc++"
+   fi
 fi
 
 

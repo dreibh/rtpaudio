@@ -1,5 +1,5 @@
 librtpaudiocommon.so.0 librtpaudiocommon0 #MINVER#
- _ZN20AudioClientAppPacket5resetEv@Base 2.0.0~beta1.1
- _ZN20AudioClientAppPacket9translateEv@Base 2.0.0~beta1.1
- _ZN20AudioClientAppPacketC1Ev@Base 2.0.0~beta1.1
- _ZN20AudioClientAppPacketC2Ev@Base 2.0.0~beta1.1
+ _ZN20AudioClientAppPacket5resetEv@Base 2.0.0~beta1.2
+ _ZN20AudioClientAppPacket9translateEv@Base 2.0.0~beta1.2
+ _ZN20AudioClientAppPacketC1Ev@Base 2.0.0~beta1.2
+ _ZN20AudioClientAppPacketC2Ev@Base 2.0.0~beta1.2
