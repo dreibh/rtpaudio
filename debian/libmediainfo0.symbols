@@ -1,6 +1,0 @@
-libmediainfo.so.0 libmediainfo0 #MINVER#
- _ZN9MediaInfo5resetEv@Base 2.0.0~beta1.2
- _ZN9MediaInfo9translateEv@Base 2.0.0~beta1.2
- _ZN9MediaInfoC1Ev@Base 2.0.0~beta1.2
- _ZN9MediaInfoC2Ev@Base 2.0.0~beta1.2
- _ZlsRSoRK9MediaInfo@Base 2.0.0~beta1.2
