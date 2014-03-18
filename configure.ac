@@ -1,7 +1,6 @@
 # ###### Basic setup ########################################################
 AC_INIT(rtpaudio/rtpa-server.cc)
 AC_CONFIG_AUX_DIR(admin)
-AC_CONFIG_MACRO_DIR([m4])
 AC_CANONICAL_HOST
 AM_INIT_AUTOMAKE(rtpaudio, 2.0.0~beta1.3)
 AC_PREFIX_DEFAULT(/usr/local)
