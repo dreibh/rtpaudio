@@ -1,7 +1,7 @@
 # $Id: acinclude.m4 2608 2011-11-23 07:52:38Z dreibh $
 # Check for Qt 4.x compiler flags, linker flags, and binary packages
 #
-# Copyright (C) 2002-2012 by Thomas Dreibholz
+# Copyright (C) 2002-2014 by Thomas Dreibholz
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

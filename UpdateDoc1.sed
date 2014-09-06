@@ -1,3 +1,2 @@
-s/####                    Master Thesis Implementation                  ####/####                   Master Thesis Implementation                   ####/g
-s/####                  DiffServ with A Priori Knowledge                ####/####                 DiffServ with A Priori Knowledge                 ####/g
-s/Dreibholz@bigfoot.com/dreibh@iem.uni-due.de/g
+s/2012 by Thomas Dreibholz/2014 by Thomas Dreibholz/g
+s/January 2, 2012/September 6, 2014/g
