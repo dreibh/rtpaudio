@@ -1,4 +1,2100 @@
 ------------------------------------------------------------------------
+r1913 | dreibh | 2014-09-06 21:57:02 +0200 (Sat, 06 Sep 2014) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/UpdateDoc1.sed
+   M /trunk/rtpaudio2/acinclude.m4
+   M /trunk/rtpaudio2/configure.ac
+   M /trunk/rtpaudio2/debian/changelog
+   M /trunk/rtpaudio2/debian/copyright
+   M /trunk/rtpaudio2/rtpaudio/Makefile.am
+   M /trunk/rtpaudio2/rtpaudio/abstractlayerdescription.cc
+   M /trunk/rtpaudio2/rtpaudio/abstractlayerdescription.h
+   M /trunk/rtpaudio2/rtpaudio/abstractlayerdescription.icc
+   M /trunk/rtpaudio2/rtpaudio/abstractqosdescription.cc
+   M /trunk/rtpaudio2/rtpaudio/abstractqosdescription.h
+   M /trunk/rtpaudio2/rtpaudio/abstractqosdescription.icc
+   M /trunk/rtpaudio2/rtpaudio/advancedaudiodecoder.cc
+   M /trunk/rtpaudio2/rtpaudio/advancedaudiodecoder.h
+   M /trunk/rtpaudio2/rtpaudio/advancedaudioencoder.cc
+   M /trunk/rtpaudio2/rtpaudio/advancedaudioencoder.h
+   M /trunk/rtpaudio2/rtpaudio/advancedaudiopacket.cc
+   M /trunk/rtpaudio2/rtpaudio/advancedaudiopacket.h
+   M /trunk/rtpaudio2/rtpaudio/audioclient.cc
+   M /trunk/rtpaudio2/rtpaudio/audioclient.h
+   M /trunk/rtpaudio2/rtpaudio/audioclient.icc
+   M /trunk/rtpaudio2/rtpaudio/audioclientapppacket.cc
+   M /trunk/rtpaudio2/rtpaudio/audioclientapppacket.h
+   M /trunk/rtpaudio2/rtpaudio/audioconverter.cc
+   M /trunk/rtpaudio2/rtpaudio/audioconverter.h
+   M /trunk/rtpaudio2/rtpaudio/audiodebug.cc
+   M /trunk/rtpaudio2/rtpaudio/audiodebug.h
+   M /trunk/rtpaudio2/rtpaudio/audiodecoderinterface.cc
+   M /trunk/rtpaudio2/rtpaudio/audiodecoderinterface.h
+   M /trunk/rtpaudio2/rtpaudio/audiodecoderrepository.cc
+   M /trunk/rtpaudio2/rtpaudio/audiodecoderrepository.h
+   M /trunk/rtpaudio2/rtpaudio/audiodecoderrepository.icc
+   M /trunk/rtpaudio2/rtpaudio/audiodevice.cc
+   M /trunk/rtpaudio2/rtpaudio/audiodevice.h
+   M /trunk/rtpaudio2/rtpaudio/audiodevice.icc
+   M /trunk/rtpaudio2/rtpaudio/audioencoderinterface.cc
+   M /trunk/rtpaudio2/rtpaudio/audioencoderinterface.h
+   M /trunk/rtpaudio2/rtpaudio/audioencoderrepository.cc
+   M /trunk/rtpaudio2/rtpaudio/audioencoderrepository.h
+   M /trunk/rtpaudio2/rtpaudio/audioencoderrepository.icc
+   M /trunk/rtpaudio2/rtpaudio/audiomixer.cc
+   M /trunk/rtpaudio2/rtpaudio/audiomixer.h
+   M /trunk/rtpaudio2/rtpaudio/audiomixer.icc
+   M /trunk/rtpaudio2/rtpaudio/audionull.cc
+   M /trunk/rtpaudio2/rtpaudio/audionull.h
+   M /trunk/rtpaudio2/rtpaudio/audioquality.cc
+   M /trunk/rtpaudio2/rtpaudio/audioquality.h
+   M /trunk/rtpaudio2/rtpaudio/audioquality.icc
+   M /trunk/rtpaudio2/rtpaudio/audioqualityinterface.h
+   M /trunk/rtpaudio2/rtpaudio/audioqualityinterface.icc
+   M /trunk/rtpaudio2/rtpaudio/audioreaderinterface.cc
+   M /trunk/rtpaudio2/rtpaudio/audioreaderinterface.h
+   M /trunk/rtpaudio2/rtpaudio/audioserver.cc
+   M /trunk/rtpaudio2/rtpaudio/audioserver.h
+   M /trunk/rtpaudio2/rtpaudio/audioserver.icc
+   M /trunk/rtpaudio2/rtpaudio/audiowriterinterface.cc
+   M /trunk/rtpaudio2/rtpaudio/audiowriterinterface.h
+   M /trunk/rtpaudio2/rtpaudio/bandwidthinfo.cc
+   M /trunk/rtpaudio2/rtpaudio/bandwidthinfo.h
+   M /trunk/rtpaudio2/rtpaudio/bandwidthinfo.icc
+   M /trunk/rtpaudio2/rtpaudio/bandwidthmanager.cc
+   M /trunk/rtpaudio2/rtpaudio/bandwidthmanager.h
+   M /trunk/rtpaudio2/rtpaudio/bandwidthmanager.icc
+   M /trunk/rtpaudio2/rtpaudio/breakdetector.cc
+   M /trunk/rtpaudio2/rtpaudio/breakdetector.h
+   M /trunk/rtpaudio2/rtpaudio/condition.cc
+   M /trunk/rtpaudio2/rtpaudio/condition.h
+   M /trunk/rtpaudio2/rtpaudio/condition.icc
+   M /trunk/rtpaudio2/rtpaudio/convert-to-ogg
+   M /trunk/rtpaudio2/rtpaudio/decoderinterface.h
+   M /trunk/rtpaudio2/rtpaudio/decoderrepositoryinterface.h
+   M /trunk/rtpaudio2/rtpaudio/encoderinterface.h
+   M /trunk/rtpaudio2/rtpaudio/encoderrepositoryinterface.h
+   M /trunk/rtpaudio2/rtpaudio/ext_socket.h
+   M /trunk/rtpaudio2/rtpaudio/fft.cc
+   M /trunk/rtpaudio2/rtpaudio/fft.h
+   M /trunk/rtpaudio2/rtpaudio/frameratescalabilityinterface.h
+   M /trunk/rtpaudio2/rtpaudio/framesizescalabilityinterface.h
+   M /trunk/rtpaudio2/rtpaudio/internetaddress.cc
+   M /trunk/rtpaudio2/rtpaudio/internetaddress.h
+   M /trunk/rtpaudio2/rtpaudio/internetaddress.icc
+   M /trunk/rtpaudio2/rtpaudio/internetflow.cc
+   M /trunk/rtpaudio2/rtpaudio/internetflow.h
+   M /trunk/rtpaudio2/rtpaudio/internetflow.icc
+   M /trunk/rtpaudio2/rtpaudio/managedstreaminterface.h
+   M /trunk/rtpaudio2/rtpaudio/mediainfo.cc
+   M /trunk/rtpaudio2/rtpaudio/mediainfo.h
+   M /trunk/rtpaudio2/rtpaudio/mp3audioreader.cc
+   M /trunk/rtpaudio2/rtpaudio/mp3audioreader.h
+   M /trunk/rtpaudio2/rtpaudio/multiaudioreader.cc
+   M /trunk/rtpaudio2/rtpaudio/multiaudioreader.h
+   M /trunk/rtpaudio2/rtpaudio/multiaudiowriter.cc
+   M /trunk/rtpaudio2/rtpaudio/multiaudiowriter.h
+   M /trunk/rtpaudio2/rtpaudio/multitimerthread.h
+   M /trunk/rtpaudio2/rtpaudio/multitimerthread.icc
+   M /trunk/rtpaudio2/rtpaudio/packetaddress.cc
+   M /trunk/rtpaudio2/rtpaudio/packetaddress.h
+   M /trunk/rtpaudio2/rtpaudio/packetaddress.icc
+   M /trunk/rtpaudio2/rtpaudio/pingerhost.h
+   M /trunk/rtpaudio2/rtpaudio/pingerhost.icc
+   M /trunk/rtpaudio2/rtpaudio/portableaddress.h
+   M /trunk/rtpaudio2/rtpaudio/portableaddress.icc
+   M /trunk/rtpaudio2/rtpaudio/qaudiomixer.cc
+   M /trunk/rtpaudio2/rtpaudio/qaudiomixer.h
+   M /trunk/rtpaudio2/rtpaudio/qinfotabwidget.cc
+   M /trunk/rtpaudio2/rtpaudio/qinfotabwidget.h
+   M /trunk/rtpaudio2/rtpaudio/qosmanagerinterface.h
+   M /trunk/rtpaudio2/rtpaudio/qspectrumanalyzer.cc
+   M /trunk/rtpaudio2/rtpaudio/qspectrumanalyzer.h
+   M /trunk/rtpaudio2/rtpaudio/randomizer.cc
+   M /trunk/rtpaudio2/rtpaudio/randomizer.h
+   M /trunk/rtpaudio2/rtpaudio/randomizer.icc
+   M /trunk/rtpaudio2/rtpaudio/resourceutilizationpoint.cc
+   M /trunk/rtpaudio2/rtpaudio/resourceutilizationpoint.h
+   M /trunk/rtpaudio2/rtpaudio/resourceutilizationpoint.icc
+   M /trunk/rtpaudio2/rtpaudio/ringbuffer.cc
+   M /trunk/rtpaudio2/rtpaudio/ringbuffer.h
+   M /trunk/rtpaudio2/rtpaudio/ringbuffer.icc
+   M /trunk/rtpaudio2/rtpaudio/roundtriptimepinger.cc
+   M /trunk/rtpaudio2/rtpaudio/roundtriptimepinger.h
+   M /trunk/rtpaudio2/rtpaudio/roundtriptimepinger.icc
+   M /trunk/rtpaudio2/rtpaudio/rtcpabstractserver.cc
+   M /trunk/rtpaudio2/rtpaudio/rtcpabstractserver.h
+   M /trunk/rtpaudio2/rtpaudio/rtcpabstractserver.icc
+   M /trunk/rtpaudio2/rtpaudio/rtcppacket.cc
+   M /trunk/rtpaudio2/rtpaudio/rtcppacket.h
+   M /trunk/rtpaudio2/rtpaudio/rtcppacket.icc
+   M /trunk/rtpaudio2/rtpaudio/rtcpreceiver.cc
+   M /trunk/rtpaudio2/rtpaudio/rtcpreceiver.h
+   M /trunk/rtpaudio2/rtpaudio/rtcpsender.cc
+   M /trunk/rtpaudio2/rtpaudio/rtcpsender.h
+   M /trunk/rtpaudio2/rtpaudio/rtpa-client.1
+   M /trunk/rtpaudio2/rtpaudio/rtpa-client.cc
+   M /trunk/rtpaudio2/rtpaudio/rtpa-qclient.1
+   M /trunk/rtpaudio2/rtpaudio/rtpa-qclient.cc
+   M /trunk/rtpaudio2/rtpaudio/rtpa-qclient.h
+   M /trunk/rtpaudio2/rtpaudio/rtpa-server.1
+   M /trunk/rtpaudio2/rtpaudio/rtpa-server.cc
+   M /trunk/rtpaudio2/rtpaudio/rtpa-vclient.1
+   M /trunk/rtpaudio2/rtpaudio/rtpa-vclient.cc
+   M /trunk/rtpaudio2/rtpaudio/rtppacket.cc
+   M /trunk/rtpaudio2/rtpaudio/rtppacket.h
+   M /trunk/rtpaudio2/rtpaudio/rtppacket.icc
+   M /trunk/rtpaudio2/rtpaudio/rtpreceiver.cc
+   M /trunk/rtpaudio2/rtpaudio/rtpreceiver.h
+   M /trunk/rtpaudio2/rtpaudio/rtpreceiver.icc
+   M /trunk/rtpaudio2/rtpaudio/rtpsender.cc
+   M /trunk/rtpaudio2/rtpaudio/rtpsender.h
+   M /trunk/rtpaudio2/rtpaudio/rtpsender.icc
+   M /trunk/rtpaudio2/rtpaudio/s2.cc
+   M /trunk/rtpaudio2/rtpaudio/seqnumvalidator.cc
+   M /trunk/rtpaudio2/rtpaudio/seqnumvalidator.h
+   M /trunk/rtpaudio2/rtpaudio/seqnumvalidator.icc
+   M /trunk/rtpaudio2/rtpaudio/servicelevelagreement.cc
+   M /trunk/rtpaudio2/rtpaudio/servicelevelagreement.h
+   M /trunk/rtpaudio2/rtpaudio/servicelevelagreement.icc
+   M /trunk/rtpaudio2/rtpaudio/sessiondescription.h
+   M /trunk/rtpaudio2/rtpaudio/simpleaudiodecoder.cc
+   M /trunk/rtpaudio2/rtpaudio/simpleaudiodecoder.h
+   M /trunk/rtpaudio2/rtpaudio/simpleaudioencoder.cc
+   M /trunk/rtpaudio2/rtpaudio/simpleaudioencoder.h
+   M /trunk/rtpaudio2/rtpaudio/simpleaudiopacket.cc
+   M /trunk/rtpaudio2/rtpaudio/simpleaudiopacket.h
+   M /trunk/rtpaudio2/rtpaudio/socketaddress.cc
+   M /trunk/rtpaudio2/rtpaudio/socketaddress.h
+   M /trunk/rtpaudio2/rtpaudio/socketaddress.icc
+   M /trunk/rtpaudio2/rtpaudio/sourcestateinfo.cc
+   M /trunk/rtpaudio2/rtpaudio/sourcestateinfo.h
+   M /trunk/rtpaudio2/rtpaudio/sourcestateinfo.icc
+   M /trunk/rtpaudio2/rtpaudio/spectrumanalyzer.cc
+   M /trunk/rtpaudio2/rtpaudio/spectrumanalyzer.h
+   M /trunk/rtpaudio2/rtpaudio/streamdescription.cc
+   M /trunk/rtpaudio2/rtpaudio/streamdescription.h
+   M /trunk/rtpaudio2/rtpaudio/synchronizable.cc
+   M /trunk/rtpaudio2/rtpaudio/synchronizable.h
+   M /trunk/rtpaudio2/rtpaudio/synchronizable.icc
+   M /trunk/rtpaudio2/rtpaudio/t1.cc
+   M /trunk/rtpaudio2/rtpaudio/tdin6.h
+   M /trunk/rtpaudio2/rtpaudio/tdmessage.h
+   M /trunk/rtpaudio2/rtpaudio/tdmessage.icc
+   M /trunk/rtpaudio2/rtpaudio/tdsocket.cc
+   M /trunk/rtpaudio2/rtpaudio/tdsocket.h
+   M /trunk/rtpaudio2/rtpaudio/tdsocket.icc
+   M /trunk/rtpaudio2/rtpaudio/tdstrings.cc
+   M /trunk/rtpaudio2/rtpaudio/tdstrings.h
+   M /trunk/rtpaudio2/rtpaudio/tdstrings.icc
+   M /trunk/rtpaudio2/rtpaudio/tdsystem.h
+   M /trunk/rtpaudio2/rtpaudio/thread.cc
+   M /trunk/rtpaudio2/rtpaudio/thread.h
+   M /trunk/rtpaudio2/rtpaudio/thread.icc
+   M /trunk/rtpaudio2/rtpaudio/timedthread.cc
+   M /trunk/rtpaudio2/rtpaudio/timedthread.h
+   M /trunk/rtpaudio2/rtpaudio/timedthread.icc
+   M /trunk/rtpaudio2/rtpaudio/tools.cc
+   M /trunk/rtpaudio2/rtpaudio/tools.h
+   M /trunk/rtpaudio2/rtpaudio/tools.icc
+   M /trunk/rtpaudio2/rtpaudio/trafficclassvalues.cc
+   M /trunk/rtpaudio2/rtpaudio/trafficclassvalues.h
+   M /trunk/rtpaudio2/rtpaudio/trafficclassvalues.icc
+   M /trunk/rtpaudio2/rtpaudio/trafficshaper.cc
+   M /trunk/rtpaudio2/rtpaudio/trafficshaper.h
+   M /trunk/rtpaudio2/rtpaudio/trafficshaper.icc
+   M /trunk/rtpaudio2/rtpaudio/unixaddress.cc
+   M /trunk/rtpaudio2/rtpaudio/unixaddress.h
+   M /trunk/rtpaudio2/rtpaudio/unixaddress.icc
+   M /trunk/rtpaudio2/rtpaudio/wavaudioreader.cc
+   M /trunk/rtpaudio2/rtpaudio/wavaudioreader.h
+
+Minor header updates.
+
+------------------------------------------------------------------------
+r1912 | dreibh | 2014-09-06 21:23:05 +0200 (Sat, 06 Sep 2014) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/configure.ac
+   M /trunk/rtpaudio2/debian/changelog
+   M /trunk/rtpaudio2/rtpaudio/Makefile.am
+   A /trunk/rtpaudio2/rtpaudio/audiodecoderinterface.cc
+   M /trunk/rtpaudio2/rtpaudio/audiodecoderinterface.h
+   M /trunk/rtpaudio2/rtpaudio/audiodecoderrepository.h
+   A /trunk/rtpaudio2/rtpaudio/audioencoderinterface.cc
+   M /trunk/rtpaudio2/rtpaudio/audioencoderinterface.h
+   A /trunk/rtpaudio2/rtpaudio/audioreaderinterface.cc
+   M /trunk/rtpaudio2/rtpaudio/audioreaderinterface.h
+   A /trunk/rtpaudio2/rtpaudio/audiowriterinterface.cc
+   M /trunk/rtpaudio2/rtpaudio/audiowriterinterface.h
+
+Some updates for Ubuntu 14.04.
+
+------------------------------------------------------------------------
+r1871 | dreibh | 2014-07-07 14:36:58 +0200 (Mon, 07 Jul 2014) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/configure.ac
+   M /trunk/rtpaudio2/debian/changelog
+   M /trunk/rtpaudio2/debian/control
+   M /trunk/rtpaudio2/make-ppa
+
+Build script updates.
+
+------------------------------------------------------------------------
+r1790 | dreibh | 2014-03-18 14:01:13 +0100 (Tue, 18 Mar 2014) | 2 lines
+Changed paths:
+   M /trunk/bibtexconv/Makefile.am
+   M /trunk/netperfmeter/Makefile.am
+   M /trunk/rtpaudio2/Makefile.am
+   M /trunk/subnetcalc/Makefile.am
+
+Makefile fix.
+
+------------------------------------------------------------------------
+r1788 | dreibh | 2014-03-18 13:28:16 +0100 (Tue, 18 Mar 2014) | 2 lines
+Changed paths:
+   M /trunk/bibtexconv/configure.ac
+   M /trunk/bibtexconv/rpm/bibtexconv.spec
+   D /trunk/netperfmeter/m4
+   M /trunk/rtpaudio2/configure.ac
+   M /trunk/slideshow/configure.ac
+   M /trunk/slideshow/debian/changelog
+   M /trunk/subnetcalc/configure.ac
+   M /trunk/subnetcalc/rpm/subnetcalc.spec
+   M /trunk/tsctp/configure.ac
+
+Removed separate "m4" directory from build process.
+
+------------------------------------------------------------------------
+r1780 | dreibh | 2014-03-14 18:33:46 +0100 (Fri, 14 Mar 2014) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/configure.ac
+   M /trunk/rtpaudio2/debian/changelog
+
+Build script update.
+
+------------------------------------------------------------------------
+r1751 | dreibh | 2013-11-29 19:29:38 +0100 (Fri, 29 Nov 2013) | 2 lines
+Changed paths:
+   D /trunk/rtpaudio2/debian/libaudiocodeccommon0.symbols
+   D /trunk/rtpaudio2/debian/libaudiocommon0.symbols
+   D /trunk/rtpaudio2/debian/libaudiodecoder0.symbols
+   D /trunk/rtpaudio2/debian/libaudioencoder0.symbols
+   D /trunk/rtpaudio2/debian/libaudioreader0.symbols
+   D /trunk/rtpaudio2/debian/libaudiowriter0.symbols
+   D /trunk/rtpaudio2/debian/libmediainfo0.symbols
+   D /trunk/rtpaudio2/debian/libmpegsound0.symbols
+   D /trunk/rtpaudio2/debian/libqosmgr0.symbols
+   D /trunk/rtpaudio2/debian/librtpaudioclient0.symbols
+   D /trunk/rtpaudio2/debian/librtpaudiocommon0.symbols
+   D /trunk/rtpaudio2/debian/librtpaudioserver0.symbols
+   D /trunk/rtpaudio2/debian/librtpclient0.symbols
+   D /trunk/rtpaudio2/debian/librtpcommon0.symbols
+   D /trunk/rtpaudio2/debian/librtpserver0.symbols
+   D /trunk/rtpaudio2/debian/libtdtoolbox0.symbols
+
+Removed old symbols files.
+
+------------------------------------------------------------------------
+r1736 | dreibh | 2013-11-05 16:48:22 +0100 (Tue, 05 Nov 2013) | 2 lines
+Changed paths:
+   M /trunk/bibtexconv/src/grammar.h
+   M /trunk/bibtexconv/src/t1.cc
+   M /trunk/cmt-rp-patches/new/sctp.h
+   M /trunk/cmt-rp-patches/new/sctp_cc_functions.c
+   M /trunk/cmt-rp-patches/new/sctp_structs.h
+   M /trunk/cmt-rp-patches/new/sctp_sysctl.c
+   M /trunk/cmt-rp-patches/new/sctp_sysctl.h
+   M /trunk/cmt-rp-patches/new/sctp_usrreq.c
+   M /trunk/cmt-rp-patches/new/sctputil.c
+   M /trunk/datacoll/correlator_impl.cc
+   M /trunk/datacoll/correlator_impl.h
+   M /trunk/datacoll/dccc.cc
+   M /trunk/datacoll/loglevel.cc
+   M /trunk/datacoll/loglevel.h
+   M /trunk/datacoll/nacstatistics.cc
+   M /trunk/datacoll/nacstatistics.h
+   M /trunk/datacoll/nacstatisticsmanager.cc
+   M /trunk/datacoll/nacstatisticsmanager.h
+   M /trunk/datacoll/rcastatistics.cc
+   M /trunk/datacoll/rcastatistics.h
+   M /trunk/datacoll/rcastatisticsmanager.cc
+   M /trunk/datacoll/rcastatisticsmanager.h
+   M /trunk/datacoll/statistics.cc
+   M /trunk/datacoll/statistics.h
+   M /trunk/datacoll/statisticsmanager.cc
+   M /trunk/datacoll/statisticsmanager.h
+   M /trunk/datacoll/statisticsset.cc
+   M /trunk/datacoll/statisticsset.h
+   M /trunk/datacoll/t1.cc
+   M /trunk/datacoll/t2.cc
+   M /trunk/datacoll/test-client.cc
+   M /trunk/datacoll/test-server.cc
+   M /trunk/datacoll/tools.cc
+   M /trunk/datacoll/tools.h
+   M /trunk/fractalgen1/fractalgenerator/colorschemeinterface.h
+   M /trunk/fractalgen1/fractalgenerator/configentry.h
+   M /trunk/fractalgen1/fractalgenerator/doubleconfigentry.h
+   M /trunk/fractalgen1/fractalgenerator/fractalalgorithminterface.h
+   M /trunk/fractalgen1/fractalgenerator/fractalbuffer.h
+   M /trunk/fractalgen1/fractalgenerator/fractalcalculationthread.h
+   M /trunk/fractalgen1/fractalgenerator/fractaldisplay.h
+   M /trunk/fractalgen1/fractalgenerator/fractalgenerator.h
+   M /trunk/fractalgen1/fractalgenerator/fractalgeneratordoc.h
+   M /trunk/fractalgen1/fractalgenerator/fractalgeneratorview.h
+   M /trunk/fractalgen1/fractalgenerator/mandelbrot.h
+   M /trunk/fractalgen1/fractalgenerator/mandelbrotn.h
+   M /trunk/fractalgen1/fractalgenerator/mylistviewitem.h
+   M /trunk/fractalgen1/fractalgenerator/optionsdialog.h
+   M /trunk/fractalgen1/fractalgenerator/simplehsv.h
+   M /trunk/fractalgen1/fractalgenerator/uintconfigentry.h
+   M /trunk/lksctp-patches/debug-bug/associola.c
+   M /trunk/lksctp-patches/rtx-bug/output.c
+   M /trunk/lksctp-patches/rtx-bug/outqueue.c
+   M /trunk/lws2003-beispiele/tree.cc
+   M /trunk/progtest/loglevel.cc
+   M /trunk/progtest/loglevel.h
+   M /trunk/progtest/progclient.cc
+   M /trunk/progtest/progpacket.h
+   M /trunk/progtest/progserver.cc
+   M /trunk/progtest/progserver.h
+   M /trunk/progtest/progviewer.cc
+   M /trunk/progtest/progviewer.h
+   M /trunk/progtest/t1.cc
+   M /trunk/progtest/t2.cc
+   M /trunk/progtest/tools.cc
+   M /trunk/progtest/tools.h
+   M /trunk/rtpaudio2/libmpegsound/bitwindow.cc
+   M /trunk/rtpaudio2/libmpegsound/cyclicbuffer.cc
+   M /trunk/rtpaudio2/libmpegsound/esdplayer.cc
+   M /trunk/rtpaudio2/libmpegsound/fileinput.cc
+   M /trunk/rtpaudio2/libmpegsound/fileplayer.cc
+   M /trunk/rtpaudio2/libmpegsound/filter.cc
+   M /trunk/rtpaudio2/libmpegsound/filter_2.cc
+   M /trunk/rtpaudio2/libmpegsound/httpinput.cc
+   M /trunk/rtpaudio2/libmpegsound/huffmantable.cc
+   M /trunk/rtpaudio2/libmpegsound/mpeglayer1.cc
+   M /trunk/rtpaudio2/libmpegsound/mpeglayer2.cc
+   M /trunk/rtpaudio2/libmpegsound/mpeglayer3.cc
+   M /trunk/rtpaudio2/libmpegsound/mpegtable.cc
+   M /trunk/rtpaudio2/libmpegsound/mpegtoraw.cc
+   M /trunk/rtpaudio2/libmpegsound/nasplayer.cc
+   M /trunk/rtpaudio2/libmpegsound/oggplayer.cc
+   M /trunk/rtpaudio2/libmpegsound/rawplayer.cc
+   M /trunk/rtpaudio2/libmpegsound/rawtofile.cc
+   M /trunk/rtpaudio2/libmpegsound/sdlplayer.cc
+   M /trunk/rtpaudio2/libmpegsound/sidplayer.cc
+   M /trunk/rtpaudio2/libmpegsound/soundinputstream.cc
+   M /trunk/rtpaudio2/libmpegsound/soundplayer.cc
+   M /trunk/rtpaudio2/libmpegsound/wavetoraw.cc
+   M /trunk/rtpaudio2/libmpegsound/xingheader.cc
+   M /trunk/snmptest/breakdetector.c
+   M /trunk/snmptest/breakdetector.h
+   M /trunk/snmptest/snmptest.cc
+   M /trunk/snmptest/t1.cc
+   M /trunk/snmptest/t2.cc
+   M /trunk/subnetcalc/src/t1.cc
+   M /trunk/tao-test/test-client.cc
+   M /trunk/tao-test/test-server.cc
+   M /trunk/tded/dblringlist.h
+   M /trunk/tded/pkt_sched.h
+   M /trunk/tded/q_tded.c
+   M /trunk/tded/sch_tded.c
+   M /trunk/tded/skbuff.c
+   M /trunk/tded/startpacket.h
+   M /trunk/tded/t1.c
+   M /trunk/tded/t2.c
+   M /trunk/tded/tdedsp.h
+   M /trunk/tded/testsuite.c
+   M /trunk/tded/testsuite.h
+
+Using SVN keywords:Id property.
+
+------------------------------------------------------------------------
+r1722 | dreibh | 2013-11-03 16:47:45 +0100 (Sun, 03 Nov 2013) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/Makefile.am
+   M /trunk/rtpaudio2/configure.ac
+   M /trunk/rtpaudio2/debian/changelog
+   M /trunk/rtpaudio2/debian/control
+   M /trunk/rtpaudio2/debian/libaudiocodeccommon0.symbols
+   M /trunk/rtpaudio2/debian/libaudiocommon0.symbols
+   M /trunk/rtpaudio2/debian/libaudiodecoder0.symbols
+   M /trunk/rtpaudio2/debian/libaudioencoder0.symbols
+   M /trunk/rtpaudio2/debian/libaudioreader0.symbols
+   M /trunk/rtpaudio2/debian/libaudiowriter0.symbols
+   M /trunk/rtpaudio2/debian/libmediainfo0.symbols
+   M /trunk/rtpaudio2/debian/libmpegsound0.symbols
+   M /trunk/rtpaudio2/debian/libqosmgr0.symbols
+   M /trunk/rtpaudio2/debian/librtpaudioclient0.symbols
+   M /trunk/rtpaudio2/debian/librtpaudiocommon0.symbols
+   M /trunk/rtpaudio2/debian/librtpaudioserver0.symbols
+   M /trunk/rtpaudio2/debian/librtpclient0.symbols
+   M /trunk/rtpaudio2/debian/librtpcommon0.symbols
+   M /trunk/rtpaudio2/debian/librtpserver0.symbols
+   M /trunk/rtpaudio2/debian/libtdtoolbox0.symbols
+   M /trunk/rtpaudio2/rtpaudio/Makefile.am
+
+Packaging script updates.
+
+------------------------------------------------------------------------
+r1671 | dreibh | 2013-10-18 23:52:07 +0200 (Fri, 18 Oct 2013) | 2 lines
+Changed paths:
+   M /trunk/bibtexconv/make-ppa
+   M /trunk/dia-experimental/make-ppa
+   M /trunk/fractgen2/make-ppa
+   M /trunk/netperfmeter/make-ppa
+   M /trunk/rtpaudio2/make-ppa
+   M /trunk/slideshow/make-ppa
+   M /trunk/subnetcalc/make-ppa
+   M /trunk/tsctp/make-ppa
+   M /trunk/wireshark-experimental/make-ppa
+
+Updated make-ppa.
+
+------------------------------------------------------------------------
+r1650 | dreibh | 2013-05-30 14:34:29 +0200 (Thu, 30 May 2013) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/build-deb
+   M /trunk/rtpaudio2/clean-deb
+   A /trunk/rtpaudio2/configure.ac (from /trunk/rtpaudio2/configure.in:1648)
+   D /trunk/rtpaudio2/configure.in
+   M /trunk/rtpaudio2/make-deb
+   M /trunk/rtpaudio2/make-ppa
+
+Build script updates.
+
+------------------------------------------------------------------------
+r1503 | dreibh | 2012-08-25 23:38:03 +0200 (Sat, 25 Aug 2012) | 1 line
+Changed paths:
+   A /trunk/rtpaudio2/build-deb (from /trunk/bibtexconv/build-deb:1498)
+   M /trunk/rtpaudio2/clean-deb
+   M /trunk/rtpaudio2/configure.in
+   M /trunk/rtpaudio2/debian/changelog
+   M /trunk/rtpaudio2/debian/control
+   M /trunk/rtpaudio2/debian/libaudiocodeccommon0.symbols
+   M /trunk/rtpaudio2/debian/libaudiocommon0.symbols
+   M /trunk/rtpaudio2/debian/libaudiodecoder0.symbols
+   M /trunk/rtpaudio2/debian/libaudioencoder0.symbols
+   M /trunk/rtpaudio2/debian/libaudioreader0.symbols
+   M /trunk/rtpaudio2/debian/libaudiowriter0.symbols
+   M /trunk/rtpaudio2/debian/libmediainfo0.symbols
+   M /trunk/rtpaudio2/debian/libmpegsound0.symbols
+   M /trunk/rtpaudio2/debian/libqosmgr0.symbols
+   M /trunk/rtpaudio2/debian/librtpaudioclient0.symbols
+   M /trunk/rtpaudio2/debian/librtpaudiocommon0.symbols
+   M /trunk/rtpaudio2/debian/librtpaudioserver0.symbols
+   M /trunk/rtpaudio2/debian/librtpclient0.symbols
+   M /trunk/rtpaudio2/debian/librtpcommon0.symbols
+   M /trunk/rtpaudio2/debian/librtpserver0.symbols
+   M /trunk/rtpaudio2/debian/libtdtoolbox0.symbols
+   M /trunk/rtpaudio2/debian.conf
+   M /trunk/rtpaudio2/make-deb
+
+Build script updates.
+------------------------------------------------------------------------
+r1502 | dreibh | 2012-08-25 23:36:39 +0200 (Sat, 25 Aug 2012) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/tdmessage.icc
+
+Minor fix.
+
+------------------------------------------------------------------------
+r1494 | dreibh | 2012-08-19 09:49:58 +0200 (Sun, 19 Aug 2012) | 2 lines
+Changed paths:
+   A /trunk/rtpaudio2/rtpaudio/background-essen.png
+   A /trunk/rtpaudio2/rtpaudio/doxyfile
+   A /trunk/rtpaudio2/rtpaudio/doxygen.css
+
+Added doxygen files.
+
+------------------------------------------------------------------------
+r1463 | dreibh | 2012-07-12 21:07:39 +0200 (Thu, 12 Jul 2012) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/configure.in
+   M /trunk/rtpaudio2/debian/changelog
+   M /trunk/rtpaudio2/make-ppa
+   A /trunk/rtpaudio2/rtpaudio/Test-MP3s
+   A /trunk/rtpaudio2/rtpaudio/Test-MP3s/PLACE-MEDIA-FILES-HERE
+
+Configuration updates.
+
+------------------------------------------------------------------------
+r1462 | dreibh | 2012-07-12 21:00:33 +0200 (Thu, 12 Jul 2012) | 2 lines
+Changed paths:
+   A /trunk/Test-MP3s (from /trunk/rtpaudio2/rtpaudio/Test-MP3s:1461)
+   D /trunk/rtpaudio2/rtpaudio/Test-MP3s
+
+Folder clean-ups.
+
+------------------------------------------------------------------------
+r1441 | dreibh | 2012-07-03 18:38:31 +0200 (Tue, 03 Jul 2012) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/internetaddress.cc
+   M /trunk/rtpaudio2/rtpaudio/internetaddress.h
+
+Bugfix: InternetAddress did not handle link-local-scoped IPv6 addresses correctly.
+
+------------------------------------------------------------------------
+r1368 | dreibh | 2012-04-21 22:37:21 +0200 (Sat, 21 Apr 2012) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio.lsm
+
+Update of LSM entry.
+
+------------------------------------------------------------------------
+r1367 | dreibh | 2012-04-21 22:33:03 +0200 (Sat, 21 Apr 2012) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/Makefile.am
+   M /trunk/rtpaudio2/clean-deb
+   M /trunk/rtpaudio2/configure.in
+   M /trunk/rtpaudio2/debian/changelog
+   M /trunk/rtpaudio2/debian/control
+   A /trunk/rtpaudio2/rtpaudio.lsm (from /trunk/subnetcalc/subnetcalc.lsm:1360)
+
+Packaging updates.
+
+------------------------------------------------------------------------
+r1337 | dreibh | 2012-02-06 14:39:47 +0100 (Mon, 06 Feb 2012) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/configure.in
+   M /trunk/rtpaudio2/debian/changelog
+
+Script updates.
+
+------------------------------------------------------------------------
+r1332 | dreibh | 2011-12-24 13:35:25 +0100 (Sat, 24 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/configure.in
+   M /trunk/rtpaudio2/debian/changelog
+
+Improved PulseAudio handling in configure.in.
+
+------------------------------------------------------------------------
+r1331 | dreibh | 2011-12-23 23:33:51 +0100 (Fri, 23 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/debian/libaudiocodeccommon0.symbols
+   M /trunk/rtpaudio2/debian/libaudiocommon0.symbols
+   M /trunk/rtpaudio2/debian/libaudiodecoder0.symbols
+   M /trunk/rtpaudio2/debian/libaudioencoder0.symbols
+   M /trunk/rtpaudio2/debian/libaudioreader0.symbols
+   M /trunk/rtpaudio2/debian/libaudiowriter0.symbols
+   M /trunk/rtpaudio2/debian/libmediainfo0.symbols
+   M /trunk/rtpaudio2/debian/libmpegsound0.symbols
+   M /trunk/rtpaudio2/debian/libqosmgr0.symbols
+   M /trunk/rtpaudio2/debian/librtpaudioclient0.symbols
+   M /trunk/rtpaudio2/debian/librtpaudiocommon0.symbols
+   M /trunk/rtpaudio2/debian/librtpaudioserver0.symbols
+   M /trunk/rtpaudio2/debian/librtpclient0.symbols
+   M /trunk/rtpaudio2/debian/librtpcommon0.symbols
+   M /trunk/rtpaudio2/debian/librtpserver0.symbols
+   M /trunk/rtpaudio2/debian/libtdtoolbox0.symbols
+
+Updated symbols.
+
+------------------------------------------------------------------------
+r1330 | dreibh | 2011-12-23 23:29:42 +0100 (Fri, 23 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/qaudiomixer.cc
+   M /trunk/rtpaudio2/rtpaudio/qaudiomixer.h
+
+Added feedback of AudioMixer to QAudioMixer -> handle changes by other mixer applications.
+
+------------------------------------------------------------------------
+r1329 | dreibh | 2011-12-23 23:06:51 +0100 (Fri, 23 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/audiodevice.h
+   M /trunk/rtpaudio2/rtpaudio/audiomixer.cc
+   M /trunk/rtpaudio2/rtpaudio/audiomixer.h
+
+AudioMixer now also supports PulseAudio-based retrieval of current volume settings.
+
+------------------------------------------------------------------------
+r1328 | dreibh | 2011-12-23 22:35:16 +0100 (Fri, 23 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/debian/changelog
+   M /trunk/rtpaudio2/rtpaudio/audiomixer.cc
+
+Removed debug code.
+
+------------------------------------------------------------------------
+r1327 | dreibh | 2011-12-23 22:28:25 +0100 (Fri, 23 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/debian/libaudiowriter0.symbols
+
+Updated symbols.
+
+------------------------------------------------------------------------
+r1326 | dreibh | 2011-12-23 22:17:32 +0100 (Fri, 23 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/configure.in
+
+Better detection for PulseAudio: stop, if PulseAudio is requested but not found.
+
+------------------------------------------------------------------------
+r1325 | dreibh | 2011-12-23 22:16:51 +0100 (Fri, 23 Dec 2011) | 6 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/audiodevice.cc
+   M /trunk/rtpaudio2/rtpaudio/audiodevice.h
+   M /trunk/rtpaudio2/rtpaudio/audiomixer.cc
+
+Rewrote AudioDevice to use advanced PulseAudio API instead of simple one:
+-> fixed sampling rate bug
+-> jitter compensation is now handled by PulseAudio directly (no more duplicated work)
+-> better handling of overfull buffer (using delta for pa_stream_write())
+-> removed ugly access to context in AudioMixer
+
+------------------------------------------------------------------------
+r1324 | dreibh | 2011-12-23 22:14:31 +0100 (Fri, 23 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/simpleaudiodecoder.cc
+
+Removed empty line.
+
+------------------------------------------------------------------------
+r1323 | dreibh | 2011-12-23 22:14:00 +0100 (Fri, 23 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/ringbuffer.cc
+   M /trunk/rtpaudio2/rtpaudio/ringbuffer.h
+
+Data to write is const.
+
+------------------------------------------------------------------------
+r1322 | dreibh | 2011-12-23 22:13:32 +0100 (Fri, 23 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/audioconverter.cc
+
+Message fix.
+
+------------------------------------------------------------------------
+r1321 | dreibh | 2011-12-23 22:07:33 +0100 (Fri, 23 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/simpleaudioencoder.cc
+
+Fixed alignment problem: 16 bits at 2 channels => chunk size must be a multiple of 4!
+
+------------------------------------------------------------------------
+r1320 | dreibh | 2011-12-23 14:35:47 +0100 (Fri, 23 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/debian/changelog
+   M /trunk/rtpaudio2/debian/control
+   A /trunk/rtpaudio2/freebsd
+   A /trunk/rtpaudio2/freebsd/rtpaudio
+   A /trunk/rtpaudio2/freebsd/rtpaudio/Makefile
+   A /trunk/rtpaudio2/freebsd/rtpaudio/distinfo
+   A /trunk/rtpaudio2/freebsd/rtpaudio/make-shar
+   A /trunk/rtpaudio2/freebsd/rtpaudio/pkg-descr
+   A /trunk/rtpaudio2/freebsd/rtpaudio/test-packaging
+
+Updated packaging files.
+
+------------------------------------------------------------------------
+r1319 | dreibh | 2011-12-23 13:44:08 +0100 (Fri, 23 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/configure.in
+   M /trunk/rtpaudio2/debian/changelog
+   M /trunk/rtpaudio2/make-ppa
+
+Also build PPA package for Karmic Koala again.
+
+------------------------------------------------------------------------
+r1318 | dreibh | 2011-12-23 13:41:17 +0100 (Fri, 23 Dec 2011) | 3 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/tdsocket.cc
+
+Code improvement.
+
+
+------------------------------------------------------------------------
+r1317 | dreibh | 2011-12-23 13:35:17 +0100 (Fri, 23 Dec 2011) | 3 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/tdsocket.cc
+
+FreeBSD: need to set IPV6_V6ONLY to "no".
+
+
+------------------------------------------------------------------------
+r1316 | dreibh | 2011-12-23 12:36:11 +0100 (Fri, 23 Dec 2011) | 3 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/roundtriptimepinger.cc
+   M /trunk/rtpaudio2/rtpaudio/roundtriptimepinger.h
+
+FreeBSD compile fixes.
+
+
+------------------------------------------------------------------------
+r1315 | dreibh | 2011-12-23 12:33:17 +0100 (Fri, 23 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/rtcppacket.h
+
+Removed tabs.
+
+------------------------------------------------------------------------
+r1314 | dreibh | 2011-12-23 12:07:45 +0100 (Fri, 23 Dec 2011) | 3 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/rtcppacket.h
+   M /trunk/rtpaudio2/rtpaudio/rtppacket.h
+   M /trunk/rtpaudio2/rtpaudio/tdsystem.h
+   M /trunk/rtpaudio2/rtpaudio/tools.icc
+
+FreeBSD compile fixes.
+
+
+------------------------------------------------------------------------
+r1313 | dreibh | 2011-12-23 10:04:49 +0100 (Fri, 23 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/AudioServer.config
+   D /trunk/rtpaudio2/rtpaudio/SLA.config
+   M /trunk/rtpaudio2/rtpaudio/StandardAllClasses.sla
+
+Some updates.
+
+------------------------------------------------------------------------
+r1312 | dreibh | 2011-12-23 10:03:16 +0100 (Fri, 23 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/multiaudioreader.cc
+
+A small update.
+
+------------------------------------------------------------------------
+r1311 | dreibh | 2011-12-23 10:01:29 +0100 (Fri, 23 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/AudioServer.config
+   M /trunk/rtpaudio2/rtpaudio/Makefile.am
+   A /trunk/rtpaudio2/rtpaudio/StandardAllClasses.sla
+   M /trunk/rtpaudio2/rtpaudio/qosmanagerinterface.h
+   M /trunk/rtpaudio2/rtpaudio/rtpa-server.cc
+
+Updated missing files => now compiling again.
+
+------------------------------------------------------------------------
+r1310 | dreibh | 2011-12-23 09:46:38 +0100 (Fri, 23 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/t1.cc
+
+Updated test.
+
+------------------------------------------------------------------------
+r1309 | dreibh | 2011-12-22 08:53:49 +0100 (Thu, 22 Dec 2011) | 1 line
+Changed paths:
+   M /trunk/rtpaudio2/UpdateDoc1.sed
+
+Minor updates.
+------------------------------------------------------------------------
+r1308 | dreibh | 2011-12-22 08:43:26 +0100 (Thu, 22 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/UpdateDoc1.sed
+   M /trunk/rtpaudio2/rtpaudio/abstractlayerdescription.cc
+   M /trunk/rtpaudio2/rtpaudio/abstractlayerdescription.h
+   M /trunk/rtpaudio2/rtpaudio/abstractlayerdescription.icc
+   M /trunk/rtpaudio2/rtpaudio/abstractqosdescription.cc
+   M /trunk/rtpaudio2/rtpaudio/abstractqosdescription.h
+   M /trunk/rtpaudio2/rtpaudio/abstractqosdescription.icc
+   M /trunk/rtpaudio2/rtpaudio/bandwidthinfo.cc
+   M /trunk/rtpaudio2/rtpaudio/bandwidthinfo.h
+   M /trunk/rtpaudio2/rtpaudio/bandwidthinfo.icc
+   M /trunk/rtpaudio2/rtpaudio/frameratescalabilityinterface.h
+   M /trunk/rtpaudio2/rtpaudio/framesizescalabilityinterface.h
+   M /trunk/rtpaudio2/rtpaudio/managedstreaminterface.h
+   M /trunk/rtpaudio2/rtpaudio/qosmanagerinterface.h
+   M /trunk/rtpaudio2/rtpaudio/resourceutilizationpoint.cc
+   M /trunk/rtpaudio2/rtpaudio/resourceutilizationpoint.h
+   M /trunk/rtpaudio2/rtpaudio/resourceutilizationpoint.icc
+
+Header fixes.
+
+------------------------------------------------------------------------
+r1307 | dreibh | 2011-12-22 08:36:29 +0100 (Thu, 22 Dec 2011) | 1 line
+Changed paths:
+   M /trunk/rtpaudio2/configure.in
+   M /trunk/rtpaudio2/debian/changelog
+   M /trunk/rtpaudio2/debian/control
+   M /trunk/rtpaudio2/debian/libaudiocodeccommon0.symbols
+   M /trunk/rtpaudio2/debian/libaudiocommon0.symbols
+   M /trunk/rtpaudio2/debian/libaudiodecoder0.symbols
+   M /trunk/rtpaudio2/debian/libaudioencoder0.symbols
+   M /trunk/rtpaudio2/debian/libaudioreader0.symbols
+   M /trunk/rtpaudio2/debian/libaudiowriter0.symbols
+   M /trunk/rtpaudio2/debian/libmediainfo0.symbols
+   M /trunk/rtpaudio2/debian/libmpegsound0.symbols
+   A /trunk/rtpaudio2/debian/libqosmgr0.install (from /trunk/rtpaudio2/debian/libtdtoolbox0.install:1303)
+   A /trunk/rtpaudio2/debian/libqosmgr0.symbols
+   M /trunk/rtpaudio2/debian/librtpaudioclient0.symbols
+   M /trunk/rtpaudio2/debian/librtpaudiocommon0.symbols
+   M /trunk/rtpaudio2/debian/librtpaudioserver0.symbols
+   M /trunk/rtpaudio2/debian/librtpclient0.symbols
+   M /trunk/rtpaudio2/debian/librtpcommon0.symbols
+   M /trunk/rtpaudio2/debian/librtpserver0.symbols
+   M /trunk/rtpaudio2/debian/libtdtoolbox0.symbols
+   M /trunk/rtpaudio2/debian.conf
+   M /trunk/rtpaudio2/make-symbols
+   A /trunk/rtpaudio2/rtpaudio/bandwidthmanager.cc
+   A /trunk/rtpaudio2/rtpaudio/bandwidthmanager.h
+   A /trunk/rtpaudio2/rtpaudio/bandwidthmanager.icc
+   A /trunk/rtpaudio2/rtpaudio/pingerhost.h
+   A /trunk/rtpaudio2/rtpaudio/pingerhost.icc
+   A /trunk/rtpaudio2/rtpaudio/roundtriptimepinger.cc
+   A /trunk/rtpaudio2/rtpaudio/roundtriptimepinger.h
+   A /trunk/rtpaudio2/rtpaudio/roundtriptimepinger.icc
+   A /trunk/rtpaudio2/rtpaudio/servicelevelagreement.cc
+   A /trunk/rtpaudio2/rtpaudio/servicelevelagreement.h
+   A /trunk/rtpaudio2/rtpaudio/servicelevelagreement.icc
+   A /trunk/rtpaudio2/rtpaudio/sessiondescription.h
+   A /trunk/rtpaudio2/rtpaudio/streamdescription.cc
+   A /trunk/rtpaudio2/rtpaudio/streamdescription.h
+
+Merged bandwidth management files.
+------------------------------------------------------------------------
+r1306 | dreibh | 2011-12-22 08:01:42 +0100 (Thu, 22 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/Makefile.am
+
+A small fix.
+
+------------------------------------------------------------------------
+r1305 | dreibh | 2011-12-22 07:59:38 +0100 (Thu, 22 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/Makefile.am
+   M /trunk/rtpaudio2/rtpaudio/qaudiomixer.cc
+   M /trunk/rtpaudio2/rtpaudio/qinfotabwidget.cc
+   M /trunk/rtpaudio2/rtpaudio/qspectrumanalyzer.cc
+   M /trunk/rtpaudio2/rtpaudio/rtpa-qclient.cc
+
+Fixed .moc file handling.
+
+------------------------------------------------------------------------
+r1304 | dreibh | 2011-12-22 07:18:45 +0100 (Thu, 22 Dec 2011) | 1 line
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/mp3audioreader.h
+
+Fixed deallocation problem.
+------------------------------------------------------------------------
+r1303 | dreibh | 2011-12-21 13:47:52 +0100 (Wed, 21 Dec 2011) | 3 lines
+Changed paths:
+   M /trunk/rtpaudio2/configure.in
+   M /trunk/rtpaudio2/debian/changelog
+   M /trunk/rtpaudio2/debian/libaudiocodeccommon0.symbols
+   M /trunk/rtpaudio2/debian/libaudiocommon0.symbols
+   M /trunk/rtpaudio2/debian/libaudiodecoder0.symbols
+   M /trunk/rtpaudio2/debian/libaudioencoder0.symbols
+   M /trunk/rtpaudio2/debian/libaudioreader0.symbols
+   M /trunk/rtpaudio2/debian/libaudiowriter0.symbols
+   M /trunk/rtpaudio2/debian/libmediainfo0.symbols
+   M /trunk/rtpaudio2/debian/libmpegsound0.symbols
+   M /trunk/rtpaudio2/debian/librtpaudioclient0.symbols
+   M /trunk/rtpaudio2/debian/librtpaudiocommon0.symbols
+   M /trunk/rtpaudio2/debian/librtpaudioserver0.symbols
+   M /trunk/rtpaudio2/debian/librtpclient0.symbols
+   M /trunk/rtpaudio2/debian/librtpcommon0.symbols
+   M /trunk/rtpaudio2/debian/librtpserver0.symbols
+   M /trunk/rtpaudio2/debian/libtdtoolbox0.symbols
+   M /trunk/rtpaudio2/rtpaudio/Makefile.am
+
+- Updated Makefile.am to correctly handle call to "moc" (Qt).
+- Updated symbols.
+
+------------------------------------------------------------------------
+r1302 | dreibh | 2011-12-21 10:52:09 +0100 (Wed, 21 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/debian/libaudiocodeccommon0.symbols
+   M /trunk/rtpaudio2/debian/libaudiocommon0.symbols
+   M /trunk/rtpaudio2/debian/libaudiodecoder0.symbols
+   M /trunk/rtpaudio2/debian/libaudioencoder0.symbols
+   M /trunk/rtpaudio2/debian/libaudioreader0.symbols
+   M /trunk/rtpaudio2/debian/libaudiowriter0.symbols
+   M /trunk/rtpaudio2/debian/libmediainfo0.symbols
+   M /trunk/rtpaudio2/debian/libmpegsound0.symbols
+   M /trunk/rtpaudio2/debian/librtpaudioclient0.symbols
+   M /trunk/rtpaudio2/debian/librtpaudiocommon0.symbols
+   M /trunk/rtpaudio2/debian/librtpaudioserver0.symbols
+   M /trunk/rtpaudio2/debian/librtpclient0.symbols
+   M /trunk/rtpaudio2/debian/librtpcommon0.symbols
+   M /trunk/rtpaudio2/debian/librtpserver0.symbols
+   M /trunk/rtpaudio2/debian/libtdtoolbox0.symbols
+   M /trunk/rtpaudio2/replace-cpp-symbols
+
+Improved symbols generation script.
+
+------------------------------------------------------------------------
+r1301 | dreibh | 2011-12-20 18:41:22 +0100 (Tue, 20 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/replace-cpp-symbols
+
+Script update.
+
+------------------------------------------------------------------------
+r1300 | dreibh | 2011-12-20 16:23:34 +0100 (Tue, 20 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/replace-cpp-symbols
+
+A small update.
+
+------------------------------------------------------------------------
+r1299 | dreibh | 2011-12-20 13:39:27 +0100 (Tue, 20 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/debian/control
+   M /trunk/rtpaudio2/debian/libaudiocodeccommon0.symbols
+   M /trunk/rtpaudio2/debian/libaudiocommon0.symbols
+   M /trunk/rtpaudio2/debian/libaudiodecoder0.symbols
+   M /trunk/rtpaudio2/debian/libaudioencoder0.symbols
+   M /trunk/rtpaudio2/debian/libaudioreader0.symbols
+   M /trunk/rtpaudio2/debian/libaudiowriter0.symbols
+   M /trunk/rtpaudio2/debian/libmediainfo0.symbols
+   M /trunk/rtpaudio2/debian/libmpegsound0.symbols
+   M /trunk/rtpaudio2/debian/librtpaudioclient0.symbols
+   M /trunk/rtpaudio2/debian/librtpaudiocommon0.symbols
+   M /trunk/rtpaudio2/debian/librtpaudioserver0.symbols
+   M /trunk/rtpaudio2/debian/librtpclient0.symbols
+   M /trunk/rtpaudio2/debian/librtpcommon0.symbols
+   M /trunk/rtpaudio2/debian/librtpserver0.symbols
+   M /trunk/rtpaudio2/debian/libtdtoolbox0.symbols
+   M /trunk/rtpaudio2/replace-cpp-symbols
+
+Updated symbols.
+
+------------------------------------------------------------------------
+r1298 | dreibh | 2011-12-19 17:00:22 +0100 (Mon, 19 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/configure.in
+   M /trunk/rtpaudio2/debian.conf
+   M /trunk/rtpaudio2/make-symbols
+
+Some updates.
+
+------------------------------------------------------------------------
+r1297 | dreibh | 2011-12-19 16:45:18 +0100 (Mon, 19 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/debian/control
+
+A small fix.
+
+------------------------------------------------------------------------
+r1296 | dreibh | 2011-12-19 16:42:30 +0100 (Mon, 19 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/mp3audioreader.h
+   M /trunk/rtpaudio2/rtpaudio/multiaudioreader.h
+   M /trunk/rtpaudio2/rtpaudio/wavaudioreader.h
+
+Minor fix.
+
+------------------------------------------------------------------------
+r1295 | dreibh | 2011-12-19 16:17:14 +0100 (Mon, 19 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/Makefile.am
+   D /trunk/rtpaudio2/rtpaudio/frameratescalabilityinterface.cc
+   M /trunk/rtpaudio2/rtpaudio/frameratescalabilityinterface.h
+   D /trunk/rtpaudio2/rtpaudio/framesizescalabilityinterface.cc
+   M /trunk/rtpaudio2/rtpaudio/framesizescalabilityinterface.h
+   M /trunk/rtpaudio2/rtpaudio/rtpreceiver.cc
+
+Removed unnecessary files.
+
+------------------------------------------------------------------------
+r1294 | dreibh | 2011-12-19 16:16:57 +0100 (Mon, 19 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/sourcestateinfo.cc
+
+Fixed missing return statement.
+
+------------------------------------------------------------------------
+r1293 | dreibh | 2011-12-19 15:59:28 +0100 (Mon, 19 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/Makefile.am
+   M /trunk/rtpaudio2/rtpaudio/advancedaudiodecoder.cc
+   M /trunk/rtpaudio2/rtpaudio/audiodevice.cc
+   D /trunk/rtpaudio2/rtpaudio/audioreaderinterface.cc
+   M /trunk/rtpaudio2/rtpaudio/audioreaderinterface.h
+   D /trunk/rtpaudio2/rtpaudio/audiowriterinterface.cc
+   M /trunk/rtpaudio2/rtpaudio/audiowriterinterface.h
+   D /trunk/rtpaudio2/rtpaudio/decoderinterface.cc
+   M /trunk/rtpaudio2/rtpaudio/decoderinterface.h
+   D /trunk/rtpaudio2/rtpaudio/encoderinterface.cc
+   M /trunk/rtpaudio2/rtpaudio/encoderinterface.h
+
+Removed unnecessary files.
+
+------------------------------------------------------------------------
+r1292 | dreibh | 2011-12-19 15:23:17 +0100 (Mon, 19 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/configure.in
+
+Another update.
+
+------------------------------------------------------------------------
+r1291 | dreibh | 2011-12-19 15:23:01 +0100 (Mon, 19 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/debian/control
+   M /trunk/rtpaudio2/debian/rules
+   M /trunk/rtpaudio2/replace-cpp-symbols
+   M /trunk/rtpaudio2/rtpaudio/Makefile.am
+
+Updated packaging files.
+
+------------------------------------------------------------------------
+r1290 | dreibh | 2011-12-19 12:09:27 +0100 (Mon, 19 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/Makefile.am
+   M /trunk/rtpaudio2/rtpaudio/audioqualityinterface.h
+
+Some fixes.
+
+------------------------------------------------------------------------
+r1289 | dreibh | 2011-12-19 11:29:46 +0100 (Mon, 19 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/replace-cpp-symbols
+
+Updated symbols file generation script.
+
+------------------------------------------------------------------------
+r1288 | dreibh | 2011-12-19 10:03:07 +0100 (Mon, 19 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/audiodevice.cc
+
+Fixed uninitialized variable.
+
+------------------------------------------------------------------------
+r1287 | dreibh | 2011-12-19 08:58:31 +0100 (Mon, 19 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/replace-cpp-symbols
+
+Tests for new replace-cpp-symbols.
+
+------------------------------------------------------------------------
+r1286 | dreibh | 2011-12-18 14:43:16 +0100 (Sun, 18 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/UpdateDoc1.sed
+   M /trunk/rtpaudio2/debian/changelog
+   M /trunk/rtpaudio2/debian/control
+   M /trunk/rtpaudio2/debian/copyright
+   M /trunk/rtpaudio2/debian/watch
+   M /trunk/rtpaudio2/rtpaudio/Makefile.am
+   M /trunk/rtpaudio2/rtpaudio/abstractlayerdescription.cc
+   M /trunk/rtpaudio2/rtpaudio/abstractlayerdescription.h
+   M /trunk/rtpaudio2/rtpaudio/abstractlayerdescription.icc
+   M /trunk/rtpaudio2/rtpaudio/abstractqosdescription.cc
+   M /trunk/rtpaudio2/rtpaudio/abstractqosdescription.h
+   M /trunk/rtpaudio2/rtpaudio/abstractqosdescription.icc
+   M /trunk/rtpaudio2/rtpaudio/advancedaudiodecoder.cc
+   M /trunk/rtpaudio2/rtpaudio/advancedaudiodecoder.h
+   M /trunk/rtpaudio2/rtpaudio/advancedaudioencoder.cc
+   M /trunk/rtpaudio2/rtpaudio/advancedaudioencoder.h
+   M /trunk/rtpaudio2/rtpaudio/advancedaudiopacket.cc
+   M /trunk/rtpaudio2/rtpaudio/advancedaudiopacket.h
+   M /trunk/rtpaudio2/rtpaudio/audioclient.cc
+   M /trunk/rtpaudio2/rtpaudio/audioclient.h
+   M /trunk/rtpaudio2/rtpaudio/audioclient.icc
+   M /trunk/rtpaudio2/rtpaudio/audioclientapppacket.cc
+   M /trunk/rtpaudio2/rtpaudio/audioclientapppacket.h
+   M /trunk/rtpaudio2/rtpaudio/audioconverter.cc
+   M /trunk/rtpaudio2/rtpaudio/audioconverter.h
+   M /trunk/rtpaudio2/rtpaudio/audiodebug.cc
+   M /trunk/rtpaudio2/rtpaudio/audiodebug.h
+   M /trunk/rtpaudio2/rtpaudio/audiodecoderinterface.h
+   M /trunk/rtpaudio2/rtpaudio/audiodecoderrepository.cc
+   M /trunk/rtpaudio2/rtpaudio/audiodecoderrepository.h
+   M /trunk/rtpaudio2/rtpaudio/audiodecoderrepository.icc
+   M /trunk/rtpaudio2/rtpaudio/audiodevice.cc
+   M /trunk/rtpaudio2/rtpaudio/audiodevice.h
+   M /trunk/rtpaudio2/rtpaudio/audiodevice.icc
+   M /trunk/rtpaudio2/rtpaudio/audioencoderinterface.h
+   M /trunk/rtpaudio2/rtpaudio/audioencoderrepository.cc
+   M /trunk/rtpaudio2/rtpaudio/audioencoderrepository.h
+   M /trunk/rtpaudio2/rtpaudio/audioencoderrepository.icc
+   M /trunk/rtpaudio2/rtpaudio/audiomixer.cc
+   M /trunk/rtpaudio2/rtpaudio/audiomixer.h
+   M /trunk/rtpaudio2/rtpaudio/audiomixer.icc
+   M /trunk/rtpaudio2/rtpaudio/audionull.cc
+   M /trunk/rtpaudio2/rtpaudio/audionull.h
+   M /trunk/rtpaudio2/rtpaudio/audioquality.cc
+   M /trunk/rtpaudio2/rtpaudio/audioquality.h
+   M /trunk/rtpaudio2/rtpaudio/audioquality.icc
+   M /trunk/rtpaudio2/rtpaudio/audioqualityinterface.h
+   M /trunk/rtpaudio2/rtpaudio/audioqualityinterface.icc
+   M /trunk/rtpaudio2/rtpaudio/audioreaderinterface.cc
+   M /trunk/rtpaudio2/rtpaudio/audioreaderinterface.h
+   M /trunk/rtpaudio2/rtpaudio/audioserver.cc
+   M /trunk/rtpaudio2/rtpaudio/audioserver.h
+   M /trunk/rtpaudio2/rtpaudio/audioserver.icc
+   M /trunk/rtpaudio2/rtpaudio/audiowriterinterface.cc
+   M /trunk/rtpaudio2/rtpaudio/audiowriterinterface.h
+   M /trunk/rtpaudio2/rtpaudio/bandwidthinfo.cc
+   M /trunk/rtpaudio2/rtpaudio/bandwidthinfo.h
+   M /trunk/rtpaudio2/rtpaudio/bandwidthinfo.icc
+   M /trunk/rtpaudio2/rtpaudio/convert-to-ogg
+   M /trunk/rtpaudio2/rtpaudio/decoderinterface.cc
+   M /trunk/rtpaudio2/rtpaudio/decoderinterface.h
+   M /trunk/rtpaudio2/rtpaudio/decoderrepositoryinterface.h
+   M /trunk/rtpaudio2/rtpaudio/encoderinterface.cc
+   M /trunk/rtpaudio2/rtpaudio/encoderinterface.h
+   M /trunk/rtpaudio2/rtpaudio/encoderrepositoryinterface.h
+   M /trunk/rtpaudio2/rtpaudio/fft.cc
+   M /trunk/rtpaudio2/rtpaudio/fft.h
+   M /trunk/rtpaudio2/rtpaudio/frameratescalabilityinterface.cc
+   M /trunk/rtpaudio2/rtpaudio/frameratescalabilityinterface.h
+   M /trunk/rtpaudio2/rtpaudio/framesizescalabilityinterface.cc
+   M /trunk/rtpaudio2/rtpaudio/framesizescalabilityinterface.h
+   M /trunk/rtpaudio2/rtpaudio/managedstreaminterface.h
+   M /trunk/rtpaudio2/rtpaudio/mediainfo.cc
+   M /trunk/rtpaudio2/rtpaudio/mediainfo.h
+   M /trunk/rtpaudio2/rtpaudio/mp3audioreader.cc
+   M /trunk/rtpaudio2/rtpaudio/mp3audioreader.h
+   M /trunk/rtpaudio2/rtpaudio/multiaudioreader.cc
+   M /trunk/rtpaudio2/rtpaudio/multiaudioreader.h
+   M /trunk/rtpaudio2/rtpaudio/multiaudiowriter.cc
+   M /trunk/rtpaudio2/rtpaudio/multiaudiowriter.h
+   M /trunk/rtpaudio2/rtpaudio/qaudiomixer.cc
+   M /trunk/rtpaudio2/rtpaudio/qaudiomixer.h
+   M /trunk/rtpaudio2/rtpaudio/qinfotabwidget.cc
+   M /trunk/rtpaudio2/rtpaudio/qinfotabwidget.h
+   M /trunk/rtpaudio2/rtpaudio/qosmanagerinterface.h
+   M /trunk/rtpaudio2/rtpaudio/qspectrumanalyzer.cc
+   M /trunk/rtpaudio2/rtpaudio/qspectrumanalyzer.h
+   M /trunk/rtpaudio2/rtpaudio/resourceutilizationpoint.cc
+   M /trunk/rtpaudio2/rtpaudio/resourceutilizationpoint.h
+   M /trunk/rtpaudio2/rtpaudio/resourceutilizationpoint.icc
+   M /trunk/rtpaudio2/rtpaudio/ringbuffer.cc
+   M /trunk/rtpaudio2/rtpaudio/ringbuffer.h
+   M /trunk/rtpaudio2/rtpaudio/ringbuffer.icc
+   M /trunk/rtpaudio2/rtpaudio/rtcpabstractserver.cc
+   M /trunk/rtpaudio2/rtpaudio/rtcpabstractserver.h
+   M /trunk/rtpaudio2/rtpaudio/rtcpabstractserver.icc
+   M /trunk/rtpaudio2/rtpaudio/rtcppacket.cc
+   M /trunk/rtpaudio2/rtpaudio/rtcppacket.h
+   M /trunk/rtpaudio2/rtpaudio/rtcppacket.icc
+   M /trunk/rtpaudio2/rtpaudio/rtcpreceiver.cc
+   M /trunk/rtpaudio2/rtpaudio/rtcpreceiver.h
+   M /trunk/rtpaudio2/rtpaudio/rtcpsender.cc
+   M /trunk/rtpaudio2/rtpaudio/rtcpsender.h
+   M /trunk/rtpaudio2/rtpaudio/rtpa-client.1
+   M /trunk/rtpaudio2/rtpaudio/rtpa-client.cc
+   M /trunk/rtpaudio2/rtpaudio/rtpa-qclient.1
+   M /trunk/rtpaudio2/rtpaudio/rtpa-qclient.cc
+   M /trunk/rtpaudio2/rtpaudio/rtpa-qclient.h
+   M /trunk/rtpaudio2/rtpaudio/rtpa-server.1
+   M /trunk/rtpaudio2/rtpaudio/rtpa-server.cc
+   M /trunk/rtpaudio2/rtpaudio/rtpa-vclient.1
+   M /trunk/rtpaudio2/rtpaudio/rtpa-vclient.cc
+   M /trunk/rtpaudio2/rtpaudio/rtppacket.cc
+   M /trunk/rtpaudio2/rtpaudio/rtppacket.h
+   M /trunk/rtpaudio2/rtpaudio/rtppacket.icc
+   M /trunk/rtpaudio2/rtpaudio/rtpreceiver.cc
+   M /trunk/rtpaudio2/rtpaudio/rtpreceiver.h
+   M /trunk/rtpaudio2/rtpaudio/rtpreceiver.icc
+   M /trunk/rtpaudio2/rtpaudio/rtpsender.cc
+   M /trunk/rtpaudio2/rtpaudio/rtpsender.h
+   M /trunk/rtpaudio2/rtpaudio/rtpsender.icc
+   M /trunk/rtpaudio2/rtpaudio/s2.cc
+   M /trunk/rtpaudio2/rtpaudio/seqnumvalidator.cc
+   M /trunk/rtpaudio2/rtpaudio/seqnumvalidator.h
+   M /trunk/rtpaudio2/rtpaudio/seqnumvalidator.icc
+   M /trunk/rtpaudio2/rtpaudio/simpleaudiodecoder.cc
+   M /trunk/rtpaudio2/rtpaudio/simpleaudiodecoder.h
+   M /trunk/rtpaudio2/rtpaudio/simpleaudioencoder.cc
+   M /trunk/rtpaudio2/rtpaudio/simpleaudioencoder.h
+   M /trunk/rtpaudio2/rtpaudio/simpleaudiopacket.cc
+   M /trunk/rtpaudio2/rtpaudio/simpleaudiopacket.h
+   M /trunk/rtpaudio2/rtpaudio/sourcestateinfo.cc
+   M /trunk/rtpaudio2/rtpaudio/sourcestateinfo.h
+   M /trunk/rtpaudio2/rtpaudio/sourcestateinfo.icc
+   M /trunk/rtpaudio2/rtpaudio/spectrumanalyzer.cc
+   M /trunk/rtpaudio2/rtpaudio/spectrumanalyzer.h
+   M /trunk/rtpaudio2/rtpaudio/t1.cc
+   M /trunk/rtpaudio2/rtpaudio/trafficclassvalues.cc
+   M /trunk/rtpaudio2/rtpaudio/trafficclassvalues.h
+   M /trunk/rtpaudio2/rtpaudio/trafficclassvalues.icc
+   M /trunk/rtpaudio2/rtpaudio/trafficshaper.cc
+   M /trunk/rtpaudio2/rtpaudio/trafficshaper.h
+   M /trunk/rtpaudio2/rtpaudio/trafficshaper.icc
+   M /trunk/rtpaudio2/rtpaudio/wavaudioreader.cc
+   M /trunk/rtpaudio2/rtpaudio/wavaudioreader.h
+
+Minor updates.
+
+------------------------------------------------------------------------
+r1285 | dreibh | 2011-12-18 14:25:14 +0100 (Sun, 18 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/audioserver.cc
+   M /trunk/rtpaudio2/rtpaudio/breakdetector.cc
+   M /trunk/rtpaudio2/rtpaudio/breakdetector.h
+   M /trunk/rtpaudio2/rtpaudio/multitimerthread.h
+   M /trunk/rtpaudio2/rtpaudio/multitimerthread.icc
+   M /trunk/rtpaudio2/rtpaudio/packetaddress.cc
+   M /trunk/rtpaudio2/rtpaudio/packetaddress.h
+   M /trunk/rtpaudio2/rtpaudio/packetaddress.icc
+   M /trunk/rtpaudio2/rtpaudio/s2.cc
+   M /trunk/rtpaudio2/rtpaudio/t1.cc
+   M /trunk/rtpaudio2/rtpaudio/tdsocket.cc
+   M /trunk/rtpaudio2/rtpaudio/tdsocket.h
+   M /trunk/rtpaudio2/rtpaudio/tdsocket.icc
+   M /trunk/rtpaudio2/rtpaudio/timedthread.cc
+   M /trunk/rtpaudio2/rtpaudio/timedthread.h
+   M /trunk/rtpaudio2/rtpaudio/timedthread.icc
+
+Header updates.
+
+------------------------------------------------------------------------
+r1284 | dreibh | 2011-12-18 13:58:06 +0100 (Sun, 18 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/rtpa-qclient.cc
+
+Key binding improvement.
+
+------------------------------------------------------------------------
+r1283 | dreibh | 2011-12-18 13:57:56 +0100 (Sun, 18 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/multitimerthread.icc
+
+A small race condition fix.
+
+------------------------------------------------------------------------
+r1282 | dreibh | 2011-12-18 11:41:03 +0100 (Sun, 18 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/audiomixer.cc
+   M /trunk/rtpaudio2/rtpaudio/multitimerthread.h
+   M /trunk/rtpaudio2/rtpaudio/multitimerthread.icc
+   M /trunk/rtpaudio2/rtpaudio/rtpreceiver.h
+   M /trunk/rtpaudio2/rtpaudio/rtpreceiver.icc
+   M /trunk/rtpaudio2/rtpaudio/rtpsender.h
+   M /trunk/rtpaudio2/rtpaudio/rtpsender.icc
+   M /trunk/rtpaudio2/rtpaudio/timedthread.h
+   M /trunk/rtpaudio2/rtpaudio/timedthread.icc
+   M /trunk/rtpaudio2/rtpaudio/trafficshaper.h
+   M /trunk/rtpaudio2/rtpaudio/trafficshaper.icc
+
+Some code clean-ups.
+
+------------------------------------------------------------------------
+r1281 | dreibh | 2011-12-18 11:21:37 +0100 (Sun, 18 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/Test4.list
+   M /trunk/rtpaudio2/rtpaudio/audioserver.cc
+   M /trunk/rtpaudio2/rtpaudio/multitimerthread.icc
+   M /trunk/rtpaudio2/rtpaudio/rtpa-client.cc
+   M /trunk/rtpaudio2/rtpaudio/rtpa-server.cc
+
+Some fixes.
+
+------------------------------------------------------------------------
+r1280 | dreibh | 2011-12-18 11:20:01 +0100 (Sun, 18 Dec 2011) | 2 lines
+Changed paths:
+   A /trunk/rtpaudio2/rtpaudio/Test-MP3s/Bonnie.mp3
+   M /trunk/rtpaudio2/rtpaudio/Test-MP3s/BornToBeWild.mp3
+   M /trunk/rtpaudio2/rtpaudio/Test-MP3s/DieGlorreichenSieben.mp3
+   M /trunk/rtpaudio2/rtpaudio/Test-MP3s/GoWest.mp3
+   M /trunk/rtpaudio2/rtpaudio/Test-MP3s/Hellraiser.mp3
+   M /trunk/rtpaudio2/rtpaudio/Test-MP3s/HighwayToHell.mp3
+   M /trunk/rtpaudio2/rtpaudio/Test-MP3s/SanFrancisco.mp3
+
+Updated tags of test files.
+
+------------------------------------------------------------------------
+r1279 | dreibh | 2011-12-18 10:44:54 +0100 (Sun, 18 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/advancedaudiodecoder.cc
+
+Another race condition.
+
+------------------------------------------------------------------------
+r1278 | dreibh | 2011-12-18 10:40:19 +0100 (Sun, 18 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/multitimerthread.h
+   M /trunk/rtpaudio2/rtpaudio/multitimerthread.icc
+
+Fixed race condition.
+
+------------------------------------------------------------------------
+r1277 | dreibh | 2011-12-18 10:39:49 +0100 (Sun, 18 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/audiodevice.cc
+
+Fixed possible race conditions.
+
+------------------------------------------------------------------------
+r1276 | dreibh | 2011-12-18 10:39:23 +0100 (Sun, 18 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/tdsocket.cc
+   M /trunk/rtpaudio2/rtpaudio/tdsocket.h
+   M /trunk/rtpaudio2/rtpaudio/tdsocket.icc
+
+Removed unused code.
+
+------------------------------------------------------------------------
+r1275 | dreibh | 2011-12-18 10:03:25 +0100 (Sun, 18 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/rtcpsender.cc
+
+Fixed unlock of already unlocked mutex.
+
+------------------------------------------------------------------------
+r1274 | dreibh | 2011-12-18 10:02:56 +0100 (Sun, 18 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/tdsocket.h
+   M /trunk/rtpaudio2/rtpaudio/tdsocket.icc
+
+Removed unused counter variables -> avoids possible race conditions.
+
+------------------------------------------------------------------------
+r1273 | dreibh | 2011-12-18 00:10:26 +0100 (Sun, 18 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/audiomixer.cc
+   M /trunk/rtpaudio2/rtpaudio/audiomixer.h
+
+Removed unused variables.
+
+------------------------------------------------------------------------
+r1272 | dreibh | 2011-12-17 23:59:00 +0100 (Sat, 17 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/audiomixer.icc
+
+Committed missing header.
+
+------------------------------------------------------------------------
+r1271 | dreibh | 2011-12-17 23:58:18 +0100 (Sat, 17 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/rtpa-qclient.cc
+   M /trunk/rtpaudio2/rtpaudio/rtpa-qclient.h
+
+Fixed key bindings.
+
+------------------------------------------------------------------------
+r1270 | dreibh | 2011-12-17 23:57:25 +0100 (Sat, 17 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/qaudiomixer.cc
+
+Some improvements.
+
+------------------------------------------------------------------------
+r1269 | dreibh | 2011-12-17 23:57:07 +0100 (Sat, 17 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/audiodevice.h
+   M /trunk/rtpaudio2/rtpaudio/audiomixer.cc
+   M /trunk/rtpaudio2/rtpaudio/audiomixer.h
+
+Added PulseAudio support to AudioMixer.
+
+------------------------------------------------------------------------
+r1268 | dreibh | 2011-12-17 20:21:40 +0100 (Sat, 17 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/configure.in
+   M /trunk/rtpaudio2/rtpaudio/Makefile.am
+   M /trunk/rtpaudio2/rtpaudio/audiodevice.cc
+   M /trunk/rtpaudio2/rtpaudio/audiodevice.h
+
+Now supporting direct PulseAudio output. No more need for padsp.
+
+------------------------------------------------------------------------
+r1267 | dreibh | 2011-12-17 19:11:32 +0100 (Sat, 17 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/audiodevice.cc
+
+Added some comments.
+
+------------------------------------------------------------------------
+r1266 | dreibh | 2011-12-17 19:04:21 +0100 (Sat, 17 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/advancedaudiodecoder.cc
+   M /trunk/rtpaudio2/rtpaudio/advancedaudiopacket.h
+   M /trunk/rtpaudio2/rtpaudio/simpleaudiopacket.h
+
+Removed unnecessary code.
+
+------------------------------------------------------------------------
+r1265 | dreibh | 2011-12-17 19:04:03 +0100 (Sat, 17 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/audiodevice.cc
+   M /trunk/rtpaudio2/rtpaudio/audiodevice.h
+
+Improved jitter handling of AudioDevice.
+
+------------------------------------------------------------------------
+r1264 | dreibh | 2011-12-17 16:54:42 +0100 (Sat, 17 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/audiodebug.cc
+
+Fixed missing initialisation of variables.
+
+------------------------------------------------------------------------
+r1263 | dreibh | 2011-12-17 16:54:21 +0100 (Sat, 17 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/rtpa-client.cc
+
+Added multi-device output.
+
+------------------------------------------------------------------------
+r1262 | dreibh | 2011-12-17 16:53:23 +0100 (Sat, 17 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/advancedaudiodecoder.cc
+
+Comment fixes.
+
+------------------------------------------------------------------------
+r1261 | dreibh | 2011-12-17 16:44:29 +0100 (Sat, 17 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/advancedaudiodecoder.cc
+
+Fixed handling of error frames.
+
+------------------------------------------------------------------------
+r1260 | dreibh | 2011-12-17 14:28:49 +0100 (Sat, 17 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/rtpreceiver.cc
+
+Comment fix.
+
+------------------------------------------------------------------------
+r1259 | dreibh | 2011-12-17 14:26:09 +0100 (Sat, 17 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/condition.cc
+   M /trunk/rtpaudio2/rtpaudio/condition.h
+   M /trunk/rtpaudio2/rtpaudio/condition.icc
+   M /trunk/rtpaudio2/rtpaudio/ext_socket.h
+   M /trunk/rtpaudio2/rtpaudio/internetaddress.cc
+   M /trunk/rtpaudio2/rtpaudio/internetaddress.h
+   M /trunk/rtpaudio2/rtpaudio/internetaddress.icc
+   M /trunk/rtpaudio2/rtpaudio/internetflow.cc
+   M /trunk/rtpaudio2/rtpaudio/internetflow.h
+   M /trunk/rtpaudio2/rtpaudio/internetflow.icc
+   M /trunk/rtpaudio2/rtpaudio/portableaddress.h
+   M /trunk/rtpaudio2/rtpaudio/portableaddress.icc
+   M /trunk/rtpaudio2/rtpaudio/randomizer.cc
+   M /trunk/rtpaudio2/rtpaudio/randomizer.h
+   M /trunk/rtpaudio2/rtpaudio/randomizer.icc
+   M /trunk/rtpaudio2/rtpaudio/socketaddress.cc
+   M /trunk/rtpaudio2/rtpaudio/socketaddress.h
+   M /trunk/rtpaudio2/rtpaudio/socketaddress.icc
+   M /trunk/rtpaudio2/rtpaudio/synchronizable.cc
+   M /trunk/rtpaudio2/rtpaudio/synchronizable.h
+   M /trunk/rtpaudio2/rtpaudio/synchronizable.icc
+   M /trunk/rtpaudio2/rtpaudio/tdin6.h
+   M /trunk/rtpaudio2/rtpaudio/tdmessage.h
+   M /trunk/rtpaudio2/rtpaudio/tdmessage.icc
+   M /trunk/rtpaudio2/rtpaudio/tdstrings.cc
+   M /trunk/rtpaudio2/rtpaudio/tdstrings.h
+   M /trunk/rtpaudio2/rtpaudio/tdstrings.icc
+   M /trunk/rtpaudio2/rtpaudio/tdsystem.h
+   M /trunk/rtpaudio2/rtpaudio/thread.cc
+   M /trunk/rtpaudio2/rtpaudio/thread.h
+   M /trunk/rtpaudio2/rtpaudio/thread.icc
+   M /trunk/rtpaudio2/rtpaudio/tools.cc
+   M /trunk/rtpaudio2/rtpaudio/tools.h
+   M /trunk/rtpaudio2/rtpaudio/tools.icc
+   M /trunk/rtpaudio2/rtpaudio/unixaddress.cc
+   M /trunk/rtpaudio2/rtpaudio/unixaddress.h
+   M /trunk/rtpaudio2/rtpaudio/unixaddress.icc
+
+Merged files.
+
+------------------------------------------------------------------------
+r1258 | dreibh | 2011-12-17 14:17:25 +0100 (Sat, 17 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/Makefile.am
+   M /trunk/rtpaudio2/rtpaudio/audioconverter.cc
+   M /trunk/rtpaudio2/rtpaudio/internetaddress.cc
+   M /trunk/rtpaudio2/rtpaudio/multitimerthread.h
+   M /trunk/rtpaudio2/rtpaudio/socketaddress.h
+   D /trunk/rtpaudio2/rtpaudio/staticglobals.cc
+   M /trunk/rtpaudio2/rtpaudio/synchronizable.cc
+   M /trunk/rtpaudio2/rtpaudio/synchronizable.h
+   M /trunk/rtpaudio2/rtpaudio/synchronizable.icc
+   M /trunk/rtpaudio2/rtpaudio/t1.cc
+   M /trunk/rtpaudio2/rtpaudio/tdsystem.h
+   M /trunk/rtpaudio2/rtpaudio/thread.cc
+   M /trunk/rtpaudio2/rtpaudio/thread.h
+   M /trunk/rtpaudio2/rtpaudio/tools.cc
+   M /trunk/rtpaudio2/rtpaudio/tools.h
+
+Removed a lot of legacy debugging stuff which is obsolete with Valgrind.
+
+------------------------------------------------------------------------
+r1257 | dreibh | 2011-12-16 15:21:15 +0100 (Fri, 16 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/rtpreceiver.cc
+
+Also added support for MSG_EOR to RTP receiver.
+
+------------------------------------------------------------------------
+r1256 | dreibh | 2011-12-16 13:23:41 +0100 (Fri, 16 Dec 2011) | 3 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/rtcpreceiver.cc
+
+RTCP receiver should now handle MSG_EOR correctly.
+
+
+------------------------------------------------------------------------
+r1254 | dreibh | 2011-12-16 12:41:16 +0100 (Fri, 16 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/tdsocket.cc
+   M /trunk/rtpaudio2/rtpaudio/tdsocket.h
+
+A small fix.
+
+------------------------------------------------------------------------
+r1253 | dreibh | 2011-12-16 12:26:59 +0100 (Fri, 16 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/rtcpreceiver.cc
+   M /trunk/rtpaudio2/rtpaudio/rtpreceiver.cc
+   M /trunk/rtpaudio2/rtpaudio/tdsocket.cc
+   M /trunk/rtpaudio2/rtpaudio/tdsocket.h
+   M /trunk/rtpaudio2/rtpaudio/tdsocket.icc
+
+Added SCTP-style flag handling to TDSocket class. Needed for MSG_EOR/MSG_NOTIFICATION.
+
+------------------------------------------------------------------------
+r1252 | dreibh | 2011-12-16 11:37:52 +0100 (Fri, 16 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/advancedaudiodecoder.cc
+   M /trunk/rtpaudio2/rtpaudio/audioclient.cc
+   M /trunk/rtpaudio2/rtpaudio/mp3audioreader.cc
+   M /trunk/rtpaudio2/rtpaudio/rtcpsender.cc
+
+Fixed memory leaks detected by Valgrind.
+
+------------------------------------------------------------------------
+r1251 | dreibh | 2011-12-16 11:15:03 +0100 (Fri, 16 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/rtpa-qclient.cc
+
+Unit fix: KB/s -> KiB/s
+
+------------------------------------------------------------------------
+r1250 | dreibh | 2011-12-16 10:30:08 +0100 (Fri, 16 Dec 2011) | 3 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/Makefile.am
+   M /trunk/rtpaudio2/rtpaudio/t1.cc
+
+- Improved Makefile.am.
+- Added test.
+
+------------------------------------------------------------------------
+r1249 | dreibh | 2011-12-16 10:25:43 +0100 (Fri, 16 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/replace-cpp-symbols
+
+Updated script.
+
+------------------------------------------------------------------------
+r1248 | dreibh | 2011-12-16 08:29:27 +0100 (Fri, 16 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/audioclient.cc
+
+SCTP socket type fix.
+
+------------------------------------------------------------------------
+r1247 | dreibh | 2011-12-16 08:28:51 +0100 (Fri, 16 Dec 2011) | 2 lines
+Changed paths:
+   A /trunk/rtpaudio2/rtpaudio/c
+   A /trunk/rtpaudio2/rtpaudio/c2
+   A /trunk/rtpaudio2/rtpaudio/s
+
+Added test scripts.
+
+------------------------------------------------------------------------
+r1246 | dreibh | 2011-12-15 19:10:53 +0100 (Thu, 15 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/make-symbols
+   M /trunk/rtpaudio2/replace-cpp-symbols
+
+Updated symbols scripts.
+
+------------------------------------------------------------------------
+r1245 | dreibh | 2011-12-15 17:43:44 +0100 (Thu, 15 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/configure.in
+   M /trunk/rtpaudio2/debian/changelog
+   M /trunk/rtpaudio2/debian/libaudiocodeccommon0.symbols
+   M /trunk/rtpaudio2/debian/libaudiocommon0.symbols
+   M /trunk/rtpaudio2/debian/libaudiodecoder0.symbols
+   M /trunk/rtpaudio2/debian/libaudioencoder0.symbols
+   M /trunk/rtpaudio2/debian/libaudioreader0.symbols
+   M /trunk/rtpaudio2/debian/libaudiowriter0.symbols
+   M /trunk/rtpaudio2/debian/libmediainfo0.symbols
+   M /trunk/rtpaudio2/debian/libmpegsound0.symbols
+   M /trunk/rtpaudio2/debian/librtpaudioclient0.symbols
+   M /trunk/rtpaudio2/debian/librtpaudiocommon0.symbols
+   M /trunk/rtpaudio2/debian/librtpaudioserver0.symbols
+   M /trunk/rtpaudio2/debian/librtpclient0.symbols
+   M /trunk/rtpaudio2/debian/librtpcommon0.symbols
+   M /trunk/rtpaudio2/debian/librtpserver0.symbols
+   M /trunk/rtpaudio2/debian/libtdtoolbox0.symbols
+   M /trunk/rtpaudio2/make-symbols
+   M /trunk/rtpaudio2/replace-cpp-symbols
+   M /trunk/rtpaudio2/rtpaudio/tdsocket.h
+
+Updated symbols.
+
+------------------------------------------------------------------------
+r1244 | dreibh | 2011-12-15 14:51:41 +0100 (Thu, 15 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/configure.in
+   M /trunk/rtpaudio2/debian/changelog
+   M /trunk/rtpaudio2/debian/libaudiocodeccommon0.symbols
+   M /trunk/rtpaudio2/debian/libaudiocommon0.symbols
+   M /trunk/rtpaudio2/debian/libaudiodecoder0.symbols
+   M /trunk/rtpaudio2/debian/libaudioencoder0.symbols
+   M /trunk/rtpaudio2/debian/libaudioreader0.symbols
+   M /trunk/rtpaudio2/debian/libaudiowriter0.symbols
+   M /trunk/rtpaudio2/debian/libmediainfo0.symbols
+   M /trunk/rtpaudio2/debian/libmpegsound0.symbols
+   M /trunk/rtpaudio2/debian/librtpaudioclient0.symbols
+   M /trunk/rtpaudio2/debian/librtpaudiocommon0.symbols
+   M /trunk/rtpaudio2/debian/librtpaudioserver0.symbols
+   M /trunk/rtpaudio2/debian/librtpclient0.symbols
+   M /trunk/rtpaudio2/debian/librtpcommon0.symbols
+   M /trunk/rtpaudio2/debian/librtpserver0.symbols
+   M /trunk/rtpaudio2/debian/libtdtoolbox0.symbols
+   M /trunk/rtpaudio2/make-symbols
+
+Updated symbols files.
+
+------------------------------------------------------------------------
+r1243 | dreibh | 2011-12-15 13:40:38 +0100 (Thu, 15 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/tdmessage.h
+   M /trunk/rtpaudio2/rtpaudio/tdmessage.icc
+
+Some sendmsg() control handling fixes.
+
+------------------------------------------------------------------------
+r1242 | dreibh | 2011-12-15 13:01:27 +0100 (Thu, 15 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/packetaddress.cc
+   M /trunk/rtpaudio2/rtpaudio/packetaddress.h
+
+A small fix.
+
+------------------------------------------------------------------------
+r1241 | dreibh | 2011-12-15 10:45:30 +0100 (Thu, 15 Dec 2011) | 3 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/tdmessage.h
+   M /trunk/rtpaudio2/rtpaudio/tdmessage.icc
+
+Minor fix.
+
+
+------------------------------------------------------------------------
+r1240 | dreibh | 2011-12-15 10:29:02 +0100 (Thu, 15 Dec 2011) | 3 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/rtcpabstractserver.cc
+   M /trunk/rtpaudio2/rtpaudio/rtcpreceiver.cc
+
+Fixed SDES handling problems.
+
+
+------------------------------------------------------------------------
+r1239 | dreibh | 2011-12-15 10:28:37 +0100 (Thu, 15 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/advancedaudioencoder.cc
+   M /trunk/rtpaudio2/rtpaudio/simpleaudioencoder.cc
+
+Fixed missing initializations.
+
+------------------------------------------------------------------------
+r1238 | dreibh | 2011-12-15 09:32:14 +0100 (Thu, 15 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/mediainfo.cc
+   M /trunk/rtpaudio2/rtpaudio/mediainfo.h
+   M /trunk/rtpaudio2/rtpaudio/rtppacket.h
+
+Fixed missing initialization.
+
+------------------------------------------------------------------------
+r1237 | dreibh | 2011-12-15 09:26:52 +0100 (Thu, 15 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/tdmessage.h
+   M /trunk/rtpaudio2/rtpaudio/tdmessage.icc
+
+Improved sendmsg() handling.
+
+------------------------------------------------------------------------
+r1236 | dreibh | 2011-12-15 09:26:25 +0100 (Thu, 15 Dec 2011) | 3 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/advancedaudioencoder.cc
+
+Fixed missing initialization.
+
+
+------------------------------------------------------------------------
+r1235 | dreibh | 2011-12-15 09:26:03 +0100 (Thu, 15 Dec 2011) | 3 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/rtcpabstractserver.cc
+
+Fixed invalid iterator.
+
+
+------------------------------------------------------------------------
+r1234 | dreibh | 2011-12-15 07:34:06 +0100 (Thu, 15 Dec 2011) | 3 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/rtcpsender.cc
+   M /trunk/rtpaudio2/rtpaudio/rtpsender.cc
+   M /trunk/rtpaudio2/rtpaudio/tdmessage.h
+   M /trunk/rtpaudio2/rtpaudio/tdmessage.icc
+   M /trunk/rtpaudio2/rtpaudio/tdsocket.cc
+
+Improved and fixed sendmsg() control data handling.
+
+
+------------------------------------------------------------------------
+r1233 | dreibh | 2011-12-15 06:18:22 +0100 (Thu, 15 Dec 2011) | 3 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/rtcpsender.cc
+   M /trunk/rtpaudio2/rtpaudio/rtpsender.cc
+   M /trunk/rtpaudio2/rtpaudio/tdmessage.h
+   M /trunk/rtpaudio2/rtpaudio/tdmessage.icc
+   M /trunk/rtpaudio2/rtpaudio/tdsocket.cc
+   M /trunk/rtpaudio2/rtpaudio/tdsocket.h
+   M /trunk/rtpaudio2/rtpaudio/tdsocket.icc
+
+Some fixes and improvements.
+
+
+------------------------------------------------------------------------
+r1232 | dreibh | 2011-12-14 15:47:19 +0100 (Wed, 14 Dec 2011) | 3 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/internetaddress.cc
+   M /trunk/rtpaudio2/rtpaudio/internetaddress.h
+   M /trunk/rtpaudio2/rtpaudio/socketaddress.h
+   M /trunk/rtpaudio2/rtpaudio/unixaddress.cc
+   M /trunk/rtpaudio2/rtpaudio/unixaddress.h
+
+Some improvements.
+
+
+------------------------------------------------------------------------
+r1231 | dreibh | 2011-12-14 15:00:30 +0100 (Wed, 14 Dec 2011) | 1 line
+Changed paths:
+   M /trunk/netperfmeter/configure.in
+   M /trunk/rtpaudio2/rtpaudio/internetaddress.cc
+   M /trunk/subnetcalc/configure.in
+
+Fixed detection code for sa_len, sin_len and sin6_len.
+------------------------------------------------------------------------
+r1230 | dreibh | 2011-12-14 14:47:09 +0100 (Wed, 14 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/configure.in
+
+Fixed check for sa_len, sin_len and sin6_len fields.
+
+------------------------------------------------------------------------
+r1229 | dreibh | 2011-12-14 14:30:27 +0100 (Wed, 14 Dec 2011) | 3 lines
+Changed paths:
+   D /trunk/rtpaudio2/admin/config.guess
+   D /trunk/rtpaudio2/admin/config.sub
+   D /trunk/rtpaudio2/admin/depcomp
+   D /trunk/rtpaudio2/admin/install-sh
+   D /trunk/rtpaudio2/admin/ltmain.sh
+   D /trunk/rtpaudio2/admin/missing
+
+Removed unnecessary files.
+
+
+------------------------------------------------------------------------
+r1227 | dreibh | 2011-12-14 14:07:48 +0100 (Wed, 14 Dec 2011) | 3 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/sourcestateinfo.cc
+   M /trunk/rtpaudio2/rtpaudio/sourcestateinfo.h
+
+Added copy operation to avoid duplicating the Synchronizable object.
+
+
+------------------------------------------------------------------------
+r1226 | dreibh | 2011-12-14 14:06:55 +0100 (Wed, 14 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/ringbuffer.cc
+
+Fixed delete type mismatch.
+
+------------------------------------------------------------------------
+r1224 | dreibh | 2011-12-14 09:54:41 +0100 (Wed, 14 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/make-symbols
+   A /trunk/rtpaudio2/replace-cpp-symbols
+
+Updated symbols scripts.
+
+------------------------------------------------------------------------
+r1223 | dreibh | 2011-12-13 19:04:13 +0100 (Tue, 13 Dec 2011) | 1 line
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/Makefile.am
+   M /trunk/rtpaudio2/rtpaudio/abstractlayerdescription.cc
+   M /trunk/rtpaudio2/rtpaudio/abstractqosdescription.cc
+   M /trunk/rtpaudio2/rtpaudio/audioclient.cc
+   D /trunk/rtpaudio2/rtpaudio/encoderinfo.cc
+   M /trunk/rtpaudio2/rtpaudio/fft.cc
+   A /trunk/rtpaudio2/rtpaudio/t1.cc (from /trunk/rtpaudio2/rtpaudio/encoderinfo.cc:1212)
+   M /trunk/rtpaudio2/rtpaudio/tdsocket.cc
+   M /trunk/rtpaudio2/rtpaudio/trafficshaper.cc
+
+exit() should not occur in shared libraries -> replaced by abort() to handle internal errors.
+------------------------------------------------------------------------
+r1222 | dreibh | 2011-12-13 19:03:58 +0100 (Tue, 13 Dec 2011) | 1 line
+Changed paths:
+   M /trunk/rtpaudio2/debian/control
+   A /trunk/rtpaudio2/debian/libaudiocodeccommon0.install (from /trunk/rtpaudio2/debian/librtpaudio0.install:1220)
+   A /trunk/rtpaudio2/debian/libaudiocodeccommon0.symbols
+   A /trunk/rtpaudio2/debian/libaudiocommon0.install
+   A /trunk/rtpaudio2/debian/libaudiocommon0.symbols
+   A /trunk/rtpaudio2/debian/libaudiodecoder0.install (from /trunk/rtpaudio2/debian/librtpaudio0.install:1220)
+   A /trunk/rtpaudio2/debian/libaudiodecoder0.symbols
+   A /trunk/rtpaudio2/debian/libaudioencoder0.install (from /trunk/rtpaudio2/debian/librtpaudio0.install:1220)
+   A /trunk/rtpaudio2/debian/libaudioencoder0.symbols
+   A /trunk/rtpaudio2/debian/libaudioreader0.install (from /trunk/rtpaudio2/debian/librtpaudio0.install:1220)
+   A /trunk/rtpaudio2/debian/libaudioreader0.symbols
+   A /trunk/rtpaudio2/debian/libaudiowriter0.install
+   A /trunk/rtpaudio2/debian/libaudiowriter0.symbols
+   A /trunk/rtpaudio2/debian/libmediainfo0.install
+   A /trunk/rtpaudio2/debian/libmediainfo0.symbols
+   M /trunk/rtpaudio2/debian/libmpegsound0.symbols
+   D /trunk/rtpaudio2/debian/librtpaudio0.install
+   D /trunk/rtpaudio2/debian/librtpaudio0.symbols
+   A /trunk/rtpaudio2/debian/librtpaudioclient0.install
+   A /trunk/rtpaudio2/debian/librtpaudioclient0.symbols
+   A /trunk/rtpaudio2/debian/librtpaudiocommon0.install
+   A /trunk/rtpaudio2/debian/librtpaudiocommon0.symbols
+   A /trunk/rtpaudio2/debian/librtpaudioserver0.install
+   A /trunk/rtpaudio2/debian/librtpaudioserver0.symbols
+   A /trunk/rtpaudio2/debian/librtpclient0.install
+   A /trunk/rtpaudio2/debian/librtpclient0.symbols
+   A /trunk/rtpaudio2/debian/librtpcommon0.install
+   A /trunk/rtpaudio2/debian/librtpcommon0.symbols
+   A /trunk/rtpaudio2/debian/librtpserver0.install
+   A /trunk/rtpaudio2/debian/librtpserver0.symbols
+   A /trunk/rtpaudio2/debian/libtdtoolbox0.install
+   A /trunk/rtpaudio2/debian/libtdtoolbox0.symbols
+
+Packaging updates.
+------------------------------------------------------------------------
+r1221 | dreibh | 2011-12-13 18:13:52 +0100 (Tue, 13 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/debian/control
+
+Some updates.
+
+------------------------------------------------------------------------
+r1220 | dreibh | 2011-12-13 17:43:16 +0100 (Tue, 13 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/debian/control
+   A /trunk/rtpaudio2/debian/librtpaudio0.install (from /trunk/rtpaudio2/debian/rtpaudio.install:1212)
+   A /trunk/rtpaudio2/debian/librtpaudio0.symbols
+   M /trunk/rtpaudio2/rtpaudio/Makefile.am
+   M /trunk/rtpaudio2/rtpaudio/framesizescalabilityinterface.h
+   M /trunk/rtpaudio2/rtpaudio/ringbuffer.cc
+
+Minor fixes.
+
+------------------------------------------------------------------------
+r1219 | dreibh | 2011-12-13 16:14:50 +0100 (Tue, 13 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/Makefile.am
+   M /trunk/rtpaudio2/rtpaudio/convert-to-ogg
+   M /trunk/rtpaudio2/rtpaudio/decoderinterface.h
+   M /trunk/rtpaudio2/rtpaudio/encoderinterface.h
+
+More Makefile.am clean-ups.
+
+------------------------------------------------------------------------
+r1218 | dreibh | 2011-12-13 15:22:03 +0100 (Tue, 13 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/UpdateDoc1.sed
+   M /trunk/rtpaudio2/rtpaudio/Makefile.am
+   A /trunk/rtpaudio2/rtpaudio/frameratescalabilityinterface.cc (from /trunk/rtpaudio2/rtpaudio/framesizescalabilityinterface.h:1212)
+   M /trunk/rtpaudio2/rtpaudio/frameratescalabilityinterface.h
+   A /trunk/rtpaudio2/rtpaudio/framesizescalabilityinterface.cc (from /trunk/rtpaudio2/rtpaudio/framesizescalabilityinterface.h:1212)
+
+Clean-up of Makefile.am dependencies.
+
+------------------------------------------------------------------------
+r1217 | dreibh | 2011-12-13 14:10:22 +0100 (Tue, 13 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/Makefile.am
+   D /trunk/rtpaudio2/rtpaudio/cbrframesizescalability.cc
+   D /trunk/rtpaudio2/rtpaudio/cbrframesizescalability.h
+   D /trunk/rtpaudio2/rtpaudio/genericframesizescalability.cc
+   D /trunk/rtpaudio2/rtpaudio/genericframesizescalability.h
+
+Removed obsolete files.
+
+------------------------------------------------------------------------
+r1216 | dreibh | 2011-12-13 14:06:40 +0100 (Tue, 13 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/audiodevice.cc
+
+Minor fixes.
+
+------------------------------------------------------------------------
+r1215 | dreibh | 2011-12-13 13:45:38 +0100 (Tue, 13 Dec 2011) | 3 lines
+Changed paths:
+   D /trunk/rtpaudio2/rtpaudio/avsender.cc
+   A /trunk/rtpaudio2/rtpaudio/wireshark
+   A /trunk/rtpaudio2/rtpaudio/wireshark/ppid.patch
+
+- Removed obsolete file.
+- Added Wireshark patch to show RTP and RTCP data.
+
+------------------------------------------------------------------------
+r1214 | dreibh | 2011-12-13 13:02:56 +0100 (Tue, 13 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/advancedaudiopacket.h
+   M /trunk/rtpaudio2/rtpaudio/simpleaudiopacket.h
+
+ID changes.
+
+------------------------------------------------------------------------
+r1213 | dreibh | 2011-12-13 12:50:43 +0100 (Tue, 13 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/audioclient.cc
+   M /trunk/rtpaudio2/rtpaudio/audioclientapppacket.h
+   M /trunk/rtpaudio2/rtpaudio/audioserver.cc
+   M /trunk/rtpaudio2/rtpaudio/rtcpsender.cc
+   M /trunk/rtpaudio2/rtpaudio/rtcpsender.h
+   M /trunk/rtpaudio2/rtpaudio/rtpa-server.cc
+   M /trunk/rtpaudio2/rtpaudio/rtpsender.cc
+   M /trunk/rtpaudio2/rtpaudio/rtpsender.h
+
+Got rid of connect() calls. Using UDP-like style now.
+
+------------------------------------------------------------------------
+r1210 | dreibh | 2011-12-13 10:36:27 +0100 (Tue, 13 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/make-ppa
+
+Removed Karmic from list of PPA distributions.
+
+------------------------------------------------------------------------
+r1209 | dreibh | 2011-12-13 10:28:33 +0100 (Tue, 13 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/rtpsender.cc
+
+Now using sctp_sndrcvinfo with sendmsg() for RTP data.
+
+------------------------------------------------------------------------
+r1208 | dreibh | 2011-12-13 10:27:54 +0100 (Tue, 13 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/tdmessage.h
+   M /trunk/rtpaudio2/rtpaudio/tdmessage.icc
+
+Some fixes for msg_control handling.
+
+------------------------------------------------------------------------
+r1207 | dreibh | 2011-12-13 09:03:54 +0100 (Tue, 13 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/rtcpsender.cc
+
+RTCP SDES packet generation bugfix.
+
+------------------------------------------------------------------------
+r1206 | dreibh | 2011-12-13 08:04:50 +0100 (Tue, 13 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/audioclient.cc
+   M /trunk/rtpaudio2/rtpaudio/audioclientapppacket.h
+   M /trunk/rtpaudio2/rtpaudio/audioserver.cc
+   M /trunk/rtpaudio2/rtpaudio/audioserver.h
+   M /trunk/rtpaudio2/rtpaudio/qosmanagerinterface.h
+   M /trunk/rtpaudio2/rtpaudio/rtcpabstractserver.cc
+   M /trunk/rtpaudio2/rtpaudio/rtcpabstractserver.h
+
+Some fixes.
+
+------------------------------------------------------------------------
+r1205 | dreibh | 2011-12-12 22:14:49 +0100 (Mon, 12 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/Makefile.am
+   M /trunk/rtpaudio2/rtpaudio/ringbuffer.cc
+   M /trunk/rtpaudio2/rtpaudio/ringbuffer.h
+   M /trunk/rtpaudio2/rtpaudio/ringbuffer.icc
+   D /trunk/rtpaudio2/rtpaudio/streamsrcdest.cc
+   D /trunk/rtpaudio2/rtpaudio/streamsrcdest.h
+   M /trunk/rtpaudio2/rtpaudio/trafficclassvalues.cc
+   M /trunk/rtpaudio2/rtpaudio/trafficclassvalues.h
+   M /trunk/rtpaudio2/rtpaudio/trafficclassvalues.icc
+
+Some code clean-ups.
+
+------------------------------------------------------------------------
+r1204 | dreibh | 2011-12-12 21:52:03 +0100 (Mon, 12 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/ChangeLog
+   M /trunk/rtpaudio2/configure.in
+   M /trunk/rtpaudio2/debian/changelog
+   M /trunk/rtpaudio2/rtpaudio/audioclient.cc
+   M /trunk/rtpaudio2/rtpaudio/mp3audioreader.cc
+   M /trunk/rtpaudio2/rtpaudio/qinfotabwidget.cc
+
+Some code clean-ups.
+
+------------------------------------------------------------------------
+r1203 | dreibh | 2011-12-12 21:42:46 +0100 (Mon, 12 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/Test-MP3s/Zirkusmusik.mp3
+   D /trunk/rtpaudio2/rtpaudio/Test-MP3s/Zirkusmusik.ogg
+
+Removed obsolete file.
+
+------------------------------------------------------------------------
+r1202 | dreibh | 2011-12-12 21:39:28 +0100 (Mon, 12 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/configure.in
+   M /trunk/rtpaudio2/rtpaudio/mp3audioreader.cc
+
+Media handling bugfix.
+
+------------------------------------------------------------------------
+r1201 | dreibh | 2011-12-12 21:14:49 +0100 (Mon, 12 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/debian/changelog
+   A /trunk/rtpaudio2/debian/rtpaudio.manpages
+   M /trunk/rtpaudio2/rtpaudio/Makefile.am
+   M /trunk/rtpaudio2/rtpaudio/mp3audioreader.h
+   A /trunk/rtpaudio2/rtpaudio/rtpa-client.1 (from /trunk/subnetcalc/src/subnetcalc.1:1196)
+   A /trunk/rtpaudio2/rtpaudio/rtpa-qclient.1 (from /trunk/subnetcalc/src/subnetcalc.1:1196)
+   A /trunk/rtpaudio2/rtpaudio/rtpa-server.1 (from /trunk/subnetcalc/src/subnetcalc.1:1196)
+   M /trunk/rtpaudio2/rtpaudio/rtpa-server.cc
+   A /trunk/rtpaudio2/rtpaudio/rtpa-vclient.1 (from /trunk/subnetcalc/src/subnetcalc.1:1196)
+
+Added manpages.
+
+------------------------------------------------------------------------
+r1200 | dreibh | 2011-12-12 20:21:52 +0100 (Mon, 12 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/Makefile.am
+   M /trunk/rtpaudio2/rtpaudio/audioserver.cc
+   M /trunk/rtpaudio2/rtpaudio/audioserver.h
+   D /trunk/rtpaudio2/rtpaudio/bandwidthmanager.h
+   A /trunk/rtpaudio2/rtpaudio/qosmanagerinterface.h (from /trunk/rtpaudio2/rtpaudio/bandwidthmanager.h:1196)
+   M /trunk/rtpaudio2/rtpaudio/rtpa-server.cc
+   M /trunk/rtpaudio2/rtpaudio/rtpsender.cc
+   M /trunk/rtpaudio2/rtpaudio/rtpsender.h
+
+Code clean-up.
+
+------------------------------------------------------------------------
+r1199 | dreibh | 2011-12-12 20:09:09 +0100 (Mon, 12 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/audioserver.cc
+
+Some improvements.
+
+------------------------------------------------------------------------
+r1198 | dreibh | 2011-12-12 18:39:48 +0100 (Mon, 12 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/rtpaudio2/rtpaudio/audioclient.cc
+   M /trunk/rtpaudio2/rtpaudio/audioclient.h
+
+Address handling fixes.
+
+------------------------------------------------------------------------
+r1197 | dreibh | 2011-12-12 18:34:28 +0100 (Mon, 12 Dec 2011) | 2 lines
+Changed paths:
+   A /trunk/rtpaudio2/rtpaudio/Test-MP3s/Zirkusmusik.mp3
+   M /trunk/rtpaudio2/rtpaudio/Test4.list
+   M /trunk/rtpaudio2/rtpaudio/audioclient.cc
+   M /trunk/rtpaudio2/rtpaudio/audioclient.h
+   M /trunk/rtpaudio2/rtpaudio/rtpa-client.cc
+   M /trunk/rtpaudio2/rtpaudio/rtpa-qclient.cc
+   M /trunk/rtpaudio2/rtpaudio/rtpa-qclient.h
+   M /trunk/rtpaudio2/rtpaudio/rtpa-vclient.cc
+
+Improved URL handling. SCTP now does not need an explicit option any more. It can just be specified as part of the URL itself.
+
+------------------------------------------------------------------------
 r1196 | dreibh | 2011-12-12 16:17:05 +0100 (Mon, 12 Dec 2011) | 2 lines
 Changed paths:
    M /trunk/rtpaudio2/rtpaudio/audioclient.cc
