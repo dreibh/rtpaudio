@@ -50,8 +50,14 @@
 class AudioDecoderInterface : virtual public DecoderInterface,
                               virtual public AudioQualityInterface
 {
-   // ====== Wanted quality =================================================
    public:
+   /**
+     * Destructor.
+     *
+     */
+   virtual ~AudioDecoderInterface() = 0;   
+
+   // ====== Wanted quality =================================================
    /**
      * Get wanted quality. This is the quality wanted in TransportInfo
      * from getTransportInfo().

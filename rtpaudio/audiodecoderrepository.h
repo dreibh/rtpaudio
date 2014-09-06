@@ -64,7 +64,7 @@ class AudioDecoderRepository : virtual public DecoderRepositoryInterface,
    /**
      * Destructor.
      */
-   ~AudioDecoderRepository();
+   virtual ~AudioDecoderRepository();
 
 
    // ====== Repository functionality =======================================

@@ -50,6 +50,12 @@
 class AudioEncoderInterface : virtual public EncoderInterface,
                               virtual public AdjustableAudioQualityInterface
 {
+   public:
+   /**
+     * Destructor.
+     *
+     */
+   virtual ~AudioEncoderInterface();   
 };
 
 

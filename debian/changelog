@@ -1,6 +1,6 @@
-rtpaudio (2.0.0~beta1.4-1ubuntu1) trusty; urgency=low
+rtpaudio (2.0.0~beta2.0-1ubuntu1) trusty; urgency=low
 
   * New upstream package.
   * Initial Debian release (Closes: #669908).
 
- -- Thomas Dreibholz <dreibh@iem.uni-due.de>  Mon, 07 Jul 2014 10:10:10 +0200
+ -- Thomas Dreibholz <dreibh@iem.uni-due.de>  Sat, 06 Sep 2014 10:10:10 +0200

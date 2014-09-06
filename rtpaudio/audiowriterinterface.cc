@@ -3,7 +3,7 @@
 // ####                      RTP Audio Server Project                    ####
 // ####                    ============================                  ####
 // ####                                                                  ####
-// #### Audio Reader Interface                                           ####
+// #### Audio Writer Interface                                           ####
 // ####                                                                  ####
 // ####           Copyright (C) 1999-2012 by Thomas Dreibholz            ####
 // ####                                                                  ####
@@ -30,97 +30,10 @@
 // ##########################################################################
 // $Id$
 
-
-#ifndef AUDIOREADERINTERFACE_H
-#define AUDIOREADERINTERFACE_H
+#include "audiowriterinterface.h"
 
 
-#include "tdsystem.h"
-#include "audioqualityinterface.h"
-#include "mediainfo.h"
-
-
-/**
-  * This class is the interface for an audio reader.
-  *
-  * @short   Audio Reader Interface
-  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
-  * @version 1.0
-  */
-class AudioReaderInterface : virtual public AudioQualityInterface
+// ###### Destructor ########################################################
+AudioWriterInterface::~AudioWriterInterface()
 {
-   public:
-   /**
-     * Destructor.
-     *
-     */
-   virtual ~AudioReaderInterface();   
-   
-   /**
-     * Open media.
-     *
-     * @param name Name of media, e.g. a file name.
-     * @return true, if AudioReader is ready for reading; false otherwise.
-     */
-   virtual bool openMedia(const char* name) = 0;
-
-   /**
-     * Close media, if opened.
-     */
-   virtual void closeMedia() = 0;
-
-   /**
-     * Check, if AudioReader is ready for reading.
-     *
-     * @return true, if AudioReader is ready; false otherwise.
-     */
-   virtual bool ready() const = 0;
-
-   /**
-     * Get MediaInfo.
-     *
-     * @param mediaInfo Reference to store media info.
-     */
-   virtual void getMediaInfo(MediaInfo& mediaInfo) const = 0;
-
-   /**
-     * Get error code.
-     *
-     * @return Error code.
-     */
-   virtual MediaError getErrorCode() const = 0;
-
-   /**
-     * Get current position.
-     *
-     * @return Position in nanoseconds.
-     */
-   virtual card64 getPosition() const = 0;
-
-   /**
-     * Get maximum position.
-     *
-     * @return maximum position in nanoseconds.
-     */
-   virtual card64 getMaxPosition() const = 0;
-
-   /**
-     * Get position.
-     *
-     * @param position Position in nanoseconds.
-     */
-   virtual void setPosition(const card64 position) = 0;
-
-   /**
-     * Read next block.
-     * In case of an error, getNextBlock() should return 0 and set ready to false.
-     *
-     * @param buffer Buffer for block to read.
-     * @param blockSize Size of block in bytes.
-     * @return Number of bytes read.
-     */
-   virtual cardinal getNextBlock(void* buffer, const cardinal blockSize) = 0;
-};
-
-
-#endif
+}

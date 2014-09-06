@@ -72,17 +72,17 @@ libaudiocommon_la_SOURCES = \
  audioquality.cc audioquality.h audioquality.icc \
  audioqualityinterface.h audioqualityinterface.icc \
  audioconverter.cc audioconverter.h
-libaudiocommon_la_LIBADD = libtdtoolbox.la
+libaudiocommon_la_LIBADD = libtdtoolbox.la -lm
 
 libaudioreader_la_SOURCES = \
- audioreaderinterface.h \
+ audioreaderinterface.cc audioreaderinterface.h \
  mp3audioreader.cc mp3audioreader.h \
  multiaudioreader.cc multiaudioreader.h \
  wavaudioreader.cc wavaudioreader.h
 libaudioreader_la_LIBADD = libaudiocommon.la libmediainfo.la libtdtoolbox.la ../libmpegsound/libmpegsound.la
 
 libaudiowriter_la_SOURCES = \
- audiowriterinterface.h \
+ audiowriterinterface.cc audiowriterinterface.h \
  multiaudiowriter.cc multiaudiowriter.h \
  audiodebug.cc audiodebug.h \
  audiodevice.cc audiodevice.h audiodevice.icc \
@@ -128,14 +128,14 @@ libaudiocodeccommon_la_LIBADD = libaudiocommon.la libtdtoolbox.la
 
 libaudioencoder_la_SOURCES = \
  advancedaudioencoder.cc advancedaudioencoder.h \
- audioencoderinterface.h \
+ audioencoderinterface.cc audioencoderinterface.h \
  audioencoderrepository.cc audioencoderrepository.h audioencoderrepository.icc \
  simpleaudioencoder.cc simpleaudioencoder.h
 libaudioencoder_la_LIBADD = libaudiocodeccommon.la libaudiocommon.la
 
 libaudiodecoder_la_SOURCES = \
  advancedaudiodecoder.cc advancedaudiodecoder.h \
- audiodecoderinterface.h \
+ audiodecoderinterface.cc audiodecoderinterface.h \
  audiodecoderrepository.cc audiodecoderrepository.h audiodecoderrepository.icc \
  simpleaudiodecoder.cc simpleaudiodecoder.h
 libaudiodecoder_la_LIBADD = libaudiocodeccommon.la libaudiocommon.la libmediainfo.la libtdtoolbox.la
@@ -184,13 +184,13 @@ endif
 
 
 rtpa_server_SOURCES = rtpa-server.cc
-rtpa_server_LDADD   = libqosmgr.la librtpaudioserver.la librtpserver.la libtdtoolbox.la
+rtpa_server_LDADD   = libqosmgr.la librtpaudioserver.la librtpserver.la libtdtoolbox.la -lm
 
 rtpa_client_SOURCES = rtpa-client.cc
-rtpa_client_LDADD   = librtpaudioclient.la libaudiodecoder.la libaudiowriter.la libaudiocommon.la libtdtoolbox.la
+rtpa_client_LDADD   = librtpaudioclient.la libaudiodecoder.la libaudiowriter.la libaudiocommon.la libtdtoolbox.la -lm
 
 rtpa_vclient_SOURCES = rtpa-vclient.cc
-rtpa_vclient_LDADD   = librtpaudioclient.la libaudiodecoder.la libaudiowriter.la libaudiocommon.la libtdtoolbox.la
+rtpa_vclient_LDADD   = librtpaudioclient.la libaudiodecoder.la libaudiowriter.la libaudiocommon.la libtdtoolbox.la -lm
 
 
 if BUILD_QT_PROGRAMS

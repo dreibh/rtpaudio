@@ -50,6 +50,12 @@ class AudioWriterInterface : virtual public AdjustableAudioQualityInterface
 {
    public:
    /**
+     * Destructor.
+     *
+     */
+   virtual ~AudioWriterInterface() = 0;   
+
+   /**
      * Check, if AudioWriter is ready for writing.
      *
      * @return true, if AudioWriter is ready; false otherwise.
