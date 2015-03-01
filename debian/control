@@ -9,7 +9,7 @@ Build-Depends: autotools-dev,
                libpulse-dev,
                libqt4-dev,
                libsctp-dev (>= 1.0.5)
-Standards-Version: 3.9.5
+Standards-Version: 3.9.6
 
 Package: libmpegsound0
 Section: libs
