@@ -5,7 +5,7 @@
 // ####                                                                  ####
 // #### Audio Client                                                     ####
 // ####                                                                  ####
-// ####           Copyright (C) 1999-2014 by Thomas Dreibholz            ####
+// ####           Copyright (C) 1999-2015 by Thomas Dreibholz            ####
 // ####                                                                  ####
 // #### Contact:                                                         ####
 // ####    EMail: dreibh@iem.uni-due.de                                  ####
@@ -295,7 +295,7 @@ int main(int argc, char* argv[])
 
 
    // ====== Print status ===================================================
-   std::cout << "RTP Audio Client - Copyright (C) 1999-2014 Thomas Dreibholz" << std::endl
+   std::cout << "RTP Audio Client - Copyright (C) 1999-2015 Thomas Dreibholz" << std::endl
              << "-----------------------------------------------------------" << std::endl
              << std::endl
              << "Version:         " << __DATE__ << ", " << __TIME__ << std::endl

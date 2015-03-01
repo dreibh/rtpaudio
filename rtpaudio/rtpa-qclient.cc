@@ -5,7 +5,7 @@
 // ####                                                                  ####
 // #### QClient - A graphical client for the RTP Audio Server            ####
 // ####                                                                  ####
-// ####           Copyright (C) 1999-2014 by Thomas Dreibholz            ####
+// ####           Copyright (C) 1999-2015 by Thomas Dreibholz            ####
 // ####                                                                  ####
 // #### Contact:                                                         ####
 // ####    EMail: dreibh@iem.uni-due.de                                  ####
@@ -177,9 +177,9 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    topLayout->setRowStretch(1,0);
 
    // ====== Status line ====================================================
-   QLabel* copyright = new QLabel("Copyright (C) 1999-2014 Thomas Dreibholz",centralWidget);
+   QLabel* copyright = new QLabel("Copyright (C) 1999-2015 Thomas Dreibholz",centralWidget);
    Q_CHECK_PTR(copyright);
-   copyright->setWhatsThis("RTP Audio Client\nCopyright (C) 1999-2014 Thomas Dreibholz");
+   copyright->setWhatsThis("RTP Audio Client\nCopyright (C) 1999-2015 Thomas Dreibholz");
    copyright->setAlignment(Qt::AlignRight);
    StatusBar = new QLabel("Welcome to the RTP Audio Client!",centralWidget);
    Q_CHECK_PTR(StatusBar);

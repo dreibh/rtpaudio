@@ -5,7 +5,7 @@
 // ####                                                                  ####
 // #### QClient - A graphical client for the RTP Audio Server            ####
 // ####                                                                  ####
-// ####           Copyright (C) 1999-2014 by Thomas Dreibholz            ####
+// ####           Copyright (C) 1999-2015 by Thomas Dreibholz            ####
 // ####                                                                  ####
 // #### Contact:                                                         ####
 // ####    EMail: dreibh@iem.uni-due.de                                  ####
