@@ -431,7 +431,7 @@ void QClient::information()
    QMessageBox::information(this,
       "RTP Audio Information",
       "RTP Audio Client - Version 2.00\n\n"
-      "Copyright (C) 1999-2014\n"
+      "Copyright (C) 1999-2017\n"
       "Thomas Dreibholz\n"
       "dreibh@iem.uni-due.de.de",
       "Okay");
