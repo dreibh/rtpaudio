@@ -5,7 +5,7 @@
 // ####                                                                  ####
 // #### QSpectrumAnalyzer implementation                                 ####
 // ####                                                                  ####
-// ####           Copyright (C) 1999-2015 by Thomas Dreibholz            ####
+// ####           Copyright (C) 1999-2017 by Thomas Dreibholz            ####
 // ####                                                                  ####
 // #### Contact:                                                         ####
 // ####    EMail: dreibh@iem.uni-due.de                                  ####
@@ -199,8 +199,8 @@ QSpectrumAnalyzer::QSpectrumAnalyzer(SpectrumAnalyzer* analyzer,
 
    Pause = new QPushButton("Pause");
    Q_CHECK_PTR(Pause);
-   Pause->setCheckable(TRUE);
-   Pause->setChecked(FALSE);
+   Pause->setCheckable(true);
+   Pause->setChecked(false);
    controlLayout->addWidget(Pause,1,0);
    QObject::connect(Pause,SIGNAL(toggled(bool)),this,SLOT(pause(bool)));
 
@@ -211,7 +211,7 @@ QSpectrumAnalyzer::QSpectrumAnalyzer(SpectrumAnalyzer* analyzer,
 
    Average = new QCheckBox("Average");
    Q_CHECK_PTR(Average);
-   Average->setChecked(TRUE);
+   Average->setChecked(true);
    controlLayout->addWidget(Average,2,0);
    QObject::connect(Average,SIGNAL(stateChanged(int)),this,SLOT(drawAverageLineToggled(int)));
 
@@ -292,7 +292,7 @@ void QSpectrumAnalyzer::newInterval(int index)
    if((cardinal)index < sizeof(QSpectrumAnalyzerTimings) / sizeof(card16)) {
       Timing = QSpectrumAnalyzerTimings[index];
       if(Pause->isChecked()) {
-         Pause->setChecked(FALSE);
+         Pause->setChecked(false);
       }
       Timer->setInterval(QSpectrumAnalyzerTimings[index]);
    }

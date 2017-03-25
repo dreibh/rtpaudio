@@ -5,7 +5,7 @@
 // ####                                                                  ####
 // #### QClient - A graphical client for the RTP Audio Server            ####
 // ####                                                                  ####
-// ####           Copyright (C) 1999-2015 by Thomas Dreibholz            ####
+// ####           Copyright (C) 1999-2017 by Thomas Dreibholz            ####
 // ####                                                                  ####
 // #### Contact:                                                         ####
 // ####    EMail: dreibh@iem.uni-due.de                                  ####
@@ -85,7 +85,7 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    SpectrumAnalyzerDevice = analyzer;
    MixerWindow            = NULL;
    MixerDevice            = mixer;
-   InsertionRequired      = FALSE;
+   InsertionRequired      = false;
 
    // ====== Menu ===========================================================
    QMenuBar* menu = menuBar();
@@ -111,7 +111,7 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    for(cardinal i = 0;i < LocationCount;i++) {
       LocationAction[i] = URLMenu->addAction("()");
       Q_CHECK_PTR(LocationAction[i]);
-      LocationAction[i]->setEnabled(FALSE);
+      LocationAction[i]->setEnabled(false);
       if(i <= 9) {
          LocationAction[i]->setShortcut(Qt::Key_F1 + i);
       }
@@ -128,13 +128,13 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    Q_CHECK_PTR(ToolsMenu);
    SpectrumAnalyzerAction = ToolsMenu->addAction("Spectrum Analyzer",this,SLOT(spectrumAnalyzer()),Qt::CTRL+Qt::Key_F);
    Q_CHECK_PTR(SpectrumAnalyzerAction);
-   SpectrumAnalyzerAction->setCheckable(TRUE);
-   SpectrumAnalyzerAction->setChecked(FALSE);
+   SpectrumAnalyzerAction->setCheckable(true);
+   SpectrumAnalyzerAction->setChecked(false);
    if(mixer != NULL) {
       MixerAction = ToolsMenu->addAction("Audio Mixer",this,SLOT(audioMixer()),Qt::CTRL+Qt::Key_M);
       Q_CHECK_PTR(MixerAction);
-      MixerAction->setCheckable(TRUE);
-      MixerAction->setChecked(FALSE);
+      MixerAction->setCheckable(true);
+      MixerAction->setChecked(false);
    }
    else {
       MixerAction = NULL;
@@ -145,16 +145,16 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    Q_CHECK_PTR(SettingsMenu);
    ResolverAction = SettingsMenu->addAction("&Resolve Addresses",this,SLOT(toggleAddressResolution(bool)),Qt::CTRL+Qt::Key_R);
    Q_CHECK_PTR(ResolverAction);
-   ResolverAction->setCheckable(TRUE);
+   ResolverAction->setCheckable(true);
    AutoRepeatAction = SettingsMenu->addAction("Auto Repeat");
    AutoRepeatAction->setShortcut(Qt::CTRL+Qt::Key_E);
    Q_CHECK_PTR(AutoRepeatAction);
-   AutoRepeatAction->setCheckable(TRUE);
+   AutoRepeatAction->setCheckable(true);
    AutoSaveBookmarksAction = SettingsMenu->addAction("Auto Save Bookmarks");
    Q_CHECK_PTR(AutoSaveBookmarksAction);
    AutoSaveBookmarksAction->setShortcut(Qt::CTRL+Qt::Key_B);
    menu->addMenu(SettingsMenu);
-   AutoSaveBookmarksAction->setCheckable(TRUE);
+   AutoSaveBookmarksAction->setCheckable(true);
 
    QMenu* helpMenu = new QMenu("&Help", this);
    Q_CHECK_PTR(helpMenu);
@@ -177,9 +177,9 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    topLayout->setRowStretch(1,0);
 
    // ====== Status line ====================================================
-   QLabel* copyright = new QLabel("Copyright (C) 1999-2015 Thomas Dreibholz",centralWidget);
+   QLabel* copyright = new QLabel("Copyright (C) 1999-2017 Thomas Dreibholz",centralWidget);
    Q_CHECK_PTR(copyright);
-   copyright->setWhatsThis("RTP Audio Client\nCopyright (C) 1999-2015 Thomas Dreibholz");
+   copyright->setWhatsThis("RTP Audio Client\nCopyright (C) 1999-2017 Thomas Dreibholz");
    copyright->setAlignment(Qt::AlignRight);
    StatusBar = new QLabel("Welcome to the RTP Audio Client!",centralWidget);
    Q_CHECK_PTR(StatusBar);
@@ -234,7 +234,7 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    ipv6->setWhatsThis("This label shows whether your system supports IPv6 or not.");
 
    stereo->setMinimumSize(stereo->sizeHint());
-   stereo->setChecked(TRUE);
+   stereo->setChecked(true);
    rate->setMinimumSize(rate->sizeHint());
    encoder->setMinimumSize(encoder->sizeHint());
 
@@ -336,10 +336,10 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    ScrollBar = new QScrollBar(Qt::Horizontal,controlGroup);
    Q_CHECK_PTR(ScrollBar);
    ScrollBar->setWhatsThis("Move this scrollbar to change the current position within a playing audio file.");
-   ScrollBarUpdated     = TRUE;
+   ScrollBarUpdated     = true;
    ScrollBarUpdateDelay = 0;
    ScrollBar->setRange(0,0);
-   ScrollBarUpdated = TRUE;
+   ScrollBarUpdated = true;
    ScrollBar->setValue(0);
 
    QLabel* label = new QLabel("Source URL: (Example: rtpa://gaffel:7500/Test1.list)",controlGroup);
@@ -354,7 +354,7 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    whatsThis->setMinimumSize(whatsThis->sizeHint());
    stop->setMinimumSize(stop->sizeHint());
    Pause->setMinimumSize(Pause->sizeHint());
-   Pause->setCheckable(TRUE);
+   Pause->setCheckable(true);
    ScrollBar->setMinimumSize(ScrollBar->sizeHint());
    Location->setMinimumSize(Location->sizeHint());
    loadBookmarks();
@@ -481,7 +481,7 @@ void QClient::play()
    String path;
    const bool newOK = scanURL((const char*)Location->text().toUtf8().constData(),protocol,host,path);
    protocol = protocol.toLower();
-   if((newOK == FALSE) || ((protocol != "rtpa") && (protocol != "rtpa+udp") && (protocol != "rtpa+sctp"))) {
+   if((newOK == false) || ((protocol != "rtpa") && (protocol != "rtpa+udp") && (protocol != "rtpa+sctp"))) {
       StatusBar->setText("Invalid URL! Check URL and try again.");
       QMessageBox::warning(this,"Warning",
                            "This URL is invalid!\n"
@@ -492,10 +492,10 @@ void QClient::play()
    }
 
    // ====== Check, if URL is new => Restart or change media ================
-   if(Client->playing() == TRUE) {
+   if(Client->playing() == true) {
       const String newURL = String(Location->text().toUtf8().constData());
       if(PlayingURL == newURL) {
-         Pause->setChecked(FALSE);
+         Pause->setChecked(false);
          return;
       }
 
@@ -504,12 +504,12 @@ void QClient::play()
       String oldPath;
       const bool oldOK = scanURL(PlayingURL,oldProtocol,oldHost,oldPath);
       oldProtocol = oldProtocol.toLower();
-      if(oldOK == TRUE) {
+      if(oldOK == true) {
          if((oldHost == host) && (oldProtocol == protocol)) {
             Client->change((const char*)Location->text().toUtf8().constData());
-            Pause->setChecked(FALSE);
+            Pause->setChecked(false);
             PlayingURL = newURL;
-            InsertionRequired = TRUE;
+            InsertionRequired = true;
             return;
          }
       }
@@ -517,7 +517,7 @@ void QClient::play()
    }
 
    // ====== Start client ===================================================
-   Pause->setChecked(FALSE);
+   Pause->setChecked(false);
    PlayingURL = (const char*)Location->text().toUtf8().constData();
    const bool ok = Client->play(PlayingURL.getData());
 
@@ -533,7 +533,7 @@ void QClient::play()
       InfoWidget->update("SA",serverAddress.getData());
       InfoWidget->update("CA",ourAddress.getData());
       InfoWidget->update("CSSRC",card64ToQString(Client->getOurSSRC(),"$%08x"));
-      InsertionRequired = TRUE;
+      InsertionRequired = true;
    }
    else {
       StatusBar->setText("Unable to find server! Check parameters and try again.");
@@ -549,7 +549,7 @@ void QClient::play()
 // ###### Stop playing ######################################################
 void QClient::stop()
 {
-   InsertionRequired = FALSE;
+   InsertionRequired = false;
    Client->stop();
    if(SpectrumAnalyzerWindow != NULL) {
       SpectrumAnalyzerWindow->reset();
@@ -602,13 +602,13 @@ void QClient::spectrumAnalyzer()
          if(SpectrumAnalyzerWindow != NULL) {
             QObject::connect(SpectrumAnalyzerWindow,SIGNAL(closeSpectrumAnalyzer()),this,SLOT(closeSpectrumAnalyzer()));
             SpectrumAnalyzerWindow->show();
-            SpectrumAnalyzerAction->setChecked(TRUE);
+            SpectrumAnalyzerAction->setChecked(true);
          }
       }
       else {
          delete SpectrumAnalyzerWindow;
          SpectrumAnalyzerWindow = NULL;
-         SpectrumAnalyzerAction->setChecked(FALSE);
+         SpectrumAnalyzerAction->setChecked(false);
       }
    }
 }
@@ -620,7 +620,7 @@ void QClient::closeSpectrumAnalyzer()
    if(SpectrumAnalyzerWindow != NULL) {
       delete SpectrumAnalyzerWindow;
       SpectrumAnalyzerWindow = NULL;
-      SpectrumAnalyzerAction->setChecked(FALSE);
+      SpectrumAnalyzerAction->setChecked(false);
    }
 }
 
@@ -634,13 +634,13 @@ void QClient::audioMixer()
          if(MixerWindow != NULL) {
             QObject::connect(MixerWindow,SIGNAL(closeAudioMixer()),this,SLOT(closeAudioMixer()));
             MixerWindow->show();
-            MixerAction->setChecked(TRUE);
+            MixerAction->setChecked(true);
          }
       }
       else {
          delete MixerWindow;
          MixerWindow = NULL;
-         MixerAction->setChecked(FALSE);
+         MixerAction->setChecked(false);
       }
    }
 }
@@ -652,7 +652,7 @@ void QClient::closeAudioMixer()
    if(MixerWindow != NULL) {
       delete MixerWindow;
       MixerWindow = NULL;
-      MixerAction->setChecked(FALSE);
+      MixerAction->setChecked(false);
    }
 }
 
@@ -693,11 +693,11 @@ void QClient::position(int value)
    if(!ScrollBarUpdated) {
       const card64 position = (card64)value * (PositionStepsPerSecond / 10);
       Client->setPosition(position);
-      Pause->setChecked(FALSE);
+      Pause->setChecked(false);
       ScrollBarUpdateDelay = MaxScrollBarUpdateDelay;
    }
    else {
-      ScrollBarUpdated = FALSE;
+      ScrollBarUpdated = false;
    }
 }
 
@@ -751,8 +751,8 @@ void QClient::timerEvent()
       }
 
       // ====== Insert URL into list ========================================
-      if(InsertionRequired == TRUE) {
-         InsertionRequired = FALSE;
+      if(InsertionRequired == true) {
+         InsertionRequired = false;
          insertURL(PlayingURL);
       }
 
@@ -830,7 +830,7 @@ void QClient::timerEvent()
                StatusBar->setText((char*)&str);
                if(EOFRepeatDelay >= EOFRepeatInterval) {
                   EOFRepeatDelay = 0;
-                  ScrollBarUpdated = FALSE;
+                  ScrollBarUpdated = false;
                   position(0);
                }
             }
@@ -889,9 +889,9 @@ void QClient::timerEvent()
          if(ScrollBarUpdateDelay > 0)
             ScrollBarUpdateDelay--;
          if(ScrollBarUpdateDelay == 0) {
-            ScrollBarUpdated = TRUE;
+            ScrollBarUpdated = true;
             ScrollBar->setRange(0,Client->getMaxPosition() / (PositionStepsPerSecond / 10));
-            ScrollBarUpdated = TRUE;
+            ScrollBarUpdated = true;
             ScrollBar->setValue(Client->getPosition() / (PositionStepsPerSecond / 10));
          }
       }
@@ -943,11 +943,11 @@ void QClient::insertURL(const String& urlToInsert, const int where)
       String* url = *iterator;
       if(url != NULL) {
          LocationAction[i]->setText(url->getData());
-         LocationAction[i]->setEnabled(TRUE);
+         LocationAction[i]->setEnabled(true);
       }
       else {
          LocationAction[i]->setText("()");
-         LocationAction[i]->setEnabled(FALSE);
+         LocationAction[i]->setEnabled(false);
       }
       i++;
    }
@@ -969,7 +969,7 @@ void QClient::clearBookmarks()
    // ====== Update menu ====================================================
    for(cardinal i = 0; i < LocationCount; i++) {
       LocationAction[i]->setText("()");
-      LocationAction[i]->setEnabled(FALSE);
+      LocationAction[i]->setEnabled(false);
    }
 }
 
@@ -1098,7 +1098,7 @@ int main(int argc, char* argv[])
    cardinal optAudioNull   = 0;
    cardinal optAnalyzer    = 1;
    cardinal optMixer       = 1;
-   bool     optForceIPv4   = FALSE;
+   bool     optForceIPv4   = false;
    char*    local          = NULL;
    char*    defaultURL     = NULL;
    for(cardinal i = 1;i < (cardinal)argc;i++) {
@@ -1112,7 +1112,7 @@ int main(int argc, char* argv[])
       else if(!(strcasecmp(argv[i],"-device")))       optAudioDevice = 0;
       else if(!(strcasecmp(argv[i],"-analyzer")))     optAnalyzer    = 0;
       else if(!(strcasecmp(argv[i],"-mixer")))        optMixer       = 0;
-      else if(!(strcasecmp(argv[i],"-force-ipv4")))   optForceIPv4   = TRUE;
+      else if(!(strcasecmp(argv[i],"-force-ipv4")))   optForceIPv4   = true;
       else if(!(strncasecmp(argv[i],"-url=",5)))      defaultURL     = &argv[i][5];
       else if(!(strncasecmp(argv[i],"-local=hostname",7))) local     = &argv[i][7];
       else {
@@ -1122,8 +1122,8 @@ int main(int argc, char* argv[])
       }
    }
    if(optForceIPv4) {
-      if(InternetAddress::UseIPv6 == TRUE) {
-         InternetAddress::UseIPv6 = FALSE;
+      if(InternetAddress::UseIPv6 == true) {
+         InternetAddress::UseIPv6 = false;
          std::cerr << "NOTE: IPv6 support disabled!" << std::endl;
       }
    }
@@ -1180,7 +1180,7 @@ int main(int argc, char* argv[])
    if(optMixer > 0) {
       mixer = new AudioMixer(audioDevice);
       Q_CHECK_PTR(mixer);
-      if(mixer->ready() == FALSE) {
+      if(mixer->ready() == false) {
          std::cerr << "NOTE: Audio mixer not ready => Disabling mixer!" << std::endl;
          delete mixer;
          mixer = NULL;

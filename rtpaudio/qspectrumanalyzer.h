@@ -5,7 +5,7 @@
 // ####                                                                  ####
 // #### QSpectrumAnalyzer                                                ####
 // ####                                                                  ####
-// ####           Copyright (C) 1999-2015 by Thomas Dreibholz            ####
+// ####           Copyright (C) 1999-2017 by Thomas Dreibholz            ####
 // ####                                                                  ####
 // #### Contact:                                                         ####
 // ####    EMail: dreibh@iem.uni-due.de                                  ####
@@ -78,13 +78,13 @@ class QSpectrumDisplay : public QWidget
      * @param parent Parent widget.
      * @param array Fourier array.
      * @param bars Number of fourier bars.
-     * @param drawAverageLine Draw (TRUE) or hide (FALSE) average line.
+     * @param drawAverageLine Draw (true) or hide (false) average line.
      */
    QSpectrumDisplay(QWidget*        parent,
                     const cardinal* array,
                     const cardinal  bars,
                     cardinal&       max,
-                    const bool      drawAverageLine = TRUE);
+                    const bool      drawAverageLine = true);
 
    /**
      * Destructor.
