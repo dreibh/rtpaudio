@@ -9,6 +9,7 @@ libmpegsound_la_SOURCES  = soundinputstream.cc fileinput.cc httpinput.cc \
 			  fileplayer.cc nasplayer.cc oggplayer.cc \
 				xingheader.cc xingheader.h esdplayer.cc \
 				sdlplayer.cc cyclicbuffer.cc cyclicbuffer.h
+libmpegsound_la_CXXFLAGS = $(CXXFLAGS) -Wno-narrowing
 
 include_HEADERS		= mpegsound.h mpegsound_locals.h
 
