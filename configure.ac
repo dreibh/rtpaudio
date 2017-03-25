@@ -451,8 +451,8 @@ fi
 
 # ###### Maintainer mode ####################################################
 if test "$enable_maintainer_mode" = "yes"; then
-   CFLAGS="$CFLAGS -Wall -g3 -O0"
-   CXXFLAGS="$CXXFLAGS -Wall -g3 -O0"
+   CFLAGS="$CFLAGS -Wall -g3 -O"
+   CXXFLAGS="$CXXFLAGS -Wall -g3 -O"
 else
    CFLAGS="$CFLAGS -Wall -fstack-protector --param=ssp-buffer-size=4"
    CXXFLAGS="$CXXFLAGS -Wall -fstack-protector --param=ssp-buffer-size=4"
