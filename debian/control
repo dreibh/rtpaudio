@@ -7,9 +7,11 @@ Build-Depends: autotools-dev,
                colorgcc,
                debhelper (>= 7.0.50~),
                libpulse-dev,
-               libqt4-dev,
-               libsctp-dev (>= 1.0.5)
-Standards-Version: 3.9.6
+               libsctp-dev (>= 1.0.5),
+               qtbase5-dev,
+               qtbase5-dev-tools,
+               qtchooser
+Standards-Version: 3.9.7
 
 Package: libmpegsound0
 Section: libs

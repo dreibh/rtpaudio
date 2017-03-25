@@ -412,8 +412,7 @@ if test "${enable_pulseaudio}" = "yes"; then
          AC_MSG_RESULT(yes)
       else
          AC_MSG_RESULT(no)
-         # Skip PulseAudio here -> just use OSS.
-         # AC_MSG_ERROR([No PulseAudio installation found! Try to compile with PulseAudio off (--disable-pulseaudio).])
+         AC_MSG_ERROR([No PulseAudio installation found!])
       fi
    fi
 else
