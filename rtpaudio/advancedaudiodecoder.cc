@@ -5,7 +5,7 @@
 // ####                                                                  ####
 // #### Advanced Audio Decoder Implementation                            ####
 // ####                                                                  ####
-// ####           Copyright (C) 1999-2015 by Thomas Dreibholz            ####
+// ####           Copyright (C) 1999-2017 by Thomas Dreibholz            ####
 // ####                                                                  ####
 // #### Contact:                                                         ####
 // ####    EMail: dreibh@iem.uni-due.de                                  ####
@@ -375,8 +375,9 @@ void AdvancedAudioDecoder::handleNextPacket(const DecoderPacket* decoderPacket)
 
       if((packet->Flags & (AdvancedAudioPacket::AAF_ChannelLeft|AdvancedAudioPacket::AAF_ByteUpper)) ==
             (AdvancedAudioPacket::AAF_ChannelLeft|AdvancedAudioPacket::AAF_ByteUpper)) {
-         if(node->FragmentSetLU.find(packet->Fragment) == node->FragmentSetLU.end()) {
-            node->FragmentSetLU.insert(std::pair<const card16,FrameFragment*>(packet->Fragment,fragment));
+         const card16 number = packet->Fragment;
+         if(node->FragmentSetLU.find(number) == node->FragmentSetLU.end()) {
+            node->FragmentSetLU.insert(std::pair<const card16,FrameFragment*>(number,fragment));
          }
          else {
 #ifdef DEBUG
@@ -387,8 +388,9 @@ void AdvancedAudioDecoder::handleNextPacket(const DecoderPacket* decoderPacket)
       }
       else if((packet->Flags & (AdvancedAudioPacket::AAF_ChannelLeft|AdvancedAudioPacket::AAF_ByteLower)) ==
             (AdvancedAudioPacket::AAF_ChannelLeft|AdvancedAudioPacket::AAF_ByteLower)) {
-         if(node->FragmentSetLL.find(packet->Fragment) == node->FragmentSetLL.end()) {
-            node->FragmentSetLL.insert(std::pair<const card16,FrameFragment*>(packet->Fragment,fragment));
+         const card16 number = packet->Fragment;
+         if(node->FragmentSetLL.find(number) == node->FragmentSetLL.end()) {
+            node->FragmentSetLL.insert(std::pair<const card16,FrameFragment*>(number,fragment));
          }
          else {
 #ifdef DEBUG
@@ -399,8 +401,9 @@ void AdvancedAudioDecoder::handleNextPacket(const DecoderPacket* decoderPacket)
       }
       else if((packet->Flags & (AdvancedAudioPacket::AAF_ChannelRight|AdvancedAudioPacket::AAF_ByteUpper)) ==
             (AdvancedAudioPacket::AAF_ChannelRight|AdvancedAudioPacket::AAF_ByteUpper)) {
-         if(node->FragmentSetRU.find(packet->Fragment) == node->FragmentSetRU.end()) {
-            node->FragmentSetRU.insert(std::pair<const card16,FrameFragment*>(packet->Fragment,fragment));
+         const card16 number = packet->Fragment;
+         if(node->FragmentSetRU.find(number) == node->FragmentSetRU.end()) {
+            node->FragmentSetRU.insert(std::pair<const card16,FrameFragment*>(number,fragment));
          }
          else {
 #ifdef DEBUG
@@ -411,8 +414,9 @@ void AdvancedAudioDecoder::handleNextPacket(const DecoderPacket* decoderPacket)
       }
       else if((packet->Flags & (AdvancedAudioPacket::AAF_ChannelRight|AdvancedAudioPacket::AAF_ByteLower)) ==
             (AdvancedAudioPacket::AAF_ChannelRight|AdvancedAudioPacket::AAF_ByteLower)) {
-         if(node->FragmentSetRL.find(packet->Fragment) == node->FragmentSetRL.end()) {
-            node->FragmentSetRL.insert(std::pair<const card16,FrameFragment*>(packet->Fragment,fragment));
+         const card16 number = packet->Fragment;
+         if(node->FragmentSetRL.find(number) == node->FragmentSetRL.end()) {
+            node->FragmentSetRL.insert(std::pair<const card16,FrameFragment*>(number,fragment));
          }
          else {
 #ifdef DEBUG

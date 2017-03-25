@@ -5,7 +5,7 @@
 # ####                                                                  ####
 # #### Makefile.am                                                      ####
 # ####                                                                  ####
-# ####           Copyright (C) 2011-2014 by Thomas Dreibholz            ####
+# ####           Copyright (C) 2011-2017 by Thomas Dreibholz            ####
 # ####                                                                  ####
 # #### Contact:                                                         ####
 # ####    EMail: dreibh@iem.uni-due.de                                  ####

@@ -9,7 +9,7 @@
 // ####                                                                  ####
 // #### Managed Stream Interface                                         ####
 // ####                                                                  ####
-// ####           Copyright (C) 1999-2015 by Thomas Dreibholz            ####
+// ####           Copyright (C) 1999-2017 by Thomas Dreibholz            ####
 // ####                                                                  ####
 // #### Contact:                                                         ####
 // ####    EMail: dreibh@iem.uni-due.de                                  ####
