@@ -67,8 +67,8 @@ hpux*)
     thread_LIBS="-lpthread"
    ;;
 linux*)
-    CFLAGS="$CFLAGS -DLINUX -std=c99"
-    CXXFLAGS="$CXXFLAGS -DLINUX -std=c++98"
+    CFLAGS="$CFLAGS -DLINUX"
+    CXXFLAGS="$CXXFLAGS -DLINUX -std=c++11"
     LDFLAGS="$LDFLAGS"
     thread_LIBS="-lpthread"
     ;;
@@ -427,7 +427,7 @@ AC_SUBST(PULSEAUDIO_LIBS)
 # ###### Check for Qt, if it is requested ###################################
 AM_CONDITIONAL(BUILD_QT_PROGRAMS, test x$enable_qt = xyes)
 if test "${enable_qt}" = "yes"; then
-   TD_CHECK_QT4
+   TD_CHECK_QT
    AC_DEFINE(ENABLE_QT, 1, [QT is usable])
 else
    echo "Skipping checks for QT, since it is not requested."

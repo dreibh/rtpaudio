@@ -1,5 +1,5 @@
-# $Id: acinclude.m4 2608 2011-11-23 07:52:38Z dreibh $
-# Check for Qt 4.x compiler flags, linker flags, and binary packages
+# $Id$
+# Check for Qt compiler flags, linker flags, and binary packages
 #
 # Copyright (C) 2002-2014 by Thomas Dreibholz
 #
@@ -18,14 +18,13 @@
 #
 # Contact: dreibh@iem.uni-due.de
 
-AC_DEFUN([TD_CHECK_QT4],
+AC_DEFUN([TD_CHECK_QT],
 [
 
-QT_REQUIRED_COMPONENTS="QtCore QtGui QtXml"
-QT_DEFAULT_INCLUDE_PATHS="/usr/share/qt4/include /usr/local/include/qt4 /usr/include/qt4"
-QT_DEFAULT_LIBRARY_PATHS="/usr/lib /usr/local/lib /usr/local/qt4/lib /usr/local/lib/qt4 /usr/share/qt4/lib `cat 2>/dev/null /etc/ld.so.conf.d/*.conf | sed -e "/# /d"`"
-QT_DEFAULT_BINARY_PATHS="/usr/bin /usr/local/bin /usr/local/qt4/bin /usr/share/qt4/bin"
-QTPOSTFIX="-qt4"
+QT_REQUIRED_COMPONENTS="QtWidgets QtGui QtXml QtCore"
+QT_DEFAULT_INCLUDE_PATHS="/usr/share/qt5/include /usr/local/include/qt5 `find /usr/include -name qt5 -type d | head -n1`"
+QT_DEFAULT_LIBRARY_PATHS="/usr/lib /usr/local/lib /usr/local/qt5/lib /usr/local/lib/qt5 `cat 2>/dev/null /etc/ld.so.conf.d/*.conf | sed -e "/# /d"` /usr/lib64"
+QT_DEFAULT_BINARY_PATHS="/usr/bin /usr/local/bin /usr/local/qt5/bin /usr/share/qt5/bin"
 
 QTEXTRAINC=""
 QTEXTRALIB=""
@@ -36,12 +35,12 @@ MOC=""
 
 # ====== Directory ==========================================================
 AC_ARG_WITH([qt-dir],
-   AC_HELP_STRING([--with-qt-dir=/path/to/Qt-4.x],
-      [to specify the path to the Qt-4.x directory.]),
+   AC_HELP_STRING([--with-qt-dir=/path/to/qt],
+      [to specify the path to the Qt directory.]),
    [QTDIR="$withval"],
    [QTDIR=""])
 if test x$QTDIR != x ; then
-   AC_MSG_CHECKING(Qt 4.x directory)
+   AC_MSG_CHECKING(Qt directory)
    if test ! -d $x ; then
       AC_MSG_ERROR([Bad setting of Qt directory. Check --qt-dir parameter!])
    fi
@@ -50,10 +49,10 @@ fi
 
 
 # ====== Includes ===========================================================
-AC_MSG_CHECKING(Qt 4.x includes directory)
+AC_MSG_CHECKING(Qt includes directory)
 AC_ARG_WITH([qt-include],
-   AC_HELP_STRING([--with-qt-include=/path/to/Qt-4.x include],
-      [to specify the path to the Qt-4.x include directory]),
+   AC_HELP_STRING([--with-qt-include=/path/to/qt include],
+      [to specify the path to the Qt include directory]),
    [QT_INCLUDE_PATHS="$withval"],
    [QT_INCLUDE_PATHS="$QT_DEFAULT_INCLUDE_PATHS"])
 if test x$QTDIR != x ; then
@@ -69,20 +68,20 @@ for x in $QT_INCLUDE_PATHS ; do
     fi
 done
 if test x$QTEXTRAINC = x ; then
-   AC_MSG_ERROR([No Qt 4.x include directory found. Try --with-qt-include=<directory>.])
+   AC_MSG_ERROR([No Qt include directory found. Try --with-qt-include=<directory>.])
 fi
 AC_MSG_RESULT([-->   $QTEXTRAINC])
 
 
 # ====== Libraries ==========================================================
-AC_MSG_CHECKING(Qt 4.x libraries directory)
+AC_MSG_CHECKING(Qt libraries directory)
 AC_ARG_WITH([qt-lib],
-   AC_HELP_STRING([--with-qt-lib=/path/to/Qt-4.x lib],
-      [to specify the path to the Qt-4.x lib directory]),
+   AC_HELP_STRING([--with-qt-lib=/path/to/qt lib],
+      [to specify the path to the Qt lib directory]),
    [QT_LIBRARY_PATHS="$withval"],
    [QT_LIBRARY_PATHS="$QT_DEFAULT_LIBRARY_PATHS"])
 if test x$QTDIR != x ; then
-   QT_LIBRARY_PATHS="$QTDIR/include"
+   QT_LIBRARY_PATHS="$QTDIR/lib"
 fi
 
 QTEXTRALIB=""
@@ -91,31 +90,32 @@ for x in $QT_LIBRARY_PATHS ; do
     if test -d $x ; then
        # The libraries directory must contain libQtCore. Otherwise,
        # this directory is not the right one!
-       if test -f $x/libQtCore.so -o -f $x/libQtCore.a ; then
+       if test -f $x/libQt5Core.so -o -f $x/libQt5Core.a ; then
           QTEXTRALIB="$x"
           break
        fi
     fi
 done
 if test x$QTEXTRALIB = x ; then
-   AC_MSG_ERROR([No Qt 4.x libraries directory found. Try --with-qt-lib=<directory>.])
+   AC_MSG_ERROR([No Qt libraries directory found. Try --with-qt-lib=<directory>.])
 fi
 AC_MSG_RESULT([-->   $QTEXTRALIB])
 
 
 # ====== Components =========================================================
-QT_CXXFLAGS="$QT_CXXFLAGS -I$QTEXTRAINC"
+QT_CXXFLAGS="$QT_CXXFLAGS -fPIC -I$QTEXTRAINC"
 QT_LDADD="-L$QTEXTRALIB"   # OLD: "-Wl,-rpath,$QTEXTRALIB -L$QTEXTRALIB"
 for x in $QT_REQUIRED_COMPONENTS ; do
-   AC_MSG_CHECKING([Qt 4.x component $x])
-   if ! test -e $QTEXTRALIB/lib$x.so ; then
-      if ! test -e $QTEXTRALIB/lib$x.a ; then
-         AC_MSG_ERROR([Component $x is not available: no $QTEXTRALIB/lib$x.so or $QTEXTRALIB/lib$x.a found!])
+   AC_MSG_CHECKING([Qt component $x])
+   x5=`echo "$x" | sed -e "s/Qt/Qt5/g"`
+   if ! test -e $QTEXTRALIB/lib$x5.so ; then
+      if ! test -e $QTEXTRALIB/lib$x5.a ; then
+         AC_MSG_ERROR([Component $x is not available: no $QTEXTRALIB/lib$x5.so or $QTEXTRALIB/lib$x5.a found!])
       fi
    fi
    AC_MSG_RESULT([okay])
-   QT_LDADD="$QT_LDADD -l$x"
    QT_CXXFLAGS="$QT_CXXFLAGS -I$QTEXTRAINC/$x"
+   QT_LDADD="$QT_LDADD -l$x5"
 done
 QT_LDADD="$QT_LDADD $X_PRE_LIBS $X_LIBS $X_EXTRA_LIBS -lpthread"
 
@@ -130,27 +130,34 @@ AC_SUBST(QT_LDADD)
 
 # ====== Programs ===========================================================
 AC_ARG_WITH([qt-bin],
-   AC_HELP_STRING([--with-qt-binaries=/path/to/Qt-4.x binaries],
-      [to specify the path to the Qt-4.x binaries directory]),
+   AC_HELP_STRING([--with-qt-binaries=/path/to/qt binaries],
+      [to specify the path to the Qt binaries directory]),
    [QT_BINARY_PATHS="$withval"],
    [QT_BINARY_PATHS="$QT_DEFAULT_BINARY_PATHS"])
 if test x$QTDIR != x ; then
    QT_BINARY_PATHS="$QTDIR/bin"
 fi
 
-AC_MSG_CHECKING(Qt 4.x meta-object compiler moc$QTPOSTFIX)
-for p in $QT_BINARY_PATHS ; do
-   echo -n "$p/moc$QTPOSTFIX?   "
-   if test -e $p/moc$QTPOSTFIX ; then
-      MOC="$p/moc$QTPOSTFIX"
+AC_MSG_CHECKING(Looking for qtchooser)
+QTCHOOSER="qtchooser"
+for p in $QT_BINARY_PATHS $QT_LIBRARY_PATHS ; do
+   if test -x $p/qtchooser/$QTCHOOSER ; then
+      QTCHOOSER="$p/qtchooser/$QTCHOOSER"
+      break
+   elif test -x $p/$QTCHOOSER ; then
+      QTCHOOSER="$p/$QTCHOOSER"
       break
    fi
 done
-if test x$MOC = x ; then
-   AC_MSG_ERROR([moc$QTPOSTFIX not found!])
+if ! test -x $QTCHOOSER ; then
+   AC_ERROR([qtchooser not found!])
 fi
-AC_MSG_RESULT([$MOC])
+AC_MSG_RESULT([$QTCHOOSER])
+AC_SUBST(QTCHOOSER)
 
+AC_MSG_CHECKING(Qt meta-object compiler moc)
+MOC="$QTCHOOSER -run-tool=moc -qt=5"
+AC_MSG_RESULT([$MOC])
 AC_SUBST(MOC)
 
 
@@ -176,7 +183,7 @@ EOF
 
 cat > myqt.cpp << EOF
    #include "myqt.h"
-   #include <QApplication>
+   #include <QtWidgets/QApplication>
 
    int main( int argc, char **argv )
    {
@@ -188,23 +195,21 @@ EOF
 
 
 # ------ MOC test -----------------------------------------------------------
-AC_MSG_CHECKING(for working moc$QTPOSTFIX)
+AC_MSG_CHECKING(for working $MOC)
 test_command_1="$MOC myqt.h -o moc_myqt.cpp"
 AC_TRY_EVAL(test_command_1)
 if test x"$ac_status" != x0; then
-   AC_MSG_ERROR(moc$QTPOSTFIX call failed)
+   AC_MSG_ERROR($MOC call failed)
 fi
 AC_MSG_RESULT(yes)
 
 # ------ MOC compile test ---------------------------------------------------
-AC_MSG_CHECKING(whether C++-compiling the moc$QTPOSTFIX-generated program works)
+AC_MSG_CHECKING(whether C++-compiling the moc-generated program works)
 test_command_2="$CXX $QT_CXXFLAGS -c $CXXFLAGS -o moc_myqt.o moc_myqt.cpp"
-
-echo CMD=$test_command_2
 
 AC_TRY_EVAL(test_command_2)
 if test x"$ac_status" != x0; then
-   AC_MSG_ERROR(moc$QTPOSTFIX-generated test program C++-compilation failed)
+   AC_MSG_ERROR($MOC-generated test program C++-compilation failed)
 fi
 AC_MSG_RESULT(yes)
 
