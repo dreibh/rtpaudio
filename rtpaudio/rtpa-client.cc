@@ -298,7 +298,6 @@ int main(int argc, char* argv[])
    std::cout << "RTP Audio Client - Copyright (C) 1999-2017 Thomas Dreibholz" << std::endl
              << "-----------------------------------------------------------" << std::endl
              << std::endl
-             << "Version:         " << __DATE__ << ", " << __TIME__ << std::endl
              << "Server Address:  " << client->getServerAddressString() << std::endl;
    char str[32];
    snprintf((char*)&str,sizeof(str),"$%08x",client->getOurSSRC());

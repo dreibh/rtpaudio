@@ -452,7 +452,6 @@ int main(int argc, char** argv)
    std::cerr << "RTP Audio Verification Client - Copyright (C) 1999-2017 Thomas Dreibholz" << std::endl;
    std::cerr << "------------------------------------------------------------------------" << std::endl;
    std::cerr << std::endl;
-   std::cout << "Version:       " << __DATE__ << ", " << __TIME__ << std::endl;
    if(receiverName != NULL) {
       std::cerr << "Local Address: " << receiverName << std::endl;
    }

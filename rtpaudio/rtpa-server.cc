@@ -470,8 +470,7 @@ int main(int argc, char* argv[])
    // ====== Print status ===================================================
    std::cout << "RTP Audio Server - Copyright (C) 1999-2017 Thomas Dreibholz" << std::endl
              << "-----------------------------------------------------------" << std::endl
-             << std::endl
-             << "Version:          " << __DATE__ << ", " << __TIME__ << std::endl;
+             << std::endl;
    if(optUseSCTP) {
       std::cout << "SCTP:             on" << std::endl;
    }
