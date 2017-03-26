@@ -5,7 +5,7 @@ Maintainer: Thomas Dreibholz <dreibh@iem.uni-due.de>
 Homepage: http://www.iem.uni-due.de/~dreibh/rtpaudio/
 Build-Depends: autotools-dev,
                colorgcc,
-               debhelper (>= 7.0.50~),
+               debhelper (>= 9),
                libpulse-dev,
                libsctp-dev (>= 1.0.5),
                qtbase5-dev,

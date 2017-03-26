@@ -1,1 +1,1 @@
-debian/tmp/usr/lib/librtpclient.so.*
+debian/tmp/usr/lib/*/librtpclient.so.*
