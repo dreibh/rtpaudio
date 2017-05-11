@@ -6,7 +6,9 @@
 // Playing raw audio over Network Audio System (by NCD)
 // By Willem (willem@stack.nl)
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
 
 #ifdef WANT_NAS
 #include "mpegsound.h"

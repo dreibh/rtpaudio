@@ -1,7 +1,9 @@
 /*\
 |*|  Class for playing C=64 tunes
 \*/
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
 
 #include "mpegsound.h"
 #include "mpegsound_locals.h"

@@ -148,9 +148,8 @@ endif()
 # REQUIREMENTS
 #################################################
 
-ADD_DEFINITIONS(-DHAVE_KERNEL_SCTP -DHAVE_PULSEAUDIO)
-
 find_package(PulseAudio 1.0)
+ADD_DEFINITIONS(-DHAVE_PULSEAUDIO)
 
 OPTION(WITH_QT "Include Qt programs" 1)
 IF (WITH_QT)
@@ -158,11 +157,17 @@ IF (WITH_QT)
    find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 ENDIF()
 
+CHECK_INCLUDE_FILE(netinet/sctp.h HAVE_NETINET_SCTP_H)
+IF (HAVE_NETINET_SCTP_H)
+    SET(SCTP_INCLUDE "netinet/sctp.h")
+    ADD_DEFINITIONS(-DHAVE_KERNEL_SCTP -DHAVE_NETINET_SCTP_H)
+ENDIF()
+
 OPTION(WITH_NEAT "Include NEAT support" 0)
 IF (WITH_NEAT)
    CHECK_INCLUDE_FILE(neat-socketapi.h HAVE_NEAT_SOCKETAPI_H)
    FIND_LIBRARY(NEAT_SOCKETAPI_LIB neat-socketapi)
-   MESSAGE(STATUS "neat-socketapi found: " ${NEAT_SOCKETAPI_LIB})
+   MESSAGE(STATUS "neat-socketapi found: ${NEAT_SOCKETAPI_LIB}")
    IF (NOT HAVE_NEAT_SOCKETAPI_H OR NOT NEAT_SOCKETAPI_LIB)
       MESSAGE(FATAL_ERROR "neat-socketapi.h not found - neat-socketapi installed?")
    ENDIF()

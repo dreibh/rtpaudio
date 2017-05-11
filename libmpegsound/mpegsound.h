@@ -9,11 +9,14 @@
 /************************************/
 /* Inlcude default library packages */
 /************************************/
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
 #include <errno.h>
 #include <stdio.h>
 #include <sys/types.h>
 #ifdef HAVE_BOOL_H
-//#include <bool.h>
+#include <bool.h>
 #endif
 #ifdef LIBPTH
 # include <pth.h>
