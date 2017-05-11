@@ -297,7 +297,7 @@ ADD_LIBRARY(audiocodeccommon-static STATIC ${audiocodeccommon_sources})
 if(THREADS_HAVE_PTHREAD_ARG)
    TARGET_COMPILE_OPTIONS(PUBLIC audiocodeccommon "-pthread")
 endif()
-TARGET_LINK_LIBRARIES (audiocodeccommon ${audiocodeccommon_libs} "${CMAKE_THREAD_LIBS_INIT}")
+TARGET_LINK_LIBRARIES (audiocodeccommon audiocommon ${audiocodeccommon_libs} "${CMAKE_THREAD_LIBS_INIT}")
 
 INSTALL(TARGETS audiocodeccommon audiocodeccommon-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
 INSTALL(FILES ${audiocodeccommon_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
