@@ -5,6 +5,7 @@ Maintainer: Thomas Dreibholz <dreibh@iem.uni-due.de>
 Homepage: http://www.iem.uni-due.de/~dreibh/rtpaudio/
 Build-Depends: cmake,
                debhelper (>= 9),
+               libfile-fcntllock-perl,
                libpulse-dev,
                libsctp-dev (>= 1.0.5),
                qtbase5-dev,
@@ -221,9 +222,9 @@ Depends: libaudiocodeccommon0,
          ${shlibs:Depends}
 Recommends: iputils-ping,
             iputils-tracepath,
+            netperfmeter,
             rsplib-tools,
             subnetcalc,
-            netperfmeter,
             traceroute
 Description: RTP Audio sound streaming system
  The RTP Audio system is a network sound streaming systen. It has been

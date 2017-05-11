@@ -1,4 +1,4 @@
-debian/tmp/usr/share/man/man1/rtpa-client.1
-debian/tmp/usr/share/man/man1/rtpa-qclient.1
-debian/tmp/usr/share/man/man1/rtpa-server.1
-debian/tmp/usr/share/man/man1/rtpa-vclient.1
+src/rtpa-client.1
+src/rtpa-qclient.1
+src/rtpa-server.1
+src/rtpa-vclient.1
