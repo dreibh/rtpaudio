@@ -184,4 +184,5 @@ ENDIF()
 # INCLUDE EXAMPLES
 #################################################
 
+ADD_SUBDIRECTORY(libmpegsound)
 ADD_SUBDIRECTORY(rtpaudio)

@@ -149,14 +149,14 @@ LIST(APPEND audiowriter_headers
    fft.h
 )
 LIST(APPEND audiowriter_sources
- audiowriterinterface.cc 
- multiaudiowriter.cc 
- audiodebug.cc 
- audiodevice.cc
- audiomixer.cc
- audionull.cc
- spectrumanalyzer.cc
- fft.cc
+   audiowriterinterface.cc 
+   multiaudiowriter.cc 
+   audiodebug.cc 
+   audiodevice.cc
+   audiomixer.cc
+   audionull.cc
+   spectrumanalyzer.cc
+   fft.cc
 )
 ADD_LIBRARY(audiowriter SHARED ${audiowriter_sources})
 

@@ -248,7 +248,7 @@ FILE
 			host = NULL;
 		}
 		sprintf (agent, "User-Agent: %s/%s\r\n\r\n",
-			 "Mp3blaster",VERSION);
+			 "Mp3blaster","1.0.0");
 		strcat (request, agent);
 		debug("HTTP Request:\n\n%s", request);
 		server.sin_family = AF_INET;

@@ -9,7 +9,7 @@
 /************************************/
 /* Inlcude default library packages */
 /************************************/
-#include <config.h>
+#include <errno.h>
 #include <stdio.h>
 #include <sys/types.h>
 #ifdef HAVE_BOOL_H
