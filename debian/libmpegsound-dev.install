@@ -1,5 +1,4 @@
-debian/tmp/usr/include/mpegsound.h
-debian/tmp/usr/include/mpegsound_locals.h
-debian/tmp/usr/lib/libmpegsound*.a
-debian/tmp/usr/lib/libmpegsound*.la
-debian/tmp/usr/lib/libmpegsound*.so
+/usr/include/mpegsound.h
+/usr/include/mpegsound_locals.h
+/usr/lib/libmpegsound*.a
+/usr/lib/libmpegsound*.so

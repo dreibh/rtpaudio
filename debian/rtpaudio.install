@@ -1,4 +1,4 @@
-debian/tmp/usr/bin/rtpa-client
-debian/tmp/usr/bin/rtpa-qclient
-debian/tmp/usr/bin/rtpa-server
-debian/tmp/usr/bin/rtpa-vclient
+/usr/bin/rtpa-client
+/usr/bin/rtpa-qclient
+/usr/bin/rtpa-server
+/usr/bin/rtpa-vclient
