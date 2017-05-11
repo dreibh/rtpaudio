@@ -193,4 +193,4 @@ ENDIF()
 #################################################
 
 ADD_SUBDIRECTORY(libmpegsound)
-ADD_SUBDIRECTORY(rtpaudio)
+ADD_SUBDIRECTORY(src)
