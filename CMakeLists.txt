@@ -65,6 +65,7 @@ SET(CMAKE_MACOSX_RPATH 1)
 IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     MESSAGE(STATUS ${CMAKE_SYSTEM_NAME} " supported")
     ADD_DEFINITIONS("-D_DEFAULT_SOURCE -DLINUX")
+    FIND_LIBRARY(SCTP_LIB sctp)
 
 ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD")
     MESSAGE(STATUS ${CMAKE_SYSTEM_NAME} " supported")
@@ -147,12 +148,14 @@ endif()
 # REQUIREMENTS
 #################################################
 
+ADD_DEFINITIONS(-DHAVE_KERNEL_SCTP -DHAVE_PULSEAUDIO)
+
 find_package(PulseAudio 1.0)
 
 OPTION(WITH_QT "Include Qt programs" 1)
 IF (WITH_QT)
    SET(CMAKE_AUTOMOC ON)
-   find_package(Qt5Widgets)
+   find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 ENDIF()
 
 OPTION(WITH_NEAT "Include NEAT support" 0)

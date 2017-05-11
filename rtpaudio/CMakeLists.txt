@@ -55,7 +55,7 @@ ADD_LIBRARY(tdtoolbox-static STATIC ${tdtoolbox_sources})
 if(THREADS_HAVE_PTHREAD_ARG)
    TARGET_COMPILE_OPTIONS(PUBLIC tdtoolbox "-pthread")
 endif()
-TARGET_LINK_LIBRARIES (tdtoolbox ${tdtoolbox_libs} "${CMAKE_THREAD_LIBS_INIT}")
+TARGET_LINK_LIBRARIES (tdtoolbox ${tdtoolbox_libs} ${SCTP_LIB} "${CMAKE_THREAD_LIBS_INIT}")
 
 INSTALL(TARGETS tdtoolbox tdtoolbox-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
 INSTALL(FILES ${tdtoolbox_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
@@ -170,7 +170,7 @@ ADD_LIBRARY(audiowriter-static STATIC ${audiowriter_sources})
 if(THREADS_HAVE_PTHREAD_ARG)
    TARGET_COMPILE_OPTIONS(PUBLIC audiowriter "-pthread")
 endif()
-TARGET_LINK_LIBRARIES (audiowriter audiocommon tdtoolbox ${audiowriter_libs} "${CMAKE_THREAD_LIBS_INIT}")
+TARGET_LINK_LIBRARIES (audiowriter audiocommon tdtoolbox ${audiowriter_libs} ${PULSEAUDIO_LIBRARY} "${CMAKE_THREAD_LIBS_INIT}")
 
 INSTALL(TARGETS audiowriter audiowriter-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
 INSTALL(FILES ${audiowriter_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
@@ -477,4 +477,83 @@ INSTALL(FILES ${qosmgr_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 
 # ###### Programs ###########################################################
+ADD_EXECUTABLE(rtpa-server rtpa-server.cc)
+TARGET_LINK_LIBRARIES(rtpa-server qosmgr rtpaudioserver rtpserver tdtoolbox "${CMAKE_THREAD_LIBS_INIT}")
+INSTALL(TARGETS             rtpa-server
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+        BUNDLE DESTINATION  ${CMAKE_INSTALL_BINDIR})
 
+ADD_EXECUTABLE(rtpa-client rtpa-client.cc)
+TARGET_LINK_LIBRARIES(rtpa-client rtpaudioclient audiodecoder audiowriter audiocommon tdtoolbox "${CMAKE_THREAD_LIBS_INIT}")
+INSTALL(TARGETS             rtpa-client
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+        BUNDLE DESTINATION  ${CMAKE_INSTALL_BINDIR})
+
+ADD_EXECUTABLE(rtpa-vclient rtpa-vclient.cc)
+TARGET_LINK_LIBRARIES(rtpa-vclient rtpaudioclient audiodecoder audiowriter audiocommon tdtoolbox "${CMAKE_THREAD_LIBS_INIT}")
+INSTALL(TARGETS             rtpa-vclient
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+        BUNDLE DESTINATION  ${CMAKE_INSTALL_BINDIR})
+      
+IF (WITH_QT)
+   ADD_EXECUTABLE(rtpa-qclient rtpa-qclient.cc qaudiomixer.cc qinfotabwidget.cc qspectrumanalyzer.cc)
+   qt5_use_modules(rtpa-qclient Core Widgets)
+   TARGET_LINK_LIBRARIES(rtpa-qclient rtpaudioclient audiodecoder audiowriter audiocommon tdtoolbox "${CMAKE_THREAD_LIBS_INIT}")
+   INSTALL(TARGETS             rtpa-qclient
+         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+         BUNDLE DESTINATION  ${CMAKE_INSTALL_BINDIR})
+ENDIF()
+
+
+      
+# if BUILD_QT_PROGRAMS
+# %.moc.cc: %.h
+# 	$(MOC) -o $@ $<
+# 
+# %.h: %.ui
+# 	$(UIC) -o $@ $<
+# 
+# %.cc: %.ui
+# 	$(UIC) -o $@ -impl $*.h $<
+# endif
+# 
+# 
+# bin_PROGRAMS  = rtpa-server   rtpa-client   rtpa-vclient
+# dist_man_MANS = rtpa-server.1 rtpa-client.1 rtpa-vclient.1
+# if BUILD_QT_PROGRAMS
+# bin_PROGRAMS  += rtpa-qclient
+# dist_man_MANS += rtpa-qclient.1
+# endif
+# 
+# 
+# rtpa_server_SOURCES = rtpa-server.cc
+# rtpa_server_LDADD   =  qosmgr   rtpaudioserver   rtpserver   tdtoolbox  -lm
+# 
+# rtpa_client_SOURCES = rtpa-client.cc
+# rtpa_client_LDADD =  rtpaudioclient audiodecoder audiowriter audiocommon tdtoolbox  -lm
+# 
+# rtpa_vclient_SOURCES = rtpa-vclient.cc
+# rtpa_vclient_LDADD   =  rtpaudioclient   audiodecoder   audiowriter   audiocommon   tdtoolbox  -lm
+# 
+# 
+# if BUILD_QT_PROGRAMS
+# RTPAQCLIENTMOCHEADER = rtpa-qclient.h qinfotabwidget.h qspectrumanalyzer.h qaudiomixer.h
+# RTPAQCLIENTMOCEDFILES = $(RTPAQCLIENTMOCHEADER:%.h=%_moc.cc)
+# CLEANFILES = $(RTPAQCLIENTMOCEDFILES)
+# 
+# %_moc.cc: %.h
+# 	$(MOC) -o $@ $<
+# 
+# # To compile (i.e. generate object files), first create MOC file.
+# # This MOC file is included by rtpa_qclient.cc, so no compile step is necessary.
+# $(rtpa_qclient_OBJECTS): $(RTPAQCLIENTMOCEDFILES)
+# 
+# rtpa_qclient_CXXFLAGS = $(QT_CXXFLAGS)
+# rtpa_qclient_SOURCES  = rtpa-qclient.cc rtpa-qclient.h qinfotabwidget.cc qinfotabwidget.h qspectrumanalyzer.cc qspectrumanalyzer.h qaudiomixer.cc qaudiomixer.h
+# rtpa_qclient_LDADD    = $(QT_LDADD) librtpaudioclient.la libaudiodecoder.la libaudiowriter.la libaudiocommon.la libtdtoolbox.la -lm
+# endif
+# 
+# 
+# # bin_PROGRAMS += t1
+# # t1_SOURCES = t1.cc
+# # t1_LDADD   = librtpaudiocommon.la libaudioencoder.la libtdtoolbox.la librtpserver.la

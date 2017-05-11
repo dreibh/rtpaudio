@@ -33,7 +33,6 @@
 
 #include "tdsystem.h"
 #include "rtpa-qclient.h"
-#include "rtpa-qclient_moc.cc"
 #include "audiodevice.h"
 #include "audiodebug.h"
 #include "audionull.h"
