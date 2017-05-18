@@ -3,7 +3,7 @@ PROJECT(rtpaudio)
 
 set(BUILD_MAJOR "2")
 set(BUILD_MINOR "0")
-set(BUILD_PATCH "0~beta2.7")
+set(BUILD_PATCH "0~beta2.8")
 set(BUILD_VERSION ${BUILD_MAJOR}.${BUILD_MINOR}.${BUILD_PATCH})
 
 
@@ -148,28 +148,63 @@ endif()
 # REQUIREMENTS
 #################################################
 
+# ###### PulseAudio #########################################################
 find_package(PulseAudio 1.0)
 ADD_DEFINITIONS(-DHAVE_PULSEAUDIO)
 
+
+# ###### Qt #################################################################
 OPTION(WITH_QT "Include Qt programs" 1)
 IF (WITH_QT)
    SET(CMAKE_AUTOMOC ON)
    find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 ENDIF()
 
-CHECK_INCLUDE_FILE(netinet/sctp.h HAVE_NETINET_SCTP_H)
-IF (HAVE_NETINET_SCTP_H)
-    SET(SCTP_INCLUDE "netinet/sctp.h")
-    ADD_DEFINITIONS(-DHAVE_KERNEL_SCTP -DHAVE_NETINET_SCTP_H)
+
+# ###### SCTP ###############################################################
+OPTION(USE_KERNEL_SCTP "Use Kernel SCTP" 1)
+IF (USE_KERNEL_SCTP)
+   # ====== Kernel SCTP =====================================================
+   CHECK_INCLUDE_FILE(netinet/sctp.h HAVE_NETINET_SCTP_H)
+   IF (HAVE_NETINET_SCTP_H)
+      SET(SCTP_INCLUDE "netinet/sctp.h")
+      ADD_DEFINITIONS(-DHAVE_KERNEL_SCTP -DHAVE_NETINET_SCTP_H)
+   ENDIF()
+
+ELSE()
+   # ====== SCTPLIB User-Space SCTP =========================================
+   CHECK_INCLUDE_FILE(sctp.h HAVE_SCTPLIB_SCTP_H)
+   FIND_LIBRARY(SCTPLIB_LIB sctplib)
+   MESSAGE(STATUS "sctplib found: ${SCTPLIB_LIB}")
+   IF (NOT HAVE_SCTPLIB_SCTP_H OR NOT SCTPLIB_LIB)
+      MESSAGE(FATAL_ERROR "sctplib not found - libsctplib installed?")
+   ENDIF()
+
+   CHECK_INCLUDE_FILE(sctp.h HAVE_SCTPSOCKET_SCTP_H)
+   FIND_LIBRARY(SCTPSOCKET_LIB sctpsocket)
+   MESSAGE(STATUS "sctpsocket found: ${SCTPSOCKET_LIB}")
+   IF (NOT HAVE_SCTPSOCKET_SCTP_H OR NOT SCTPSOCKET_LIB)
+      MESSAGE(FATAL_ERROR "sctpsocket not found - libsctpsocket installed?")
+   ENDIF()
+   
+   FIND_PACKAGE(PkgConfig)
+   PKG_CHECK_MODULES(GLIB glib-2.0)
+   IF (NOT ${GLIB_LIBS})
+      MESSAGE(FATAL_ERROR "glib not found - glib-2.0 installed?")
+   ENDIF()
+
+   SET(SCTP_LIB ${SCTPSOCKET_LIB} ${SCTPLIB_LIB} ${GLIB_LIBRARIES})
 ENDIF()
 
+
+# ###### NEAT ###############################################################
 OPTION(WITH_NEAT "Include NEAT support" 0)
 IF (WITH_NEAT)
    CHECK_INCLUDE_FILE(neat-socketapi.h HAVE_NEAT_SOCKETAPI_H)
    FIND_LIBRARY(NEAT_SOCKETAPI_LIB neat-socketapi)
    MESSAGE(STATUS "neat-socketapi found: ${NEAT_SOCKETAPI_LIB}")
    IF (NOT HAVE_NEAT_SOCKETAPI_H OR NOT NEAT_SOCKETAPI_LIB)
-      MESSAGE(FATAL_ERROR "neat-socketapi.h not found - neat-socketapi installed?")
+      MESSAGE(FATAL_ERROR "neat-socketapi not found - neat-socketapi installed?")
    ENDIF()
 ENDIF()
 
