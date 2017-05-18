@@ -28,7 +28,8 @@ Package: libmpegsound-dev
 Section: libdevel
 Architecture: any
 Depends: libmpegsound0 (= ${binary:Version}),
-         ${misc:Depends}
+         ${misc:Depends},
+         ${shlibs:Depends}
 Description: Headers for the sound decoder library
  libmpegsound decodes a couple of sound formats (e.g. MP3, OGG) and
  returns a raw data stream.
@@ -157,8 +158,8 @@ Depends: libaudiocommon0,
          libmediainfo0,
          librtpaudiocommon0,
          librtpclient0,
-         libtdtoolbox0
-${misc: Depends},
+         libtdtoolbox0,
+         ${misc:Depends},
          ${shlibs:Depends}
 Description: Shared libraries for RTP Audio (RTP client-side audio handling)
  The RTP Audio system is a network sound streaming systen. It has been
