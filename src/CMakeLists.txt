@@ -481,7 +481,7 @@ TARGET_LINK_LIBRARIES(rtpa-server qosmgr rtpaudioserver rtpserver tdtoolbox "${C
 INSTALL(TARGETS             rtpa-server
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         BUNDLE DESTINATION  ${CMAKE_INSTALL_BINDIR})
-INSTALL(FILES rtpa-server.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man/man1)
+INSTALL(FILES rtpa-server.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
 
 
 ADD_EXECUTABLE(rtpa-client rtpa-client.cc)
@@ -489,14 +489,14 @@ TARGET_LINK_LIBRARIES(rtpa-client rtpaudioclient audiodecoder audiowriter audioc
 INSTALL(TARGETS             rtpa-client
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         BUNDLE DESTINATION  ${CMAKE_INSTALL_BINDIR})
-INSTALL(FILES rtpa-client.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man/man1)
+INSTALL(FILES rtpa-client.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
 
 ADD_EXECUTABLE(rtpa-vclient rtpa-vclient.cc)
 TARGET_LINK_LIBRARIES(rtpa-vclient rtpaudioclient audiodecoder audiowriter audiocommon tdtoolbox "${CMAKE_THREAD_LIBS_INIT}")
 INSTALL(TARGETS             rtpa-vclient
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         BUNDLE DESTINATION  ${CMAKE_INSTALL_BINDIR})
-INSTALL(FILES rtpa-vclient.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man/man1)
+INSTALL(FILES rtpa-vclient.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
       
 IF (WITH_QT)
    ADD_EXECUTABLE(rtpa-qclient rtpa-qclient.cc qaudiomixer.cc qinfotabwidget.cc qspectrumanalyzer.cc)
@@ -505,5 +505,5 @@ IF (WITH_QT)
    INSTALL(TARGETS             rtpa-qclient
          RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
          BUNDLE DESTINATION  ${CMAKE_INSTALL_BINDIR})
-   INSTALL(FILES rtpa-qclient.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man/man1)
+   INSTALL(FILES rtpa-qclient.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
 ENDIF()
