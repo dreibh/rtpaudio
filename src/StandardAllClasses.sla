@@ -1,4 +1,3 @@
-# $Id$
 # DiffServ Class:
 #           Name    Bandwidth CostFactor MaxTr.Delay Variability  MaxLossRate  MaxJitter
 

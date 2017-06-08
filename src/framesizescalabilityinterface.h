@@ -32,7 +32,6 @@
 // #### <http://www.gnu.org/licenses/>.                                  ####
 // ####                                                                  ####
 // ##########################################################################
-// $Id$
 
 
 #ifndef FRAMESIZESCALABILITYINTERFACE_H
