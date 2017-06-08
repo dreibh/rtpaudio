@@ -127,12 +127,14 @@ class Socket
      * @param family Communication family (e.g. IP).
      * @param socketType Socket type (e.g. TCP, UDP).
      * @param socketProtocol Socket protocol (e.g. Default).
+     * @param neatProperties NEAT properties.
      *
      * @see ready
      */
    Socket(const integer family,
           const integer socketType,
-          const integer socketProtocol = Default);
+          const integer socketProtocol = Default,
+          const char*   neatProperties = NULL);
 
    /**
      * Destructor.
@@ -149,11 +151,13 @@ class Socket
      * @param socketFamily Communication family (e.g. IP).
      * @param socketType Socket type (e.g. TCP, UDP).
      * @param socketProtocol Socket protocol (e.g. Default).
+     * @param neatProperties NEAT properties.
      * @return true, if creation was sucessful; false otherwise.
      */
    bool create(const integer socketFamily   = IP,
                const integer socketType     = TCP,
-               const integer socketProtocol = Default);
+               const integer socketProtocol = Default,
+               const char*   neatProperties = NULL);
 
    /**
      * Close socket.

@@ -83,10 +83,11 @@ Socket::Socket()
 // ###### Socket constructor ################################################
 Socket::Socket(const integer communicationDomain,
                const integer socketType,
-               const integer socketProtocol)
+               const integer socketProtocol,
+               const char*   neatProperties)
 {
    init();
-   create(communicationDomain,socketType,socketProtocol);
+   create(communicationDomain,socketType,socketProtocol,neatProperties);
 }
 
 
@@ -143,7 +144,8 @@ void Socket::init()
 // ###### Create socket #####################################################
 bool Socket::create(const integer communicationDomain,
                     const integer socketType,
-                    const integer socketProtocol)
+                    const integer socketProtocol,
+                    const char*   neatProperties)
 {
    close();
    Family   = communicationDomain;
@@ -161,7 +163,7 @@ bool Socket::create(const integer communicationDomain,
 #ifndef WITH_NEAT
    SocketDescriptor = ext_socket(Family,socketType,socketProtocol);
 #else
-   SocketDescriptor = nsa_socket(Family,socketType,socketProtocol,NULL);
+   SocketDescriptor = nsa_socket(Family,socketType,socketProtocol,neatProperties);
 #endif
    if(SocketDescriptor < 0) {
 #ifndef DISABLE_WARNINGS

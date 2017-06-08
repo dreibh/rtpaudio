@@ -78,12 +78,14 @@ void initAll(const char*    directory,
              const card64   timeout,
              const cardinal maxPacketSize,
              const bool     lossScalability,
-             const bool     useSCTP)
+             const bool     useSCTP,
+             const char*    neatProperties)
 {
    const InternetAddress localAddress(port);
    rtcpServerSocket = new Socket(Socket::IP,
                                  useSCTP ? Socket::SeqPacket : Socket::Datagram,
-                                 useSCTP ? Socket::SCTP : Socket::Default);
+                                 useSCTP ? Socket::SCTP : Socket::Default,
+                                 neatProperties);
    if(rtcpServerSocket == NULL) {
       std::cerr << "ERROR: Server::initAll() - Out of memory!" << std::endl;
       cleanUp(1);
@@ -182,6 +184,16 @@ int main(int argc, char* argv[])
    char*    logName                = NULL;
    String   slaFile("SLA.config");
    String   directory;
+
+   const char* neatProperties = NULL;
+//    "{\
+//       \"transport\": [\
+//          {\
+//                \"value\": \"SCTP\",\
+//                \"precedence\": 1\
+//          }\
+//       ]\
+//    }";\
 
 
    // ====== Read configuration from file ===================================
@@ -456,7 +468,7 @@ int main(int argc, char* argv[])
    // ====== Initialize =====================================================
    initAll(directory.getData(), port,
            timeout, maxPacketSize, lossScalability,
-           optUseSCTP);
+           optUseSCTP, neatProperties);
 #ifndef FAST_BREAK
    installBreakDetector();
 #endif
