@@ -128,9 +128,14 @@ integer RTCPSender::sendBye()
       bye->setLength(sizeof(packet));
 
       // ====== Send packet =================================================
+#ifndef WITH_NEAT
       SocketMessage<sizeof(sctp_sndrcvinfo)> message;
+#else
+      SocketMessage<0> message;
+#endif
       message.setBuffer(&packet, sizeof(packet));
       message.setAddress(Flow, SenderSocket->getFamily());
+#ifndef WITH_NEAT
       if(SenderSocket->getProtocol() == IPPROTO_SCTP) {
          sctp_sndrcvinfo* info = (sctp_sndrcvinfo*)message.addHeader(
                                     sizeof(sctp_sndrcvinfo),IPPROTO_SCTP,SCTP_SNDRCV);
@@ -140,6 +145,7 @@ integer RTCPSender::sendBye()
          info->sinfo_timetolive = 100;   // 100ms
          info->sinfo_ppid       = htonl(ControlPPID);
       }
+#endif
       return(SenderSocket->sendMsg(&message.Header,MSG_NOSIGNAL,Flow.getTrafficClass()));
    }
    return(0);
@@ -162,9 +168,14 @@ integer RTCPSender::sendApp(const char*    name,
       memcpy(app->getData(),data,dataLength);
 
       // ====== Send packet =================================================
+#ifndef WITH_NEAT
       SocketMessage<sizeof(sctp_sndrcvinfo)> message;
+#else
+      SocketMessage<0> message;
+#endif
       message.setBuffer(&packet, sizeof(packet));
       message.setAddress(Flow, SenderSocket->getFamily());
+#ifndef WITH_NEAT
       if(SenderSocket->getProtocol() == IPPROTO_SCTP) {
          sctp_sndrcvinfo* info = (sctp_sndrcvinfo*)message.addHeader(
                                     sizeof(sctp_sndrcvinfo),IPPROTO_SCTP,SCTP_SNDRCV);
@@ -174,6 +185,7 @@ integer RTCPSender::sendApp(const char*    name,
          info->sinfo_timetolive = 100;   // 100ms
          info->sinfo_ppid       = htonl(ControlPPID);
       }
+#endif
       return(SenderSocket->sendMsg(&message.Header,MSG_NOSIGNAL,Flow.getTrafficClass()));
    }
    return(0);
@@ -266,9 +278,14 @@ integer RTCPSender::sendSDES()
 
          // ====== Send packet ==============================================
          unsynchronized();
+#ifndef WITH_NEAT
          SocketMessage<sizeof(sctp_sndrcvinfo)> message;
+#else
+         SocketMessage<0> message;
+#endif
          message.setBuffer((void*)sdes, bytes);
          message.setAddress(Flow, SenderSocket->getFamily());
+#ifndef WITH_NEAT
          if(SenderSocket->getProtocol() == IPPROTO_SCTP) {
             sctp_sndrcvinfo* info = (sctp_sndrcvinfo*)message.addHeader(
                                        sizeof(sctp_sndrcvinfo),IPPROTO_SCTP,SCTP_SNDRCV);
@@ -278,6 +295,7 @@ integer RTCPSender::sendSDES()
             info->sinfo_timetolive = 100;   // 100ms
             info->sinfo_ppid       = htonl(ControlPPID);
          }
+#endif
          return(SenderSocket->sendMsg(&message.Header,MSG_NOSIGNAL,Flow.getTrafficClass()));
       }
       unsynchronized();
@@ -338,9 +356,14 @@ integer RTCPSender::sendReport()
 */
 
       // ====== Send packet ==============================================
+#ifndef WITH_NEAT
       SocketMessage<sizeof(sctp_sndrcvinfo)> message;
+#else
+      SocketMessage<0> message;
+#endif
       message.setBuffer((void*)report,length);
       message.setAddress(Flow, SenderSocket->getFamily());
+#ifndef WITH_NEAT
       if(SenderSocket->getProtocol() == IPPROTO_SCTP) {
          sctp_sndrcvinfo* info = (sctp_sndrcvinfo*)message.addHeader(
                                     sizeof(sctp_sndrcvinfo),IPPROTO_SCTP,SCTP_SNDRCV);
@@ -350,6 +373,7 @@ integer RTCPSender::sendReport()
          info->sinfo_timetolive = 100;   // 100ms
          info->sinfo_ppid       = htonl(ControlPPID);
       }
+#endif
       return(SenderSocket->sendMsg(&message.Header,MSG_NOSIGNAL,Flow.getTrafficClass()));
    }
    return(0);

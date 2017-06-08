@@ -158,7 +158,11 @@ bool Socket::create(const integer communicationDomain,
    }
 
    // ====== Create socket ==================================================
+#ifndef WITH_NEAT
    SocketDescriptor = ext_socket(Family,socketType,socketProtocol);
+#else
+   SocketDescriptor = nsa_socket(Family,socketType,socketProtocol,NULL);
+#endif
    if(SocketDescriptor < 0) {
 #ifndef DISABLE_WARNINGS
       std::cerr << "WARNING: Socket::Socket() - Unable to create socket!" << std::endl;
@@ -167,6 +171,7 @@ bool Socket::create(const integer communicationDomain,
    }
 
    // ====== Set options ====================================================
+#ifndef WITH_NEAT
 #if (SYSTEM == OS_Linux)
    const int yes = 1;
    // Send and receive IPv6 flow labels.
@@ -179,6 +184,7 @@ bool Socket::create(const integer communicationDomain,
       const int no = 0;
       ext_setsockopt(SocketDescriptor,IPPROTO_IPV6,IPV6_V6ONLY,&no,sizeof(no));
    }
+#endif
 
    return(true);
 }
@@ -188,7 +194,11 @@ bool Socket::create(const integer communicationDomain,
 void Socket::close()
 {
    if(SocketDescriptor != -1) {
+#ifndef WITH_NEAT
       ext_close(SocketDescriptor);
+#else
+      nsa_close(SocketDescriptor);
+#endif
       SocketDescriptor = -1;
    }
    if(Destination != NULL) {
@@ -201,7 +211,11 @@ void Socket::close()
 // ###### Shutdown connection ###############################################
 void Socket::shutdown(const cardinal shutdownLevel)
 {
+#ifndef WITH_NEAT
    ext_shutdown(SocketDescriptor,shutdownLevel);
+#else
+   nsa_shutdown(SocketDescriptor,shutdownLevel);
+#endif
 }
 
 
@@ -231,8 +245,13 @@ bool Socket::bind(const SocketAddress& address)
       for(cardinal i = 0;i < 4 * (MaxAutoSelectPort - MinAutoSelectPort);i++) {
          const cardinal port = random.random32() % (MaxAutoSelectPort - MinAutoSelectPort);
          socketAddress->sin6_port = (card16)htons(port + MinAutoSelectPort);
+#ifndef WITH_NEAT
          result = ext_bind(SocketDescriptor,(sockaddr*)socketAddress,
                           socketAddressLength);
+#else
+         result = nsa_bind(SocketDescriptor,(sockaddr*)socketAddress,
+                           socketAddressLength,NULL,0);
+#endif
          if(result == 0) {
             break;
          }
@@ -246,8 +265,13 @@ bool Socket::bind(const SocketAddress& address)
       if(result != 0) {
          for(cardinal i = Socket::MinAutoSelectPort;i < Socket::MaxAutoSelectPort;i += 2) {
             socketAddress->sin6_port = (card16)htons(i);
+#ifndef WITH_NEAT
             result = ext_bind(SocketDescriptor,(sockaddr*)socketAddress,
                              socketAddressLength);
+#else
+            result = nsa_bind(SocketDescriptor,(sockaddr*)socketAddress,
+                             socketAddressLength,NULL,0);
+#endif
             if(result == 0) {
                break;
             }
@@ -261,8 +285,13 @@ bool Socket::bind(const SocketAddress& address)
       }
    }
    else {
+#ifndef WITH_NEAT
       result = ext_bind(SocketDescriptor,(sockaddr*)socketAddress,
                        socketAddressLength);
+#else
+      result = nsa_bind(SocketDescriptor,(sockaddr*)socketAddress,
+                       socketAddressLength,NULL,0);
+#endif
       if(result < 0) {
          LastError = errno;
       }
@@ -314,10 +343,18 @@ bool Socket::bindx(const SocketAddress** addressArray,
          }
          sockaddr_storage packedSocketAddressArray[addresses];
          packSocketAddressArray(storage, addresses, (sockaddr*)&packedSocketAddressArray);
+#ifndef WITH_NEAT
          result = sctp_bindx(SocketDescriptor,
                              (sockaddr*)&packedSocketAddressArray,
                              addresses,
                              (int)flags);
+#else
+         result = nsa_bindx(SocketDescriptor,
+                            (sockaddr*)&packedSocketAddressArray,
+                            addresses,
+                            (int)flags,
+                            NULL,0);
+#endif
          if(result == 0) {
             break;
          }
@@ -333,10 +370,18 @@ bool Socket::bindx(const SocketAddress** addressArray,
             socketAddress->sin6_port = (card16)htons(i);
             sockaddr_storage packedSocketAddressArray[addresses];
             packSocketAddressArray(storage, addresses, (sockaddr*)&packedSocketAddressArray);
+#ifndef WITH_NEAT
             result = sctp_bindx(SocketDescriptor,
                                 (sockaddr*)&packedSocketAddressArray,
                                 addresses,
                                 (int)flags);
+#else
+            result = nsa_bindx(SocketDescriptor,
+                               (sockaddr*)&packedSocketAddressArray,
+                               addresses,
+                               (int)flags,
+                               NULL,0);
+#endif
             for(cardinal n = 1;n < addresses;n++) {
                sockaddr_in6* address2 = (sockaddr_in6*)&storage[n];
                if((address2->sin6_family == AF_INET6) ||
@@ -359,10 +404,18 @@ bool Socket::bindx(const SocketAddress** addressArray,
    else {
       sockaddr_storage packedSocketAddressArray[addresses];
       packSocketAddressArray(storage, addresses, (sockaddr*)&packedSocketAddressArray);
+#ifndef WITH_NEAT
       result = sctp_bindx(SocketDescriptor,
                           (sockaddr*)&packedSocketAddressArray,
                           addresses,
                           (int)flags);
+#else
+      result = nsa_bindx(SocketDescriptor,
+                         (sockaddr*)&packedSocketAddressArray,
+                         addresses,
+                         (int)flags,
+                         NULL,0);
+#endif
       if(result < 0) {
          LastError = errno;
       }
@@ -532,7 +585,11 @@ end:
 // ###### Set socket listing for connections ################################
 bool Socket::listen(const cardinal backlog)
 {
+#ifndef WITH_NEAT
    int result = ext_listen(SocketDescriptor,backlog);
+#else
+   int result = nsa_listen(SocketDescriptor,backlog);
+#endif
    if(result < 0)
       return(false);
 
@@ -549,8 +606,13 @@ Socket* Socket::accept(SocketAddress** address)
    }
    char      socketAddressBuffer[SocketAddress::MaxSockLen];
    socklen_t socketAddressLength = SocketAddress::MaxSockLen;
+#ifndef WITH_NEAT
    int result = ext_accept(SocketDescriptor,(sockaddr*)&socketAddressBuffer,
-                          &socketAddressLength);
+                           &socketAddressLength);
+#else
+   int result = nsa_accept(SocketDescriptor,(sockaddr*)&socketAddressBuffer,
+                           &socketAddressLength);
+#endif
 
    if(result < 0) {
       return(NULL);
@@ -572,7 +634,11 @@ Socket* Socket::accept(SocketAddress** address)
 #ifndef DISABLE_WARNINGS
       std::cerr << "WARNING: Socket::accept() - Out of memory!" << std::endl;
 #endif
+#ifndef WITH_NEAT
       ext_close(result);
+#else
+      nsa_close(result);
+#endif
    }
    return(NULL);
 }
@@ -622,7 +688,11 @@ bool Socket::connect(const SocketAddress& address, const card8 trafficClass)
    }
 
    // ====== Connect ========================================================
+#ifndef WITH_NEAT
    int result = ext_connect(SocketDescriptor,(sockaddr*)socketAddress,socketAddressLength);
+#else
+   int result = nsa_connect(SocketDescriptor,(sockaddr*)socketAddress,socketAddressLength,NULL,0);
+#endif
    if(result != 0) {
       LastError = errno;
       if(LastError != EINPROGRESS) {
@@ -653,9 +723,16 @@ bool Socket::connectx(const SocketAddress** addressArray,
    // ====== Connect ========================================================
    sockaddr_storage packedSocketAddressArray[addresses];
    packSocketAddressArray(socketAddressArray, addresses, (sockaddr*)&packedSocketAddressArray);
+#ifndef WITH_NEAT
    int result = sctp_connectx(SocketDescriptor,
                               (sockaddr*)&packedSocketAddressArray,
                               addresses, NULL);
+#else
+   int result = nsa_connectx(SocketDescriptor,
+                              (sockaddr*)&packedSocketAddressArray,
+                              addresses, NULL,
+                              NULL, 0);
+#endif
    if(result != 0) {
       LastError = errno;
       if(LastError != EINPROGRESS) {
@@ -672,10 +749,14 @@ ssize_t Socket::receiveMsg(struct msghdr* msg,
                            const integer  flags,
                            const bool     internalCall)
 {
+#ifndef WITH_NEAT
 #ifdef SOCKETAPI_MAJOR_VERSION
    const int cc = ext_recvmsg2(SocketDescriptor,msg,flags,(internalCall == true) ? 0 : 1);
 #else
    const int cc = ext_recvmsg(SocketDescriptor,msg,flags);
+#endif
+#else
+   const int cc = nsa_recvmsg(SocketDescriptor,msg,flags);
 #endif
    if(cc < 0) {
       LastError = errno;
@@ -771,6 +852,7 @@ ssize_t Socket::send(const void*   buffer,
                      const integer flags,
                      const card8   trafficClass)
 {
+#ifndef WITH_NEAT
    // ====== Check, if traffic class has to be set ==========================
    if((trafficClass != 0) && (Destination != NULL)) {
 
@@ -804,9 +886,14 @@ ssize_t Socket::send(const void*   buffer,
          return(result);
       }
    }
+#endif
 
    // ====== Do simple send() without setting traffic class =================
+#ifndef WITH_NEAT
    ssize_t result = ext_send(SocketDescriptor,buffer,length,flags);
+#else
+   ssize_t result = nsa_send(SocketDescriptor,buffer,length,flags);
+#endif
    if(result < 0) {
       LastError = errno;
       result    = -LastError;
@@ -832,6 +919,7 @@ ssize_t Socket::sendTo(const void*          buffer,
       return(-1);
    }
 
+#ifndef WITH_NEAT
    // ====== Check, if traffic class has to be set ==========================
    if(trafficClass != 0x00) {
 
@@ -865,10 +953,16 @@ ssize_t Socket::sendTo(const void*          buffer,
          return(result);
       }
    }
+#endif
 
    // ====== Do simple send() without setting traffic class =================
+#ifndef WITH_NEAT
    ssize_t result = ext_sendto(SocketDescriptor,buffer,length,flags,
-                                 (sockaddr*)socketAddress,socketAddressLength);
+                               (sockaddr*)socketAddress,socketAddressLength);
+#else
+   ssize_t result = nsa_sendto(SocketDescriptor,buffer,length,flags,
+                               (sockaddr*)socketAddress,socketAddressLength);
+#endif
    if(result < 0) {
       LastError = errno;
       result    = -LastError;
@@ -886,7 +980,11 @@ ssize_t Socket::sendMsg(const struct msghdr* msg,
       setTypeOfService(trafficClass);
    }
 
+#ifndef WITH_NEAT
    ssize_t result = ext_sendmsg(SocketDescriptor,msg,(int)flags);
+#else
+   ssize_t result = nsa_sendmsg(SocketDescriptor,msg,(int)flags);
+#endif
    if(result < 0) {
       LastError = errno;
       result    = -LastError;
@@ -1050,7 +1148,11 @@ bool Socket::getSocketAddress(SocketAddress& address) const
 {
    char      socketAddress[SocketAddress::MaxSockLen];
    socklen_t socketAddressLength = SocketAddress::MaxSockLen;
+#ifndef WITH_NEAT
    if(ext_getsockname(SocketDescriptor,(sockaddr*)&socketAddress,&socketAddressLength) == 0) {
+#else
+   if(nsa_getsockname(SocketDescriptor,(sockaddr*)&socketAddress,&socketAddressLength) == 0) {
+#endif
       address.setSystemAddress((sockaddr*)&socketAddress,socketAddressLength);
       return(true);
    }
@@ -1063,7 +1165,11 @@ bool Socket::getPeerAddress(SocketAddress& address) const
 {
    char      socketAddress[SocketAddress::MaxSockLen];
    socklen_t socketAddressLength = SocketAddress::MaxSockLen;
+#ifndef WITH_NEAT
    if(ext_getpeername(SocketDescriptor,(sockaddr*)&socketAddress,&socketAddressLength) == 0) {
+#else
+   if(nsa_getpeername(SocketDescriptor,(sockaddr*)&socketAddress,&socketAddressLength) == 0) {
+#endif
       address.setSystemAddress((sockaddr*)&socketAddress,socketAddressLength);
       return(true);
    }

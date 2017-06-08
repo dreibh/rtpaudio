@@ -37,9 +37,12 @@
 #include "tdsystem.h"
 #include "internetaddress.h"
 #include "internetflow.h"
+
+#ifndef WITH_NEAT
 #include "ext_socket.h"
-
-
+#else
+#include <neat-socketapi.h>
+#endif
 #include <fcntl.h>
 
 

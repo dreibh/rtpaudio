@@ -260,9 +260,14 @@ void RTPSender::timerEvent()
 #ifdef USE_TRAFFICSHAPER
       if(SenderReportBuffer.send(&report,sizeof(RTCPSenderReport),(cardinal)-1,(SenderSocket->getProtocol() == IPPROTO_SCTP) ? SCTP_UNORDERED|MSG_NOSIGNAL : MSG_NOSIGNAL) != sizeof(RTCPSenderReport)) {
 #else
+#ifndef WITH_NEAT
       SocketMessage<sizeof(sctp_sndrcvinfo)> message;
+#else
+      SocketMessage<0> message;
+#endif
       message.setBuffer(&report,sizeof(RTCPSenderReport));
       message.setAddress(Flow[0],SenderSocket->getFamily());
+#ifndef WITH_NEAT
       if(SenderSocket->getProtocol() == IPPROTO_SCTP) {
          sctp_sndrcvinfo* info = (sctp_sndrcvinfo*)message.addHeader(
                                     sizeof(sctp_sndrcvinfo),IPPROTO_SCTP,SCTP_SNDRCV);
@@ -272,6 +277,7 @@ void RTPSender::timerEvent()
          info->sinfo_timetolive = 100;   // 100ms
          info->sinfo_ppid       = htonl(ControlPPID);
       }
+#endif
       if(SenderSocket->sendMsg(&message.Header,MSG_NOSIGNAL,Flow[0].getTrafficClass()))  {
 #endif
          const integer error = SenderSocket->getLastError();
@@ -380,9 +386,14 @@ void RTPSender::timerEvent()
 
             // ====== Send packet without traffic shaper ====================
 #else
+#ifndef WITH_NEAT
             SocketMessage<sizeof(sctp_sndrcvinfo)> message;
+#else
+            SocketMessage<0> message;
+#endif
             message.setBuffer(&packet, packet.calculateHeaderSize() + bytesData);
             message.setAddress(Flow[encoderPacket.Layer], SenderSocket->getFamily());
+#ifndef WITH_NEAT
             if(SenderSocket->getProtocol() == IPPROTO_SCTP) {
                sctp_sndrcvinfo* info = (sctp_sndrcvinfo*)message.addHeader(
                                           sizeof(sctp_sndrcvinfo),IPPROTO_SCTP,SCTP_SNDRCV);
@@ -392,6 +403,7 @@ void RTPSender::timerEvent()
                info->sinfo_timetolive = 100;   // 100ms
                info->sinfo_ppid       = htonl(DataPPID);
             }
+#endif
             sent = SenderSocket->sendMsg(&message.Header,MSG_NOSIGNAL,Flow[encoderPacket.Layer].getTrafficClass());
 #endif
 

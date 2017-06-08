@@ -35,7 +35,6 @@
 
 
 #include "tdsocket.h"
-#include "ext_socket.h"
 
 
 #include <fcntl.h>
@@ -103,7 +102,11 @@ inline card8 Socket::getReceivedTrafficClass() const
 // ###### Socket control ####################################################
 inline integer Socket::fcntl(const integer cmd, long arg)
 {
+#ifndef WITH_NEAT
    const integer result = ext_fcntl(SocketDescriptor,cmd,arg);
+#else
+   const integer result = nsa_fcntl(SocketDescriptor,cmd,arg);
+#endif
    if(result != 0) {
       LastError = errno;
    }
@@ -115,7 +118,11 @@ inline integer Socket::fcntl(const integer cmd, long arg)
 inline integer Socket::fcntl(const integer cmd,
                              struct flock* lock)
 {
+#ifndef WITH_NEAT
    const integer result = ext_fcntl(SocketDescriptor,cmd,lock);
+#else
+   const integer result = nsa_fcntl(SocketDescriptor,cmd,lock);
+#endif
    if(result != 0) {
       LastError = errno;
    }
@@ -126,7 +133,11 @@ inline integer Socket::fcntl(const integer cmd,
 // ###### Socket control ####################################################
 inline integer Socket::ioctl(const integer request, const void* argp)
 {
+#ifndef WITH_NEAT
    const integer result = ext_ioctl(SocketDescriptor,request,argp);
+#else
+   const integer result = nsa_ioctl(SocketDescriptor,request,argp);
+#endif
    if(result != 0) {
       LastError = errno;
    }
@@ -140,8 +151,13 @@ inline integer Socket::getSocketOption(const cardinal level,
                                        void*          optionValue,
                                        socklen_t*     optionLength)
 {
+#ifndef WITH_NEAT
    const integer result = ext_getsockopt(SocketDescriptor,
                                          level,optionNumber,optionValue,optionLength);
+#else
+   const integer result = nsa_getsockopt(SocketDescriptor,
+                                         level,optionNumber,optionValue,optionLength);
+#endif
    if(result != 0) {
       LastError = errno;
    }
@@ -155,8 +171,13 @@ inline integer Socket::setSocketOption(const cardinal  level,
                                        const void*     optionValue,
                                        const socklen_t optionLength)
 {
+#ifndef WITH_NEAT
    const integer result = ext_setsockopt(SocketDescriptor,
                                          level,optionNumber,optionValue,optionLength);
+#else
+   const integer result = nsa_setsockopt(SocketDescriptor,
+                                         level,optionNumber,optionValue,optionLength);
+#endif
    if(result != 0) {
       LastError = errno;
    }
@@ -203,7 +224,11 @@ inline ssize_t Socket::receive(void*        buffer,
 // ###### Read data #########################################################
 inline ssize_t Socket::read(void* buffer, const size_t length)
 {
+#ifndef WITH_NEAT
    ssize_t result = ext_read(SocketDescriptor,buffer,length);
+#else
+   ssize_t result = nsa_read(SocketDescriptor,buffer,length);
+#endif
    if(result < 0) {
       LastError = errno;
       result    = -LastError;
@@ -216,7 +241,11 @@ inline ssize_t Socket::read(void* buffer, const size_t length)
 inline ssize_t Socket::write(const void*  buffer,
                              const size_t length)
 {
+#ifndef WITH_NEAT
    ssize_t result = ext_write(SocketDescriptor,buffer,length);
+#else
+   ssize_t result = nsa_write(SocketDescriptor,buffer,length);
+#endif
    if(result < 0) {
       LastError = errno;
       result    = -LastError;

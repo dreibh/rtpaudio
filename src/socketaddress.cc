@@ -34,8 +34,12 @@
 #include "socketaddress.h"
 #include "internetaddress.h"
 #include "unixaddress.h"
-#include "ext_socket.h"
 
+#ifndef WITH_NEAT
+#include "ext_socket.h"
+#else
+#include <neat-socketapi.h>
+#endif
 #include <sys/socket.h>
 
 
@@ -87,21 +91,37 @@ SocketAddress* SocketAddress::getLocalAddress(const SocketAddress& peer)
    const int family = peer.getFamily();
    SocketAddress* address = createSocketAddress(family);
    if(address != NULL) {
+#ifndef WITH_NEAT
       int sd = ext_socket(family,SOCK_DGRAM,0);
+#else
+      int sd = nsa_socket(family,SOCK_DGRAM,0,NULL);
+#endif
       if(socket >= 0) {
          sockaddr_storage socketAddress;
          socklen_t        socketAddressLength =
                              peer.getSystemAddress((sockaddr*)&socketAddress,SocketAddress::MaxSockLen,
                                                    family);
          if(socketAddressLength > 0) {
+#ifndef WITH_NEAT
             if(ext_connect(sd,(sockaddr*)&socketAddress,socketAddressLength) == 0) {
+#else
+            if(nsa_connect(sd,(sockaddr*)&socketAddress,socketAddressLength,NULL,0) == 0) {
+#endif
+#ifndef WITH_NEAT
                if(ext_getsockname(sd,(sockaddr*)&socketAddress,&socketAddressLength) == 0) {
+#else
+               if(nsa_getsockname(sd,(sockaddr*)&socketAddress,&socketAddressLength) == 0) {
+#endif
                   address->setSystemAddress((sockaddr*)&socketAddress,socketAddressLength);
                   address->setPort(0);
                }
             }
          }
+#ifndef WITH_NEAT
          ext_close(sd);
+#else
+         nsa_close(sd);
+#endif
       }
    }
    return(address);

@@ -32,9 +32,12 @@
 
 #include "tdsystem.h"
 #include "internetaddress.h"
+
+#ifndef WITH_NEAT
 #include "ext_socket.h"
-
-
+#else
+#include <neat-socketapi.h>
+#endif
 #include <netdb.h>
 #include <netinet/in.h>
 #include <sys/utsname.h>
@@ -314,21 +317,37 @@ InternetAddress InternetAddress::getLocalAddress(const InternetAddress& peer)
 {
    InternetAddress address;
 
+#ifndef WITH_NEAT
    int sd = ext_socket((UseIPv6 == true) ? AF_INET6 : AF_INET,SOCK_DGRAM,IPPROTO_UDP);
+#else
+   int sd = nsa_socket((UseIPv6 == true) ? AF_INET6 : AF_INET,SOCK_DGRAM,IPPROTO_UDP, NULL);
+#endif
    if(socket >= 0) {
       sockaddr_storage socketAddress;
       socklen_t        socketAddressLength =
                           peer.getSystemAddress((sockaddr*)&socketAddress,SocketAddress::MaxSockLen,
                                                 (UseIPv6 == true) ? AF_INET6 : AF_INET);
       if(socketAddressLength > 0) {
+#ifndef WITH_NEAT
          if(ext_connect(sd,(sockaddr*)&socketAddress,socketAddressLength) == 0) {
+#else
+         if(nsa_connect(sd,(sockaddr*)&socketAddress,socketAddressLength, NULL, 0) == 0) {
+#endif
+#ifndef WITH_NEAT
             if(ext_getsockname(sd,(sockaddr*)&socketAddress,&socketAddressLength) == 0) {
+#else
+            if(nsa_getsockname(sd,(sockaddr*)&socketAddress,&socketAddressLength) == 0) {
+#endif
                address.setSystemAddress((sockaddr*)&socketAddress,socketAddressLength);
                address.setPort(0);
             }
          }
       }
+#ifndef WITH_NEAT
       ext_close(sd);
+#else
+      nsa_close(sd);
+#endif
    }
 
    return(address);
