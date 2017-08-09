@@ -8,7 +8,7 @@
 PORTNAME=	rtpaudio
 PORTVERSION=	2.0.0~alpha1.10
 CATEGORIES=	net
-MASTER_SITES=	http://www.iem.uni-due.de/~dreibh/rtpaudio/download/ \
+MASTER_SITES=	https://www.uni-due.de/~be0001/rtpaudio/download/ \
 		http://www.exp-math.uni-essen.de/~dreibh/rtpaudio/download/
 
 MAINTAINER=	dreibh@iem.uni-due.de

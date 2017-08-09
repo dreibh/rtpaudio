@@ -3,7 +3,7 @@ PROJECT(rtpaudio)
 
 set(BUILD_MAJOR "2")
 set(BUILD_MINOR "0")
-set(BUILD_PATCH "0~beta2.9")
+set(BUILD_PATCH "0~beta3")
 set(BUILD_VERSION ${BUILD_MAJOR}.${BUILD_MINOR}.${BUILD_PATCH})
 
 

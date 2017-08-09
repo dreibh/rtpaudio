@@ -13,7 +13,7 @@
 // ####                                                                  ####
 // #### Contact:                                                         ####
 // ####    EMail: dreibh@iem.uni-due.de                                  ####
-// ####    WWW:   http://www.iem.uni-due.de/~dreibh/rtpaudio             ####
+// ####    WWW:   https://www.uni-due.de/~be0001/rtpaudio                ####
 // ####                                                                  ####
 // #### ---------------------------------------------------------------- ####
 // ####                                                                  ####
