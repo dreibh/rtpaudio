@@ -186,14 +186,16 @@ int main(int argc, char* argv[])
    String   directory;
 
    const char* neatProperties = NULL;
-//    "{\
-//       \"transport\": [\
-//          {\
-//                \"value\": \"SCTP\",\
-//                \"precedence\": 1\
-//          }\
-//       ]\
-//    }";\
+#if 0
+      "{\
+         \"transport\": [\
+            {\
+                  \"value\": \"SCTP\",\
+                  \"precedence\": 1\
+            }\
+         ]\
+      }";
+#endif
 
 
    // ====== Read configuration from file ===================================
