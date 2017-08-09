@@ -1,7 +1,7 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: RTP Audio
 Upstream-Contact: Thomas Dreibholz <dreibh@iem.uni-due.de>
-Source: http://www.iem.uni-due.de/~dreibh/rtpaudio/
+Source: https://www.uni-due.de/~be0001/rtpaudio/
 
 Files: *
 Copyright: Copyright (C) 1999-2015 Thomas Dreibholz <dreibh@iem.uni-due.de>
