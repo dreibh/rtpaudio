@@ -9,7 +9,7 @@
 // ####                                                                  ####
 // #### Frame Rate Scalability Interface                                 ####
 // ####                                                                  ####
-// ####           Copyright (C) 1999-2017 by Thomas Dreibholz            ####
+// ####           Copyright (C) 1999-2018 by Thomas Dreibholz            ####
 // ####                                                                  ####
 // #### Contact:                                                         ####
 // ####    EMail: dreibh@iem.uni-due.de                                  ####

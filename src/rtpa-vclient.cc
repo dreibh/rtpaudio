@@ -5,7 +5,7 @@
 // ####                                                                  ####
 // #### Verification Client                                              ####
 // ####                                                                  ####
-// ####           Copyright (C) 1999-2017 by Thomas Dreibholz            ####
+// ####           Copyright (C) 1999-2018 by Thomas Dreibholz            ####
 // ####                                                                  ####
 // #### Contact:                                                         ####
 // ####    EMail: dreibh@iem.uni-due.de                                  ####
@@ -448,7 +448,7 @@ int main(int argc, char** argv)
 
 
    // ====== Print information ==============================================
-   std::cerr << "RTP Audio Verification Client - Copyright (C) 1999-2017 Thomas Dreibholz" << std::endl;
+   std::cerr << "RTP Audio Verification Client - Copyright (C) 1999-2018 Thomas Dreibholz" << std::endl;
    std::cerr << "------------------------------------------------------------------------" << std::endl;
    std::cerr << std::endl;
    if(receiverName != NULL) {

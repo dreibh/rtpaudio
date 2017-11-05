@@ -5,7 +5,7 @@
 // ####                                                                  ####
 // #### Encoder Info                                                     ####
 // ####                                                                  ####
-// ####           Copyright (C) 1999-2017 by Thomas Dreibholz            ####
+// ####           Copyright (C) 1999-2018 by Thomas Dreibholz            ####
 // ####                                                                  ####
 // #### Contact:                                                         ####
 // ####    EMail: dreibh@iem.uni-due.de                                  ####
@@ -219,7 +219,7 @@ int main(int argc, char** argv)
 
 
    // ====== Print information ==============================================
-   std::cout << "RTP Audio Encoder Info - Copyright (C) 1999-2017 Thomas Dreibholz" << std::endl;
+   std::cout << "RTP Audio Encoder Info - Copyright (C) 1999-2018 Thomas Dreibholz" << std::endl;
    std::cout << "-----------------------------------------------------------------" << std::endl;
    std::cout << std::endl;
    std::cout << "Max Packet Size: " << maxPacketSize << std::endl;
