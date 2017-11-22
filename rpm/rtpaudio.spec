@@ -350,8 +350,6 @@ Requires: %{name}-libaudiodecoder
 Requires: %{name}-libaudiowriter
 Requires: %{name}-librtpaudioclient
 Requires: %{name}-libtdtoolbox
-Recommends: iputils-ping
-Recommends: iputils-tracepath
 Recommends: netperfmeter
 Recommends: rsplib-tools
 Recommends: subnetcalc
@@ -381,8 +379,6 @@ Requires: %{name}-libqosmgr
 Requires: %{name}-librtpaudioserver
 Requires: %{name}-librtpserver
 Requires: %{name}-libtdtoolbox
-Recommends: iputils-ping
-Recommends: iputils-tracepath
 Recommends: netperfmeter
 Recommends: rsplib-tools
 Recommends: subnetcalc
