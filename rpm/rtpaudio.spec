@@ -70,7 +70,7 @@ Requires: %{name} = %{version}-%{release}
 
 
 %package libtdtoolbox
-Summary: Shared libraries for RTP Audio (common helper functions)
+Summary: Shared library for RTP Audio (common helper functions)
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 
@@ -85,13 +85,72 @@ This package provides a shared library for common helper functions.
 /usr/lib/libtdtoolbox.so*
 
 
+%package libtdtoolbox-devel
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
+Summary: Development files for RTP Audio (common helper functions)
+
+%description libtdtoolbox-devel
+The RTP Audio system is a network sound streaming system. It has been
+designed for QoS performance analysis and teaching purposes.
+.
+This package provides the development files for libtdtoolbox.
+
+%files libtdtoolbox-devel
+%defattr(-,root,root,-)
+/usr/lib/libtdtoolbox*.a
+/usr/lib/libtdtoolbox*.so
+/usr/include/breakdetector.h
+/usr/include/condition.h
+/usr/include/condition.icc
+/usr/include/ext_socket.h
+/usr/include/internetaddress.h
+/usr/include/internetaddress.icc
+/usr/include/internetflow.h
+/usr/include/internetflow.icc
+/usr/include/multitimerthread.h
+/usr/include/multitimerthread.icc
+/usr/include/packetaddress.h
+/usr/include/packetaddress.icc
+/usr/include/portableaddress.h
+/usr/include/portableaddress.icc
+/usr/include/randomizer.h
+/usr/include/randomizer.icc
+/usr/include/ringbuffer.h
+/usr/include/ringbuffer.icc
+/usr/include/seqnumvalidator.h
+/usr/include/seqnumvalidator.icc
+/usr/include/socketaddress.h
+/usr/include/socketaddress.icc
+/usr/include/synchronizable.h
+/usr/include/synchronizable.icc
+/usr/include/tdsystem.h
+/usr/include/tdin6.h
+/usr/include/tdmessage.h
+/usr/include/tdmessage.icc
+/usr/include/tdsocket.h
+/usr/include/tdsocket.icc
+/usr/include/tdstrings.h
+/usr/include/tdstrings.icc
+/usr/include/thread.h
+/usr/include/thread.icc
+/usr/include/timedthread.h
+/usr/include/timedthread.icc
+/usr/include/tools.h
+/usr/include/tools.icc
+/usr/include/trafficclassvalues.h
+/usr/include/trafficclassvalues.icc
+/usr/include/unixaddress.h
+/usr/include/unixaddress.icc
+
+
 %package libmediainfo
-Summary: Shared libraries for RTP Audio (media information handling)
+Summary: Shared library for RTP Audio (media information handling)
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 
 %description libmediainfo
-Shared libraries for RTP Audio (media information handling)
+Shared library for RTP Audio (media information handling)
 The RTP Audio system is a network sound streaming system. It has been
 designed for QoS performance analysis and teaching purposes.
 .
@@ -102,8 +161,26 @@ This package provides a shared library for media information handling.
 /usr/lib/libmediainfo.so*
 
 
+%package libmediainfo-devel
+Summary: Development files for RTP Audio (media information handling)
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
+
+%description libmediainfo-devel
+The RTP Audio system is a network sound streaming system. It has been
+designed for QoS performance analysis and teaching purposes.
+.
+This package provides the development files for libmediainfo.
+
+%files libmediainfo-devel
+%defattr(-,root,root,-)
+/usr/lib/libmediainfo*.so
+/usr/lib/libmediainfo*.a
+/usr/include/mediainfo.h
+
+
 %package libaudiocommon
-Summary:   Shared libraries for RTP Audio (common audio data handling)
+Summary:   Shared library for RTP Audio (common audio data handling)
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-libtdtoolbox
@@ -119,8 +196,31 @@ Requires: %{name}-libtdtoolbox
 /usr/lib/libaudiocommon.so*
 
 
+%package libaudiocommon-devel
+Summary:   Development files for RTP Audio (common audio data handling)
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-libtdtoolbox-devel
+
+%description libaudiocommon-devel
+ The RTP Audio system is a network sound streaming system. It has been
+ designed for QoS performance analysis and teaching purposes.
+ .
+ This package provides the development files for common audio data handling.
+
+%files libaudiocommon-devel
+%defattr(-,root,root,-)
+/usr/lib/libaudiocommon*.a
+/usr/lib/libaudiocommon*.so
+/usr/include/audioquality.h
+/usr/include/audioqualityinterface.h
+/usr/include/audioconverter.h
+/usr/include/audioquality.icc
+/usr/include/audioqualityinterface.icc
+
+
 %package libaudioreader
-Summary: Shared libraries for RTP Audio (audio input reading)
+Summary: Shared library for RTP Audio (audio input reading)
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-libaudiocommon
@@ -139,8 +239,33 @@ This package provides a shared library for audio input reading.
 /usr/lib/libaudioreader.so*
 
 
+%package libaudioreader-devel
+Summary: Development files for RTP Audio (audio input reading)
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-libaudiocommon-devel
+Requires: %{name}-libmediainfo-devel
+Requires: %{name}-libmpegsound-devel
+Requires: %{name}-libtdtoolbox-devel
+
+%description libaudioreader-devel
+The RTP Audio system is a network sound streaming system. It has been
+designed for QoS performance analysis and teaching purposes.
+.
+This package provides the development files for audio input reading.
+
+%files libaudioreader-devel
+%defattr(-,root,root,-)
+/usr/lib/libaudioreader*.a
+/usr/lib/libaudioreader*.so
+/usr/include/audioreaderinterface.h
+/usr/include/mp3audioreader.h
+/usr/include/multiaudioreader.h
+/usr/include/wavaudioreader.h
+
+
 %package libaudiowriter
-Summary: Shared libraries for RTP Audio (audio output writing)
+Summary: Shared library for RTP Audio (audio output writing)
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-libaudiocommon
@@ -158,8 +283,38 @@ Requires: %{name}-libtdtoolbox
 /usr/lib/libaudiowriter.so*
 
 
+%package libaudiowriter-devel
+Summary: Development files for RTP Audio (audio output writing)
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-libaudiocommon-devel
+Requires: %{name}-libpulse-devel
+Requires: %{name}-libtdtoolbox-devel
+
+%description libaudiowriter-devel
+ The RTP Audio system is a network sound streaming system. It has been
+ designed for QoS performance analysis and teaching purposes.
+ .
+ This package provides the development files for audio output writing.
+
+%files libaudiowriter-devel
+%defattr(-,root,root,-)
+/usr/lib/libaudiowriter*.a
+/usr/lib/libaudiowriter*.so
+/usr/include/audiowriterinterface.h
+/usr/include/multiaudiowriter.h
+/usr/include/audiodebug.h
+/usr/include/audiodevice.h
+/usr/include/audiodevice.icc
+/usr/include/audiomixer.h
+/usr/include/audiomixer.icc
+/usr/include/audionull.h
+/usr/include/spectrumanalyzer.h
+/usr/include/fft.h
+
+
 %package libaudiocodeccommon
-Summary: Shared libraries for RTP Audio (common audio codec handling)
+Summary: Shared library for RTP Audio (common audio codec handling)
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-libaudiocommon
@@ -175,8 +330,28 @@ Requires: %{name}-libaudiocommon
 /usr/lib/libaudiocodeccommon.so*
 
 
+%package libaudiocodeccommon-devel
+Summary: Development files for RTP Audio (common audio codec handling)
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-libaudiocommon-devel
+
+%description libaudiocodeccommon-devel
+ The RTP Audio system is a network sound streaming system. It has been
+ designed for QoS performance analysis and teaching purposes.
+ .
+ This package provides the development files for common audio codec handling.
+
+%files libaudiocodeccommon
+%defattr(-,root,root,-)
+/usr/lib/libaudiocodeccommon*.a
+/usr/lib/libaudiocodeccommon*.so
+/usr/include/advancedaudiopacket.h
+/usr/include/simpleaudiopacket.h
+
+
 %package libaudioencoder
-Summary: Shared libraries for RTP Audio (audio encoding)
+Summary: Shared library for RTP Audio (audio encoding)
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-libaudiocodeccommon
@@ -193,8 +368,32 @@ Requires: %{name}-libaudiocommon
 /usr/lib/libaudioencoder.so*
 
 
+%package libaudioencoder-devel
+Summary: Development files for RTP Audio (audio encoding)
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-libaudiocodeccommon-devel
+Requires: %{name}-libaudiocommon-devel
+
+%description libaudioencoder-devel
+ The RTP Audio system is a network sound streaming system. It has been
+ designed for QoS performance analysis and teaching purposes.
+ .
+ This package provides the development files for audio encoding.
+
+%files libaudioencoder-devel
+%defattr(-,root,root,-)
+/usr/lib/libaudioencoder*.a
+/usr/lib/libaudioencoder*.so
+/usr/include/advancedaudioencoder.h
+/usr/include/audioencoderinterface.h
+/usr/include/audioencoderrepository.h
+/usr/include/audioencoderrepository.icc
+/usr/include/simpleaudioencoder.h
+
+
 %package libaudiodecoder
-Summary: Shared libraries for RTP Audio (audio decoding)
+Summary: Shared library for RTP Audio (audio decoding)
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-libaudiocodeccommon
@@ -213,8 +412,34 @@ Requires: %{name}-libtdtoolbox
 /usr/lib/libaudiodecoder.so*
 
 
+%package libaudiodecoder-devel
+Summary: Development files for RTP Audio (audio decoding)
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-libaudiocodeccommon-devel
+Requires: %{name}-libaudiocommon-devel
+Requires: %{name}-libmediainfo-devel
+Requires: %{name}-libtdtoolbox-devel
+
+%description libaudiodecoder-devel
+ The RTP Audio system is a network sound streaming system. It has been
+ designed for QoS performance analysis and teaching purposes.
+ .
+ This package provides the development files for audio decoding.
+
+%files libaudiodecoder-devel
+%defattr(-,root,root,-)
+/usr/lib/libaudiodecoder*.a
+/usr/lib/libaudiodecoder*.so
+/usr/include/advancedaudiodecoder.h
+/usr/include/audiodecoderinterface.h
+/usr/include/audiodecoderrepository.h
+/usr/include/audiodecoderrepository.icc
+/usr/include/simpleaudiodecoder.h
+
+
 %package librtpaudiocommon
-Summary: Shared libraries of the RTP Audio sound streaming system
+Summary: Shared library of the RTP Audio sound streaming system
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 
@@ -229,8 +454,26 @@ Requires: %{name} = %{version}-%{release}
 /usr/lib/librtpaudiocommon.so*
 
 
+%package librtpaudiocommon-devel
+Summary: Shared library of the RTP Audio sound streaming system
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
+
+%description librtpaudiocommon-devel
+ The RTP Audio system is a network sound streaming system. It has been
+ designed for QoS performance analysis and teaching purposes.
+ .
+ This package provides the development files for common RTP audio handling.
+
+%files librtpaudiocommon-devel
+%defattr(-,root,root,-)
+/usr/lib/librtpaudiocommon*.a
+/usr/lib/librtpaudiocommon*.so
+/usr/include/audioclientapppacket.h
+
+
 %package librtpaudioclient
-Summary: Shared libraries for RTP Audio (RTP client-side audio handling)
+Summary: Shared library for RTP Audio (RTP client-side audio handling)
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-libaudiocommon
@@ -251,8 +494,33 @@ Requires: %{name}-libtdtoolbox
 /usr/lib/librtpaudioclient.so*
 
 
+%package librtpaudioclient-devel
+Summary: Development files for RTP Audio (RTP client-side audio handling)
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-libaudiocommon-devel
+Requires: %{name}-libaudiodecoder-devel
+Requires: %{name}-libmediainfo-devel
+Requires: %{name}-librtpaudiocommon-devel
+Requires: %{name}-librtpclient-devel
+Requires: %{name}-libtdtoolbox-devel
+
+%description librtpaudioclient-devel
+ The RTP Audio system is a network sound streaming system. It has been
+ designed for QoS performance analysis and teaching purposes.
+ .
+ This package provides the development files for RTP client-side audio handling.
+
+%files librtpaudioclient-devel
+%defattr(-,root,root,-)
+/usr/lib/librtpaudioclient*.a
+/usr/lib/librtpaudioclient*.so
+/usr/include/audioclient.h
+/usr/include/audioclient.icc
+
+
 %package librtpaudioserver
-Summary: Shared libraries for RTP Audio (RTP server-side audio handling)
+Summary: Shared library for RTP Audio (RTP server-side audio handling)
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-libaudioencoder
@@ -272,8 +540,32 @@ Requires: %{name}-libtdtoolbox
 /usr/lib/librtpaudioserver.so*
 
 
+%package librtpaudioserver-devel
+Summary: Development files for RTP Audio (RTP server-side audio handling)
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-libaudioencoder-devel
+Requires: %{name}-libaudioreader-devel
+Requires: %{name}-librtpaudiocommon-devel
+Requires: %{name}-librtpserver-devel
+Requires: %{name}-libtdtoolbox-devel
+
+%description librtpaudioserver-devel
+ The RTP Audio system is a network sound streaming system. It has been
+ designed for QoS performance analysis and teaching purposes.
+ .
+ This package provides the development files for RTP server-side audio handling.
+
+%files librtpaudioserver-devel
+%defattr(-,root,root,-)
+/usr/lib/librtpaudioserver*.a
+/usr/lib/librtpaudioserver*.so
+/usr/include/audioserver.h
+/usr/include/audioserver.icc
+
+
 %package librtpcommon
-Summary: Shared libraries for RTP Audio (common RTP handling)
+Summary: Shared library for RTP Audio (common RTP handling)
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 
@@ -288,8 +580,29 @@ Requires: %{name} = %{version}-%{release}
 /usr/lib/librtpcommon.so*
 
 
+%package librtpcommon-devel
+Summary: Development files for RTP Audio (common RTP handling)
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
+
+%description librtpcommon-devel
+ The RTP Audio system is a network sound streaming system. It has been
+ designed for QoS performance analysis and teaching purposes.
+ .
+ This package provides the development files for common RTP handling.
+
+%files librtpcommon-devel
+%defattr(-,root,root,-)
+/usr/lib/librtpcommon*.a
+/usr/lib/librtpcommon*.so
+/usr/include/rtcppacket.h
+/usr/include/rtcppacket.icc
+/usr/include/rtppacket.h
+/usr/include/rtppacket.icc
+
+
 %package librtpclient
-Summary: Shared libraries for RTP Audio (RTP client-side handling)
+Summary: Shared library for RTP Audio (RTP client-side handling)
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-librtpcommon
@@ -306,8 +619,34 @@ Requires: %{name}-libtdtoolbox
 /usr/lib/librtpclient.so*
 
 
+%package librtpclient-devel
+Summary: Development files for RTP Audio (RTP client-side handling)
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-librtpcommon-devel
+Requires: %{name}-libtdtoolbox-devel
+
+%description librtpclient-devel
+ The RTP Audio system is a network sound streaming system. It has been
+ designed for QoS performance analysis and teaching purposes.
+ .
+ This package provides the development files for RTP client-side handling.
+
+%files librtpclient-devel
+%defattr(-,root,root,-)
+/usr/lib/librtpclient*.a
+/usr/lib/librtpclient*.so
+/usr/include/decoderinterface.h
+/usr/include/decoderrepositoryinterface.h
+/usr/include/rtcpsender.h
+/usr/include/rtpreceiver.h
+/usr/include/rtpreceiver.icc
+/usr/include/sourcestateinfo.h
+/usr/include/sourcestateinfo.icc
+
+
 %package librtpserver
-Summary: Shared libraries for RTP Audio (RTP server-side handling)
+Summary: Shared library for RTP Audio (RTP server-side handling)
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-librtpcommon
@@ -324,8 +663,48 @@ Requires: %{name}-libtdtoolbox
 /usr/lib/librtpserver.so*
 
 
+%package librtpserver-devel
+Summary: Development files for RTP Audio (RTP server-side handling)
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-librtpcommon-devel
+Requires: %{name}-libtdtoolbox-devel
+
+%description librtpserver-devel
+ The RTP Audio system is a network sound streaming system. It has been
+ designed for QoS performance analysis and teaching purposes.
+ .
+ This package provides the development files for RTP server-side handling.
+
+%files librtpserver
+%defattr(-,root,root,-)
+/usr/lib/librtpserver*.a
+/usr/lib/librtpserver*.so
+/usr/include/abstractlayerdescription.h
+/usr/include/abstractlayerdescription.icc
+/usr/include/abstractqosdescription.h
+/usr/include/abstractqosdescription.icc
+/usr/include/bandwidthinfo.h
+/usr/include/bandwidthinfo.icc
+/usr/include/encoderinterface.h
+/usr/include/encoderrepositoryinterface.h
+/usr/include/frameratescalabilityinterface.h
+/usr/include/framesizescalabilityinterface.h
+/usr/include/managedstreaminterface.h
+/usr/include/qosmanagerinterface.h
+/usr/include/resourceutilizationpoint.h
+/usr/include/resourceutilizationpoint.icc
+/usr/include/rtcpabstractserver.h
+/usr/include/rtcpabstractserver.icc
+/usr/include/rtcpreceiver.h
+/usr/include/rtpsender.h
+/usr/include/rtpsender.icc
+/usr/include/trafficshaper.h
+/usr/include/trafficshaper.icc
+
+
 %package libqosmgr
-Summary: Shared libraries for RTP Audio (QoS management)
+Summary: Shared library for RTP Audio (QoS management)
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-librtpserver
@@ -340,6 +719,35 @@ Requires: %{name}-libtdtoolbox
 %files libqosmgr
 %defattr(-,root,root,-)
 /usr/lib/libqosmgr.so*
+
+
+%package libqosmgr-devel
+Summary: Development files for RTP Audio (QoS management)
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-librtpserver-devel
+Requires: %{name}-libtdtoolbox-devel
+
+%description libqosmgr-devel
+ The RTP Audio system is a network sound streaming system. It has been
+ designed for QoS performance analysis and teaching purposes.
+ .
+ This package provides the development files for the QoS manager.
+
+%files libqosmgr-devel
+%defattr(-,root,root,-)
+/usr/lib/libqosmgr*.a
+/usr/lib/libqosmgr*.so
+/usr/include/bandwidthmanager.h
+/usr/include/bandwidthmanager.icc
+/usr/include/servicelevelagreement.h
+/usr/include/servicelevelagreement.icc
+/usr/include/pingerhost.h
+/usr/include/pingerhost.icc
+/usr/include/roundtriptimepinger.h
+/usr/include/roundtriptimepinger.icc
+/usr/include/sessiondescription.h
+/usr/include/streamdescription.h
 
 
 %package rtpaudio-clients
