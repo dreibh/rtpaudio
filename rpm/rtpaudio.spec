@@ -19,6 +19,9 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-build
 %description
 The RTP Audio system is a network sound streaming systen. It has been designed for QoS performance analysis and teaching purposes. RTP Audio supports IPv4 and IPv6 including flowlabels and traffic classes, QoS management as well as transport via UDP and SCTP.
 
+# FIXME: The RPM packages should contain everything!
+%define _unpackaged_files_terminate_build 0
+
 %prep
 %setup -q
 
@@ -62,7 +65,6 @@ Requires: %{name} = %{version}-%{release}
 %defattr(-,root,root,-)
 /usr/include/mpegsound.h
 /usr/include/mpegsound_locals.h
-/usr/lib/libmpegsound.so*
 /usr/lib/libmpegsound*.a
 /usr/lib/libmpegsound*.so
 
@@ -121,10 +123,10 @@ Requires: %{name}-libtdtoolbox
 Summary: Shared libraries for RTP Audio (audio input reading)
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
-Requires: %{name}libaudiocommon
-Requires: %{name}libmediainfo
-Requires: %{name}libmpegsound
-Requires: %{name}libtdtoolbox
+Requires: %{name}-libaudiocommon
+Requires: %{name}-libmediainfo
+Requires: %{name}-libmpegsound
+Requires: %{name}-libtdtoolbox
 
 %description libaudioreader
 The RTP Audio system is a network sound streaming system. It has been
@@ -189,6 +191,227 @@ Requires: %{name}-libaudiocommon
 %files libaudioencoder
 %defattr(-,root,root,-)
 /usr/lib/libaudioencoder.so*
+
+
+%package libaudiodecoder
+Summary: Shared libraries for RTP Audio (audio decoding)
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-libaudiocodeccommon
+Requires: %{name}-libaudiocommon
+Requires: %{name}-libmediainfo
+Requires: %{name}-libtdtoolbox
+
+%description libaudiodecoder
+ The RTP Audio system is a network sound streaming system. It has been
+ designed for QoS performance analysis and teaching purposes.
+ .
+ This package provides a shared library for audio decoding.
+
+%files libaudiodecoder
+%defattr(-,root,root,-)
+/usr/lib/libaudiodecoder.so*
+
+
+%package librtpaudiocommon
+Summary: Shared libraries of the RTP Audio sound streaming system
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
+
+%description librtpaudiocommon
+ The RTP Audio system is a network sound streaming system. It has been
+ designed for QoS performance analysis and teaching purposes.
+ .
+ This package provides a shared library for common RTP audio handling.
+
+%files librtpaudiocommon
+%defattr(-,root,root,-)
+/usr/lib/librtpaudiocommon.so*
+
+
+%package librtpaudioclient
+Summary: Shared libraries for RTP Audio (RTP client-side audio handling)
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-libaudiocommon
+Requires: %{name}-libaudiodecoder
+Requires: %{name}-libmediainfo
+Requires: %{name}-librtpaudiocommon
+Requires: %{name}-librtpclient
+Requires: %{name}-libtdtoolbox
+
+%description librtpaudioclient  
+ The RTP Audio system is a network sound streaming system. It has been
+ designed for QoS performance analysis and teaching purposes.
+ .
+ This package provides a shared library for RTP client-side audio handling.
+
+%files librtpaudioclient
+%defattr(-,root,root,-)
+/usr/lib/librtpaudioclient.so*
+
+
+%package librtpaudioserver
+Summary: Shared libraries for RTP Audio (RTP server-side audio handling)
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-libaudioencoder
+Requires: %{name}-libaudioreader
+Requires: %{name}-librtpaudiocommon
+Requires: %{name}-librtpserver
+Requires: %{name}-libtdtoolbox
+
+%description librtpaudioserver
+ The RTP Audio system is a network sound streaming system. It has been
+ designed for QoS performance analysis and teaching purposes.
+ .
+ This package provides a shared library for RTP server-side audio handling.
+
+%files librtpaudioserver
+%defattr(-,root,root,-)
+/usr/lib/librtpaudioserver.so*
+
+
+%package librtpcommon
+Summary: Shared libraries for RTP Audio (common RTP handling)
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
+
+%description librtpcommon
+ The RTP Audio system is a network sound streaming system. It has been
+ designed for QoS performance analysis and teaching purposes.
+ .
+ This package provides a shared library for common RTP handling.
+
+%files librtpcommon
+%defattr(-,root,root,-)
+/usr/lib/librtpcommon.so*
+
+
+%package librtpclient
+Summary: Shared libraries for RTP Audio (RTP client-side handling)
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-librtpcommon
+Requires: %{name}-libtdtoolbox
+
+%description librtpclient
+ The RTP Audio system is a network sound streaming system. It has been
+ designed for QoS performance analysis and teaching purposes.
+ .
+ This package provides a shared library for RTP client-side handling.
+
+%files librtpclient
+%defattr(-,root,root,-)
+/usr/lib/librtpclient.so*
+
+
+%package librtpserver
+Summary: Shared libraries for RTP Audio (RTP server-side handling)
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-librtpcommon
+Requires: %{name}-libtdtoolbox
+
+%description librtpserver
+ The RTP Audio system is a network sound streaming system. It has been
+ designed for QoS performance analysis and teaching purposes.
+ .
+ This package provides a shared library for RTP server-side handling.
+
+%files librtpserver
+%defattr(-,root,root,-)
+/usr/lib/librtpserver.so*
+
+
+%package libqosmgr
+Summary: Shared libraries for RTP Audio (QoS management)
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-librtpserver
+Requires: %{name}-libtdtoolbox
+
+%description libqosmgr
+ The RTP Audio system is a network sound streaming system. It has been
+ designed for QoS performance analysis and teaching purposes.
+ .
+ This package provides a shared library for the QoS manager.
+
+%files libqosmgr
+%defattr(-,root,root,-)
+/usr/lib/libqosmgr.so*
+
+
+%package rtpaudio-clients
+Summary: RTP Audio clients
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-libaudiocommon
+Requires: %{name}-libaudiodecoder
+Requires: %{name}-libaudiowriter
+Requires: %{name}-librtpaudioclient
+Requires: %{name}-libtdtoolbox
+Recommends: iputils-ping
+Recommends: iputils-tracepath
+Recommends: netperfmeter
+Recommends: rsplib-tools
+Recommends: subnetcalc
+Recommends: traceroute
+%description rtpaudio-clients
+ The RTP Audio system is a network sound streaming system. It has been
+ designed for QoS performance analysis and teaching purposes.
+ RTP Audio supports IPv4 and IPv6 including flowlabels and traffic
+ classes, QoS management as well as transport via UDP and SCTP.
+ .
+ This package provides the RTP Audio clients.
+
+%files rtpaudio-clients
+%defattr(-,root,root,-)
+/usr/bin/rtpa-client
+/usr/bin/rtpa-qclient
+/usr/bin/rtpa-vclient
+/usr/share/man/man1/rtpa-client.1.gz
+/usr/share/man/man1/rtpa-qclient.1.gz
+/usr/share/man/man1/rtpa-vclient.1.gz
+
+
+%package rtpaudio-server
+Summary: RTP Audio server
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-libqosmgr
+Requires: %{name}-librtpaudioserver
+Requires: %{name}-librtpserver
+Requires: %{name}-libtdtoolbox
+Recommends: iputils-ping
+Recommends: iputils-tracepath
+Recommends: netperfmeter
+Recommends: rsplib-tools
+Recommends: subnetcalc
+Recommends: traceroute
+%description rtpaudio-server
+ The RTP Audio system is a network sound streaming system. It has been
+ designed for QoS performance analysis and teaching purposes.
+ RTP Audio supports IPv4 and IPv6 including flowlabels and traffic
+ classes, QoS management as well as transport via UDP and SCTP.
+ .
+ This package provides the RTP Audio server.
+
+%files rtpaudio-server
+%defattr(-,root,root,-)
+/usr/bin/rtpa-server
+/usr/share/man/man1/rtpa-server.1.gz
+
+
+%package rtpaudio
+Summary: RTP Audio sound streaming system
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-rtpaudio-clients
+Requires: %{name}-rtpaudio-server
+
+%description rtpaudio
+ The RTP Audio system is a network sound streaming system. It has been
+ designed for QoS performance analysis and teaching purposes.
+ RTP Audio supports IPv4 and IPv6 including flowlabels and traffic
+ classes, QoS management as well as transport via UDP and SCTP.
 
 
 %changelog
