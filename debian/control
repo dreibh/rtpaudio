@@ -11,7 +11,7 @@ Build-Depends: cmake,
                qtbase5-dev,
                qtbase5-dev-tools,
                qtchooser
-Standards-Version: 3.9.7
+Standards-Version: 4.1.1
 
 Package: libmpegsound0
 Section: libs
