@@ -20,7 +20,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-build
 The RTP Audio system is a network sound streaming systen. It has been designed for QoS performance analysis and teaching purposes. RTP Audio supports IPv4 and IPv6 including flowlabels and traffic classes, QoS management as well as transport via UDP and SCTP.
 
 # FIXME: The RPM packages should contain everything!
-%define _unpackaged_files_terminate_build 0
+# %define _unpackaged_files_terminate_build 0
 
 %prep
 %setup -q
@@ -342,7 +342,7 @@ Requires: %{name}-libaudiocommon-devel
  .
  This package provides the development files for common audio codec handling.
 
-%files libaudiocodeccommon
+%files libaudiocodeccommon-devel
 %defattr(-,root,root,-)
 /usr/lib/libaudiocodeccommon*.a
 /usr/lib/libaudiocodeccommon*.so
@@ -676,7 +676,7 @@ Requires: %{name}-libtdtoolbox-devel
  .
  This package provides the development files for RTP server-side handling.
 
-%files librtpserver
+%files librtpserver-devel
 %defattr(-,root,root,-)
 /usr/lib/librtpserver*.a
 /usr/lib/librtpserver*.so
