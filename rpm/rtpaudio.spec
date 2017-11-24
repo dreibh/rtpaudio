@@ -88,6 +88,7 @@ This package provides a shared library for common helper functions.
 %package libtdtoolbox-devel
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
+Requires: %{name}-libtoolbox
 Summary: Development files for RTP Audio (common helper functions)
 
 %description libtdtoolbox-devel
@@ -164,6 +165,7 @@ This package provides a shared library for media information handling.
 %package libmediainfo-devel
 Summary: Development files for RTP Audio (media information handling)
 Group: Development/Libraries
+Requires: %{name}-libmediainfo
 Requires: %{name} = %{version}-%{release}
 
 %description libmediainfo-devel
@@ -200,6 +202,7 @@ Requires: %{name}-libtdtoolbox
 Summary:   Development files for RTP Audio (common audio data handling)
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
+Requires: %{name}-libaudiocommon
 Requires: %{name}-libtdtoolbox-devel
 
 %description libaudiocommon-devel
@@ -243,6 +246,7 @@ This package provides a shared library for audio input reading.
 Summary: Development files for RTP Audio (audio input reading)
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
+Requires: %{name}-libaudioreader
 Requires: %{name}-libaudiocommon-devel
 Requires: %{name}-libmediainfo-devel
 Requires: %{name}-libmpegsound-devel
@@ -287,6 +291,7 @@ Requires: %{name}-libtdtoolbox
 Summary: Development files for RTP Audio (audio output writing)
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
+Requires: %{name}-libaudiowriter
 Requires: %{name}-libaudiocommon-devel
 Requires: %{name}-libpulse-devel
 Requires: %{name}-libtdtoolbox-devel
@@ -334,6 +339,7 @@ Requires: %{name}-libaudiocommon
 Summary: Development files for RTP Audio (common audio codec handling)
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
+Requires: %{name}-libaudiocodeccommon
 Requires: %{name}-libaudiocommon-devel
 
 %description libaudiocodeccommon-devel
@@ -372,6 +378,7 @@ Requires: %{name}-libaudiocommon
 Summary: Development files for RTP Audio (audio encoding)
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
+Requires: %{name}-libaudioencoder
 Requires: %{name}-libaudiocodeccommon-devel
 Requires: %{name}-libaudiocommon-devel
 
@@ -416,6 +423,7 @@ Requires: %{name}-libtdtoolbox
 Summary: Development files for RTP Audio (audio decoding)
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
+Requires: %{name}-libaudiodecoder
 Requires: %{name}-libaudiocodeccommon-devel
 Requires: %{name}-libaudiocommon-devel
 Requires: %{name}-libmediainfo-devel
@@ -458,6 +466,7 @@ Requires: %{name} = %{version}-%{release}
 Summary: Shared library of the RTP Audio sound streaming system
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
+Requires: %{name}-librtpaudiocommon
 
 %description librtpaudiocommon-devel
  The RTP Audio system is a network sound streaming system. It has been
@@ -483,7 +492,7 @@ Requires: %{name}-librtpaudiocommon
 Requires: %{name}-librtpclient
 Requires: %{name}-libtdtoolbox
 
-%description librtpaudioclient  
+%description librtpaudioclient
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
  .
@@ -498,6 +507,7 @@ Requires: %{name}-libtdtoolbox
 Summary: Development files for RTP Audio (RTP client-side audio handling)
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
+Requires: %{name}-librtpaudioclient
 Requires: %{name}-libaudiocommon-devel
 Requires: %{name}-libaudiodecoder-devel
 Requires: %{name}-libmediainfo-devel
@@ -544,6 +554,7 @@ Requires: %{name}-libtdtoolbox
 Summary: Development files for RTP Audio (RTP server-side audio handling)
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
+Requires: %{name}-librtpaudioserver
 Requires: %{name}-libaudioencoder-devel
 Requires: %{name}-libaudioreader-devel
 Requires: %{name}-librtpaudiocommon-devel
@@ -584,6 +595,7 @@ Requires: %{name} = %{version}-%{release}
 Summary: Development files for RTP Audio (common RTP handling)
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
+Requires: %{name}-librtpcommon
 
 %description librtpcommon-devel
  The RTP Audio system is a network sound streaming system. It has been
@@ -623,6 +635,7 @@ Requires: %{name}-libtdtoolbox
 Summary: Development files for RTP Audio (RTP client-side handling)
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
+Requires: %{name}-librtpclient
 Requires: %{name}-librtpcommon-devel
 Requires: %{name}-libtdtoolbox-devel
 
@@ -667,6 +680,7 @@ Requires: %{name}-libtdtoolbox
 Summary: Development files for RTP Audio (RTP server-side handling)
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
+Requires: %{name}-librtpserver
 Requires: %{name}-librtpcommon-devel
 Requires: %{name}-libtdtoolbox-devel
 
@@ -725,6 +739,7 @@ Requires: %{name}-libtdtoolbox
 Summary: Development files for RTP Audio (QoS management)
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
+Requires: %{name}-libqosmgr
 Requires: %{name}-librtpserver-devel
 Requires: %{name}-libtdtoolbox-devel
 
