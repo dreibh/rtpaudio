@@ -149,7 +149,7 @@ endif()
 #################################################
 
 # ###### PulseAudio #########################################################
-FIND_PACKAGE(PulseAudio 1.0)
+FIND_PACKAGE(PulseAudio 1.0 REQUIRED)
 ADD_DEFINITIONS(-DHAVE_PULSEAUDIO)
 
 
@@ -186,7 +186,7 @@ ELSE()
    IF (NOT HAVE_SCTPSOCKET_SCTP_H OR NOT SCTPSOCKET_LIB)
       MESSAGE(FATAL_ERROR "sctpsocket not found - libsctpsocket installed?")
    ENDIF()
-   
+
    FIND_PACKAGE(PkgConfig)
    PKG_CHECK_MODULES(GLIB glib-2.0)
    IF (NOT ${GLIB_LIBS})
