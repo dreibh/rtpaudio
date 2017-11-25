@@ -30,33 +30,33 @@ Architecture: any
 Depends: libmpegsound0 (= ${binary:Version}),
          ${misc:Depends},
          ${shlibs:Depends}
-Description: Headers for the sound decoder library
+Description: Development files for the sound decoder library
  libmpegsound decodes a couple of sound formats (e.g. MP3, OGG) and
  returns a raw data stream.
  .
- This package provides header files for the libmpegsound library.
+ This package provides the development files for the libmpegsound library.
 
 Package: libtdtoolbox0
 Section: libs
 Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries for RTP Audio (common helper functions)
+Description: Shared library for RTP Audio (common helper functions)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
  .
- This package provides shared libraries for common helper functions.
+ This package provides a shared library for common helper functions.
 
 Package: libmediainfo0
 Section: libs
 Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries for RTP Audio (media information handling)
+Description: Shared library for RTP Audio (media information handling)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
  .
- This package provides shared libraries for media information handling.
+ This package provides a shared library for media information handling.
 
 Package: libaudiocommon0
 Section: libs
@@ -64,11 +64,11 @@ Architecture: any
 Depends: libtdtoolbox0,
          ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries for RTP Audio (common audio data handling)
+Description: Shared library for RTP Audio (common audio data handling)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
  .
- This package provides shared libraries for common audio data handling.
+ This package provides a shared library for common audio data handling.
 
 Package: libaudioreader0
 Section: libs
@@ -79,11 +79,11 @@ Depends: libaudiocommon0,
          libtdtoolbox0,
          ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries for RTP Audio (audio input reading)
+Description: Shared library for RTP Audio (audio input reading)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
  .
- This package provides shared libraries for audio input reading.
+ This package provides a shared library for audio input reading.
 
 Package: libaudiowriter0
 Section: libs
@@ -93,11 +93,11 @@ Depends: libaudiocommon0,
          libtdtoolbox0,
          ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries for RTP Audio (audio output writing)
+Description: Shared library for RTP Audio (audio output writing)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
  .
- This package provides shared libraries for audio output writing.
+ This package provides a shared library for audio output writing.
 
 Package: libaudiocodeccommon0
 Section: libs
@@ -105,11 +105,11 @@ Architecture: any
 Depends: libaudiocommon0,
          ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries for RTP Audio (common audio codec handling)
+Description: Shared library for RTP Audio (common audio codec handling)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
  .
- This package provides shared libraries for common audio codec handling.
+ This package provides a shared library for common audio codec handling.
 
 Package: libaudioencoder0
 Section: libs
@@ -118,11 +118,11 @@ Depends: libaudiocodeccommon0,
          libaudiocommon0,
          ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries for RTP Audio (audio encoding)
+Description: Shared library for RTP Audio (audio encoding)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
  .
- This package provides shared libraries for audio encoding.
+ This package provides a shared library for audio encoding.
 
 Package: libaudiodecoder0
 Section: libs
@@ -133,22 +133,22 @@ Depends: libaudiocodeccommon0,
          libtdtoolbox0,
          ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries for RTP Audio (audio decoding)
+Description: Shared library for RTP Audio (audio decoding)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
  .
- This package provides shared libraries for audio decoding.
+ This package provides a shared library for audio decoding.
 
 Package: librtpaudiocommon0
 Section: libs
 Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries of the RTP Audio sound streaming system
+Description: Shared library of the RTP Audio sound streaming system
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
  .
- This package provides shared libraries for common RTP audio handling.
+ This package provides a shared library for common RTP audio handling.
 
 Package: librtpaudioclient0
 Section: libs
@@ -161,11 +161,11 @@ Depends: libaudiocommon0,
          libtdtoolbox0,
          ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries for RTP Audio (RTP client-side audio handling)
+Description: Shared library for RTP Audio (RTP client-side audio handling)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
  .
- This package provides shared libraries for RTP client-side audio handling.
+ This package provides a shared library for RTP client-side audio handling.
 
 Package: librtpaudioserver0
 Section: libs
@@ -177,22 +177,22 @@ Depends: libaudioencoder0,
          libtdtoolbox0,
          ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries for RTP Audio (RTP server-side audio handling)
+Description: Shared library for RTP Audio (RTP server-side audio handling)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
  .
- This package provides shared libraries for RTP server-side audio handling.
+ This package provides a shared library for RTP server-side audio handling.
 
 Package: librtpcommon0
 Section: libs
 Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries for RTP Audio (common RTP handling)
+Description: Shared library for RTP Audio (common RTP handling)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
  .
- This package provides shared libraries for common RTP handling.
+ This package provides a shared library for common RTP handling.
 
 Package: librtpclient0
 Section: libs
@@ -201,11 +201,11 @@ Depends: librtpcommon0,
          libtdtoolbox0,
          ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries for RTP Audio (RTP client-side handling)
+Description: Shared library for RTP Audio (RTP client-side handling)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
  .
- This package provides shared libraries for RTP client-side handling.
+ This package provides a shared library for RTP client-side handling.
 
 Package: librtpserver0
 Section: libs
@@ -214,11 +214,11 @@ Depends: librtpcommon0,
          libtdtoolbox0,
          ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries for RTP Audio (RTP server-side handling)
+Description: Shared library for RTP Audio (RTP server-side handling)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
  .
- This package provides shared libraries for RTP server-side handling.
+ This package provides a shared library for RTP server-side handling.
 
 Package: libqosmgr0
 Section: libs
@@ -227,11 +227,11 @@ Depends: librtpserver0,
          libtdtoolbox0,
          ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared libraries for RTP Audio (QoS management)
+Description: Shared library for RTP Audio (QoS management)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
  .
- This package provides shared libraries for the QoS manager.
+ This package provides a shared library for the QoS manager.
 
 Package: rtpaudio-clients
 Architecture: any
