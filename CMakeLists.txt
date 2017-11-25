@@ -149,7 +149,7 @@ endif()
 #################################################
 
 # ###### PulseAudio #########################################################
-find_package(PulseAudio 1.0)
+FIND_PACKAGE(PulseAudio 1.0)
 ADD_DEFINITIONS(-DHAVE_PULSEAUDIO)
 
 
@@ -157,7 +157,7 @@ ADD_DEFINITIONS(-DHAVE_PULSEAUDIO)
 OPTION(WITH_QT "Include Qt programs" 1)
 IF (WITH_QT)
    SET(CMAKE_AUTOMOC ON)
-   find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
+   FIND_PACKAGE(Qt5 COMPONENTS Core Widgets REQUIRED)
 ENDIF()
 
 
