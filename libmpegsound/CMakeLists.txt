@@ -31,8 +31,8 @@ TARGET_LINK_LIBRARIES (mpegsound ${mpegsound_libs} "${CMAKE_THREAD_LIBS_INIT}")
 
 
 # FIXME: The libmpegsound sources need a review!
-SET_TARGET_PROPERTIES(mpegsound        PROPERTIES COMPILE_FLAGS "-Wno-narrowing -Wno-sequence-point -Wno-unused-result -Wno-unused-but-set-variable -Wno-strict-aliasing")
-SET_TARGET_PROPERTIES(mpegsound-static PROPERTIES COMPILE_FLAGS "-Wno-narrowing -Wno-sequence-point -Wno-unused-result -Wno-unused-but-set-variable -Wno-strict-aliasing")
+SET_TARGET_PROPERTIES(mpegsound        PROPERTIES COMPILE_FLAGS "-Wno-aggressive-loop-optimizations -Wno-narrowing -Wno-sequence-point -Wno-unused-result -Wno-unused-but-set-variable -Wno-strict-aliasing")
+SET_TARGET_PROPERTIES(mpegsound-static PROPERTIES COMPILE_FLAGS "-Wno-aggressive-loop-optimizations -Wno-narrowing -Wno-sequence-point -Wno-unused-result -Wno-unused-but-set-variable -Wno-strict-aliasing")
 
 
 INSTALL(TARGETS mpegsound mpegsound-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
