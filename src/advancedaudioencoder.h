@@ -31,7 +31,7 @@
 
 
 #ifndef ADVANCEDAUDIOENCODER_H
-#define ADVANCEDAUDIOENCDOER_H
+#define ADVANCEDAUDIOENCODER_H
 
 
 #include "tdsystem.h"

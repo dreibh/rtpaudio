@@ -31,7 +31,7 @@
 
 
 #ifndef SIMPLEAUDIOENCODER_H
-#define SIMPLEAUDIOENCDOER_H
+#define SIMPLEAUDIOENCODER_H
 
 
 #include "tdsystem.h"
