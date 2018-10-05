@@ -107,13 +107,12 @@ class AudioMixer
 #ifdef HAVE_PULSEAUDIO
    static void sink_info_cb(pa_context* context, const pa_sink_info* si, int eol, void* userData);
 
-   AudioDevice*   Device;
-   pa_channel_map Map;
-   pa_cvolume     Volume;
-   Condition      VolumeUpdated;
+   AudioDevice* Device;
+   pa_cvolume   Volume;
+   Condition    VolumeUpdated;
 #else
-   int            Device;
-   int            Channel;
+   int          Device;
+   int          Channel;
 #endif
 };
 

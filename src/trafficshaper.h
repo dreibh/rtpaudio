@@ -289,7 +289,6 @@ class TrafficShaper : public Synchronizable
    card64                          SendTimeStamp;
    card64                          Bandwidth;
    double                          BufferDelay;
-   integer                         LastError;
    cardinal                        LastSeqNum;
 };
 
