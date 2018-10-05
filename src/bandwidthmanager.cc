@@ -1140,7 +1140,7 @@ void BandwidthManager::doCompleteRemapping()
 
 
    // ====== Free memory of resource/utilization list =======================
-   delete rupList;
+   delete [] rupList;
 
 
    // ====== Write statistics ===============================================
