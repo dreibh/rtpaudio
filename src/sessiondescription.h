@@ -45,7 +45,7 @@
 #include <map>
 
 
-struct StreamDescription;
+class StreamDescription;
 
 
 /**
