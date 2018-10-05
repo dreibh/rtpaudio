@@ -60,13 +60,13 @@ class SourceStateInfo : public SeqNumValidator,
      * Constructor.
      */
    SourceStateInfo();
-   
+
    /**
      * Copy operation.
      */
    SourceStateInfo& operator=(const SourceStateInfo& original);
 
- 
+
    // ====== Reset ==========================================================
    /**
      * Reset.
@@ -114,10 +114,6 @@ class SourceStateInfo : public SeqNumValidator,
    // ====== Private data ===================================================
    private:
    card64 LSRUpdateTimeStamp;             // Timestamp of last setLSR() call
-
-   card32 ReceivedPrior;                  // Packet received at last interval
-   card32 ExpectedPrior;                  // Packet expected at last interval
-   card32 FractionLost;                   // Fraction lost
    card32 SSRC;                           // Data source identifier
    card32 LSR;                            // Last SR packet from this source
 };

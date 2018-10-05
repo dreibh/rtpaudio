@@ -173,7 +173,6 @@ class RTCPSender : public TimedThread
    double computeTransmissionInterval();
 
    InternetFlow                                          Flow;
-   SocketAddress*                                        ReceiverAddress;
    Socket*                                               SenderSocket;
    RTPReceiver*                                          Receiver;
    card32                                                SSRC;
