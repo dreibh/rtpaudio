@@ -114,7 +114,7 @@ class InternetFlow : public InternetAddress
      *
      * @see SocketAddressInterface#setSystemAddress
      */
-   bool setSystemAddress(sockaddr* address, socklen_t length);
+   bool setSystemAddress(const sockaddr* address, const socklen_t length);
 
 
    // ====== Status functions ===============================================
