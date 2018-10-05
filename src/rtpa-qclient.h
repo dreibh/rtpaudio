@@ -282,7 +282,7 @@ class QClient : public QMainWindow
    /**
      * Slot for QTimer.
      */
-   void timerEvent();
+   void timerExpired();
 
 
    // ====== Status update ==================================================

@@ -154,7 +154,7 @@ class QSpectrumAnalyzer : public QMainWindow
    /**
      * Qt slot: Called by QTimer.
      */
-   void timerEvent();
+   void timerExpired();
 
    /**
      * Qt slot: Pause displaying the spectrum.

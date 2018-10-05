@@ -259,7 +259,7 @@ QSpectrumAnalyzer::QSpectrumAnalyzer(SpectrumAnalyzer* analyzer,
 
    Timer = new QTimer(this);
    Q_CHECK_PTR(Timer);
-   QObject::connect(Timer,SIGNAL(timeout()),this,SLOT(timerEvent()));
+   QObject::connect(Timer,SIGNAL(timeout()),this,SLOT(timerExpired()));
    Timer->start(QSpectrumAnalyzerTimings[1]);
    Timing = QSpectrumAnalyzerTimings[1];
 
@@ -276,7 +276,7 @@ QSpectrumAnalyzer::~QSpectrumAnalyzer()
 
 
 // ###### Timer event slot ##################################################
-void QSpectrumAnalyzer::timerEvent()
+void QSpectrumAnalyzer::timerExpired()
 {
    if(Analyzer->getSpectrum((cardinal*)&ArrayL,(cardinal*)&ArrayR,Bars)) {
       update();

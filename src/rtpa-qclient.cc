@@ -398,7 +398,7 @@ QClient::QClient(AudioWriterInterface* audioOutput,
    // ====== Create new QTimer ==============================================
    QTimer* timer = new QTimer(this);
    Q_CHECK_PTR(timer);
-   timer->QObject::connect(timer,SIGNAL(timeout()),this,SLOT(timerEvent()));
+   timer->QObject::connect(timer,SIGNAL(timeout()),this,SLOT(timerExpired()));
    timer->start(250);
 
    setCentralWidget(centralWidget);
@@ -734,8 +734,8 @@ void QClient::setEncoding(int index)
 }
 
 
-// ###### TimedThread's timerEvent() implementation #########################
-void QClient::timerEvent()
+// ###### Handle timer event ################################################
+void QClient::timerExpired()
 {
    char str[128];
 
