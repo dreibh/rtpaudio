@@ -70,7 +70,7 @@ FastFourierTransformation::FastFourierTransformation(const integer fftlen)
    }
 
    for(i = 0;i < Points / 2;i++) {
-      register double s,c;
+      double s,c;
       s = floor(-32768.0 * sin(2 * M_PI *i / (Points)) + 0.5);
       c = floor(-32768.0 * cos(2 * M_PI *i / (Points)) + 0.5);
       if(s > 32767.5) s = 32767;
@@ -111,8 +111,8 @@ void FastFourierTransformation::fft(int16* buffer) {
 
       while(A < endptr1)
       {
-         register int16 sin = *sptr;
-         register int16 cos = *(sptr + 1);
+         int16 sin = *sptr;
+         int16 cos = *(sptr + 1);
          endptr2 = B;
          while(A < endptr2)
          {
@@ -134,7 +134,7 @@ void FastFourierTransformation::fft(int16* buffer) {
 
    while(br1 <= br2)
    {
-      register long temp1,temp2;
+      long temp1,temp2;
       int16 sin = SinTable[*br1];
       int16 cos = SinTable[*br1 + 1];
       A = buffer + *br1;
