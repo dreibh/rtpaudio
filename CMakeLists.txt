@@ -1,66 +1,47 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 PROJECT(rtpaudio)
 
-set(BUILD_MAJOR "2")
-set(BUILD_MINOR "0")
-set(BUILD_PATCH "0~beta5")
-set(BUILD_VERSION ${BUILD_MAJOR}.${BUILD_MINOR}.${BUILD_PATCH})
+SET(BUILD_MAJOR "2")
+SET(BUILD_MINOR "0")
+SET(BUILD_PATCH "0~beta5")
+SET(BUILD_VERSION ${BUILD_MAJOR}.${BUILD_MINOR}.${BUILD_PATCH})
 
 
-#################################################
+#############################################################################
 # INSTALLATION_DIRECTORIES
-#################################################
+#############################################################################
 
-SET(CMAKE_INSTALL_BINDIR_DOC        "user executables [PREFIX/bin]")
-SET(CMAKE_INSTALL_SBINDIR_DOC       "system admin executables [EPREFIX/sbin]")
-SET(CMAKE_INSTALL_DATADIR_DOC       "read-only architecture-independent data [PREFIX/share]")
-SET(CMAKE_INSTALL_SYSCONFDIR_DOC    "read-only single-machine data [PREFIX/etc]")
-SET(CMAKE_INSTALL_LOCALSTATEDIR_DOC "modifiable single-machine data [PREFIX/var]")
-SET(CMAKE_INSTALL_LIBDIR_DOC        "object code libraries [PREFIX/lib]")
-SET(CMAKE_INSTALL_INCLUDEDIR_DOC    "read-only includes [PREFIX/include]")
-SET(CMAKE_INSTALL_MANDIR_DOC        "man documentation [PREFIX/share/man]")
-
-SET(CMAKE_INSTALL_BINDIR "bin"
-    CACHE PATH ${CMAKE_INSTALL_BINDIR_DOC})
-SET(CMAKE_INSTALL_SBINDIR "sbin"
-    CACHE PATH ${CMAKE_INSTALL_SBINDIR_DOC})
-SET(CMAKE_INSTALL_DATADIR "share"
-    CACHE PATH ${CMAKE_INSTALL_DATADIR_DOC})
-SET(CMAKE_INSTALL_SYSCONFDIR "etc"
-    CACHE PATH ${CMAKE_INSTALL_SYSCONFDIR_DOC})
-SET(CMAKE_INSTALL_LOCALSTATEDIR "var"
-    CACHE PATH ${CMAKE_INSTALL_LOCALSTATEDIR_DOC})
-SET(CMAKE_INSTALL_LIBDIR "lib"
-    CACHE PATH ${CMAKE_INSTALL_LIBDIR_DOC})
-SET(CMAKE_INSTALL_INCLUDEDIR "include"
-    CACHE PATH ${CMAKE_INSTALL_INCLUDEDIR_DOC})
-SET(CMAKE_INSTALL_MANDIR "share/man"
-    CACHE PATH ${CMAKE_INSTALL_MANDIR_DOC})
+SET(CMAKE_INSTALL_BINDIR        "bin"       CACHE PATH "user executables [PREFIX/bin]")
+SET(CMAKE_INSTALL_SBINDIR       "sbin"      CACHE PATH "system admin executables [EPREFIX/sbin]")
+SET(CMAKE_INSTALL_DATADIR       "share"     CACHE PATH "read-only architecture-independent data [PREFIX/share]")
+SET(CMAKE_INSTALL_SYSCONFDIR    "etc"       CACHE PATH "read-only single-machine data [PREFIX/etc]")
+SET(CMAKE_INSTALL_LOCALSTATEDIR "var"       CACHE PATH "modifiable single-machine data [PREFIX/var]")
+SET(CMAKE_INSTALL_LIBDIR        "lib"       CACHE PATH "object code libraries [PREFIX/lib]")
+SET(CMAKE_INSTALL_INCLUDEDIR    "include"   CACHE PATH "read-only includes [PREFIX/include]")
+SET(CMAKE_INSTALL_MANDIR        "share/man" CACHE PATH "man documentation [PREFIX/share/man]")
 
 
-#################################################
+#############################################################################
 # PACKAGING
-#################################################
+#############################################################################
 
-set(CPACK_SOURCE_GENERATOR "TGZ")
-set(CPACK_SOURCE_PACKAGE_FILE_NAME
+SET(CPACK_SOURCE_GENERATOR "TGZ")
+SET(CPACK_SOURCE_PACKAGE_FILE_NAME
    "${CMAKE_PROJECT_NAME}-${BUILD_MAJOR}.${BUILD_MINOR}.${BUILD_PATCH}")
-set(CPACK_SOURCE_IGNORE_FILES
+SET(CPACK_SOURCE_IGNORE_FILES
    "${PROJECT_SOURCE_DIR}/${CMAKE_PROJECT_NAME}-*;${PROJECT_SOURCE_DIR}/${CMAKE_PROJECT_NAME}_*;/build/;/.git/;/config.log;/CMakeFiles/;CMakeCache.txt$;.cmake$;.tar.gz$;/_CPack_Packages;/Makefile$;~$;/build-deb;/clean-deb;/filter-empty-entries;/make-symbols;/make-ppa;/make-deb;/debian.conf;/make-rpm;/rpm.conf;${CPACK_SOURCE_IGNORE_FILES}")
-include(CPack)
+INCLUDE(CPack)
 
-add_custom_target(dist COMMAND ${CMAKE_MAKE_PROGRAM} clean package_source)
+ADD_CUSTOM_TARGET(dist COMMAND ${CMAKE_MAKE_PROGRAM} clean package_source)
 
 
 INCLUDE(CheckIncludeFile)
 INCLUDE(CheckStructHasMember)
 
 
-#################################################
+#############################################################################
 # OS DEPENDENT
-#################################################
-
-SET(CMAKE_MACOSX_RPATH 1)
+#############################################################################
 
 IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     MESSAGE(STATUS ${CMAKE_SYSTEM_NAME} " supported")
@@ -102,9 +83,9 @@ ENDIF()
 find_package(Threads REQUIRED)
 
 
-#################################################
+#############################################################################
 # CHECK STRUCT MEMBERS
-#################################################
+#############################################################################
 
 CHECK_STRUCT_HAS_MEMBER("struct sockaddr" "sa_len" "sys/types.h;sys/socket.h" HAVE_SA_LEN)
 IF (HAVE_SA_LEN)
@@ -131,22 +112,22 @@ IF (HAVE_SS_LEN)
 ENDIF()
 
 
-#################################################
+#############################################################################
 # CHECK OPTIONS
-#################################################
+#############################################################################
 
 # Debug build type as default
 IF (NOT CMAKE_BUILD_TYPE)
     message(STATUS "No build type selected, using DEBUG")
-    set(CMAKE_BUILD_TYPE "DEBUG")
+    SET(CMAKE_BUILD_TYPE "DEBUG")
     # _FORTIFY_SOURCE requires compiling with optimization
     SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O")
 endif()
 
 
-#################################################
+#############################################################################
 # REQUIREMENTS
-#################################################
+#############################################################################
 
 # ###### PulseAudio #########################################################
 FIND_PACKAGE(PulseAudio 1.0 REQUIRED)
@@ -210,9 +191,9 @@ IF (WITH_NEAT)
 ENDIF()
 
 
-#################################################
+#############################################################################
 # COMPILER FLAGS
-#################################################
+#############################################################################
 
 SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -std=c11   -Wall -Werror -Wno-unused-function -Wno-unused-parameter -Wno-overlength-strings -Wno-array-bounds")
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Werror -Wno-unused-function -Wno-unused-parameter -Wno-overlength-strings -Wno-array-bounds")
@@ -224,9 +205,9 @@ IF (CMAKE_BUILD_TYPE MATCHES DEBUG)
 ENDIF()
 
 
-#################################################
-# INCLUDE EXAMPLES
-#################################################
+#############################################################################
+# SUBDIRECTORIES
+#############################################################################
 
 ADD_SUBDIRECTORY(libmpegsound)
 ADD_SUBDIRECTORY(src)
