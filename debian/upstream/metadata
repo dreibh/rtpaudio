@@ -1,0 +1,21 @@
+Name: RTP Audio
+Homepage: https://www.uni-due.de/~be0001/rserpool/
+Repository: https://github.com/dreibh/rtpaudio.git
+Repository-Browse: https://github.com/dreibh/rtpaudio
+Bug-Submit: https://github.com/dreibh/rtpaudio/issues
+Contact: Thomas Dreibholz <dreibh@iem.uni-due.de>
+Security-Contact: Thomas Dreibholz <dreibh@iem.uni-due.de>
+Reference:
+ -
+  Author: Thomas Dreibholz
+  Title: Management of Layered Variable Bitrate Multimedia Streams over DiffServ with Apriori Knowledge
+  Year: 2001
+  Month: feb
+  Type: MastersThesis
+  Eprint: https://duepublico.uni-duisburg-essen.de/servlets/DerivateServlet/Derivate-29936/Dre2001.pdf
+ -
+  Author: Thomas Dreibholz and Jan Selzer and Simon Vey
+  Title: Echtzeit-Audioübertragung mit QoS-Management in einem DiffServ-Szenario
+  Year: 2000
+  Month: aug
+  Eprint: https://www.uni-due.de/~be0001/rn/DSV00.pdf
