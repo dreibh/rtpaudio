@@ -1,13 +1,16 @@
-include_directories(. ../libmpegsound)
+SET(CMAKE_INCLUDE_CURRENT_DIR ON)
+INCLUDE_DIRECTORIES(../libmpegsound)
 
-# ###### Libraries ##########################################################
+#############################################################################
+# LIBRARIES
+#############################################################################
 
 # ====== libtdtoolbox =======================================================
 LIST(APPEND tdtoolbox_headers
    breakdetector.h
    condition.h condition.icc
    ext_socket.h
-   internetaddress.h internetaddress.icc 
+   internetaddress.h internetaddress.icc
    internetflow.h internetflow.icc
    multitimerthread.h multitimerthread.icc
    packetaddress.h packetaddress.icc
@@ -27,7 +30,7 @@ LIST(APPEND tdtoolbox_headers
    unixaddress.h unixaddress.icc
 )
 LIST(APPEND tdtoolbox_sources
-   breakdetector.cc 
+   breakdetector.cc
    condition.cc
    internetaddress.cc internetflow.cc
    packetaddress.cc
@@ -149,9 +152,9 @@ LIST(APPEND audiowriter_headers
    fft.h
 )
 LIST(APPEND audiowriter_sources
-   audiowriterinterface.cc 
-   multiaudiowriter.cc 
-   audiodebug.cc 
+   audiowriterinterface.cc
+   multiaudiowriter.cc
+   audiodebug.cc
    audiodevice.cc
    audiomixer.cc
    audionull.cc
@@ -226,7 +229,7 @@ LIST(APPEND rtpserver_sources
    rtcpabstractserver.cc
    rtcpreceiver.cc
    rtpsender.cc
-   trafficshaper.cc 
+   trafficshaper.cc
 )
 ADD_LIBRARY(rtpserver SHARED ${rtpserver_sources})
 
@@ -313,8 +316,8 @@ LIST(APPEND audioencoder_headers
 LIST(APPEND audioencoder_sources
  advancedaudioencoder.cc
  audioencoderinterface.cc
- audioencoderrepository.cc 
- simpleaudioencoder.cc 
+ audioencoderrepository.cc
+ simpleaudioencoder.cc
 )
 ADD_LIBRARY(audioencoder SHARED ${audioencoder_sources})
 
@@ -336,14 +339,14 @@ INSTALL(FILES ${audioencoder_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 # ====== libaudiodecoder =======================================================
 LIST(APPEND audiodecoder_headers
-   advancedaudiodecoder.h 
+   advancedaudiodecoder.h
    audiodecoderinterface.h
    audiodecoderrepository.h audiodecoderrepository.icc
    simpleaudiodecoder.h
 )
 LIST(APPEND audiodecoder_sources
-   advancedaudiodecoder.cc 
-   audiodecoderinterface.cc 
+   advancedaudiodecoder.cc
+   audiodecoderinterface.cc
    audiodecoderrepository.cc
    simpleaudiodecoder.cc
 )
@@ -452,7 +455,7 @@ LIST(APPEND qosmgr_headers
 LIST(APPEND qosmgr_sources
    bandwidthmanager.cc
    servicelevelagreement.cc
-   
+
    roundtriptimepinger.cc
    streamdescription.cc
 )
@@ -475,7 +478,10 @@ INSTALL(FILES ${qosmgr_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 
 
-# ###### Programs ###########################################################
+#############################################################################
+# PROGRAMS
+#############################################################################
+
 ADD_EXECUTABLE(rtpa-server rtpa-server.cc)
 TARGET_LINK_LIBRARIES(rtpa-server qosmgr rtpaudioserver rtpserver tdtoolbox "${CMAKE_THREAD_LIBS_INIT}")
 INSTALL(TARGETS             rtpa-server
@@ -497,7 +503,7 @@ INSTALL(TARGETS             rtpa-vclient
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         BUNDLE DESTINATION  ${CMAKE_INSTALL_BINDIR})
 INSTALL(FILES rtpa-vclient.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
-      
+
 IF (WITH_QT)
    ADD_EXECUTABLE(rtpa-qclient rtpa-qclient.cc qaudiomixer.cc qinfotabwidget.cc qspectrumanalyzer.cc)
    qt5_use_modules(rtpa-qclient Core Widgets)
