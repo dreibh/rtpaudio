@@ -35,7 +35,6 @@
 
 
 #ifdef HAVE_PULSEAUDIO
-#define UINT32_MAX (4294967295U)   // Needed by definitions in pulse/volume.h!
 #include <pulse/simple.h>
 #include <pulse/introspect.h>
 #include <pulse/pulseaudio.h>
