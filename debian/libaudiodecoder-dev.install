@@ -1,0 +1,7 @@
+/usr/include/advancedaudiodecoder.h
+/usr/include/audiodecoderinterface.h
+/usr/include/audiodecoderrepository.h
+/usr/include/audiodecoderrepository.icc
+/usr/include/simpleaudiodecoder.h
+/usr/lib*/libaudiodecoder*.a
+/usr/lib*/libaudiodecoder*.so

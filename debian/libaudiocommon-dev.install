@@ -1,0 +1,7 @@
+/usr/include/audioconverter.h
+/usr/include/audioquality.h
+/usr/include/audioquality.icc
+/usr/include/audioqualityinterface.h
+/usr/include/audioqualityinterface.icc
+/usr/lib*/libaudiocommon*.a
+/usr/lib*/libaudiocommon*.so

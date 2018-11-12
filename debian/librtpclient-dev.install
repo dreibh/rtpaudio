@@ -1,0 +1,9 @@
+/usr/include/decoderinterface.h
+/usr/include/decoderrepositoryinterface.h
+/usr/include/rtcpsender.h
+/usr/include/rtpreceiver.h
+/usr/include/rtpreceiver.icc
+/usr/include/sourcestateinfo.h
+/usr/include/sourcestateinfo.icc
+/usr/lib*/librtpclient*.a
+/usr/lib*/librtpclient*.so
