@@ -47,7 +47,7 @@ Requires: %{name} = %{version}-%{release}
 
 %files libmpegsound
 %defattr(-,root,root,-)
-/usr/lib/libmpegsound.so*
+/usr/lib*/libmpegsound.so*
 
 
 %package libmpegsound-devel
@@ -65,8 +65,8 @@ Requires: %{name} = %{version}-%{release}
 %defattr(-,root,root,-)
 /usr/include/mpegsound.h
 /usr/include/mpegsound_locals.h
-/usr/lib/libmpegsound*.a
-/usr/lib/libmpegsound*.so
+/usr/lib*/libmpegsound*.a
+/usr/lib*/libmpegsound*.so
 
 
 %package libtdtoolbox
@@ -82,7 +82,7 @@ This package provides a shared library for common helper functions.
 
 %files libtdtoolbox
 %defattr(-,root,root,-)
-/usr/lib/libtdtoolbox.so*
+/usr/lib*/libtdtoolbox.so*
 
 
 %package libtdtoolbox-devel
@@ -99,8 +99,8 @@ This package provides the development files for libtdtoolbox.
 
 %files libtdtoolbox-devel
 %defattr(-,root,root,-)
-/usr/lib/libtdtoolbox*.a
-/usr/lib/libtdtoolbox*.so
+/usr/lib*/libtdtoolbox*.a
+/usr/lib*/libtdtoolbox*.so
 /usr/include/breakdetector.h
 /usr/include/condition.h
 /usr/include/condition.icc
@@ -159,7 +159,7 @@ This package provides a shared library for media information handling.
 
 %files libmediainfo
 %defattr(-,root,root,-)
-/usr/lib/libmediainfo.so*
+/usr/lib*/libmediainfo.so*
 
 
 %package libmediainfo-devel
@@ -176,8 +176,8 @@ This package provides the development files for libmediainfo.
 
 %files libmediainfo-devel
 %defattr(-,root,root,-)
-/usr/lib/libmediainfo*.so
-/usr/lib/libmediainfo*.a
+/usr/lib*/libmediainfo*.so
+/usr/lib*/libmediainfo*.a
 /usr/include/mediainfo.h
 
 
@@ -195,7 +195,7 @@ Requires: %{name}-libtdtoolbox
 
 %files libaudiocommon
 %defattr(-,root,root,-)
-/usr/lib/libaudiocommon.so*
+/usr/lib*/libaudiocommon.so*
 
 
 %package libaudiocommon-devel
@@ -213,8 +213,8 @@ Requires: %{name}-libtdtoolbox-devel
 
 %files libaudiocommon-devel
 %defattr(-,root,root,-)
-/usr/lib/libaudiocommon*.a
-/usr/lib/libaudiocommon*.so
+/usr/lib*/libaudiocommon*.a
+/usr/lib*/libaudiocommon*.so
 /usr/include/audioquality.h
 /usr/include/audioqualityinterface.h
 /usr/include/audioconverter.h
@@ -239,7 +239,7 @@ This package provides a shared library for audio input reading.
 
 %files libaudioreader
 %defattr(-,root,root,-)
-/usr/lib/libaudioreader.so*
+/usr/lib*/libaudioreader.so*
 
 
 %package libaudioreader-devel
@@ -260,8 +260,8 @@ This package provides the development files for audio input reading.
 
 %files libaudioreader-devel
 %defattr(-,root,root,-)
-/usr/lib/libaudioreader*.a
-/usr/lib/libaudioreader*.so
+/usr/lib*/libaudioreader*.a
+/usr/lib*/libaudioreader*.so
 /usr/include/audioreaderinterface.h
 /usr/include/mp3audioreader.h
 /usr/include/multiaudioreader.h
@@ -284,7 +284,7 @@ Requires: %{name}-libtdtoolbox
 
 %files libaudiowriter
 %defattr(-,root,root,-)
-/usr/lib/libaudiowriter.so*
+/usr/lib*/libaudiowriter.so*
 
 
 %package libaudiowriter-devel
@@ -304,8 +304,8 @@ Requires: %{name}-libtdtoolbox-devel
 
 %files libaudiowriter-devel
 %defattr(-,root,root,-)
-/usr/lib/libaudiowriter*.a
-/usr/lib/libaudiowriter*.so
+/usr/lib*/libaudiowriter*.a
+/usr/lib*/libaudiowriter*.so
 /usr/include/audiowriterinterface.h
 /usr/include/multiaudiowriter.h
 /usr/include/audiodebug.h
@@ -332,7 +332,7 @@ Requires: %{name}-libaudiocommon
 
 %files libaudiocodeccommon
 %defattr(-,root,root,-)
-/usr/lib/libaudiocodeccommon.so*
+/usr/lib*/libaudiocodeccommon.so*
 
 
 %package libaudiocodeccommon-devel
@@ -350,8 +350,8 @@ Requires: %{name}-libaudiocommon-devel
 
 %files libaudiocodeccommon-devel
 %defattr(-,root,root,-)
-/usr/lib/libaudiocodeccommon*.a
-/usr/lib/libaudiocodeccommon*.so
+/usr/lib*/libaudiocodeccommon*.a
+/usr/lib*/libaudiocodeccommon*.so
 /usr/include/advancedaudiopacket.h
 /usr/include/simpleaudiopacket.h
 
@@ -371,7 +371,7 @@ Requires: %{name}-libaudiocommon
 
 %files libaudioencoder
 %defattr(-,root,root,-)
-/usr/lib/libaudioencoder.so*
+/usr/lib*/libaudioencoder.so*
 
 
 %package libaudioencoder-devel
@@ -390,8 +390,8 @@ Requires: %{name}-libaudiocommon-devel
 
 %files libaudioencoder-devel
 %defattr(-,root,root,-)
-/usr/lib/libaudioencoder*.a
-/usr/lib/libaudioencoder*.so
+/usr/lib*/libaudioencoder*.a
+/usr/lib*/libaudioencoder*.so
 /usr/include/advancedaudioencoder.h
 /usr/include/audioencoderinterface.h
 /usr/include/audioencoderrepository.h
@@ -416,7 +416,7 @@ Requires: %{name}-libtdtoolbox
 
 %files libaudiodecoder
 %defattr(-,root,root,-)
-/usr/lib/libaudiodecoder.so*
+/usr/lib*/libaudiodecoder.so*
 
 
 %package libaudiodecoder-devel
@@ -437,8 +437,8 @@ Requires: %{name}-libtdtoolbox-devel
 
 %files libaudiodecoder-devel
 %defattr(-,root,root,-)
-/usr/lib/libaudiodecoder*.a
-/usr/lib/libaudiodecoder*.so
+/usr/lib*/libaudiodecoder*.a
+/usr/lib*/libaudiodecoder*.so
 /usr/include/advancedaudiodecoder.h
 /usr/include/audiodecoderinterface.h
 /usr/include/audiodecoderrepository.h
@@ -459,7 +459,7 @@ Requires: %{name} = %{version}-%{release}
 
 %files librtpaudiocommon
 %defattr(-,root,root,-)
-/usr/lib/librtpaudiocommon.so*
+/usr/lib*/librtpaudiocommon.so*
 
 
 %package librtpaudiocommon-devel
@@ -476,8 +476,8 @@ Requires: %{name}-librtpaudiocommon
 
 %files librtpaudiocommon-devel
 %defattr(-,root,root,-)
-/usr/lib/librtpaudiocommon*.a
-/usr/lib/librtpaudiocommon*.so
+/usr/lib*/librtpaudiocommon*.a
+/usr/lib*/librtpaudiocommon*.so
 /usr/include/audioclientapppacket.h
 
 
@@ -500,7 +500,7 @@ Requires: %{name}-libtdtoolbox
 
 %files librtpaudioclient
 %defattr(-,root,root,-)
-/usr/lib/librtpaudioclient.so*
+/usr/lib*/librtpaudioclient.so*
 
 
 %package librtpaudioclient-devel
@@ -523,8 +523,8 @@ Requires: %{name}-libtdtoolbox-devel
 
 %files librtpaudioclient-devel
 %defattr(-,root,root,-)
-/usr/lib/librtpaudioclient*.a
-/usr/lib/librtpaudioclient*.so
+/usr/lib*/librtpaudioclient*.a
+/usr/lib*/librtpaudioclient*.so
 /usr/include/audioclient.h
 /usr/include/audioclient.icc
 
@@ -547,7 +547,7 @@ Requires: %{name}-libtdtoolbox
 
 %files librtpaudioserver
 %defattr(-,root,root,-)
-/usr/lib/librtpaudioserver.so*
+/usr/lib*/librtpaudioserver.so*
 
 
 %package librtpaudioserver-devel
@@ -569,8 +569,8 @@ Requires: %{name}-libtdtoolbox-devel
 
 %files librtpaudioserver-devel
 %defattr(-,root,root,-)
-/usr/lib/librtpaudioserver*.a
-/usr/lib/librtpaudioserver*.so
+/usr/lib*/librtpaudioserver*.a
+/usr/lib*/librtpaudioserver*.so
 /usr/include/audioserver.h
 /usr/include/audioserver.icc
 
@@ -588,7 +588,7 @@ Requires: %{name} = %{version}-%{release}
 
 %files librtpcommon
 %defattr(-,root,root,-)
-/usr/lib/librtpcommon.so*
+/usr/lib*/librtpcommon.so*
 
 
 %package librtpcommon-devel
@@ -605,8 +605,8 @@ Requires: %{name}-librtpcommon
 
 %files librtpcommon-devel
 %defattr(-,root,root,-)
-/usr/lib/librtpcommon*.a
-/usr/lib/librtpcommon*.so
+/usr/lib*/librtpcommon*.a
+/usr/lib*/librtpcommon*.so
 /usr/include/rtcppacket.h
 /usr/include/rtcppacket.icc
 /usr/include/rtppacket.h
@@ -628,7 +628,7 @@ Requires: %{name}-libtdtoolbox
 
 %files librtpclient
 %defattr(-,root,root,-)
-/usr/lib/librtpclient.so*
+/usr/lib*/librtpclient.so*
 
 
 %package librtpclient-devel
@@ -647,8 +647,8 @@ Requires: %{name}-libtdtoolbox-devel
 
 %files librtpclient-devel
 %defattr(-,root,root,-)
-/usr/lib/librtpclient*.a
-/usr/lib/librtpclient*.so
+/usr/lib*/librtpclient*.a
+/usr/lib*/librtpclient*.so
 /usr/include/decoderinterface.h
 /usr/include/decoderrepositoryinterface.h
 /usr/include/rtcpsender.h
@@ -673,7 +673,7 @@ Requires: %{name}-libtdtoolbox
 
 %files librtpserver
 %defattr(-,root,root,-)
-/usr/lib/librtpserver.so*
+/usr/lib*/librtpserver.so*
 
 
 %package librtpserver-devel
@@ -692,8 +692,8 @@ Requires: %{name}-libtdtoolbox-devel
 
 %files librtpserver-devel
 %defattr(-,root,root,-)
-/usr/lib/librtpserver*.a
-/usr/lib/librtpserver*.so
+/usr/lib*/librtpserver*.a
+/usr/lib*/librtpserver*.so
 /usr/include/abstractlayerdescription.h
 /usr/include/abstractlayerdescription.icc
 /usr/include/abstractqosdescription.h
@@ -732,7 +732,7 @@ Requires: %{name}-libtdtoolbox
 
 %files libqosmgr
 %defattr(-,root,root,-)
-/usr/lib/libqosmgr.so*
+/usr/lib*/libqosmgr.so*
 
 
 %package libqosmgr-devel
@@ -751,8 +751,8 @@ Requires: %{name}-libtdtoolbox-devel
 
 %files libqosmgr-devel
 %defattr(-,root,root,-)
-/usr/lib/libqosmgr*.a
-/usr/lib/libqosmgr*.so
+/usr/lib*/libqosmgr*.a
+/usr/lib*/libqosmgr*.so
 /usr/include/bandwidthmanager.h
 /usr/include/bandwidthmanager.icc
 /usr/include/servicelevelagreement.h
