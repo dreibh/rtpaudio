@@ -1,1 +1,1 @@
-/usr/lib/librtpcommon.so.*
+/usr/lib/*/librtpcommon.so.*

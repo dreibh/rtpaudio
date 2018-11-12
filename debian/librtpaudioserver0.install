@@ -1,1 +1,1 @@
-/usr/lib/librtpaudioserver.so.*
+/usr/lib/*/librtpaudioserver.so.*

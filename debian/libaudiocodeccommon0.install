@@ -1,1 +1,1 @@
-/usr/lib/libaudiocodeccommon.so.*
+/usr/lib/*/libaudiocodeccommon.so.*

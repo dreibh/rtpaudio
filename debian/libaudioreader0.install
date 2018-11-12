@@ -1,1 +1,1 @@
-/usr/lib/libaudioreader.so.*
+/usr/lib/*/libaudioreader.so.*
