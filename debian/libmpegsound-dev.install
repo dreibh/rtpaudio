@@ -1,4 +1,4 @@
 /usr/include/mpegsound.h
 /usr/include/mpegsound_locals.h
-/usr/lib/libmpegsound*.a
-/usr/lib/libmpegsound*.so
+/usr/lib/*/libmpegsound*.a
+/usr/lib/*/libmpegsound*.so

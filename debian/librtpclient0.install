@@ -1,1 +1,1 @@
-/usr/lib/librtpclient.so.*
+/usr/lib/*/librtpclient.so.*
