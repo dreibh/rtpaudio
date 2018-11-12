@@ -48,16 +48,13 @@ LIST(APPEND tdtoolbox_sources
 )
 ADD_LIBRARY(tdtoolbox SHARED ${tdtoolbox_sources})
 
-set_target_properties(tdtoolbox PROPERTIES
+SET_TARGET_PROPERTIES(tdtoolbox PROPERTIES
    VERSION ${BUILD_VERSION}
    SOVERSION ${BUILD_MAJOR}
 )
 
 ADD_LIBRARY(tdtoolbox-static STATIC ${tdtoolbox_sources})
 
-if(THREADS_HAVE_PTHREAD_ARG)
-   TARGET_COMPILE_OPTIONS(PUBLIC tdtoolbox "-pthread")
-endif()
 TARGET_LINK_LIBRARIES (tdtoolbox ${tdtoolbox_libs} ${NEAT_SOCKETAPI_LIB} ${SCTP_LIB} "${CMAKE_THREAD_LIBS_INIT}")
 
 INSTALL(TARGETS tdtoolbox tdtoolbox-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
@@ -73,16 +70,13 @@ LIST(APPEND mediainfo_sources
 )
 ADD_LIBRARY(mediainfo SHARED ${mediainfo_sources})
 
-set_target_properties(mediainfo PROPERTIES
+SET_TARGET_PROPERTIES(mediainfo PROPERTIES
    VERSION ${BUILD_VERSION}
    SOVERSION ${BUILD_MAJOR}
 )
 
 ADD_LIBRARY(mediainfo-static STATIC ${mediainfo_sources})
 
-if(THREADS_HAVE_PTHREAD_ARG)
-   TARGET_COMPILE_OPTIONS(PUBLIC mediainfo "-pthread")
-endif()
 TARGET_LINK_LIBRARIES (mediainfo ${mediainfo_libs} "${CMAKE_THREAD_LIBS_INIT}")
 
 INSTALL(TARGETS mediainfo mediainfo-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
@@ -99,16 +93,13 @@ LIST(APPEND audiocommon_sources
 )
 ADD_LIBRARY(audiocommon SHARED ${audiocommon_sources})
 
-set_target_properties(audiocommon PROPERTIES
+SET_TARGET_PROPERTIES(audiocommon PROPERTIES
    VERSION ${BUILD_VERSION}
    SOVERSION ${BUILD_MAJOR}
 )
 
 ADD_LIBRARY(audiocommon-static STATIC ${audiocommon_sources})
 
-if(THREADS_HAVE_PTHREAD_ARG)
-   TARGET_COMPILE_OPTIONS(PUBLIC audiocommon "-pthread")
-endif()
 TARGET_LINK_LIBRARIES (audiocommon tdtoolbox ${audiocommon_libs} "${CMAKE_THREAD_LIBS_INIT}")
 
 INSTALL(TARGETS audiocommon audiocommon-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
@@ -124,16 +115,13 @@ LIST(APPEND audioreader_sources
 )
 ADD_LIBRARY(audioreader SHARED ${audioreader_sources})
 
-set_target_properties(audioreader PROPERTIES
+SET_TARGET_PROPERTIES(audioreader PROPERTIES
    VERSION ${BUILD_VERSION}
    SOVERSION ${BUILD_MAJOR}
 )
 
 ADD_LIBRARY(audioreader-static STATIC ${audioreader_sources})
 
-if(THREADS_HAVE_PTHREAD_ARG)
-   TARGET_COMPILE_OPTIONS(PUBLIC audioreader "-pthread")
-endif()
 TARGET_LINK_LIBRARIES (audioreader audiocommon mediainfo tdtoolbox mpegsound ${audioreader_libs} "${CMAKE_THREAD_LIBS_INIT}")
 
 INSTALL(TARGETS audioreader audioreader-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
@@ -163,16 +151,13 @@ LIST(APPEND audiowriter_sources
 )
 ADD_LIBRARY(audiowriter SHARED ${audiowriter_sources})
 
-set_target_properties(audiowriter PROPERTIES
+SET_TARGET_PROPERTIES(audiowriter PROPERTIES
    VERSION ${BUILD_VERSION}
    SOVERSION ${BUILD_MAJOR}
 )
 
 ADD_LIBRARY(audiowriter-static STATIC ${audiowriter_sources})
 
-if(THREADS_HAVE_PTHREAD_ARG)
-   TARGET_COMPILE_OPTIONS(PUBLIC audiowriter "-pthread")
-endif()
 TARGET_LINK_LIBRARIES (audiowriter audiocommon tdtoolbox ${audiowriter_libs} ${PULSEAUDIO_LIBRARY} "${CMAKE_THREAD_LIBS_INIT}")
 
 INSTALL(TARGETS audiowriter audiowriter-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
@@ -190,16 +175,13 @@ LIST(APPEND rtpcommon_sources
 )
 ADD_LIBRARY(rtpcommon SHARED ${rtpcommon_sources})
 
-set_target_properties(rtpcommon PROPERTIES
+SET_TARGET_PROPERTIES(rtpcommon PROPERTIES
    VERSION ${BUILD_VERSION}
    SOVERSION ${BUILD_MAJOR}
 )
 
 ADD_LIBRARY(rtpcommon-static STATIC ${rtpcommon_sources})
 
-if(THREADS_HAVE_PTHREAD_ARG)
-   TARGET_COMPILE_OPTIONS(PUBLIC rtpcommon "-pthread")
-endif()
 TARGET_LINK_LIBRARIES (rtpcommon ${rtpcommon_libs} "${CMAKE_THREAD_LIBS_INIT}")
 
 INSTALL(TARGETS rtpcommon rtpcommon-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
@@ -233,16 +215,13 @@ LIST(APPEND rtpserver_sources
 )
 ADD_LIBRARY(rtpserver SHARED ${rtpserver_sources})
 
-set_target_properties(rtpserver PROPERTIES
+SET_TARGET_PROPERTIES(rtpserver PROPERTIES
    VERSION ${BUILD_VERSION}
    SOVERSION ${BUILD_MAJOR}
 )
 
 ADD_LIBRARY(rtpserver-static STATIC ${rtpserver_sources})
 
-if(THREADS_HAVE_PTHREAD_ARG)
-   TARGET_COMPILE_OPTIONS(PUBLIC rtpserver "-pthread")
-endif()
 TARGET_LINK_LIBRARIES (rtpserver rtpcommon tdtoolbox ${rtpserver_libs} "${CMAKE_THREAD_LIBS_INIT}")
 
 INSTALL(TARGETS rtpserver rtpserver-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
@@ -263,16 +242,13 @@ LIST(APPEND rtpclient_sources
 )
 ADD_LIBRARY(rtpclient SHARED ${rtpclient_sources})
 
-set_target_properties(rtpclient PROPERTIES
+SET_TARGET_PROPERTIES(rtpclient PROPERTIES
    VERSION ${BUILD_VERSION}
    SOVERSION ${BUILD_MAJOR}
 )
 
 ADD_LIBRARY(rtpclient-static STATIC ${rtpclient_sources})
 
-if(THREADS_HAVE_PTHREAD_ARG)
-   TARGET_COMPILE_OPTIONS(PUBLIC rtpclient "-pthread")
-endif()
 TARGET_LINK_LIBRARIES (rtpclient rtpcommon tdtoolbox ${rtpclient_libs} "${CMAKE_THREAD_LIBS_INIT}")
 
 INSTALL(TARGETS rtpclient rtpclient-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
@@ -290,16 +266,13 @@ LIST(APPEND audiocodeccommon_sources
 )
 ADD_LIBRARY(audiocodeccommon SHARED ${audiocodeccommon_sources})
 
-set_target_properties(audiocodeccommon PROPERTIES
+SET_TARGET_PROPERTIES(audiocodeccommon PROPERTIES
    VERSION ${BUILD_VERSION}
    SOVERSION ${BUILD_MAJOR}
 )
 
 ADD_LIBRARY(audiocodeccommon-static STATIC ${audiocodeccommon_sources})
 
-if(THREADS_HAVE_PTHREAD_ARG)
-   TARGET_COMPILE_OPTIONS(PUBLIC audiocodeccommon "-pthread")
-endif()
 TARGET_LINK_LIBRARIES (audiocodeccommon audiocommon ${audiocodeccommon_libs} "${CMAKE_THREAD_LIBS_INIT}")
 
 INSTALL(TARGETS audiocodeccommon audiocodeccommon-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
@@ -321,16 +294,13 @@ LIST(APPEND audioencoder_sources
 )
 ADD_LIBRARY(audioencoder SHARED ${audioencoder_sources})
 
-set_target_properties(audioencoder PROPERTIES
+SET_TARGET_PROPERTIES(audioencoder PROPERTIES
    VERSION ${BUILD_VERSION}
    SOVERSION ${BUILD_MAJOR}
 )
 
 ADD_LIBRARY(audioencoder-static STATIC ${audioencoder_sources})
 
-if(THREADS_HAVE_PTHREAD_ARG)
-   TARGET_COMPILE_OPTIONS(PUBLIC audioencoder "-pthread")
-endif()
 TARGET_LINK_LIBRARIES (audioencoder audiocodeccommon audiocommon ${audioencoder_libs} "${CMAKE_THREAD_LIBS_INIT}")
 
 INSTALL(TARGETS audioencoder audioencoder-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
@@ -352,16 +322,13 @@ LIST(APPEND audiodecoder_sources
 )
 ADD_LIBRARY(audiodecoder SHARED ${audiodecoder_sources})
 
-set_target_properties(audiodecoder PROPERTIES
+SET_TARGET_PROPERTIES(audiodecoder PROPERTIES
    VERSION ${BUILD_VERSION}
    SOVERSION ${BUILD_MAJOR}
 )
 
 ADD_LIBRARY(audiodecoder-static STATIC ${audiodecoder_sources})
 
-if(THREADS_HAVE_PTHREAD_ARG)
-   TARGET_COMPILE_OPTIONS(PUBLIC audiodecoder "-pthread")
-endif()
 TARGET_LINK_LIBRARIES (audiodecoder audiocodeccommon audiocommon mediainfo tdtoolbox ${audiodecoder_libs} "${CMAKE_THREAD_LIBS_INIT}")
 
 INSTALL(TARGETS audiodecoder audiodecoder-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
@@ -377,16 +344,13 @@ LIST(APPEND rtpaudiocommon_sources
 )
 ADD_LIBRARY(rtpaudiocommon SHARED ${rtpaudiocommon_sources})
 
-set_target_properties(rtpaudiocommon PROPERTIES
+SET_TARGET_PROPERTIES(rtpaudiocommon PROPERTIES
    VERSION ${BUILD_VERSION}
    SOVERSION ${BUILD_MAJOR}
 )
 
 ADD_LIBRARY(rtpaudiocommon-static STATIC ${rtpaudiocommon_sources})
 
-if(THREADS_HAVE_PTHREAD_ARG)
-   TARGET_COMPILE_OPTIONS(PUBLIC rtpaudiocommon "-pthread")
-endif()
 TARGET_LINK_LIBRARIES (rtpaudiocommon ${rtpaudiocommon_libs} "${CMAKE_THREAD_LIBS_INIT}")
 
 INSTALL(TARGETS rtpaudiocommon rtpaudiocommon-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
@@ -402,16 +366,13 @@ LIST(APPEND rtpaudioserver_sources
 )
 ADD_LIBRARY(rtpaudioserver SHARED ${rtpaudioserver_sources})
 
-set_target_properties(rtpaudioserver PROPERTIES
+SET_TARGET_PROPERTIES(rtpaudioserver PROPERTIES
    VERSION ${BUILD_VERSION}
    SOVERSION ${BUILD_MAJOR}
 )
 
 ADD_LIBRARY(rtpaudioserver-static STATIC ${rtpaudioserver_sources})
 
-if(THREADS_HAVE_PTHREAD_ARG)
-   TARGET_COMPILE_OPTIONS(PUBLIC rtpaudioserver "-pthread")
-endif()
 TARGET_LINK_LIBRARIES (rtpaudioserver rtpaudiocommon audioencoder rtpserver audioreader tdtoolbox ${rtpaudioserver_libs} "${CMAKE_THREAD_LIBS_INIT}")
 
 INSTALL(TARGETS rtpaudioserver rtpaudioserver-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
@@ -427,16 +388,13 @@ LIST(APPEND rtpaudioclient_sources
 )
 ADD_LIBRARY(rtpaudioclient SHARED ${rtpaudioclient_sources})
 
-set_target_properties(rtpaudioclient PROPERTIES
+SET_TARGET_PROPERTIES(rtpaudioclient PROPERTIES
    VERSION ${BUILD_VERSION}
    SOVERSION ${BUILD_MAJOR}
 )
 
 ADD_LIBRARY(rtpaudioclient-static STATIC ${rtpaudioclient_sources})
 
-if(THREADS_HAVE_PTHREAD_ARG)
-   TARGET_COMPILE_OPTIONS(PUBLIC rtpaudioclient "-pthread")
-endif()
 TARGET_LINK_LIBRARIES (rtpaudioclient rtpaudiocommon audiodecoder audiocommon rtpclient mediainfo tdtoolbox ${rtpaudioclient_libs} "${CMAKE_THREAD_LIBS_INIT}")
 
 INSTALL(TARGETS rtpaudioclient rtpaudioclient-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
@@ -461,16 +419,13 @@ LIST(APPEND qosmgr_sources
 )
 ADD_LIBRARY(qosmgr SHARED ${qosmgr_sources})
 
-set_target_properties(qosmgr PROPERTIES
+SET_TARGET_PROPERTIES(qosmgr PROPERTIES
    VERSION ${BUILD_VERSION}
    SOVERSION ${BUILD_MAJOR}
 )
 
 ADD_LIBRARY(qosmgr-static STATIC ${qosmgr_sources})
 
-if(THREADS_HAVE_PTHREAD_ARG)
-   TARGET_COMPILE_OPTIONS(PUBLIC qosmgr "-pthread")
-endif()
 TARGET_LINK_LIBRARIES (qosmgr rtpserver tdtoolbox ${qosmgr_libs} "${CMAKE_THREAD_LIBS_INIT}")
 
 INSTALL(TARGETS qosmgr qosmgr-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
