@@ -297,8 +297,8 @@ ENDFOREACH()
 # ====== libaudioencoder ====================================================
 LIST(APPEND libaudioencoder_headers
    advancedaudioencoder.h
-   libaudioencoderinterface.h
-   libaudioencoderrepository.h libaudioencoderrepository.icc
+   audioencoderinterface.h
+   audioencoderrepository.h audioencoderrepository.icc
    simpleaudioencoder.h
 )
 LIST(APPEND libaudioencoder_sources
@@ -308,7 +308,7 @@ LIST(APPEND libaudioencoder_sources
    simpleaudioencoder.cc
 )
 
-INSTALL(FILES ${libaudiodecoder_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+INSTALL(FILES ${libaudioencoder_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 ADD_LIBRARY(libaudioencoder-shared SHARED ${libaudioencoder_sources})
 ADD_LIBRARY(libaudioencoder-static STATIC ${libaudioencoder_sources})
@@ -490,7 +490,7 @@ IF (WITH_QT)
    qt5_use_modules(rtpa-qclient Core Widgets)
    TARGET_LINK_LIBRARIES(rtpa-qclient librtpaudioclient-shared libaudiodecoder-shared libaudiowriter-shared libaudiocommon-shared libtdtoolbox-shared "${CMAKE_THREAD_cLIBS_INIT}")
    INSTALL(TARGETS             rtpa-qclient
-         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-         BUNDLE DESTINATION  ${CMAKE_INSTALL_BINDIR})
+           RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+           BUNDLE DESTINATION  ${CMAKE_INSTALL_BINDIR})
    INSTALL(FILES rtpa-qclient.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
 ENDIF()
