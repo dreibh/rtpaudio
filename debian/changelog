@@ -1,4 +1,4 @@
-rtpaudio (2.0.0~beta6-1ubuntu1) cosmic; urgency=low
+rtpaudio (2.0.0~beta7-1ubuntu1) disco; urgency=low
 
   * New upstream package.
   * Initial Debian release (Closes: #669908).
