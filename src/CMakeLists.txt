@@ -6,7 +6,7 @@ INCLUDE_DIRECTORIES(../libmpegsound)
 #############################################################################
 
 # ====== libtdtoolbox =======================================================
-LIST(APPEND tdtoolbox_headers
+LIST(APPEND libtdtoolbox_headers
    breakdetector.h
    condition.h condition.icc
    ext_socket.h
@@ -29,7 +29,7 @@ LIST(APPEND tdtoolbox_headers
    trafficclassvalues.h trafficclassvalues.icc
    unixaddress.h unixaddress.icc
 )
-LIST(APPEND tdtoolbox_sources
+LIST(APPEND libtdtoolbox_sources
    breakdetector.cc
    condition.cc
    internetaddress.cc internetflow.cc
@@ -46,90 +46,100 @@ LIST(APPEND tdtoolbox_sources
    trafficclassvalues.cc
    unixaddress.cc
 )
-ADD_LIBRARY(tdtoolbox SHARED ${tdtoolbox_sources})
 
-SET_TARGET_PROPERTIES(tdtoolbox PROPERTIES
-   VERSION ${BUILD_VERSION}
-   SOVERSION ${BUILD_MAJOR}
-)
+INSTALL(FILES ${libtdtoolbox_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-ADD_LIBRARY(tdtoolbox-static STATIC ${tdtoolbox_sources})
-
-TARGET_LINK_LIBRARIES (tdtoolbox ${tdtoolbox_libs} ${NEAT_SOCKETAPI_LIB} ${SCTP_LIB} "${CMAKE_THREAD_LIBS_INIT}")
-
-INSTALL(TARGETS tdtoolbox tdtoolbox-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
-INSTALL(FILES ${tdtoolbox_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+ADD_LIBRARY(libtdtoolbox-shared SHARED ${libtdtoolbox_sources})
+ADD_LIBRARY(libtdtoolbox-static STATIC ${libtdtoolbox_sources})
+FOREACH(TYPE shared;static)
+   SET_TARGET_PROPERTIES(libtdtoolbox-${TYPE} PROPERTIES OUTPUT_NAME tdtoolbox CLEAN_DIRECT_OUTPUT 1)
+   SET_TARGET_PROPERTIES(libtdtoolbox-${TYPE} PROPERTIES
+      VERSION   ${BUILD_VERSION}
+      SOVERSION ${BUILD_MAJOR}
+   )
+   TARGET_LINK_LIBRARIES (libtdtoolbox-${TYPE} ${SCTP_LIB} ${CMAKE_THREAD_LIBS_INIT})
+   INSTALL(TARGETS libtdtoolbox-${TYPE} DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ENDFOREACH()
 
 
 # ====== libmediainfo =======================================================
-LIST(APPEND mediainfo_headers
+LIST(APPEND libmediainfo_headers
    mediainfo.h
 )
-LIST(APPEND mediainfo_sources
+LIST(APPEND libmediainfo_sources
    mediainfo.cc mediainfo.h
 )
-ADD_LIBRARY(mediainfo SHARED ${mediainfo_sources})
+ADD_LIBRARY(libmediainfo SHARED ${libmediainfo_sources})
 
-SET_TARGET_PROPERTIES(mediainfo PROPERTIES
+SET_TARGET_PROPERTIES(libmediainfo PROPERTIES
    VERSION ${BUILD_VERSION}
    SOVERSION ${BUILD_MAJOR}
 )
 
-ADD_LIBRARY(mediainfo-static STATIC ${mediainfo_sources})
+INSTALL(FILES ${libmediainfo_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-TARGET_LINK_LIBRARIES (mediainfo ${mediainfo_libs} "${CMAKE_THREAD_LIBS_INIT}")
+ADD_LIBRARY(libmediainfo-shared SHARED ${libmediainfo_sources})
+ADD_LIBRARY(libmediainfo-static STATIC ${libmediainfo_sources})
+FOREACH(TYPE shared;static)
+   SET_TARGET_PROPERTIES(libmediainfo-${TYPE} PROPERTIES OUTPUT_NAME mediainfo CLEAN_DIRECT_OUTPUT 1)
+   SET_TARGET_PROPERTIES(libmediainfo-${TYPE} PROPERTIES
+      VERSION   ${BUILD_VERSION}
+      SOVERSION ${BUILD_MAJOR}
+   )
+   TARGET_LINK_LIBRARIES (libmediainfo-${TYPE} ${SCTP_LIB} ${CMAKE_THREAD_LIBS_INIT})
+   INSTALL(TARGETS libmediainfo-${TYPE} DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ENDFOREACH()
 
-INSTALL(TARGETS mediainfo mediainfo-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
-INSTALL(FILES ${mediainfo_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-
-# ====== libaudiocommon =======================================================
-LIST(APPEND audiocommon_headers
+# ====== libaudiocommon =====================================================
+LIST(APPEND libaudiocommon_headers
    audioquality.h audioqualityinterface.h audioconverter.h
    audioquality.icc audioqualityinterface.icc
 )
-LIST(APPEND audiocommon_sources
+LIST(APPEND libaudiocommon_sources
    audioquality.cc audioconverter.cc
 )
-ADD_LIBRARY(audiocommon SHARED ${audiocommon_sources})
 
-SET_TARGET_PROPERTIES(audiocommon PROPERTIES
-   VERSION ${BUILD_VERSION}
-   SOVERSION ${BUILD_MAJOR}
-)
+INSTALL(FILES ${libaudiocommon_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-ADD_LIBRARY(audiocommon-static STATIC ${audiocommon_sources})
+ADD_LIBRARY(libaudiocommon-shared SHARED ${libaudiocommon_sources})
+ADD_LIBRARY(libaudiocommon-static STATIC ${libaudiocommon_sources})
+FOREACH(TYPE shared;static)
+   SET_TARGET_PROPERTIES(libaudiocommon-${TYPE} PROPERTIES OUTPUT_NAME audiocommon CLEAN_DIRECT_OUTPUT 1)
+   SET_TARGET_PROPERTIES(libaudiocommon-${TYPE} PROPERTIES
+      VERSION   ${BUILD_VERSION}
+      SOVERSION ${BUILD_MAJOR}
+   )
+   TARGET_LINK_LIBRARIES (libaudiocommon-${TYPE} libtdtoolbox-${TYPE} ${SCTP_LIB} ${CMAKE_THREAD_LIBS_INIT})
+   INSTALL(TARGETS libaudiocommon-${TYPE} DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ENDFOREACH()
 
-TARGET_LINK_LIBRARIES (audiocommon tdtoolbox ${audiocommon_libs} "${CMAKE_THREAD_LIBS_INIT}")
 
-INSTALL(TARGETS audiocommon audiocommon-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
-INSTALL(FILES ${audiocommon_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-
-
-# ====== libaudioreader =======================================================
-LIST(APPEND audioreader_headers
+# ====== libaudioreader =====================================================
+LIST(APPEND libaudioreader_headers
    audioreaderinterface.h mp3audioreader.h multiaudioreader.h wavaudioreader.h
 )
-LIST(APPEND audioreader_sources
+LIST(APPEND libaudioreader_sources
    audioreaderinterface.cc mp3audioreader.cc multiaudioreader.cc wavaudioreader.cc
 )
-ADD_LIBRARY(audioreader SHARED ${audioreader_sources})
 
-SET_TARGET_PROPERTIES(audioreader PROPERTIES
-   VERSION ${BUILD_VERSION}
-   SOVERSION ${BUILD_MAJOR}
-)
+INSTALL(FILES ${libaudioreader_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-ADD_LIBRARY(audioreader-static STATIC ${audioreader_sources})
+ADD_LIBRARY(libaudioreader-shared SHARED ${libaudioreader_sources})
+ADD_LIBRARY(libaudioreader-static STATIC ${libaudioreader_sources})
+FOREACH(TYPE shared;static)
+   SET_TARGET_PROPERTIES(libaudioreader-${TYPE} PROPERTIES OUTPUT_NAME audioreader CLEAN_DIRECT_OUTPUT 1)
+   SET_TARGET_PROPERTIES(libaudioreader-${TYPE} PROPERTIES
+      VERSION   ${BUILD_VERSION}
+      SOVERSION ${BUILD_MAJOR}
+   )
+   TARGET_LINK_LIBRARIES (libaudioreader-${TYPE} libaudiocommon-${TYPE} libmediainfo-${TYPE} libtdtoolbox-${TYPE} libmpegsound-${TYPE} ${SCTP_LIB} ${CMAKE_THREAD_LIBS_INIT})
+   INSTALL(TARGETS libaudioreader-${TYPE} DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ENDFOREACH()
 
-TARGET_LINK_LIBRARIES (audioreader audiocommon mediainfo tdtoolbox mpegsound ${audioreader_libs} "${CMAKE_THREAD_LIBS_INIT}")
 
-INSTALL(TARGETS audioreader audioreader-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
-INSTALL(FILES ${audioreader_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-
-
-# ====== libaudiowriter =======================================================
-LIST(APPEND audiowriter_headers
+# ====== libaudiowriter =====================================================
+LIST(APPEND libaudiowriter_headers
    audiowriterinterface.h
    multiaudiowriter.h
    audiodebug.h
@@ -139,7 +149,7 @@ LIST(APPEND audiowriter_headers
    spectrumanalyzer.h
    fft.h
 )
-LIST(APPEND audiowriter_sources
+LIST(APPEND libaudiowriter_sources
    audiowriterinterface.cc
    multiaudiowriter.cc
    audiodebug.cc
@@ -149,47 +159,49 @@ LIST(APPEND audiowriter_sources
    spectrumanalyzer.cc
    fft.cc
 )
-ADD_LIBRARY(audiowriter SHARED ${audiowriter_sources})
 
-SET_TARGET_PROPERTIES(audiowriter PROPERTIES
-   VERSION ${BUILD_VERSION}
-   SOVERSION ${BUILD_MAJOR}
-)
+INSTALL(FILES ${libaudiowriter_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-ADD_LIBRARY(audiowriter-static STATIC ${audiowriter_sources})
-
-TARGET_LINK_LIBRARIES (audiowriter audiocommon tdtoolbox ${audiowriter_libs} ${PULSEAUDIO_LIBRARY} "${CMAKE_THREAD_LIBS_INIT}")
-
-INSTALL(TARGETS audiowriter audiowriter-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
-INSTALL(FILES ${audiowriter_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+ADD_LIBRARY(libaudiowriter-shared SHARED ${libaudiowriter_sources})
+ADD_LIBRARY(libaudiowriter-static STATIC ${libaudiowriter_sources})
+FOREACH(TYPE shared;static)
+   SET_TARGET_PROPERTIES(libaudiowriter-${TYPE} PROPERTIES OUTPUT_NAME audiowriter CLEAN_DIRECT_OUTPUT 1)
+   SET_TARGET_PROPERTIES(libaudiowriter-${TYPE} PROPERTIES
+      VERSION   ${BUILD_VERSION}
+      SOVERSION ${BUILD_MAJOR}
+   )
+   TARGET_LINK_LIBRARIES (libaudiowriter-${TYPE} libaudiocommon-${TYPE} libtdtoolbox-${TYPE} ${SCTP_LIB} ${PULSEAUDIO_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
+   INSTALL(TARGETS libaudiowriter-${TYPE} DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ENDFOREACH()
 
 
 # ====== librtpcommon =======================================================
-LIST(APPEND rtpcommon_headers
+LIST(APPEND librtpcommon_headers
    rtcppacket.h rtcppacket.icc
    rtppacket.h rtppacket.icc
 )
-LIST(APPEND rtpcommon_sources
+LIST(APPEND librtpcommon_sources
    rtcppacket.cc
    rtppacket.cc
 )
-ADD_LIBRARY(rtpcommon SHARED ${rtpcommon_sources})
 
-SET_TARGET_PROPERTIES(rtpcommon PROPERTIES
-   VERSION ${BUILD_VERSION}
-   SOVERSION ${BUILD_MAJOR}
-)
+INSTALL(FILES ${librtpcommon_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-ADD_LIBRARY(rtpcommon-static STATIC ${rtpcommon_sources})
-
-TARGET_LINK_LIBRARIES (rtpcommon ${rtpcommon_libs} "${CMAKE_THREAD_LIBS_INIT}")
-
-INSTALL(TARGETS rtpcommon rtpcommon-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
-INSTALL(FILES ${rtpcommon_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+ADD_LIBRARY(librtpcommon-shared SHARED ${librtpcommon_sources})
+ADD_LIBRARY(librtpcommon-static STATIC ${librtpcommon_sources})
+FOREACH(TYPE shared;static)
+   SET_TARGET_PROPERTIES(librtpcommon-${TYPE} PROPERTIES OUTPUT_NAME rtpcommon CLEAN_DIRECT_OUTPUT 1)
+   SET_TARGET_PROPERTIES(librtpcommon-${TYPE} PROPERTIES
+      VERSION   ${BUILD_VERSION}
+      SOVERSION ${BUILD_MAJOR}
+   )
+   TARGET_LINK_LIBRARIES (librtpcommon-${TYPE} ${SCTP_LIB} ${CMAKE_THREAD_LIBS_INIT})
+   INSTALL(TARGETS librtpcommon-${TYPE} DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ENDFOREACH()
 
 
 # ====== librtpserver =======================================================
-LIST(APPEND rtpserver_headers
+LIST(APPEND librtpserver_headers
    abstractlayerdescription.h abstractlayerdescription.icc
    abstractqosdescription.h abstractqosdescription.icc
    bandwidthinfo.h bandwidthinfo.icc
@@ -203,7 +215,7 @@ LIST(APPEND rtpserver_headers
    rtpsender.h rtpsender.icc
    trafficshaper.h trafficshaper.icc
 )
-LIST(APPEND rtpserver_sources
+LIST(APPEND librtpserver_sources
    abstractlayerdescription.cc
    abstractqosdescription.cc
    bandwidthinfo.cc
@@ -213,196 +225,210 @@ LIST(APPEND rtpserver_sources
    rtpsender.cc
    trafficshaper.cc
 )
-ADD_LIBRARY(rtpserver SHARED ${rtpserver_sources})
 
-SET_TARGET_PROPERTIES(rtpserver PROPERTIES
-   VERSION ${BUILD_VERSION}
-   SOVERSION ${BUILD_MAJOR}
-)
+INSTALL(FILES ${librtpserver_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-ADD_LIBRARY(rtpserver-static STATIC ${rtpserver_sources})
-
-TARGET_LINK_LIBRARIES (rtpserver rtpcommon tdtoolbox ${rtpserver_libs} "${CMAKE_THREAD_LIBS_INIT}")
-
-INSTALL(TARGETS rtpserver rtpserver-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
-INSTALL(FILES ${rtpserver_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+ADD_LIBRARY(librtpserver-shared SHARED ${librtpserver_sources})
+ADD_LIBRARY(librtpserver-static STATIC ${librtpserver_sources})
+FOREACH(TYPE shared;static)
+   SET_TARGET_PROPERTIES(librtpserver-${TYPE} PROPERTIES OUTPUT_NAME rtpserver CLEAN_DIRECT_OUTPUT 1)
+   SET_TARGET_PROPERTIES(librtpserver-${TYPE} PROPERTIES
+      VERSION   ${BUILD_VERSION}
+      SOVERSION ${BUILD_MAJOR}
+   )
+   TARGET_LINK_LIBRARIES (librtpserver-${TYPE} librtpcommon-${TYPE} libtdtoolbox-${TYPE} ${SCTP_LIB} ${CMAKE_THREAD_LIBS_INIT})
+   INSTALL(TARGETS librtpserver-${TYPE} DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ENDFOREACH()
 
 
 # ====== librtpclient =======================================================
-LIST(APPEND rtpclient_headers
+LIST(APPEND librtpclient_headers
    decoderinterface.h decoderrepositoryinterface.h
    rtcpsender.h
    rtpreceiver.h rtpreceiver.icc
    sourcestateinfo.h sourcestateinfo.icc
 )
-LIST(APPEND rtpclient_sources
+LIST(APPEND librtpclient_sources
    rtcpsender.cc
    rtpreceiver.cc
    sourcestateinfo.cc
 )
-ADD_LIBRARY(rtpclient SHARED ${rtpclient_sources})
 
-SET_TARGET_PROPERTIES(rtpclient PROPERTIES
-   VERSION ${BUILD_VERSION}
-   SOVERSION ${BUILD_MAJOR}
-)
+INSTALL(FILES ${librtpclient_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-ADD_LIBRARY(rtpclient-static STATIC ${rtpclient_sources})
+ADD_LIBRARY(librtpclient-shared SHARED ${librtpclient_sources})
+ADD_LIBRARY(librtpclient-static STATIC ${librtpclient_sources})
+FOREACH(TYPE shared;static)
+   SET_TARGET_PROPERTIES(librtpclient-${TYPE} PROPERTIES OUTPUT_NAME rtpclient CLEAN_DIRECT_OUTPUT 1)
+   SET_TARGET_PROPERTIES(librtpclient-${TYPE} PROPERTIES
+      VERSION   ${BUILD_VERSION}
+      SOVERSION ${BUILD_MAJOR}
+   )
+   TARGET_LINK_LIBRARIES (librtpclient-${TYPE} librtpcommon-${TYPE} libtdtoolbox-${TYPE} ${SCTP_LIB} ${CMAKE_THREAD_LIBS_INIT})
+   INSTALL(TARGETS librtpclient-${TYPE} DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ENDFOREACH()
 
-TARGET_LINK_LIBRARIES (rtpclient rtpcommon tdtoolbox ${rtpclient_libs} "${CMAKE_THREAD_LIBS_INIT}")
 
-INSTALL(TARGETS rtpclient rtpclient-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
-INSTALL(FILES ${rtpclient_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-
-
-# ====== libaudiocodeccommon =======================================================
-LIST(APPEND audiocodeccommon_headers
+# ====== libaudiocodeccommon ================================================
+LIST(APPEND libaudiocodeccommon_headers
    advancedaudiopacket.h
    simpleaudiopacket.h
 )
-LIST(APPEND audiocodeccommon_sources
+LIST(APPEND libaudiocodeccommon_sources
    advancedaudiopacket.cc
    simpleaudiopacket.cc
 )
-ADD_LIBRARY(audiocodeccommon SHARED ${audiocodeccommon_sources})
 
-SET_TARGET_PROPERTIES(audiocodeccommon PROPERTIES
-   VERSION ${BUILD_VERSION}
-   SOVERSION ${BUILD_MAJOR}
-)
+INSTALL(FILES ${libaudiocodeccommon_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-ADD_LIBRARY(audiocodeccommon-static STATIC ${audiocodeccommon_sources})
+ADD_LIBRARY(libaudiocodeccommon-shared SHARED ${libaudiocodeccommon_sources})
+ADD_LIBRARY(libaudiocodeccommon-static STATIC ${libaudiocodeccommon_sources})
+FOREACH(TYPE shared;static)
+   SET_TARGET_PROPERTIES(libaudiocodeccommon-${TYPE} PROPERTIES OUTPUT_NAME audiocodeccommon CLEAN_DIRECT_OUTPUT 1)
+   SET_TARGET_PROPERTIES(libaudiocodeccommon-${TYPE} PROPERTIES
+      VERSION   ${BUILD_VERSION}
+      SOVERSION ${BUILD_MAJOR}
+   )
+   TARGET_LINK_LIBRARIES (libaudiocodeccommon-${TYPE} libaudiocommon-${TYPE} ${SCTP_LIB} ${CMAKE_THREAD_LIBS_INIT})
+   INSTALL(TARGETS libaudiocodeccommon-${TYPE} DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ENDFOREACH()
 
-TARGET_LINK_LIBRARIES (audiocodeccommon audiocommon ${audiocodeccommon_libs} "${CMAKE_THREAD_LIBS_INIT}")
 
-INSTALL(TARGETS audiocodeccommon audiocodeccommon-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
-INSTALL(FILES ${audiocodeccommon_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-
-
-# ====== libaudioencoder =======================================================
-LIST(APPEND audioencoder_headers
+# ====== libaudioencoder ====================================================
+LIST(APPEND libaudioencoder_headers
    advancedaudioencoder.h
-   audioencoderinterface.h
-   audioencoderrepository.h audioencoderrepository.icc
+   libaudioencoderinterface.h
+   libaudioencoderrepository.h libaudioencoderrepository.icc
    simpleaudioencoder.h
 )
-LIST(APPEND audioencoder_sources
- advancedaudioencoder.cc
- audioencoderinterface.cc
- audioencoderrepository.cc
- simpleaudioencoder.cc
-)
-ADD_LIBRARY(audioencoder SHARED ${audioencoder_sources})
-
-SET_TARGET_PROPERTIES(audioencoder PROPERTIES
-   VERSION ${BUILD_VERSION}
-   SOVERSION ${BUILD_MAJOR}
+LIST(APPEND libaudioencoder_sources
+   advancedaudioencoder.cc
+   audioencoderinterface.cc
+   audioencoderrepository.cc
+   simpleaudioencoder.cc
 )
 
-ADD_LIBRARY(audioencoder-static STATIC ${audioencoder_sources})
+INSTALL(FILES ${libaudiodecoder_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-TARGET_LINK_LIBRARIES (audioencoder audiocodeccommon audiocommon ${audioencoder_libs} "${CMAKE_THREAD_LIBS_INIT}")
+ADD_LIBRARY(libaudioencoder-shared SHARED ${libaudioencoder_sources})
+ADD_LIBRARY(libaudioencoder-static STATIC ${libaudioencoder_sources})
+FOREACH(TYPE shared;static)
+   SET_TARGET_PROPERTIES(libaudioencoder-${TYPE} PROPERTIES OUTPUT_NAME audioencoder CLEAN_DIRECT_OUTPUT 1)
+   SET_TARGET_PROPERTIES(libaudioencoder-${TYPE} PROPERTIES
+      VERSION   ${BUILD_VERSION}
+      SOVERSION ${BUILD_MAJOR}
+   )
+   TARGET_LINK_LIBRARIES (libaudioencoder-${TYPE} libaudiocodeccommon-${TYPE} libaudiocommon-${TYPE} ${SCTP_LIB} ${CMAKE_THREAD_LIBS_INIT})
+   INSTALL(TARGETS libaudioencoder-${TYPE} DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ENDFOREACH()
 
-INSTALL(TARGETS audioencoder audioencoder-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
-INSTALL(FILES ${audioencoder_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-
-# ====== libaudiodecoder =======================================================
-LIST(APPEND audiodecoder_headers
+# ====== libaudiodecoder ====================================================
+LIST(APPEND libaudiodecoder_headers
    advancedaudiodecoder.h
    audiodecoderinterface.h
    audiodecoderrepository.h audiodecoderrepository.icc
    simpleaudiodecoder.h
 )
-LIST(APPEND audiodecoder_sources
+LIST(APPEND libaudiodecoder_sources
    advancedaudiodecoder.cc
    audiodecoderinterface.cc
    audiodecoderrepository.cc
    simpleaudiodecoder.cc
 )
-ADD_LIBRARY(audiodecoder SHARED ${audiodecoder_sources})
 
-SET_TARGET_PROPERTIES(audiodecoder PROPERTIES
-   VERSION ${BUILD_VERSION}
-   SOVERSION ${BUILD_MAJOR}
-)
+INSTALL(FILES ${libaudiodecoder_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-ADD_LIBRARY(audiodecoder-static STATIC ${audiodecoder_sources})
+ADD_LIBRARY(libaudiodecoder-shared SHARED ${libaudiodecoder_sources})
+ADD_LIBRARY(libaudiodecoder-static STATIC ${libaudiodecoder_sources})
+FOREACH(TYPE shared;static)
+   SET_TARGET_PROPERTIES(libaudiodecoder-${TYPE} PROPERTIES OUTPUT_NAME audiodecoder CLEAN_DIRECT_OUTPUT 1)
+   SET_TARGET_PROPERTIES(libaudiodecoder-${TYPE} PROPERTIES
+      VERSION   ${BUILD_VERSION}
+      SOVERSION ${BUILD_MAJOR}
+   )
+   TARGET_LINK_LIBRARIES (libaudiodecoder-${TYPE} libaudiocodeccommon-${TYPE} libaudiocommon-${TYPE} libmediainfo-${TYPE} libtdtoolbox-${TYPE} ${SCTP_LIB} ${CMAKE_THREAD_LIBS_INIT})
+   INSTALL(TARGETS libaudiodecoder-${TYPE} DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ENDFOREACH()
 
-TARGET_LINK_LIBRARIES (audiodecoder audiocodeccommon audiocommon mediainfo tdtoolbox ${audiodecoder_libs} "${CMAKE_THREAD_LIBS_INIT}")
 
-INSTALL(TARGETS audiodecoder audiodecoder-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
-INSTALL(FILES ${audiodecoder_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-
-
-# ====== librtpaudiocommon =======================================================
-LIST(APPEND rtpaudiocommon_headers
+# ====== librtpaudiocommon ==================================================
+LIST(APPEND librtpaudiocommon_headers
    audioclientapppacket.h
 )
-LIST(APPEND rtpaudiocommon_sources
+LIST(APPEND librtpaudiocommon_sources
    audioclientapppacket.cc
 )
-ADD_LIBRARY(rtpaudiocommon SHARED ${rtpaudiocommon_sources})
 
-SET_TARGET_PROPERTIES(rtpaudiocommon PROPERTIES
-   VERSION ${BUILD_VERSION}
-   SOVERSION ${BUILD_MAJOR}
-)
+INSTALL(FILES ${librtpaudiocommon_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-ADD_LIBRARY(rtpaudiocommon-static STATIC ${rtpaudiocommon_sources})
+ADD_LIBRARY(librtpaudiocommon-shared SHARED ${librtpaudiocommon_sources})
+ADD_LIBRARY(librtpaudiocommon-static STATIC ${librtpaudiocommon_sources})
+FOREACH(TYPE shared;static)
+   SET_TARGET_PROPERTIES(librtpaudiocommon-${TYPE} PROPERTIES OUTPUT_NAME rtpaudiocommon CLEAN_DIRECT_OUTPUT 1)
+   SET_TARGET_PROPERTIES(librtpaudiocommon-${TYPE} PROPERTIES
+      VERSION   ${BUILD_VERSION}
+      SOVERSION ${BUILD_MAJOR}
+   )
+   TARGET_LINK_LIBRARIES (librtpaudiocommon-${TYPE} ${SCTP_LIB} ${CMAKE_THREAD_LIBS_INIT})
+   INSTALL(TARGETS librtpaudiocommon-${TYPE} DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ENDFOREACH()
 
-TARGET_LINK_LIBRARIES (rtpaudiocommon ${rtpaudiocommon_libs} "${CMAKE_THREAD_LIBS_INIT}")
 
-INSTALL(TARGETS rtpaudiocommon rtpaudiocommon-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
-INSTALL(FILES ${rtpaudiocommon_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-
-
-# ====== librtpaudioserver =======================================================
-LIST(APPEND rtpaudioserver_headers
+# ====== librtpaudioserver ==================================================
+LIST(APPEND librtpaudioserver_headers
    audioserver.h audioserver.icc
 )
-LIST(APPEND rtpaudioserver_sources
+LIST(APPEND librtpaudioserver_sources
    audioserver.cc
 )
-ADD_LIBRARY(rtpaudioserver SHARED ${rtpaudioserver_sources})
+ADD_LIBRARY(librtpaudioserver SHARED ${librtpaudioserver_sources})
 
-SET_TARGET_PROPERTIES(rtpaudioserver PROPERTIES
+SET_TARGET_PROPERTIES(librtpaudioserver PROPERTIES
    VERSION ${BUILD_VERSION}
    SOVERSION ${BUILD_MAJOR}
 )
 
-ADD_LIBRARY(rtpaudioserver-static STATIC ${rtpaudioserver_sources})
+INSTALL(FILES ${librtpaudioserver_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-TARGET_LINK_LIBRARIES (rtpaudioserver rtpaudiocommon audioencoder rtpserver audioreader tdtoolbox ${rtpaudioserver_libs} "${CMAKE_THREAD_LIBS_INIT}")
+ADD_LIBRARY(librtpaudioserver-shared SHARED ${librtpaudioserver_sources})
+ADD_LIBRARY(librtpaudioserver-static STATIC ${librtpaudioserver_sources})
+FOREACH(TYPE shared;static)
+   SET_TARGET_PROPERTIES(librtpaudioserver-${TYPE} PROPERTIES OUTPUT_NAME rtpaudioserver CLEAN_DIRECT_OUTPUT 1)
+   SET_TARGET_PROPERTIES(librtpaudioserver-${TYPE} PROPERTIES
+      VERSION   ${BUILD_VERSION}
+      SOVERSION ${BUILD_MAJOR}
+   )
+   TARGET_LINK_LIBRARIES (librtpaudioserver-${TYPE} librtpaudiocommon-${TYPE} libaudioencoder-${TYPE} librtpserver-${TYPE} libaudioreader-${TYPE} libtdtoolbox-${TYPE} ${SCTP_LIB} ${CMAKE_THREAD_LIBS_INIT})
+   INSTALL(TARGETS librtpaudioserver-${TYPE} DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ENDFOREACH()
 
-INSTALL(TARGETS rtpaudioserver rtpaudioserver-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
-INSTALL(FILES ${rtpaudioserver_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-
-# ====== librtpaudioclient =======================================================
-LIST(APPEND rtpaudioclient_headers
+# ====== librtpaudioclient ==================================================
+LIST(APPEND librtpaudioclient_headers
    audioclient.h audioclient.icc
 )
-LIST(APPEND rtpaudioclient_sources
+LIST(APPEND librtpaudioclient_sources
    audioclient.cc
 )
-ADD_LIBRARY(rtpaudioclient SHARED ${rtpaudioclient_sources})
 
-SET_TARGET_PROPERTIES(rtpaudioclient PROPERTIES
-   VERSION ${BUILD_VERSION}
-   SOVERSION ${BUILD_MAJOR}
-)
+INSTALL(FILES ${librtpaudioclient_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-ADD_LIBRARY(rtpaudioclient-static STATIC ${rtpaudioclient_sources})
+ADD_LIBRARY(librtpaudioclient-shared SHARED ${librtpaudioclient_sources})
+ADD_LIBRARY(librtpaudioclient-static STATIC ${librtpaudioclient_sources})
+FOREACH(TYPE shared;static)
+   SET_TARGET_PROPERTIES(librtpaudioclient-${TYPE} PROPERTIES OUTPUT_NAME rtpaudioclient CLEAN_DIRECT_OUTPUT 1)
+   SET_TARGET_PROPERTIES(librtpaudioclient-${TYPE} PROPERTIES
+      VERSION   ${BUILD_VERSION}
+      SOVERSION ${BUILD_MAJOR}
+   )
+   TARGET_LINK_LIBRARIES (librtpaudioclient-${TYPE} librtpaudiocommon-${TYPE} libaudiocommon-${TYPE} libaudiodecoder-${TYPE} librtpclient-${TYPE} libmediainfo-${TYPE} libtdtoolbox-${TYPE} ${SCTP_LIB} ${CMAKE_THREAD_LIBS_INIT})
+   INSTALL(TARGETS librtpaudioclient-${TYPE} DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ENDFOREACH()
 
-TARGET_LINK_LIBRARIES (rtpaudioclient rtpaudiocommon audiodecoder audiocommon rtpclient mediainfo tdtoolbox ${rtpaudioclient_libs} "${CMAKE_THREAD_LIBS_INIT}")
 
-INSTALL(TARGETS rtpaudioclient rtpaudioclient-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
-INSTALL(FILES ${rtpaudioclient_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-
-
-# ====== libqosmgr =======================================================
-LIST(APPEND qosmgr_headers
+# ====== libqosmgr ==========================================================
+LIST(APPEND libqosmgr_headers
    bandwidthmanager.h bandwidthmanager.icc
    servicelevelagreement.h servicelevelagreement.icc
    pingerhost.h pingerhost.icc
@@ -410,26 +436,26 @@ LIST(APPEND qosmgr_headers
    sessiondescription.h
    streamdescription.h
 )
-LIST(APPEND qosmgr_sources
+LIST(APPEND libqosmgr_sources
    bandwidthmanager.cc
-   servicelevelagreement.cc
-
    roundtriptimepinger.cc
+   servicelevelagreement.cc
    streamdescription.cc
 )
-ADD_LIBRARY(qosmgr SHARED ${qosmgr_sources})
 
-SET_TARGET_PROPERTIES(qosmgr PROPERTIES
-   VERSION ${BUILD_VERSION}
-   SOVERSION ${BUILD_MAJOR}
-)
+INSTALL(FILES ${libqosmgr_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-ADD_LIBRARY(qosmgr-static STATIC ${qosmgr_sources})
-
-TARGET_LINK_LIBRARIES (qosmgr rtpserver tdtoolbox ${qosmgr_libs} "${CMAKE_THREAD_LIBS_INIT}")
-
-INSTALL(TARGETS qosmgr qosmgr-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
-INSTALL(FILES ${qosmgr_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+ADD_LIBRARY(libqosmgr-shared SHARED ${libqosmgr_sources})
+ADD_LIBRARY(libqosmgr-static STATIC ${libqosmgr_sources})
+FOREACH(TYPE shared;static)
+   SET_TARGET_PROPERTIES(libqosmgr-${TYPE} PROPERTIES OUTPUT_NAME tdrandomizer CLEAN_DIRECT_OUTPUT 1)
+   SET_TARGET_PROPERTIES(libqosmgr-${TYPE} PROPERTIES
+      VERSION   ${BUILD_VERSION}
+      SOVERSION ${BUILD_MAJOR}
+   )
+   TARGET_LINK_LIBRARIES (libqosmgr-${TYPE} librtpserver-${TYPE} libtdtoolbox-${TYPE} ${SCTP_LIB} ${CMAKE_THREAD_LIBS_INIT})
+   INSTALL(TARGETS libqosmgr-${TYPE} DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ENDFOREACH()
 
 
 
@@ -438,7 +464,7 @@ INSTALL(FILES ${qosmgr_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 #############################################################################
 
 ADD_EXECUTABLE(rtpa-server rtpa-server.cc)
-TARGET_LINK_LIBRARIES(rtpa-server qosmgr rtpaudioserver rtpserver tdtoolbox "${CMAKE_THREAD_LIBS_INIT}")
+TARGET_LINK_LIBRARIES(rtpa-server libqosmgr-shared librtpaudioserver-shared librtpserver-shared libtdtoolbox-shared ${CMAKE_THREAD_LIBS_INIT})
 INSTALL(TARGETS             rtpa-server
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         BUNDLE DESTINATION  ${CMAKE_INSTALL_BINDIR})
@@ -446,14 +472,14 @@ INSTALL(FILES rtpa-server.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
 
 
 ADD_EXECUTABLE(rtpa-client rtpa-client.cc)
-TARGET_LINK_LIBRARIES(rtpa-client rtpaudioclient audiodecoder audiowriter audiocommon tdtoolbox "${CMAKE_THREAD_LIBS_INIT}")
+TARGET_LINK_LIBRARIES(rtpa-client librtpaudioclient-shared libaudiodecoder-shared libaudiowriter-shared libaudiocommon-shared libtdtoolbox-shared ${CMAKE_THREAD_LIBS_INIT})
 INSTALL(TARGETS             rtpa-client
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         BUNDLE DESTINATION  ${CMAKE_INSTALL_BINDIR})
 INSTALL(FILES rtpa-client.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
 
 ADD_EXECUTABLE(rtpa-vclient rtpa-vclient.cc)
-TARGET_LINK_LIBRARIES(rtpa-vclient rtpaudioclient audiodecoder audiowriter audiocommon tdtoolbox "${CMAKE_THREAD_LIBS_INIT}")
+TARGET_LINK_LIBRARIES(rtpa-vclient librtpaudioclient-shared libaudiodecoder-shared libaudiowriter-shared libaudiocommon-shared libtdtoolbox-shared ${CMAKE_THREAD_LIBS_INIT})
 INSTALL(TARGETS             rtpa-vclient
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         BUNDLE DESTINATION  ${CMAKE_INSTALL_BINDIR})
@@ -462,7 +488,7 @@ INSTALL(FILES rtpa-vclient.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
 IF (WITH_QT)
    ADD_EXECUTABLE(rtpa-qclient rtpa-qclient.cc qaudiomixer.cc qinfotabwidget.cc qspectrumanalyzer.cc)
    qt5_use_modules(rtpa-qclient Core Widgets)
-   TARGET_LINK_LIBRARIES(rtpa-qclient rtpaudioclient audiodecoder audiowriter audiocommon tdtoolbox "${CMAKE_THREAD_LIBS_INIT}")
+   TARGET_LINK_LIBRARIES(rtpa-qclient librtpaudioclient-shared libaudiodecoder-shared libaudiowriter-shared libaudiocommon-shared libtdtoolbox-shared "${CMAKE_THREAD_cLIBS_INIT}")
    INSTALL(TARGETS             rtpa-qclient
          RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
          BUNDLE DESTINATION  ${CMAKE_INSTALL_BINDIR})

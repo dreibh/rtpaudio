@@ -1,10 +1,10 @@
 include_directories(.)
 
 # ====== libmpegsound =======================================================
-LIST(APPEND mpegsound_headers
+LIST(APPEND libmpegsound_headers
    mpegsound.h mpegsound_locals.h
 )
-LIST(APPEND mpegsound_sources
+LIST(APPEND libmpegsound_sources
    soundinputstream.cc fileinput.cc httpinput.cc
    soundplayer.cc rawplayer.cc rawtofile.cc
    mpegtable.cc filter.cc filter_2.cc
@@ -15,25 +15,21 @@ LIST(APPEND mpegsound_sources
    xingheader.cc esdplayer.cc
    sdlplayer.cc cyclicbuffer.cc
 )
-ADD_LIBRARY(mpegsound SHARED ${mpegsound_sources})
 
-set_target_properties(mpegsound PROPERTIES
-   VERSION ${BUILD_VERSION}
-   SOVERSION ${BUILD_MAJOR}
-)
+INSTALL(FILES ${libmpegsound_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-ADD_LIBRARY(mpegsound-static STATIC ${mpegsound_sources})
+ADD_LIBRARY(libmpegsound-shared SHARED ${libmpegsound_sources})
+ADD_LIBRARY(libmpegsound-static STATIC ${libmpegsound_sources})
+FOREACH(TYPE shared;static)
+   SET_TARGET_PROPERTIES(libmpegsound-${TYPE} PROPERTIES OUTPUT_NAME mpegsound CLEAN_DIRECT_OUTPUT 1)
+   SET_TARGET_PROPERTIES(libmpegsound-${TYPE} PROPERTIES
+      VERSION   ${BUILD_VERSION}
+      SOVERSION ${BUILD_MAJOR}
+   )
+   TARGET_LINK_LIBRARIES (libmpegsound-${TYPE} librtpserver-${TYPE} "${CMAKE_THREAD_LIBS_INIT}")
+   INSTALL(TARGETS libmpegsound-${TYPE} DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
-if(THREADS_HAVE_PTHREAD_ARG)
-   TARGET_COMPILE_OPTIONS(PUBLIC mpegsound "-pthread")
-endif()
-TARGET_LINK_LIBRARIES (mpegsound ${mpegsound_libs} "${CMAKE_THREAD_LIBS_INIT}")
+   # FIXME: The libmpegsound sources need a review!
+   SET_TARGET_PROPERTIES(libmpegsound-${TYPE} PROPERTIES COMPILE_FLAGS "-Wno-unused-private-field -Wno-aggressive-loop-optimizations -Wno-narrowing -Wno-sequence-point -Wno-unused-result -Wno-unused-but-set-variable -Wno-strict-aliasing -Wno-empty-body -Wno-unknown-warning-option -Wno-deprecated-register -Wno-self-assign")
 
-
-# FIXME: The libmpegsound sources need a review!
-SET_TARGET_PROPERTIES(mpegsound        PROPERTIES COMPILE_FLAGS "-Wno-unused-private-field -Wno-aggressive-loop-optimizations -Wno-narrowing -Wno-sequence-point -Wno-unused-result -Wno-unused-but-set-variable -Wno-strict-aliasing -Wno-empty-body -Wno-unknown-warning-option -Wno-deprecated-register -Wno-self-assign")
-SET_TARGET_PROPERTIES(mpegsound-static PROPERTIES COMPILE_FLAGS "-Wno-unused-private-field -Wno-aggressive-loop-optimizations -Wno-narrowing -Wno-sequence-point -Wno-unused-result -Wno-unused-but-set-variable -Wno-strict-aliasing -Wno-empty-body -Wno-unknown-warning-option -Wno-deprecated-register -Wno-self-assign")
-
-
-INSTALL(TARGETS mpegsound mpegsound-static DESTINATION ${CMAKE_INSTALL_LIBDIR})
-INSTALL(FILES ${mpegsound_headers} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+ENDFOREACH()
