@@ -5,5 +5,5 @@
 /usr/include/rtpreceiver.icc
 /usr/include/sourcestateinfo.h
 /usr/include/sourcestateinfo.icc
-/usr/lib*/librtpclient*.a
-/usr/lib*/librtpclient*.so
+/usr/lib/*/librtpclient*.a
+/usr/lib/*/librtpclient*.so

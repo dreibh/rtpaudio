@@ -3,5 +3,5 @@
 /usr/include/audioencoderrepository.h
 /usr/include/audioencoderrepository.icc
 /usr/include/simpleaudioencoder.h
-/usr/lib*/libaudioencoder*.a
-/usr/lib*/libaudioencoder*.so
+/usr/lib/*/libaudioencoder*.a
+/usr/lib/*/libaudioencoder*.so

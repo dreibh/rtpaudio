@@ -1,4 +1,4 @@
 /usr/include/audioserver.h
 /usr/include/audioserver.icc
-/usr/lib*/librtpaudioserver*.a
-/usr/lib*/librtpaudioserver*.so
+/usr/lib/*/librtpaudioserver*.a
+/usr/lib/*/librtpaudioserver*.so

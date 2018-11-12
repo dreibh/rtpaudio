@@ -19,5 +19,5 @@
 /usr/include/rtpsender.icc
 /usr/include/trafficshaper.h
 /usr/include/trafficshaper.icc
-/usr/lib*/librtpserver*.a
-/usr/lib*/librtpserver*.so
+/usr/lib/*/librtpserver*.a
+/usr/lib/*/librtpserver*.so

@@ -8,5 +8,5 @@
 /usr/include/servicelevelagreement.icc
 /usr/include/sessiondescription.h
 /usr/include/streamdescription.h
-/usr/lib*/libqosmgr*.a
-/usr/lib*/libqosmgr*.so
+/usr/lib/*/libqosmgr*.a
+/usr/lib/*/libqosmgr*.so

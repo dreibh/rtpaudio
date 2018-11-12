@@ -1,4 +1,4 @@
 /usr/include/audioclient.h
 /usr/include/audioclient.icc
-/usr/lib*/librtpaudioclient*.a
-/usr/lib*/librtpaudioclient*.so
+/usr/lib/*/librtpaudioclient*.a
+/usr/lib/*/librtpaudioclient*.so

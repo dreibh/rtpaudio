@@ -8,5 +8,5 @@
 /usr/include/fft.h
 /usr/include/multiaudiowriter.h
 /usr/include/spectrumanalyzer.h
-/usr/lib*/libaudiowriter*.a
-/usr/lib*/libaudiowriter*.so
+/usr/lib/*/libaudiowriter*.a
+/usr/lib/*/libaudiowriter*.so

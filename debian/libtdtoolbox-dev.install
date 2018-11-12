@@ -40,5 +40,5 @@
 /usr/include/trafficclassvalues.icc
 /usr/include/unixaddress.h
 /usr/include/unixaddress.icc
-/usr/lib*/libtdtoolbox*.a
-/usr/lib*/libtdtoolbox*.so
+/usr/lib/*/libtdtoolbox*.a
+/usr/lib/*/libtdtoolbox*.so
