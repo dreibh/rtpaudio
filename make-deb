@@ -80,7 +80,7 @@ fi
 echo -e ""
 echo -e "\x1b[34m`date +%FT%H:%M:%S`: ====== Calling wrap-and-sort ==========================================\x1b[0m"
 echo -e ""
-wrap-and-sort -a -v || exit 1
+wrap-and-sort -a -v || true
 
 
 echo -e ""
@@ -194,6 +194,10 @@ for DISTRIBUTION in $DISTRIBUTIONS ; do
             find debian/ -maxdepth 1 -name "*.symbols" | xargs --no-run-if-empty rm -f
          fi
       fi
+
+      # Remove additional newlines at the end of the file:
+      sed -i -e :a -e '/^\n*$/{$d;N;};/\n$/ba' debian/changelog.new
+
       mv debian/changelog.new debian/changelog
 
       # ------ Old distributions not supporting new Debian format -----------
