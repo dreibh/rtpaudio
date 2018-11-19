@@ -834,5 +834,5 @@ Requires: %{name}-rtpaudio-server
 
 
 %changelog
-* Thu Nov 23 2017-2019 Thomas Dreibholz <dreibh@simula.no> 2.0.0~beta4
+* Thu Nov 23 2017 Thomas Dreibholz <dreibh@simula.no> 2.0.0~beta4
 - Initial RPM release
