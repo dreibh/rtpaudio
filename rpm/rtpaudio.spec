@@ -46,7 +46,6 @@ Requires: %{name} = %{version}-%{release}
  The library is provided by this package.
 
 %files libmpegsound
-%defattr(-,root,root,-)
 /usr/lib*/libmpegsound.so*
 
 
@@ -62,7 +61,6 @@ Requires: %{name} = %{version}-%{release}
  The library is provided by this package.
 
 %files libmpegsound-devel
-%defattr(-,root,root,-)
 /usr/include/mpegsound.h
 /usr/include/mpegsound_locals.h
 /usr/lib*/libmpegsound*.a
@@ -81,7 +79,6 @@ designed for QoS performance analysis and teaching purposes.
 This package provides a shared library for common helper functions.
 
 %files libtdtoolbox
-%defattr(-,root,root,-)
 /usr/lib*/libtdtoolbox.so*
 
 
@@ -98,7 +95,6 @@ designed for QoS performance analysis and teaching purposes.
 This package provides the development files for libtdtoolbox.
 
 %files libtdtoolbox-devel
-%defattr(-,root,root,-)
 /usr/lib*/libtdtoolbox*.a
 /usr/lib*/libtdtoolbox*.so
 /usr/include/breakdetector.h
@@ -158,7 +154,6 @@ designed for QoS performance analysis and teaching purposes.
 This package provides a shared library for media information handling.
 
 %files libmediainfo
-%defattr(-,root,root,-)
 /usr/lib*/libmediainfo.so*
 
 
@@ -175,7 +170,6 @@ designed for QoS performance analysis and teaching purposes.
 This package provides the development files for libmediainfo.
 
 %files libmediainfo-devel
-%defattr(-,root,root,-)
 /usr/lib*/libmediainfo*.so
 /usr/lib*/libmediainfo*.a
 /usr/include/mediainfo.h
@@ -194,7 +188,6 @@ Requires: %{name}-libtdtoolbox
  This package provides a shared library for common audio data handling.
 
 %files libaudiocommon
-%defattr(-,root,root,-)
 /usr/lib*/libaudiocommon.so*
 
 
@@ -212,7 +205,6 @@ Requires: %{name}-libtdtoolbox-devel
  This package provides the development files for common audio data handling.
 
 %files libaudiocommon-devel
-%defattr(-,root,root,-)
 /usr/lib*/libaudiocommon*.a
 /usr/lib*/libaudiocommon*.so
 /usr/include/audioquality.h
@@ -238,7 +230,6 @@ designed for QoS performance analysis and teaching purposes.
 This package provides a shared library for audio input reading.
 
 %files libaudioreader
-%defattr(-,root,root,-)
 /usr/lib*/libaudioreader.so*
 
 
@@ -259,7 +250,6 @@ designed for QoS performance analysis and teaching purposes.
 This package provides the development files for audio input reading.
 
 %files libaudioreader-devel
-%defattr(-,root,root,-)
 /usr/lib*/libaudioreader*.a
 /usr/lib*/libaudioreader*.so
 /usr/include/audioreaderinterface.h
@@ -283,7 +273,6 @@ Requires: %{name}-libtdtoolbox
  This package provides a shared library for audio output writing.
 
 %files libaudiowriter
-%defattr(-,root,root,-)
 /usr/lib*/libaudiowriter.so*
 
 
@@ -303,7 +292,6 @@ Requires: %{name}-libtdtoolbox-devel
  This package provides the development files for audio output writing.
 
 %files libaudiowriter-devel
-%defattr(-,root,root,-)
 /usr/lib*/libaudiowriter*.a
 /usr/lib*/libaudiowriter*.so
 /usr/include/audiowriterinterface.h
@@ -331,7 +319,6 @@ Requires: %{name}-libaudiocommon
  This package provides a shared library for common audio codec handling.
 
 %files libaudiocodeccommon
-%defattr(-,root,root,-)
 /usr/lib*/libaudiocodeccommon.so*
 
 
@@ -349,7 +336,6 @@ Requires: %{name}-libaudiocommon-devel
  This package provides the development files for common audio codec handling.
 
 %files libaudiocodeccommon-devel
-%defattr(-,root,root,-)
 /usr/lib*/libaudiocodeccommon*.a
 /usr/lib*/libaudiocodeccommon*.so
 /usr/include/advancedaudiopacket.h
@@ -370,7 +356,6 @@ Requires: %{name}-libaudiocommon
  This package provides a shared library for audio encoding.
 
 %files libaudioencoder
-%defattr(-,root,root,-)
 /usr/lib*/libaudioencoder.so*
 
 
@@ -389,7 +374,6 @@ Requires: %{name}-libaudiocommon-devel
  This package provides the development files for audio encoding.
 
 %files libaudioencoder-devel
-%defattr(-,root,root,-)
 /usr/lib*/libaudioencoder*.a
 /usr/lib*/libaudioencoder*.so
 /usr/include/advancedaudioencoder.h
@@ -415,7 +399,6 @@ Requires: %{name}-libtdtoolbox
  This package provides a shared library for audio decoding.
 
 %files libaudiodecoder
-%defattr(-,root,root,-)
 /usr/lib*/libaudiodecoder.so*
 
 
@@ -436,7 +419,6 @@ Requires: %{name}-libtdtoolbox-devel
  This package provides the development files for audio decoding.
 
 %files libaudiodecoder-devel
-%defattr(-,root,root,-)
 /usr/lib*/libaudiodecoder*.a
 /usr/lib*/libaudiodecoder*.so
 /usr/include/advancedaudiodecoder.h
@@ -458,7 +440,6 @@ Requires: %{name} = %{version}-%{release}
  This package provides a shared library for common RTP audio handling.
 
 %files librtpaudiocommon
-%defattr(-,root,root,-)
 /usr/lib*/librtpaudiocommon.so*
 
 
@@ -475,7 +456,6 @@ Requires: %{name}-librtpaudiocommon
  This package provides the development files for common RTP audio handling.
 
 %files librtpaudiocommon-devel
-%defattr(-,root,root,-)
 /usr/lib*/librtpaudiocommon*.a
 /usr/lib*/librtpaudiocommon*.so
 /usr/include/audioclientapppacket.h
@@ -499,7 +479,6 @@ Requires: %{name}-libtdtoolbox
  This package provides a shared library for RTP client-side audio handling.
 
 %files librtpaudioclient
-%defattr(-,root,root,-)
 /usr/lib*/librtpaudioclient.so*
 
 
@@ -522,7 +501,6 @@ Requires: %{name}-libtdtoolbox-devel
  This package provides the development files for RTP client-side audio handling.
 
 %files librtpaudioclient-devel
-%defattr(-,root,root,-)
 /usr/lib*/librtpaudioclient*.a
 /usr/lib*/librtpaudioclient*.so
 /usr/include/audioclient.h
@@ -546,7 +524,6 @@ Requires: %{name}-libtdtoolbox
  This package provides a shared library for RTP server-side audio handling.
 
 %files librtpaudioserver
-%defattr(-,root,root,-)
 /usr/lib*/librtpaudioserver.so*
 
 
@@ -568,7 +545,6 @@ Requires: %{name}-libtdtoolbox-devel
  This package provides the development files for RTP server-side audio handling.
 
 %files librtpaudioserver-devel
-%defattr(-,root,root,-)
 /usr/lib*/librtpaudioserver*.a
 /usr/lib*/librtpaudioserver*.so
 /usr/include/audioserver.h
@@ -587,7 +563,6 @@ Requires: %{name} = %{version}-%{release}
  This package provides a shared library for common RTP handling.
 
 %files librtpcommon
-%defattr(-,root,root,-)
 /usr/lib*/librtpcommon.so*
 
 
@@ -604,7 +579,6 @@ Requires: %{name}-librtpcommon
  This package provides the development files for common RTP handling.
 
 %files librtpcommon-devel
-%defattr(-,root,root,-)
 /usr/lib*/librtpcommon*.a
 /usr/lib*/librtpcommon*.so
 /usr/include/rtcppacket.h
@@ -627,7 +601,6 @@ Requires: %{name}-libtdtoolbox
  This package provides a shared library for RTP client-side handling.
 
 %files librtpclient
-%defattr(-,root,root,-)
 /usr/lib*/librtpclient.so*
 
 
@@ -646,7 +619,6 @@ Requires: %{name}-libtdtoolbox-devel
  This package provides the development files for RTP client-side handling.
 
 %files librtpclient-devel
-%defattr(-,root,root,-)
 /usr/lib*/librtpclient*.a
 /usr/lib*/librtpclient*.so
 /usr/include/decoderinterface.h
@@ -672,7 +644,6 @@ Requires: %{name}-libtdtoolbox
  This package provides a shared library for RTP server-side handling.
 
 %files librtpserver
-%defattr(-,root,root,-)
 /usr/lib*/librtpserver.so*
 
 
@@ -691,7 +662,6 @@ Requires: %{name}-libtdtoolbox-devel
  This package provides the development files for RTP server-side handling.
 
 %files librtpserver-devel
-%defattr(-,root,root,-)
 /usr/lib*/librtpserver*.a
 /usr/lib*/librtpserver*.so
 /usr/include/abstractlayerdescription.h
@@ -731,7 +701,6 @@ Requires: %{name}-libtdtoolbox
  This package provides a shared library for the QoS manager.
 
 %files libqosmgr
-%defattr(-,root,root,-)
 /usr/lib*/libqosmgr.so*
 
 
@@ -750,7 +719,6 @@ Requires: %{name}-libtdtoolbox-devel
  This package provides the development files for the QoS manager.
 
 %files libqosmgr-devel
-%defattr(-,root,root,-)
 /usr/lib*/libqosmgr*.a
 /usr/lib*/libqosmgr*.so
 /usr/include/bandwidthmanager.h
@@ -786,7 +754,6 @@ Recommends: traceroute
  This package provides the RTP Audio clients.
 
 %files rtpaudio-clients
-%defattr(-,root,root,-)
 /usr/bin/rtpa-client
 /usr/bin/rtpa-qclient
 /usr/bin/rtpa-vclient
@@ -815,7 +782,6 @@ Recommends: traceroute
  This package provides the RTP Audio server.
 
 %files rtpaudio-server
-%defattr(-,root,root,-)
 /usr/bin/rtpa-server
 /usr/share/man/man1/rtpa-server.1.gz
 
