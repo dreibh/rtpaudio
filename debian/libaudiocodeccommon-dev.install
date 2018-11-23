@@ -1,1 +1,4 @@
-/usr/lib/*/libaudiocodeccommon.so.*
+/usr/include/advancedaudiopacket.h
+/usr/include/simpleaudiopacket.h
+/usr/lib/*/libaudiocodeccommon*.a
+/usr/lib/*/libaudiocodeccommon*.so
