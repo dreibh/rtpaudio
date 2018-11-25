@@ -492,7 +492,7 @@ Description: RTP Audio server
  .
  This package provides the RTP Audio server.
 
-Package: rtpaudio
+Package: rtpaudio-all
 Architecture: any
 Depends: rtpaudio-clients,
          rtpaudio-server,
