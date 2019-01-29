@@ -103,8 +103,6 @@ This package provides the development files for libtdtoolbox.
 /usr/include/internetflow.icc
 /usr/include/multitimerthread.h
 /usr/include/multitimerthread.icc
-/usr/include/packetaddress.h
-/usr/include/packetaddress.icc
 /usr/include/portableaddress.h
 /usr/include/portableaddress.icc
 /usr/include/randomizer.h

@@ -13,7 +13,6 @@ LIST(APPEND libtdtoolbox_headers
    internetaddress.h internetaddress.icc
    internetflow.h internetflow.icc
    multitimerthread.h multitimerthread.icc
-   packetaddress.h packetaddress.icc
    portableaddress.h portableaddress.icc
    randomizer.h randomizer.icc
    ringbuffer.h ringbuffer.icc
@@ -33,7 +32,6 @@ LIST(APPEND libtdtoolbox_sources
    breakdetector.cc
    condition.cc
    internetaddress.cc internetflow.cc
-   packetaddress.cc
    randomizer.cc
    ringbuffer.cc
    seqnumvalidator.cc
