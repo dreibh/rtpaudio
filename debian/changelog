@@ -3,4 +3,4 @@ rtpaudio (2.0.0~beta7-1ubuntu1) disco; urgency=low
   * New upstream package.
   * Initial Debian release (Closes: #669908).
 
- -- Thomas Dreibholz <dreibh@iem.uni-due.de>  Wed, 17 Oct 2018 10:10:10 +0200
+ -- Thomas Dreibholz <dreibh@iem.uni-due.de>  Wed, 27 Feb 2019 08:08:08 +0800
