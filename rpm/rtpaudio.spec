@@ -719,12 +719,12 @@ Recommends: traceroute
  This package provides the RTP Audio clients.
 
 %files rtpaudio-clients
-/usr/bin/rtpa-client
-/usr/bin/rtpa-qclient
-/usr/bin/rtpa-vclient
-/usr/share/man/man1/rtpa-client.1.gz
-/usr/share/man/man1/rtpa-qclient.1.gz
-/usr/share/man/man1/rtpa-vclient.1.gz
+%{_bindir}/rtpa-client
+%{_bindir}/rtpa-qclient
+%{_bindir}/rtpa-vclient
+%{_mandir}/man1/rtpa-client.1.gz
+%{_mandir}/man1/rtpa-qclient.1.gz
+%{_mandir}/man1/rtpa-vclient.1.gz
 
 
 %package rtpaudio-server
@@ -746,8 +746,8 @@ Recommends: traceroute
  This package provides the RTP Audio server.
 
 %files rtpaudio-server
-/usr/bin/rtpa-server
-/usr/share/man/man1/rtpa-server.1.gz
+%{_bindir}/rtpa-server
+%{_mandir}/man1/rtpa-server.1.gz
 
 
 %package all
