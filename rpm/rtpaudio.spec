@@ -5,7 +5,7 @@ Summary: Reliable Server Pooling (RSerPool) implementation
 License: GPL-3.0
 Group: Applications/Internet
 URL: https://www.uni-due.de/~be0001/rtpaudio/
-Source: https://www.uni-due.de/~be0001/rtpaudio/download/%{name}-%{version}.tar.gz
+Source: https://www.uni-due.de/~be0001/rtpaudio/download/%{name}-%{version}.tar.xz
 
 AutoReqProv: on
 BuildRequires: cmake

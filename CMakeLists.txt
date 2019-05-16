@@ -19,7 +19,7 @@ INCLUDE(GNUInstallDirs)
 # PACKAGING
 #############################################################################
 
-SET(CPACK_SOURCE_GENERATOR "TGZ")
+SET(CPACK_SOURCE_GENERATOR "TXZ")
 SET(CPACK_SOURCE_PACKAGE_FILE_NAME
    "${CMAKE_PROJECT_NAME}-${BUILD_MAJOR}.${BUILD_MINOR}.${BUILD_PATCH}")
 SET(CPACK_SOURCE_IGNORE_FILES
@@ -31,6 +31,7 @@ ADD_CUSTOM_TARGET(dist COMMAND ${CMAKE_MAKE_PROGRAM} clean package_source)
 
 INCLUDE(CheckIncludeFile)
 INCLUDE(CheckStructHasMember)
+INCLUDE(CheckCCompilerFlag)
 
 
 #############################################################################
@@ -189,8 +190,20 @@ ENDIF()
 # COMPILER FLAGS
 #############################################################################
 
-SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -std=c11   -Wall -Werror -Wno-unused-function -Wno-unused-parameter -Wno-overlength-strings -Wno-array-bounds -Wno-stringop-truncation -Wno-vla-larger-than")
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Werror -Wno-unused-function -Wno-unused-parameter -Wno-overlength-strings -Wno-array-bounds -Wno-stringop-truncation -Wno-vla-larger-than")
+SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -std=c11   -Wall -Werror -Wno-unused-function -Wno-unused-parameter -Wno-overlength-strings -Wno-array-bounds")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Werror -Wno-unused-function -Wno-unused-parameter -Wno-overlength-strings -Wno-array-bounds")
+
+CHECK_C_COMPILER_FLAG(-Wno-stringop-truncation HAS_WNO_STRINGOP_TRUNCATION)
+IF (HAS_WNO_STRINGOP_TRUNCATION)
+    SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -Wno-stringop-truncation")
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-stringop-truncation")
+ENDIF()
+
+CHECK_C_COMPILER_FLAG(-Wno-vla-larger-than HAS_WVLA_LARGER_THAN)
+IF (HAS_WVLA_LARGER_THAN)
+    SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -Wno-vla-larger-than")
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-vla-larger-than")
+ENDIF()
 
 IF (CMAKE_BUILD_TYPE MATCHES DEBUG)
     MESSAGE(STATUS "Building in DEBUG mode")
