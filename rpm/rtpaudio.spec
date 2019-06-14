@@ -1,5 +1,5 @@
 Name: rtpaudio
-Version: 2.0.0~beta7
+Version: 2.0.0~beta8
 Release: 1
 Summary: Reliable Server Pooling (RSerPool) implementation
 License: GPL-3.0
