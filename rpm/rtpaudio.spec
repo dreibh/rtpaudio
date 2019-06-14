@@ -45,7 +45,7 @@ Group: Development/Libraries
  The library is provided by this package.
 
 %files libmpegsound
-/usr/lib*/libmpegsound.so*
+%{_libdir}/libmpegsound.so*
 
 
 %package libmpegsound-devel
@@ -59,10 +59,10 @@ Group: Development/Libraries
  The library is provided by this package.
 
 %files libmpegsound-devel
-/usr/include/mpegsound.h
-/usr/include/mpegsound_locals.h
-/usr/lib*/libmpegsound*.a
-/usr/lib*/libmpegsound*.so
+%{_includedir}/mpegsound.h
+%{_includedir}/mpegsound_locals.h
+%{_libdir}/libmpegsound*.a
+%{_libdir}/libmpegsound*.so
 
 
 %package libtdtoolbox
@@ -76,7 +76,7 @@ designed for QoS performance analysis and teaching purposes.
 This package provides a shared library for common helper functions.
 
 %files libtdtoolbox
-/usr/lib*/libtdtoolbox.so*
+%{_libdir}/libtdtoolbox.so*
 
 
 %package libtdtoolbox-devel
@@ -91,48 +91,48 @@ designed for QoS performance analysis and teaching purposes.
 This package provides the development files for libtdtoolbox.
 
 %files libtdtoolbox-devel
-/usr/lib*/libtdtoolbox*.a
-/usr/lib*/libtdtoolbox*.so
-/usr/include/breakdetector.h
-/usr/include/condition.h
-/usr/include/condition.icc
-/usr/include/ext_socket.h
-/usr/include/internetaddress.h
-/usr/include/internetaddress.icc
-/usr/include/internetflow.h
-/usr/include/internetflow.icc
-/usr/include/multitimerthread.h
-/usr/include/multitimerthread.icc
-/usr/include/portableaddress.h
-/usr/include/portableaddress.icc
-/usr/include/randomizer.h
-/usr/include/randomizer.icc
-/usr/include/ringbuffer.h
-/usr/include/ringbuffer.icc
-/usr/include/seqnumvalidator.h
-/usr/include/seqnumvalidator.icc
-/usr/include/socketaddress.h
-/usr/include/socketaddress.icc
-/usr/include/synchronizable.h
-/usr/include/synchronizable.icc
-/usr/include/tdsystem.h
-/usr/include/tdin6.h
-/usr/include/tdmessage.h
-/usr/include/tdmessage.icc
-/usr/include/tdsocket.h
-/usr/include/tdsocket.icc
-/usr/include/tdstrings.h
-/usr/include/tdstrings.icc
-/usr/include/thread.h
-/usr/include/thread.icc
-/usr/include/timedthread.h
-/usr/include/timedthread.icc
-/usr/include/tools.h
-/usr/include/tools.icc
-/usr/include/trafficclassvalues.h
-/usr/include/trafficclassvalues.icc
-/usr/include/unixaddress.h
-/usr/include/unixaddress.icc
+%{_libdir}/libtdtoolbox*.a
+%{_libdir}/libtdtoolbox*.so
+%{_includedir}/breakdetector.h
+%{_includedir}/condition.h
+%{_includedir}/condition.icc
+%{_includedir}/ext_socket.h
+%{_includedir}/internetaddress.h
+%{_includedir}/internetaddress.icc
+%{_includedir}/internetflow.h
+%{_includedir}/internetflow.icc
+%{_includedir}/multitimerthread.h
+%{_includedir}/multitimerthread.icc
+%{_includedir}/portableaddress.h
+%{_includedir}/portableaddress.icc
+%{_includedir}/randomizer.h
+%{_includedir}/randomizer.icc
+%{_includedir}/ringbuffer.h
+%{_includedir}/ringbuffer.icc
+%{_includedir}/seqnumvalidator.h
+%{_includedir}/seqnumvalidator.icc
+%{_includedir}/socketaddress.h
+%{_includedir}/socketaddress.icc
+%{_includedir}/synchronizable.h
+%{_includedir}/synchronizable.icc
+%{_includedir}/tdsystem.h
+%{_includedir}/tdin6.h
+%{_includedir}/tdmessage.h
+%{_includedir}/tdmessage.icc
+%{_includedir}/tdsocket.h
+%{_includedir}/tdsocket.icc
+%{_includedir}/tdstrings.h
+%{_includedir}/tdstrings.icc
+%{_includedir}/thread.h
+%{_includedir}/thread.icc
+%{_includedir}/timedthread.h
+%{_includedir}/timedthread.icc
+%{_includedir}/tools.h
+%{_includedir}/tools.icc
+%{_includedir}/trafficclassvalues.h
+%{_includedir}/trafficclassvalues.icc
+%{_includedir}/unixaddress.h
+%{_includedir}/unixaddress.icc
 
 
 %package libmediainfo
@@ -147,7 +147,7 @@ designed for QoS performance analysis and teaching purposes.
 This package provides a shared library for media information handling.
 
 %files libmediainfo
-/usr/lib*/libmediainfo.so*
+%{_libdir}/libmediainfo.so*
 
 
 %package libmediainfo-devel
@@ -162,9 +162,9 @@ designed for QoS performance analysis and teaching purposes.
 This package provides the development files for libmediainfo.
 
 %files libmediainfo-devel
-/usr/lib*/libmediainfo*.so
-/usr/lib*/libmediainfo*.a
-/usr/include/mediainfo.h
+%{_libdir}/libmediainfo*.so
+%{_libdir}/libmediainfo*.a
+%{_includedir}/mediainfo.h
 
 
 %package libaudiocommon
@@ -179,7 +179,7 @@ Requires: %{name}-libtdtoolbox = %{version}-%{release}
  This package provides a shared library for common audio data handling.
 
 %files libaudiocommon
-/usr/lib*/libaudiocommon.so*
+%{_libdir}/libaudiocommon.so*
 
 
 %package libaudiocommon-devel
@@ -195,13 +195,13 @@ Requires: %{name}-libtdtoolbox-devel = %{version}-%{release}
  This package provides the development files for common audio data handling.
 
 %files libaudiocommon-devel
-/usr/lib*/libaudiocommon*.a
-/usr/lib*/libaudiocommon*.so
-/usr/include/audioquality.h
-/usr/include/audioqualityinterface.h
-/usr/include/audioconverter.h
-/usr/include/audioquality.icc
-/usr/include/audioqualityinterface.icc
+%{_libdir}/libaudiocommon*.a
+%{_libdir}/libaudiocommon*.so
+%{_includedir}/audioquality.h
+%{_includedir}/audioqualityinterface.h
+%{_includedir}/audioconverter.h
+%{_includedir}/audioquality.icc
+%{_includedir}/audioqualityinterface.icc
 
 
 %package libaudioreader
@@ -219,7 +219,7 @@ designed for QoS performance analysis and teaching purposes.
 This package provides a shared library for audio input reading.
 
 %files libaudioreader
-/usr/lib*/libaudioreader.so*
+%{_libdir}/libaudioreader.so*
 
 
 %package libaudioreader-devel
@@ -238,12 +238,12 @@ designed for QoS performance analysis and teaching purposes.
 This package provides the development files for audio input reading.
 
 %files libaudioreader-devel
-/usr/lib*/libaudioreader*.a
-/usr/lib*/libaudioreader*.so
-/usr/include/audioreaderinterface.h
-/usr/include/mp3audioreader.h
-/usr/include/multiaudioreader.h
-/usr/include/wavaudioreader.h
+%{_libdir}/libaudioreader*.a
+%{_libdir}/libaudioreader*.so
+%{_includedir}/audioreaderinterface.h
+%{_includedir}/mp3audioreader.h
+%{_includedir}/multiaudioreader.h
+%{_includedir}/wavaudioreader.h
 
 
 %package libaudiowriter
@@ -260,7 +260,7 @@ Requires: %{name}-libtdtoolbox = %{version}-%{release}
  This package provides a shared library for audio output writing.
 
 %files libaudiowriter
-/usr/lib*/libaudiowriter.so*
+%{_libdir}/libaudiowriter.so*
 
 
 %package libaudiowriter-devel
@@ -278,18 +278,18 @@ Requires: %{name}-libtdtoolbox-devel = %{version}-%{release}
  This package provides the development files for audio output writing.
 
 %files libaudiowriter-devel
-/usr/lib*/libaudiowriter*.a
-/usr/lib*/libaudiowriter*.so
-/usr/include/audiowriterinterface.h
-/usr/include/multiaudiowriter.h
-/usr/include/audiodebug.h
-/usr/include/audiodevice.h
-/usr/include/audiodevice.icc
-/usr/include/audiomixer.h
-/usr/include/audiomixer.icc
-/usr/include/audionull.h
-/usr/include/spectrumanalyzer.h
-/usr/include/fft.h
+%{_libdir}/libaudiowriter*.a
+%{_libdir}/libaudiowriter*.so
+%{_includedir}/audiowriterinterface.h
+%{_includedir}/multiaudiowriter.h
+%{_includedir}/audiodebug.h
+%{_includedir}/audiodevice.h
+%{_includedir}/audiodevice.icc
+%{_includedir}/audiomixer.h
+%{_includedir}/audiomixer.icc
+%{_includedir}/audionull.h
+%{_includedir}/spectrumanalyzer.h
+%{_includedir}/fft.h
 
 
 %package libaudiocodeccommon
@@ -304,7 +304,7 @@ Requires: %{name}-libaudiocommon
  This package provides a shared library for common audio codec handling.
 
 %files libaudiocodeccommon
-/usr/lib*/libaudiocodeccommon.so*
+%{_libdir}/libaudiocodeccommon.so*
 
 
 %package libaudiocodeccommon-devel
@@ -320,10 +320,10 @@ Requires: %{name}-libaudiocommon-devel = %{version}-%{release}
  This package provides the development files for common audio codec handling.
 
 %files libaudiocodeccommon-devel
-/usr/lib*/libaudiocodeccommon*.a
-/usr/lib*/libaudiocodeccommon*.so
-/usr/include/advancedaudiopacket.h
-/usr/include/simpleaudiopacket.h
+%{_libdir}/libaudiocodeccommon*.a
+%{_libdir}/libaudiocodeccommon*.so
+%{_includedir}/advancedaudiopacket.h
+%{_includedir}/simpleaudiopacket.h
 
 
 %package libaudioencoder
@@ -339,7 +339,7 @@ Requires: %{name}-libaudiocommon = %{version}-%{release}
  This package provides a shared library for audio encoding.
 
 %files libaudioencoder
-/usr/lib*/libaudioencoder.so*
+%{_libdir}/libaudioencoder.so*
 
 
 %package libaudioencoder-devel
@@ -356,13 +356,13 @@ Requires: %{name}-libaudiocommon-devel = %{version}-%{release}
  This package provides the development files for audio encoding.
 
 %files libaudioencoder-devel
-/usr/lib*/libaudioencoder*.a
-/usr/lib*/libaudioencoder*.so
-/usr/include/advancedaudioencoder.h
-/usr/include/audioencoderinterface.h
-/usr/include/audioencoderrepository.h
-/usr/include/audioencoderrepository.icc
-/usr/include/simpleaudioencoder.h
+%{_libdir}/libaudioencoder*.a
+%{_libdir}/libaudioencoder*.so
+%{_includedir}/advancedaudioencoder.h
+%{_includedir}/audioencoderinterface.h
+%{_includedir}/audioencoderrepository.h
+%{_includedir}/audioencoderrepository.icc
+%{_includedir}/simpleaudioencoder.h
 
 
 %package libaudiodecoder
@@ -380,7 +380,7 @@ Requires: %{name}-libtdtoolbox = %{version}-%{release}
  This package provides a shared library for audio decoding.
 
 %files libaudiodecoder
-/usr/lib*/libaudiodecoder.so*
+%{_libdir}/libaudiodecoder.so*
 
 
 %package libaudiodecoder-devel
@@ -399,13 +399,13 @@ Requires: %{name}-libtdtoolbox-devel = %{version}-%{release}
  This package provides the development files for audio decoding.
 
 %files libaudiodecoder-devel
-/usr/lib*/libaudiodecoder*.a
-/usr/lib*/libaudiodecoder*.so
-/usr/include/advancedaudiodecoder.h
-/usr/include/audiodecoderinterface.h
-/usr/include/audiodecoderrepository.h
-/usr/include/audiodecoderrepository.icc
-/usr/include/simpleaudiodecoder.h
+%{_libdir}/libaudiodecoder*.a
+%{_libdir}/libaudiodecoder*.so
+%{_includedir}/advancedaudiodecoder.h
+%{_includedir}/audiodecoderinterface.h
+%{_includedir}/audiodecoderrepository.h
+%{_includedir}/audiodecoderrepository.icc
+%{_includedir}/simpleaudiodecoder.h
 
 
 %package librtpaudiocommon
@@ -419,7 +419,7 @@ Group: Development/Libraries
  This package provides a shared library for common RTP audio handling.
 
 %files librtpaudiocommon
-/usr/lib*/librtpaudiocommon.so*
+%{_libdir}/librtpaudiocommon.so*
 
 
 %package librtpaudiocommon-devel
@@ -434,9 +434,9 @@ Requires: %{name}-librtpaudiocommon = %{version}-%{release}
  This package provides the development files for common RTP audio handling.
 
 %files librtpaudiocommon-devel
-/usr/lib*/librtpaudiocommon*.a
-/usr/lib*/librtpaudiocommon*.so
-/usr/include/audioclientapppacket.h
+%{_libdir}/librtpaudiocommon*.a
+%{_libdir}/librtpaudiocommon*.so
+%{_includedir}/audioclientapppacket.h
 
 
 %package librtpaudioclient
@@ -456,7 +456,7 @@ Requires: %{name}-libtdtoolbox = %{version}-%{release}
  This package provides a shared library for RTP client-side audio handling.
 
 %files librtpaudioclient
-/usr/lib*/librtpaudioclient.so*
+%{_libdir}/librtpaudioclient.so*
 
 
 %package librtpaudioclient-devel
@@ -477,10 +477,10 @@ Requires: %{name}-libtdtoolbox-devel = %{version}-%{release}
  This package provides the development files for RTP client-side audio handling.
 
 %files librtpaudioclient-devel
-/usr/lib*/librtpaudioclient*.a
-/usr/lib*/librtpaudioclient*.so
-/usr/include/audioclient.h
-/usr/include/audioclient.icc
+%{_libdir}/librtpaudioclient*.a
+%{_libdir}/librtpaudioclient*.so
+%{_includedir}/audioclient.h
+%{_includedir}/audioclient.icc
 
 
 %package librtpaudioserver
@@ -499,7 +499,7 @@ Requires: %{name}-libtdtoolbox = %{version}-%{release}
  This package provides a shared library for RTP server-side audio handling.
 
 %files librtpaudioserver
-/usr/lib*/librtpaudioserver.so*
+%{_libdir}/librtpaudioserver.so*
 
 
 %package librtpaudioserver-devel
@@ -519,10 +519,10 @@ Requires: %{name}-libtdtoolbox-devel = %{version}-%{release}
  This package provides the development files for RTP server-side audio handling.
 
 %files librtpaudioserver-devel
-/usr/lib*/librtpaudioserver*.a
-/usr/lib*/librtpaudioserver*.so
-/usr/include/audioserver.h
-/usr/include/audioserver.icc
+%{_libdir}/librtpaudioserver*.a
+%{_libdir}/librtpaudioserver*.so
+%{_includedir}/audioserver.h
+%{_includedir}/audioserver.icc
 
 
 %package librtpcommon
@@ -536,7 +536,7 @@ Group: Development/Libraries
  This package provides a shared library for common RTP handling.
 
 %files librtpcommon
-/usr/lib*/librtpcommon.so*
+%{_libdir}/librtpcommon.so*
 
 
 %package librtpcommon-devel
@@ -551,12 +551,12 @@ Requires: %{name}-librtpcommon = %{version}-%{release}
  This package provides the development files for common RTP handling.
 
 %files librtpcommon-devel
-/usr/lib*/librtpcommon*.a
-/usr/lib*/librtpcommon*.so
-/usr/include/rtcppacket.h
-/usr/include/rtcppacket.icc
-/usr/include/rtppacket.h
-/usr/include/rtppacket.icc
+%{_libdir}/librtpcommon*.a
+%{_libdir}/librtpcommon*.so
+%{_includedir}/rtcppacket.h
+%{_includedir}/rtcppacket.icc
+%{_includedir}/rtppacket.h
+%{_includedir}/rtppacket.icc
 
 
 %package librtpclient
@@ -572,7 +572,7 @@ Requires: %{name}-libtdtoolbox = %{version}-%{release}
  This package provides a shared library for RTP client-side handling.
 
 %files librtpclient
-/usr/lib*/librtpclient.so*
+%{_libdir}/librtpclient.so*
 
 
 %package librtpclient-devel
@@ -589,15 +589,15 @@ Requires: %{name}-libtdtoolbox-devel = %{version}-%{release}
  This package provides the development files for RTP client-side handling.
 
 %files librtpclient-devel
-/usr/lib*/librtpclient*.a
-/usr/lib*/librtpclient*.so
-/usr/include/decoderinterface.h
-/usr/include/decoderrepositoryinterface.h
-/usr/include/rtcpsender.h
-/usr/include/rtpreceiver.h
-/usr/include/rtpreceiver.icc
-/usr/include/sourcestateinfo.h
-/usr/include/sourcestateinfo.icc
+%{_libdir}/librtpclient*.a
+%{_libdir}/librtpclient*.so
+%{_includedir}/decoderinterface.h
+%{_includedir}/decoderrepositoryinterface.h
+%{_includedir}/rtcpsender.h
+%{_includedir}/rtpreceiver.h
+%{_includedir}/rtpreceiver.icc
+%{_includedir}/sourcestateinfo.h
+%{_includedir}/sourcestateinfo.icc
 
 
 %package librtpserver
@@ -613,7 +613,7 @@ Requires: %{name}-libtdtoolbox = %{version}-%{release}
  This package provides a shared library for RTP server-side handling.
 
 %files librtpserver
-/usr/lib*/librtpserver.so*
+%{_libdir}/librtpserver.so*
 
 
 %package librtpserver-devel
@@ -630,29 +630,29 @@ Requires: %{name}-libtdtoolbox-devel = %{version}-%{release}
  This package provides the development files for RTP server-side handling.
 
 %files librtpserver-devel
-/usr/lib*/librtpserver*.a
-/usr/lib*/librtpserver*.so
-/usr/include/abstractlayerdescription.h
-/usr/include/abstractlayerdescription.icc
-/usr/include/abstractqosdescription.h
-/usr/include/abstractqosdescription.icc
-/usr/include/bandwidthinfo.h
-/usr/include/bandwidthinfo.icc
-/usr/include/encoderinterface.h
-/usr/include/encoderrepositoryinterface.h
-/usr/include/frameratescalabilityinterface.h
-/usr/include/framesizescalabilityinterface.h
-/usr/include/managedstreaminterface.h
-/usr/include/qosmanagerinterface.h
-/usr/include/resourceutilizationpoint.h
-/usr/include/resourceutilizationpoint.icc
-/usr/include/rtcpabstractserver.h
-/usr/include/rtcpabstractserver.icc
-/usr/include/rtcpreceiver.h
-/usr/include/rtpsender.h
-/usr/include/rtpsender.icc
-/usr/include/trafficshaper.h
-/usr/include/trafficshaper.icc
+%{_libdir}/librtpserver*.a
+%{_libdir}/librtpserver*.so
+%{_includedir}/abstractlayerdescription.h
+%{_includedir}/abstractlayerdescription.icc
+%{_includedir}/abstractqosdescription.h
+%{_includedir}/abstractqosdescription.icc
+%{_includedir}/bandwidthinfo.h
+%{_includedir}/bandwidthinfo.icc
+%{_includedir}/encoderinterface.h
+%{_includedir}/encoderrepositoryinterface.h
+%{_includedir}/frameratescalabilityinterface.h
+%{_includedir}/framesizescalabilityinterface.h
+%{_includedir}/managedstreaminterface.h
+%{_includedir}/qosmanagerinterface.h
+%{_includedir}/resourceutilizationpoint.h
+%{_includedir}/resourceutilizationpoint.icc
+%{_includedir}/rtcpabstractserver.h
+%{_includedir}/rtcpabstractserver.icc
+%{_includedir}/rtcpreceiver.h
+%{_includedir}/rtpsender.h
+%{_includedir}/rtpsender.icc
+%{_includedir}/trafficshaper.h
+%{_includedir}/trafficshaper.icc
 
 
 %package libqosmgr
@@ -668,7 +668,7 @@ Requires: %{name}-libtdtoolbox = %{version}-%{release}
  This package provides a shared library for the QoS manager.
 
 %files libqosmgr
-/usr/lib*/libqosmgr.so*
+%{_libdir}/libqosmgr.so*
 
 
 %package libqosmgr-devel
@@ -685,18 +685,18 @@ Requires: %{name}-libtdtoolbox-devel = %{version}-%{release}
  This package provides the development files for the QoS manager.
 
 %files libqosmgr-devel
-/usr/lib*/libqosmgr*.a
-/usr/lib*/libqosmgr*.so
-/usr/include/bandwidthmanager.h
-/usr/include/bandwidthmanager.icc
-/usr/include/servicelevelagreement.h
-/usr/include/servicelevelagreement.icc
-/usr/include/pingerhost.h
-/usr/include/pingerhost.icc
-/usr/include/roundtriptimepinger.h
-/usr/include/roundtriptimepinger.icc
-/usr/include/sessiondescription.h
-/usr/include/streamdescription.h
+%{_libdir}/libqosmgr*.a
+%{_libdir}/libqosmgr*.so
+%{_includedir}/bandwidthmanager.h
+%{_includedir}/bandwidthmanager.icc
+%{_includedir}/servicelevelagreement.h
+%{_includedir}/servicelevelagreement.icc
+%{_includedir}/pingerhost.h
+%{_includedir}/pingerhost.icc
+%{_includedir}/roundtriptimepinger.h
+%{_includedir}/roundtriptimepinger.icc
+%{_includedir}/sessiondescription.h
+%{_includedir}/streamdescription.h
 
 
 %package rtpaudio-clients
