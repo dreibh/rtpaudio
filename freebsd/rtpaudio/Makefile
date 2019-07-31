@@ -3,9 +3,10 @@
 #
 
 PORTNAME=	rtpaudio
-PORTVERSION=	2.0.0~beta6
+PORTVERSION=	2.0.0~beta9
 CATEGORIES=	net
 MASTER_SITES=	https://www.uni-due.de/~be0001/rtpaudio/download/
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	dreibh@iem.uni-due.de
 COMMENT=	RTP Real-Time Audio Streaming System
