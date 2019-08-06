@@ -1,6 +1,6 @@
-/usr/include/rtcppacket.h
-/usr/include/rtcppacket.icc
-/usr/include/rtppacket.h
-/usr/include/rtppacket.icc
-/usr/lib/*/librtpcommon*.a
-/usr/lib/*/librtpcommon*.so
+usr/include/rtcppacket.h
+usr/include/rtcppacket.icc
+usr/include/rtppacket.h
+usr/include/rtppacket.icc
+usr/lib/*/librtpcommon*.a
+usr/lib/*/librtpcommon*.so

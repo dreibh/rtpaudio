@@ -1,6 +1,6 @@
-/usr/include/audioreaderinterface.h
-/usr/include/mp3audioreader.h
-/usr/include/multiaudioreader.h
-/usr/include/wavaudioreader.h
-/usr/lib/*/libaudioreader*.a
-/usr/lib/*/libaudioreader*.so
+usr/include/audioreaderinterface.h
+usr/include/mp3audioreader.h
+usr/include/multiaudioreader.h
+usr/include/wavaudioreader.h
+usr/lib/*/libaudioreader*.a
+usr/lib/*/libaudioreader*.so

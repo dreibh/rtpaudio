@@ -1,7 +1,7 @@
-/usr/include/advancedaudioencoder.h
-/usr/include/audioencoderinterface.h
-/usr/include/audioencoderrepository.h
-/usr/include/audioencoderrepository.icc
-/usr/include/simpleaudioencoder.h
-/usr/lib/*/libaudioencoder*.a
-/usr/lib/*/libaudioencoder*.so
+usr/include/advancedaudioencoder.h
+usr/include/audioencoderinterface.h
+usr/include/audioencoderrepository.h
+usr/include/audioencoderrepository.icc
+usr/include/simpleaudioencoder.h
+usr/lib/*/libaudioencoder*.a
+usr/lib/*/libaudioencoder*.so
