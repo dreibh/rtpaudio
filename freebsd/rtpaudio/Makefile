@@ -3,7 +3,7 @@
 #
 
 PORTNAME=	rtpaudio
-PORTVERSION=	2.0.0~beta10
+PORTVERSION=	2.0.0
 CATEGORIES=	net
 MASTER_SITES=	https://www.uni-due.de/~be0001/rtpaudio/download/
 EXTRACT_SUFX=	.tar.xz

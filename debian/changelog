@@ -1,6 +1,6 @@
-rtpaudio (2.0.0~beta10-1ubuntu1) disco; urgency=medium
+rtpaudio (2.0.0-1ubuntu1) disco; urgency=medium
 
   * New upstream package.
   * Initial Debian release (Closes: #669908).
 
- -- Thomas Dreibholz <dreibh@iem.uni-due.de>  Wed, 07 Aug 2019 09:59:29 +0200
+ -- Thomas Dreibholz <dreibh@iem.uni-due.de>  Wed, 07 Aug 2019 17:40:55 +0200

@@ -1,5 +1,5 @@
 Name: rtpaudio
-Version: 2.0.0~beta10
+Version: 2.0.0
 Release: 1
 Summary: Reliable Server Pooling (RSerPool) implementation
 License: GPL-3+
@@ -763,5 +763,7 @@ Requires: %{name}-rtpaudio-server = %{version}-%{release}
 
 
 %changelog
+* Wed Aug 07 2019 Thomas Dreibholz <dreibh@iem.uni-due.de> - 2.0.0
+- New upstream release.
 * Thu Nov 23 2017 Thomas Dreibholz <dreibh@simula.no> 2.0.0~beta4
 - Initial RPM release
