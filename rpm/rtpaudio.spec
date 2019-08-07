@@ -1,5 +1,5 @@
 Name: rtpaudio
-Version: 2.0.0~beta9
+Version: 2.0.0~beta10
 Release: 1
 Summary: Reliable Server Pooling (RSerPool) implementation
 License: GPL-3.0
@@ -409,7 +409,7 @@ Requires: %{name}-libtdtoolbox-devel = %{version}-%{release}
 
 
 %package librtpaudiocommon
-Summary: Shared library of the RTP Audio sound streaming system
+Summary: Shared library for RTP Audio (common RTP audio handling)
 Group: Development/Libraries
 
 %description librtpaudiocommon
@@ -423,7 +423,7 @@ Group: Development/Libraries
 
 
 %package librtpaudiocommon-devel
-Summary: Shared library of the RTP Audio sound streaming system
+Summary: Development files for RTP Audio (common RTP audio handling)
 Group: Development/Libraries
 Requires: %{name}-librtpaudiocommon = %{version}-%{release}
 

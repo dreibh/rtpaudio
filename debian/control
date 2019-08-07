@@ -494,8 +494,8 @@ Description: RTP Audio server
 
 Package: rtpaudio-all
 Architecture: all
-Depends: rtpaudio-clients (= ${binary:Version}),
-         rtpaudio-server (= ${binary:Version}),
+Depends: rtpaudio-clients (>= ${source:Version}),
+         rtpaudio-server (>= ${source:Version}),
          ${misc:Depends},
          ${shlibs:Depends}
 Description: RTP Audio sound streaming system
