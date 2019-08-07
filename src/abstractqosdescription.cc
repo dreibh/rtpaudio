@@ -501,7 +501,7 @@ std::ostream& operator<<(std::ostream& os, const AbstractQoSDescription& aqd)
       os << "   PacketsPerSecond = " << ald->getPacketRate(frameRate) << " ("
                                      << ald->getPacketCountForSize(frameRate,frameSize)
                                      << " per frame)" << std::endl;
-      os << "   Souce            = " << ald->getSource() << std::endl;
+      os << "   Source           = " << ald->getSource() << std::endl;
       os << "   Destination      = " << ald->getDestination() << std::endl;
       os << "   Scalability Cls. = " << ald->getFrameSizeScalabilityClass() << std::endl;
       os << "   Properties       = ";
