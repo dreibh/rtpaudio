@@ -15,7 +15,7 @@ Standards-Version: 4.4.0.1
 Vcs-Git: https://github.com/dreibh/rtpaudio.git
 Vcs-Browser: https://github.com/dreibh/rtpaudio
 
-Package: libmpegsound0
+Package: libmpegsound2
 Section: libs
 Architecture: any
 Depends: ${misc:Depends},
@@ -29,7 +29,7 @@ Description: Sound decoder library
 Package: libmpegsound-dev
 Section: libdevel
 Architecture: any
-Depends: libmpegsound0 (= ${binary:Version}),
+Depends: libmpegsound2 (= ${binary:Version}),
          ${misc:Depends},
          ${shlibs:Depends}
 Description: Development files for the sound decoder library
@@ -38,7 +38,7 @@ Description: Development files for the sound decoder library
  .
  This package provides the development files for the libmpegsound library.
 
-Package: libtdtoolbox0
+Package: libtdtoolbox2
 Section: libs
 Architecture: any
 Depends: ${misc:Depends},
@@ -52,7 +52,7 @@ Description: Shared library for RTP Audio (common helper functions)
 Package: libtdtoolbox-dev
 Section: libdevel
 Architecture: any
-Depends: libtdtoolbox0 (= ${binary:Version}),
+Depends: libtdtoolbox2 (= ${binary:Version}),
          ${misc:Depends},
          ${shlibs:Depends}
 Description: Development files for RTP Audio (common helper functions)
@@ -61,7 +61,7 @@ Description: Development files for RTP Audio (common helper functions)
  .
  This package provides the development files for common helper functions.
 
-Package: libmediainfo0
+Package: libmediainfo2
 Section: libs
 Architecture: any
 Depends: ${misc:Depends},
@@ -75,7 +75,7 @@ Description: Shared library for RTP Audio (media information handling)
 Package: libmediainfo-dev
 Section: libdevel
 Architecture: any
-Depends: libmediainfo0 (= ${binary:Version}),
+Depends: libmediainfo2 (= ${binary:Version}),
          ${misc:Depends},
          ${shlibs:Depends}
 Description: Development files for RTP Audio (media information handling)
@@ -84,10 +84,10 @@ Description: Development files for RTP Audio (media information handling)
  .
  This package provides the development files for media information handling.
 
-Package: libaudiocommon0
+Package: libaudiocommon2
 Section: libs
 Architecture: any
-Depends: libtdtoolbox0 (= ${binary:Version}),
+Depends: libtdtoolbox2 (= ${binary:Version}),
          ${misc:Depends},
          ${shlibs:Depends}
 Description: Shared library for RTP Audio (common audio data handling)
@@ -99,7 +99,7 @@ Description: Shared library for RTP Audio (common audio data handling)
 Package: libaudiocommon-dev
 Section: libdevel
 Architecture: any
-Depends: libaudiocommon0 (= ${binary:Version}),
+Depends: libaudiocommon2 (= ${binary:Version}),
          libtdtoolbox-dev (= ${binary:Version}),
          ${misc:Depends},
          ${shlibs:Depends}
@@ -109,13 +109,13 @@ Description: Development files for RTP Audio (common audio data handling)
  .
  This package provides the development files for common audio data handling.
 
-Package: libaudioreader0
+Package: libaudioreader2
 Section: libs
 Architecture: any
-Depends: libaudiocommon0 (= ${binary:Version}),
-         libmediainfo0 (= ${binary:Version}),
-         libmpegsound0 (= ${binary:Version}),
-         libtdtoolbox0 (= ${binary:Version}),
+Depends: libaudiocommon2 (= ${binary:Version}),
+         libmediainfo2 (= ${binary:Version}),
+         libmpegsound2 (= ${binary:Version}),
+         libtdtoolbox2 (= ${binary:Version}),
          ${misc:Depends},
          ${shlibs:Depends}
 Description: Shared library for RTP Audio (audio input reading)
@@ -128,7 +128,7 @@ Package: libaudioreader-dev
 Section: libdevel
 Architecture: any
 Depends: libaudiocommon-dev (= ${binary:Version}),
-         libaudioreader0 (= ${binary:Version}),
+         libaudioreader2 (= ${binary:Version}),
          libmediainfo-dev (= ${binary:Version}),
          libmpegsound-dev (= ${binary:Version}),
          libtdtoolbox-dev (= ${binary:Version}),
@@ -140,12 +140,12 @@ Description: Development files for RTP Audio (audio input reading)
  .
  This package provides the development files for audio input reading.
 
-Package: libaudiowriter0
+Package: libaudiowriter2
 Section: libs
 Architecture: any
-Depends: libaudiocommon0 (= ${binary:Version}),
+Depends: libaudiocommon2 (= ${binary:Version}),
          libpulse0,
-         libtdtoolbox0 (= ${binary:Version}),
+         libtdtoolbox2 (= ${binary:Version}),
          ${misc:Depends},
          ${shlibs:Depends}
 Description: Shared library for RTP Audio (audio output writing)
@@ -158,7 +158,7 @@ Package: libaudiowriter-dev
 Section: libdevel
 Architecture: any
 Depends: libaudiocommon-dev (= ${binary:Version}),
-         libaudiowriter0 (= ${binary:Version}),
+         libaudiowriter2 (= ${binary:Version}),
          libpulse-dev,
          libtdtoolbox-dev (= ${binary:Version}),
          ${misc:Depends},
@@ -169,10 +169,10 @@ Description: Development files for RTP Audio (audio output writing)
  .
  This package provides the development files for audio output writing.
 
-Package: libaudiocodeccommon0
+Package: libaudiocodeccommon2
 Section: libs
 Architecture: any
-Depends: libaudiocommon0 (= ${binary:Version}),
+Depends: libaudiocommon2 (= ${binary:Version}),
          ${misc:Depends},
          ${shlibs:Depends}
 Description: Shared library for RTP Audio (common audio codec handling)
@@ -184,7 +184,7 @@ Description: Shared library for RTP Audio (common audio codec handling)
 Package: libaudiocodeccommon-dev
 Section: libdevel
 Architecture: any
-Depends: libaudiocodeccommon0 (= ${binary:Version}),
+Depends: libaudiocodeccommon2 (= ${binary:Version}),
          libaudiocommon-dev (= ${binary:Version}),
          ${misc:Depends},
          ${shlibs:Depends}
@@ -194,11 +194,11 @@ Description: Development files for RTP Audio (common audio codec handling)
  .
  This package provides the development files for common audio codec handling.
 
-Package: libaudioencoder0
+Package: libaudioencoder2
 Section: libs
 Architecture: any
-Depends: libaudiocodeccommon0 (= ${binary:Version}),
-         libaudiocommon0 (= ${binary:Version}),
+Depends: libaudiocodeccommon2 (= ${binary:Version}),
+         libaudiocommon2 (= ${binary:Version}),
          ${misc:Depends},
          ${shlibs:Depends}
 Description: Shared library for RTP Audio (audio encoding)
@@ -212,7 +212,7 @@ Section: libdevel
 Architecture: any
 Depends: libaudiocodeccommon-dev (= ${binary:Version}),
          libaudiocommon-dev (= ${binary:Version}),
-         libaudioencoder0 (= ${binary:Version}),
+         libaudioencoder2 (= ${binary:Version}),
          ${misc:Depends},
          ${shlibs:Depends}
 Description: Development files for RTP Audio (audio encoding)
@@ -221,13 +221,13 @@ Description: Development files for RTP Audio (audio encoding)
  .
  This package provides the development files for audio encoding.
 
-Package: libaudiodecoder0
+Package: libaudiodecoder2
 Section: libs
 Architecture: any
-Depends: libaudiocodeccommon0 (= ${binary:Version}),
-         libaudiocommon0 (= ${binary:Version}),
-         libmediainfo0 (= ${binary:Version}),
-         libtdtoolbox0 (= ${binary:Version}),
+Depends: libaudiocodeccommon2 (= ${binary:Version}),
+         libaudiocommon2 (= ${binary:Version}),
+         libmediainfo2 (= ${binary:Version}),
+         libtdtoolbox2 (= ${binary:Version}),
          ${misc:Depends},
          ${shlibs:Depends}
 Description: Shared library for RTP Audio (audio decoding)
@@ -241,7 +241,7 @@ Section: libdevel
 Architecture: any
 Depends: libaudiocodeccommon-dev (= ${binary:Version}),
          libaudiocommon-dev (= ${binary:Version}),
-         libaudiodecoder0 (= ${binary:Version}),
+         libaudiodecoder2 (= ${binary:Version}),
          libmediainfo-dev (= ${binary:Version}),
          libtdtoolbox-dev (= ${binary:Version}),
          ${misc:Depends},
@@ -252,12 +252,12 @@ Description: Development files for RTP Audio (audio decoding)
  .
  This package provides the development files for audio decoding.
 
-Package: librtpaudiocommon0
+Package: librtpaudiocommon2
 Section: libs
 Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Description: Shared library of the RTP Audio sound streaming system (common RTP audio handling)
+Description: Shared library for RTP Audio (common RTP audio handling)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
  .
@@ -266,7 +266,7 @@ Description: Shared library of the RTP Audio sound streaming system (common RTP 
 Package: librtpaudiocommon-dev
 Section: libdevel
 Architecture: any
-Depends: librtpaudiocommon0 (= ${binary:Version}),
+Depends: librtpaudiocommon2 (= ${binary:Version}),
          ${misc:Depends},
          ${shlibs:Depends}
 Description: Development files for RTP Audio (common RTP audio handling)
@@ -275,15 +275,15 @@ Description: Development files for RTP Audio (common RTP audio handling)
  .
  This package provides the development files for common RTP audio handling.
 
-Package: librtpaudioclient0
+Package: librtpaudioclient2
 Section: libs
 Architecture: any
-Depends: libaudiocommon0 (= ${binary:Version}),
-         libaudiodecoder0 (= ${binary:Version}),
-         libmediainfo0 (= ${binary:Version}),
-         librtpaudiocommon0 (= ${binary:Version}),
-         librtpclient0 (= ${binary:Version}),
-         libtdtoolbox0 (= ${binary:Version}),
+Depends: libaudiocommon2 (= ${binary:Version}),
+         libaudiodecoder2 (= ${binary:Version}),
+         libmediainfo2 (= ${binary:Version}),
+         librtpaudiocommon2 (= ${binary:Version}),
+         librtpclient2 (= ${binary:Version}),
+         libtdtoolbox2 (= ${binary:Version}),
          ${misc:Depends},
          ${shlibs:Depends}
 Description: Shared library for RTP Audio (RTP client-side audio handling)
@@ -298,7 +298,7 @@ Architecture: any
 Depends: libaudiocommon-dev (= ${binary:Version}),
          libaudiodecoder-dev (= ${binary:Version}),
          libmediainfo-dev (= ${binary:Version}),
-         librtpaudioclient0 (= ${binary:Version}),
+         librtpaudioclient2 (= ${binary:Version}),
          librtpaudiocommon-dev (= ${binary:Version}),
          librtpclient-dev (= ${binary:Version}),
          libtdtoolbox-dev (= ${binary:Version}),
@@ -310,14 +310,14 @@ Description: Development files for RTP Audio (RTP client-side audio handling)
  .
  This package provides the development files for RTP client-side audio handling.
 
-Package: librtpaudioserver0
+Package: librtpaudioserver2
 Section: libs
 Architecture: any
-Depends: libaudioencoder0 (= ${binary:Version}),
-         libaudioreader0 (= ${binary:Version}),
-         librtpaudiocommon0 (= ${binary:Version}),
-         librtpserver0 (= ${binary:Version}),
-         libtdtoolbox0 (= ${binary:Version}),
+Depends: libaudioencoder2 (= ${binary:Version}),
+         libaudioreader2 (= ${binary:Version}),
+         librtpaudiocommon2 (= ${binary:Version}),
+         librtpserver2 (= ${binary:Version}),
+         libtdtoolbox2 (= ${binary:Version}),
          ${misc:Depends},
          ${shlibs:Depends}
 Description: Shared library for RTP Audio (RTP server-side audio handling)
@@ -332,7 +332,7 @@ Architecture: any
 Depends: libaudioencoder-dev (= ${binary:Version}),
          libaudioreader-dev (= ${binary:Version}),
          librtpaudiocommon-dev (= ${binary:Version}),
-         librtpaudioserver0 (= ${binary:Version}),
+         librtpaudioserver2 (= ${binary:Version}),
          librtpserver-dev (= ${binary:Version}),
          libtdtoolbox-dev (= ${binary:Version}),
          ${misc:Depends},
@@ -343,7 +343,7 @@ Description: Development files for RTP Audio (RTP server-side audio handling)
  .
  This package provides the development files for RTP server-side audio handling.
 
-Package: librtpcommon0
+Package: librtpcommon2
 Section: libs
 Architecture: any
 Depends: ${misc:Depends},
@@ -357,7 +357,7 @@ Description: Shared library for RTP Audio (common RTP handling)
 Package: librtpcommon-dev
 Section: libdevel
 Architecture: any
-Depends: librtpcommon0 (= ${binary:Version}),
+Depends: librtpcommon2 (= ${binary:Version}),
          ${misc:Depends},
          ${shlibs:Depends}
 Description: Development files for RTP Audio (common RTP handling)
@@ -366,11 +366,11 @@ Description: Development files for RTP Audio (common RTP handling)
  .
  This package provides the development files for common RTP handling.
 
-Package: librtpclient0
+Package: librtpclient2
 Section: libs
 Architecture: any
-Depends: librtpcommon0 (= ${binary:Version}),
-         libtdtoolbox0 (= ${binary:Version}),
+Depends: librtpcommon2 (= ${binary:Version}),
+         libtdtoolbox2 (= ${binary:Version}),
          ${misc:Depends},
          ${shlibs:Depends}
 Description: Shared library for RTP Audio (RTP client-side handling)
@@ -382,7 +382,7 @@ Description: Shared library for RTP Audio (RTP client-side handling)
 Package: librtpclient-dev
 Section: libdevel
 Architecture: any
-Depends: librtpclient0 (= ${binary:Version}),
+Depends: librtpclient2 (= ${binary:Version}),
          librtpcommon-dev (= ${binary:Version}),
          libtdtoolbox-dev (= ${binary:Version}),
          ${misc:Depends},
@@ -393,11 +393,11 @@ Description: Development files for RTP Audio (RTP client-side handling)
  .
  This package provides the development files for RTP client-side handling.
 
-Package: librtpserver0
+Package: librtpserver2
 Section: libs
 Architecture: any
-Depends: librtpcommon0 (= ${binary:Version}),
-         libtdtoolbox0 (= ${binary:Version}),
+Depends: librtpcommon2 (= ${binary:Version}),
+         libtdtoolbox2 (= ${binary:Version}),
          ${misc:Depends},
          ${shlibs:Depends}
 Description: Shared library for RTP Audio (RTP server-side handling)
@@ -410,7 +410,7 @@ Package: librtpserver-dev
 Section: libdevel
 Architecture: any
 Depends: librtpcommon-dev (= ${binary:Version}),
-         librtpserver0 (= ${binary:Version}),
+         librtpserver2 (= ${binary:Version}),
          libtdtoolbox-dev (= ${binary:Version}),
          ${misc:Depends},
          ${shlibs:Depends}
@@ -420,11 +420,11 @@ Description: Development files for RTP Audio (RTP server-side handling)
  .
  This package provides the development files for RTP server-side handling.
 
-Package: libqosmgr0
+Package: libqosmgr2
 Section: libs
 Architecture: any
-Depends: librtpserver0 (= ${binary:Version}),
-         libtdtoolbox0 (= ${binary:Version}),
+Depends: librtpserver2 (= ${binary:Version}),
+         libtdtoolbox2 (= ${binary:Version}),
          ${misc:Depends},
          ${shlibs:Depends}
 Description: Shared library for RTP Audio (QoS management)
@@ -436,7 +436,7 @@ Description: Shared library for RTP Audio (QoS management)
 Package: libqosmgr-dev
 Section: libdevel
 Architecture: any
-Depends: libqosmgr0 (= ${binary:Version}),
+Depends: libqosmgr2 (= ${binary:Version}),
          librtpserver-dev (= ${binary:Version}),
          libtdtoolbox-dev (= ${binary:Version}),
          ${misc:Depends},
@@ -449,11 +449,11 @@ Description: Development files for RTP Audio (QoS management)
 
 Package: rtpaudio-clients
 Architecture: any
-Depends: libaudiocommon0 (= ${binary:Version}),
-         libaudiodecoder0 (= ${binary:Version}),
-         libaudiowriter0 (= ${binary:Version}),
-         librtpaudioclient0 (= ${binary:Version}),
-         libtdtoolbox0 (= ${binary:Version}),
+Depends: libaudiocommon2 (= ${binary:Version}),
+         libaudiodecoder2 (= ${binary:Version}),
+         libaudiowriter2 (= ${binary:Version}),
+         librtpaudioclient2 (= ${binary:Version}),
+         libtdtoolbox2 (= ${binary:Version}),
          ${misc:Depends},
          ${shlibs:Depends}
 Recommends: iputils-ping,
@@ -472,10 +472,10 @@ Description: RTP Audio clients
 
 Package: rtpaudio-server
 Architecture: any
-Depends: libqosmgr0 (= ${binary:Version}),
-         librtpaudioserver0 (= ${binary:Version}),
-         librtpserver0 (= ${binary:Version}),
-         libtdtoolbox0 (= ${binary:Version}),
+Depends: libqosmgr2 (= ${binary:Version}),
+         librtpaudioserver2 (= ${binary:Version}),
+         librtpserver2 (= ${binary:Version}),
+         libtdtoolbox2 (= ${binary:Version}),
          ${misc:Depends},
          ${shlibs:Depends}
 Recommends: iputils-ping,
@@ -493,7 +493,7 @@ Description: RTP Audio server
  This package provides the RTP Audio server.
 
 Package: rtpaudio-all
-Architecture: any
+Architecture: all
 Depends: rtpaudio-clients (= ${binary:Version}),
          rtpaudio-server (= ${binary:Version}),
          ${misc:Depends},
