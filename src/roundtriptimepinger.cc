@@ -396,8 +396,14 @@ bool RoundTripTimePinger::receiveEcho4()
 
          // ====== Get arrival time =========================================
 #if (SYSTEM == OS_Linux)
-         timeval socketTimeStamp;
-         if(Ping4Socket->ioctl(SIOCGSTAMP,(void*)&socketTimeStamp) < 0) {
+         timeval socketTimeStamp;        
+         if(Ping4Socket->ioctl(
+#ifdef SIOCGSTAMP
+            SIOCGSTAMP,
+#else
+            SIOCGSTAMP_OLD,
+#endif            
+            (void*)&socketTimeStamp) < 0) {
             return(false);
          }
          const card64 arrivalTime = ((card64)socketTimeStamp.tv_sec * (card64)1000000) +
@@ -436,7 +442,13 @@ bool RoundTripTimePinger::receiveEcho6()
          // ====== Get arrival time =========================================
 #if (SYSTEM == OS_Linux)
          timeval socketTimeStamp;
-         if(Ping6Socket->ioctl(SIOCGSTAMP,(void*)&socketTimeStamp) < 0) {
+         if(Ping6Socket->ioctl(
+#ifdef SIOCGSTAMP
+            SIOCGSTAMP,
+#else
+            SIOCGSTAMP_OLD,
+#endif
+            (void*)&socketTimeStamp) < 0) {
             return(false);
          }
          const card64 arrivalTime = ((card64)socketTimeStamp.tv_sec * (card64)1000000) +
