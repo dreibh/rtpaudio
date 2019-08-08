@@ -1,3 +1,33 @@
+commit 688b0c459e2d88d7def7c20690a834265739246c
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Aug 8 14:43:57 2019 +0200
+
+    Build fix for Fedora 30+.
+
+commit e60625afba9d4cb20920a27a853898802d73d730
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Aug 8 14:05:25 2019 +0200
+
+    Build script update.
+
+commit 9d5f958db65057c7b96405c3313d41cff8cf30c8
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Aug 7 18:22:33 2019 +0200
+
+    Updated distinfo.
+
+commit 8907f07b3216ce1a87a9ac2dbd2ffbc3361dfba9
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Aug 7 18:22:03 2019 +0200
+
+    Updated LSM entry.
+
+commit 19a7368b7dba19f37b4093461a96cbc92dd2ab7e
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Aug 7 17:41:09 2019 +0200
+
+    New release rtpaudio-2.0.0.
+
 commit 205ee37256e4573be3c26fa378fac996378ca725
 Author: Thomas Dreibholz <dreibh@simula.no>
 Date:   Wed Aug 7 10:33:04 2019 +0200

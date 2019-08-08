@@ -1,3 +1,9 @@
+rtpaudio (2.0.1-1ubuntu1) disco; urgency=medium
+
+  * New upstream release.
+
+ -- Thomas Dreibholz <dreibh@iem.uni-due.de>  Thu, 08 Aug 2019 15:13:41 +0200
+
 rtpaudio (2.0.0-1ubuntu1) disco; urgency=medium
 
   * New upstream package.
