@@ -12,6 +12,8 @@ COMMENT=	RTP Real-Time Audio Streaming System
 LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
+LIB_DEPENDS=    libpulse.so:audio/pulseaudio
+
 USES=           cmake qt:5 tar:xz
 
 CMAKE_ARGS+=    -DUSE_KERNEL_SCTP=1 -DENABLE_CSP=1 -DENABLE_QT=1
