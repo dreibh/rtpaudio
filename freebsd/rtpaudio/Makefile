@@ -12,7 +12,7 @@ COMMENT=	RTP Real-Time Audio Streaming System
 LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=           tar:xz cmake
+USES=           cmake qt:5 tar:xz
 
 CMAKE_ARGS+=    -DUSE_KERNEL_SCTP=1 -DENABLE_CSP=1 -DENABLE_QT=1
 USE_QT5=        buildtools_build core gui widgets
