@@ -17,6 +17,6 @@ LIB_DEPENDS=    libpulse.so:audio/pulseaudio
 USES=           cmake qt:5 tar:xz
 
 CMAKE_ARGS+=    -DUSE_KERNEL_SCTP=1 -DENABLE_CSP=1 -DENABLE_QT=1
-USE_QT5=        buildtools_build core gui widgets
+USE_QT=         buildtools_build core gui widgets
 
 .include <bsd.port.mk>
