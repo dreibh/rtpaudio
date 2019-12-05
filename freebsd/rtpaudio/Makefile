@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	rtpaudio
-PORTVERSION=	2.0.2~rc1
+PORTVERSION=	2.0.2~rc2
 CATEGORIES=	net
 MASTER_SITES=	https://www.uni-due.de/~be0001/rtpaudio/download/
 
