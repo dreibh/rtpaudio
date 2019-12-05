@@ -5,7 +5,7 @@
 // ####                                                                  ####
 // #### MP3 Audio Reader                                                 ####
 // ####                                                                  ####
-// ####           Copyright (C) 1999-2019 by Thomas Dreibholz            ####
+// ####           Copyright (C) 1999-2020 by Thomas Dreibholz            ####
 // ####                                                                  ####
 // #### Contact:                                                         ####
 // ####    EMail: dreibh@iem.uni-due.de                                  ####
