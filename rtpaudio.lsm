@@ -1,7 +1,7 @@
 Begin4
 Title:          rtpaudio
-Version:        2.0.0
-Entered-date:   2019-08-07
+Version:        2.0.2
+Entered-date:   2020-02-07
 Description:    The RTP Audio system is a network sound streaming systen.
                 It has been designed for QoS performance analysis and
                 teaching purposes. RTP Audio supports IPv4 and IPv6
@@ -11,7 +11,7 @@ Keywords:       Audio Streaming, Real-Time, RTP, IPv4, IPv6, DiffServ, QoS
 Author:         dreibh@iem.uni-due.de (Thomas Dreibholz)
 Maintained-by:  dreibh@iem.uni-due.de (Thomas Dreibholz)
 Primary-site:   https://www.uni-due.de/~be0001/rtpaudio
-                307 kB download/rtpaudio-2.0.0.tar.xz
+                312 kB download/rtpaudio-2.0.2.tar.xz
 Original-site:  https://www.uni-due.de/~be0001/rtpaudio
 Platforms:      Linux, FreeBSD, MacOS, Solaris
 Copying-policy: GPL-3+
