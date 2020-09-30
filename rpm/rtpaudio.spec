@@ -27,10 +27,10 @@ The RTP Audio system is a network sound streaming systen. It has been designed f
 
 %build
 %cmake -DCMAKE_INSTALL_PREFIX=/usr .
-make %{?_smp_mflags}
+%cmake_build
 
 %install
-make install DESTDIR=%{buildroot}
+%cmake_install
 
 
 
