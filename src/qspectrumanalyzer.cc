@@ -45,6 +45,7 @@
 #include <qradiobutton.h>
 #include <qtimer.h>
 #include <qpainter.h>
+#include <qpainterpath.h>
 #include <qgroupbox.h>
 #include <qcheckbox.h>
 #include <qmainwindow.h>
