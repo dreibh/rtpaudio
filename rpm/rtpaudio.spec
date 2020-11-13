@@ -19,9 +19,6 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-build
 %description
 The RTP Audio system is a network sound streaming systen. It has been designed for QoS performance analysis and teaching purposes. RTP Audio supports IPv4 and IPv6 including flowlabels and traffic classes, QoS management as well as transport via UDP and SCTP.
 
-# FIXME: The RPM packages should contain everything!
-# %define _unpackaged_files_terminate_build 0
-
 %prep
 %setup -q
 
