@@ -602,7 +602,7 @@ void QClient::spectrumAnalyzer()
 {
    if(SpectrumAnalyzerDevice != NULL) {
       if(SpectrumAnalyzerWindow == NULL) {
-         SpectrumAnalyzerWindow = new QSpectrumAnalyzer(SpectrumAnalyzerDevice);
+         SpectrumAnalyzerWindow = new QSpectrumAnalyzer(SpectrumAnalyzerDevice, this);
          if(SpectrumAnalyzerWindow != NULL) {
             QObject::connect(SpectrumAnalyzerWindow,SIGNAL(closeSpectrumAnalyzer()),this,SLOT(closeSpectrumAnalyzer()));
             SpectrumAnalyzerWindow->show();
@@ -610,7 +610,7 @@ void QClient::spectrumAnalyzer()
          }
       }
       else {
-         delete SpectrumAnalyzerWindow;
+         SpectrumAnalyzerWindow->close();
          SpectrumAnalyzerWindow = NULL;
          SpectrumAnalyzerAction->setChecked(false);
       }
@@ -622,7 +622,6 @@ void QClient::spectrumAnalyzer()
 void QClient::closeSpectrumAnalyzer()
 {
    if(SpectrumAnalyzerWindow != NULL) {
-      delete SpectrumAnalyzerWindow;
       SpectrumAnalyzerWindow = NULL;
       SpectrumAnalyzerAction->setChecked(false);
    }
@@ -634,7 +633,7 @@ void QClient::audioMixer()
 {
    if(MixerDevice != NULL) {
       if(MixerWindow == NULL) {
-         MixerWindow = new QAudioMixer(MixerDevice);
+         MixerWindow = new QAudioMixer(MixerDevice, this);
          if(MixerWindow != NULL) {
             QObject::connect(MixerWindow,SIGNAL(closeAudioMixer()),this,SLOT(closeAudioMixer()));
             MixerWindow->show();
@@ -642,7 +641,7 @@ void QClient::audioMixer()
          }
       }
       else {
-         delete MixerWindow;
+         MixerWindow->close();
          MixerWindow = NULL;
          MixerAction->setChecked(false);
       }
@@ -654,7 +653,6 @@ void QClient::audioMixer()
 void QClient::closeAudioMixer()
 {
    if(MixerWindow != NULL) {
-      delete MixerWindow;
       MixerWindow = NULL;
       MixerAction->setChecked(false);
    }
