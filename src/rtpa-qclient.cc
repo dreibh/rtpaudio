@@ -409,6 +409,15 @@ QClient::QClient(AudioWriterInterface* audioOutput,
 // ###### Destructor ########################################################
 QClient::~QClient()
 {
+   clearBookmarks();
+   delete Client;
+   Client = NULL;
+}
+
+
+// ###### Close window ######################################################
+void QClient::closeEvent(QCloseEvent* event)
+{
    if(SpectrumAnalyzerWindow) {
       delete SpectrumAnalyzerWindow;
       SpectrumAnalyzerWindow = NULL;
@@ -417,9 +426,6 @@ QClient::~QClient()
       delete MixerWindow;
       MixerWindow = NULL;
    }
-   clearBookmarks();
-   delete Client;
-   Client = NULL;
 }
 
 
@@ -429,7 +435,7 @@ void QClient::information()
    QMessageBox::information(this,
       "RTP Audio Information",
       "RTP Audio Client - Version 2.00\n\n"
-      "Copyright (C) 1999-2017\n"
+      "Copyright (C) 1999-2020\n"
       "Thomas Dreibholz\n"
       "dreibh@iem.uni-due.de.de",
       "Okay");

@@ -293,6 +293,7 @@ class QClient : public QMainWindow
 
    // ====== Private data ===================================================
    private:
+   void closeEvent(QCloseEvent* event);
    void showError(const cardinal error);
    QString bytesToQString(const card64 bytes) const;
    QString card64ToQString(const card64 value,
