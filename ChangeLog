@@ -1,3 +1,220 @@
+commit 109268f5ede980fdcd3a400be1aa3fc5d3b75e97
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Nov 13 17:04:28 2020 +0100
+
+    Build fix for Fedora on i386.
+
+commit 5406b38826634256fe2ccd3226efc0306b0a0984
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Nov 13 16:16:06 2020 +0100
+
+    RPM spec update.
+
+commit 9a1ba8ca4082d0664bf1ae5cd7ab2f3d93d62ee3
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Nov 13 16:12:48 2020 +0100
+
+    Fixed deprecated addWidget() parameter usage.
+
+commit 902cce1e5f8ef8bd8143f5f504de2825b49083c8
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Nov 13 16:06:13 2020 +0100
+
+    Bugfix: fixed slot name.
+
+commit 607262c154a79c158f69db7c09ec09b182bdb4c8
+Merge: f1f109e 248d49f
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Nov 13 15:52:18 2020 +0100
+
+    Merge branch 'master' of github.com:dreibh/rtpaudio
+
+commit f1f109e654e3859ad36bfb00adc314214bc3c10d
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Nov 13 15:49:22 2020 +0100
+
+    Bugfix: fixed segfault on spectrum analyser/audio mixer close.
+
+commit f2d4e849bb04051327c0a46e910bfd44bafb88dc
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Nov 13 15:40:34 2020 +0100
+
+    Bugfix: close specrtum analyser and audio mixer when main window is closed.
+
+commit 248d49fbffac971000ddc5ddf96c6ba4ea128d57
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Nov 13 14:43:57 2020 +0100
+
+    Added missing include.
+
+commit e94566628fc439f8c226e472ba444c55d642f8b0
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Nov 13 14:24:38 2020 +0100
+
+    Improved C flags handling in CMakeLists.txt.
+
+commit baf20602be75934da186dc7085d56171d1ce45ef
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Nov 13 10:24:50 2020 +0100
+
+    Updated Travis CI configuration.
+
+commit 8490bb56bfb26c63af53580297c06f102e800329
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Nov 11 22:25:44 2020 +0100
+
+    Version bump.
+
+commit 2aa266d2cb6533488c5d74b9745bbd6dbabd95bb
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Nov 11 21:13:54 2020 +0100
+
+    Packaging clean-ups.
+
+commit 51300e925ada7e9bbd7ce5e655a3956710e0cd18
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Nov 11 21:13:48 2020 +0100
+
+    Updated watch file.
+
+commit 1977a42174b1215c503f0e4303356f5f404cbd2b
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Nov 11 20:36:38 2020 +0100
+
+    Updated build scripts
+
+commit a9659775a534826d0a34f6eba9a9bfc6a30b2da6
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Nov 11 13:01:17 2020 +0100
+
+    Updated build scripts
+
+commit e1b3360a1e1d5d97db5cc89e3b0a733bd4515908
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue Nov 10 14:50:11 2020 +0100
+
+    Version bump.
+
+commit db93ef6263dfbe61823df2ec2e2e7b91edeea5ec
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Nov 5 19:41:20 2020 +0100
+
+    Version bump.
+
+commit 2cbc9e167813997eeee04787fce6e3a58d94d26a
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Nov 5 18:54:04 2020 +0100
+
+    Packaging updates.
+
+commit e5ec12599e69838cea04347e2a3f459c0e0df6e4
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Nov 5 17:09:54 2020 +0100
+
+    Updated build scripts
+
+commit 6bb0bdcb3ba4804d1ff81d7d8d144975728109d7
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Sep 30 17:04:55 2020 +0200
+
+    Updated RPM spec file.
+
+commit fccd3b088fb441f94f930ac99c29946504ec6c7e
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Sep 30 16:55:42 2020 +0200
+
+    Updated build scripts
+
+commit 424fd9adb4970404f8fb6cab573a809825350cda
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Sep 10 12:41:21 2020 +0200
+
+    Updated build scripts
+
+commit ea9f83dbb89f0b6a26c8bdad20ed8508f7336376
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Sep 10 12:41:11 2020 +0200
+
+    Updated packaging configuration.
+
+commit 545f44a2d94415cd4721aebd90dd8f1887a16d9c
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Sep 10 12:36:38 2020 +0200
+
+    Updated signing key.
+
+commit a3d06e79951048cdd7949ab0978b9339cded7fdf
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Sep 4 14:15:28 2020 +0200
+
+    Updated build scripts
+
+commit 2f3686b9496342ccb7ae1806787a01748e8c6192
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Sep 4 14:11:58 2020 +0200
+
+    Updated Travis CI configuration.
+
+commit 5301d33836342e80b2be21b3e0136684e0ccd3df
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Sep 4 14:09:51 2020 +0200
+
+    Updated build scripts
+
+commit d6f36952ea937114ecd4e757eb1f211044af7c3d
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Sat Jul 18 15:55:56 2020 +0200
+
+    Updated build scripts
+
+commit 0184992a97af356b4efbcf68e1f94e1a8cb778cf
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed May 6 22:02:24 2020 +0200
+
+    Updated build scripts
+
+commit 47c73cf38eedfd4f977c22e32c7e6141d61d3299
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed May 6 22:02:23 2020 +0200
+
+    Updated build scripts
+
+commit 8a11e05f39d0c32f9a7f2172cfddcafadfc71433
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Apr 17 11:30:57 2020 +0200
+
+    Updated Travis CI configuration for Ubuntu builds.
+
+commit 2310c434979f0a1f7f788ae180edab00f8cfda91
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Apr 16 11:42:56 2020 +0200
+
+    Updated Travis CI configuration: Ubuntu 19.04 (Disco Dingo) is now obsolete.
+
+commit 71a98c60f852ccc8bf4c2ee85041f2ecd2898f13
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Tue Apr 14 19:04:43 2020 +0200
+
+    Updated build scripts
+
+commit 4ac17dd53ed3e3f0f7ea82f707cb971394a6da5d
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Mar 26 09:57:02 2020 +0100
+
+    Updated build scripts
+
+commit 2012819b68ea449af1f66cc6a228b81e2f5f8ab5
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Feb 7 13:27:57 2020 +0100
+
+    Updated LSM entry.
+
+commit fbdf4ddbe099e1d696500e7450fcbe604556e86a
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Fri Feb 7 13:21:43 2020 +0100
+
+    New release rtpaudio-2.0.2.
+
 commit c2153e8420603eb7f027fd76ff8c20f3fc1523ca
 Author: Thomas Dreibholz <dreibh@simula.no>
 Date:   Fri Feb 7 13:18:53 2020 +0100
