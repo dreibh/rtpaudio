@@ -206,7 +206,7 @@ QSpectrumAnalyzer::QSpectrumAnalyzer(SpectrumAnalyzer* analyzer,
    QPushButton* buttonClose = new QPushButton("Close");
    Q_CHECK_PTR(buttonClose);
    controlLayout->addWidget(buttonClose);
-   QObject::connect(buttonClose,SIGNAL(clicked()),this,SLOT(closeWindow()));
+   QObject::connect(buttonClose,SIGNAL(clicked()),this,SLOT(close()));
 
    Average = new QCheckBox("Average");
    Q_CHECK_PTR(Average);
