@@ -176,16 +176,28 @@ ENDIF()
 SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -std=c11   -Wall -Werror -Wno-unused-function -Wno-unused-parameter -Wno-overlength-strings -Wno-array-bounds")
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Werror -Wno-unused-function -Wno-unused-parameter -Wno-overlength-strings -Wno-array-bounds")
 
-CHECK_C_COMPILER_FLAG(-Wno-stringop-truncation HAS_WNO_STRINGOP_TRUNCATION)
-IF (HAS_WNO_STRINGOP_TRUNCATION)
-    SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -Wno-stringop-truncation")
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-stringop-truncation")
+# ------ Check for "aggressive-loop-optimizations" --------------------------
+CHECK_C_COMPILER_FLAG("-Waggressive-loop-optimizations -Werror" HAS_AGGRESSIVE_LOOP_OPTIMIZATIONS)
+IF (HAS_AGGRESSIVE_LOOP_OPTIMIZATIONS)
+   # Disable "aggressive-loop-optimizations" warning:
+   SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -Wno-aggressive-loop-optimizations")
+   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-aggressive-loop-optimizations")
 ENDIF()
 
-CHECK_C_COMPILER_FLAG(-Wno-vla-larger-than HAS_WVLA_LARGER_THAN)
-IF (HAS_WVLA_LARGER_THAN)
-    SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -Wno-vla-larger-than")
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-vla-larger-than")
+# ------ Check for "stringop-truncation" ------------------------------------
+CHECK_C_COMPILER_FLAG("-Wstringop-truncation -Werror" HAS_STRINGOP_TRUNCATION)
+IF (HAS_STRINGOP_TRUNCATION)
+   # Disable "stringop-truncation" warning:
+   SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -Wno-stringop-truncation")
+   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-stringop-truncation")
+ENDIF()
+
+# ------ Check for "vla-larger-than" ----------------------------------------
+CHECK_C_COMPILER_FLAG("-Wvla-larger-than -Werror" HAS_VLA_LARGER_THAN)
+IF (HAS_VLA_LARGER_THAN)
+   # Disable "vla-larger-than" warning:
+   SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -Wno-vla-larger-than")
+   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-vla-larger-than")
 ENDIF()
 
 
