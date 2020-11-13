@@ -192,26 +192,26 @@ QSpectrumAnalyzer::QSpectrumAnalyzer(SpectrumAnalyzer* analyzer,
    // ====== Control group ==================================================
    QGroupBox* controlGroup = new QGroupBox("Control",centralWidget);
    Q_CHECK_PTR(controlGroup);
-   layout->addWidget(controlGroup,0,0);
+   layout->addWidget(controlGroup);
    QVBoxLayout* controlLayout = new QVBoxLayout(controlGroup);
    Q_CHECK_PTR(controlLayout);
-
-   Pause = new QPushButton("Pause");
-   Q_CHECK_PTR(Pause);
-   Pause->setCheckable(true);
-   Pause->setChecked(false);
-   controlLayout->addWidget(Pause,1,0);
-   QObject::connect(Pause,SIGNAL(toggled(bool)),this,SLOT(pause(bool)));
 
    QPushButton* buttonClose = new QPushButton("Close");
    Q_CHECK_PTR(buttonClose);
    controlLayout->addWidget(buttonClose);
    QObject::connect(buttonClose,SIGNAL(clicked()),this,SLOT(close()));
 
+   Pause = new QPushButton("Pause");
+   Q_CHECK_PTR(Pause);
+   Pause->setCheckable(true);
+   Pause->setChecked(false);
+   controlLayout->addWidget(Pause);
+   QObject::connect(Pause,SIGNAL(toggled(bool)),this,SLOT(pause(bool)));
+
    Average = new QCheckBox("Average");
    Q_CHECK_PTR(Average);
    Average->setChecked(true);
-   controlLayout->addWidget(Average,2,0);
+   controlLayout->addWidget(Average);
    QObject::connect(Average,SIGNAL(stateChanged(int)),this,SLOT(drawAverageLineToggled(int)));
 
    // ====== Timing group ===================================================
@@ -219,7 +219,7 @@ QSpectrumAnalyzer::QSpectrumAnalyzer(SpectrumAnalyzer* analyzer,
    Q_CHECK_PTR(radioGroupBox);
    QButtonGroup* radioButtonGroup = new QButtonGroup(controlGroup);
    Q_CHECK_PTR(radioButtonGroup);
-   controlLayout->addWidget(radioGroupBox,3,0);
+   controlLayout->addWidget(radioGroupBox);
    QVBoxLayout* radioLayout = new QVBoxLayout(radioGroupBox);
    Q_CHECK_PTR(radioLayout);
 
