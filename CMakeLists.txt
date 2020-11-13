@@ -192,14 +192,6 @@ IF (HAS_STRINGOP_TRUNCATION)
    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-stringop-truncation")
 ENDIF()
 
-# ------ Check for "vla-larger-than" ----------------------------------------
-CHECK_C_COMPILER_FLAG("-Wvla-larger-than -Werror" HAS_VLA_LARGER_THAN)
-IF (HAS_VLA_LARGER_THAN)
-   # Disable "vla-larger-than" warning:
-   SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -Wno-vla-larger-than")
-   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-vla-larger-than")
-ENDIF()
-
 
 #############################################################################
 # SUBDIRECTORIES

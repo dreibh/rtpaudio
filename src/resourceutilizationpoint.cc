@@ -38,6 +38,8 @@
 #include "rtppacket.h"
 #include "resourceutilizationpoint.h"
 
+#include <cassert>
+
 
 // ###### Reset #############################################################
 void ResourceUtilizationPoint::reset()
@@ -121,6 +123,7 @@ cardinal ResourceUtilizationPoint::optimizeResourceUtilizationList(
    if(count <= 1) {
       return(count);
    }
+   assert(count <= 1024);
 
    // ====== Mark points to skip ============================================
    bool skip[count];
