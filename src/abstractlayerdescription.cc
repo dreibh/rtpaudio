@@ -9,7 +9,7 @@
 // ####                                                                  ####
 // #### Abstract Layer Description Implementation                        ####
 // ####                                                                  ####
-// ####           Copyright (C) 1999-2020 by Thomas Dreibholz            ####
+// ####           Copyright (C) 1999-2021 by Thomas Dreibholz            ####
 // ####                                                                  ####
 // #### Contact:                                                         ####
 // ####    EMail: dreibh@iem.uni-due.de                                  ####
