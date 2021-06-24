@@ -36,4 +36,4 @@ if [ $# -ne 2 ] ; then
    exit 1
 fi
 
-mpg321 $1 -w - | oggenc -o $2 -
+mpg321 "$1" -w - | oggenc -o "$2" -
