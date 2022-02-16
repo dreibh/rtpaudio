@@ -173,8 +173,8 @@ ENDIF()
 # COMPILER FLAGS
 #############################################################################
 
-SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -std=c11   -Wall -Werror -Wno-unused-function -Wno-unused-parameter -Wno-overlength-strings -Wno-array-bounds")
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Werror -Wno-unused-function -Wno-unused-parameter -Wno-overlength-strings -Wno-array-bounds")
+SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -std=c11   -Wall -Werror -Wno-unused-function -Wno-unused-parameter -Wno-overlength-strings -Wno-array-bounds -Wno-stringop-overread")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Werror -Wno-unused-function -Wno-unused-parameter -Wno-overlength-strings -Wno-array-bounds -Wno-stringop-overread")
 
 # ------ Check for "aggressive-loop-optimizations" --------------------------
 CHECK_C_COMPILER_FLAG("-Waggressive-loop-optimizations -Werror" HAS_AGGRESSIVE_LOOP_OPTIMIZATIONS)
