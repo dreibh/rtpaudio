@@ -1,3 +1,27 @@
+commit 44618678ebf444e8f63968ae0ef2a5370ce6b38b
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Feb 17 11:30:59 2022 +0100
+
+    Version bump.
+
+commit 827afc69b6a195dca87cd5b7b258e13490136452
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Feb 16 15:52:58 2022 +0100
+
+    Fedora 36+ build fix for libmpegsound.
+
+commit 7a4d6708b485e765412d4f6c0e80a54df17c8769
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Feb 16 15:19:23 2022 +0100
+
+    Bugfix: Fixed invalid comparison.
+
+commit 651245e01861e9ab1b9d994a5a31f7748ce953d4
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Feb 16 12:58:11 2022 +0100
+
+    New release rtpaudio-2.0.4.
+
 commit 808db730c59b01b41e2d48ef8ad38c755af3fa01
 Author: Thomas Dreibholz <dreibh@simula.no>
 Date:   Wed Feb 16 12:22:07 2022 +0100
