@@ -1,3 +1,10 @@
+rtpaudio (2.0.5~rc0-1ubuntu1) jammy; urgency=medium
+
+  * New upstream release.
+  * Closes: #669908 (ITP).
+
+ -- Thomas Dreibholz <dreibh@iem.uni-due.de>  Thu, 17 Feb 2022 11:16:21 +0100
+
 rtpaudio (2.0.4-1ubuntu1) hirsute; urgency=medium
 
   * New upstream release.
@@ -28,6 +35,5 @@ rtpaudio (2.0.1-1ubuntu1) disco; urgency=medium
 rtpaudio (2.0.0-1ubuntu1) disco; urgency=medium
 
   * New upstream package.
-  * Initial Debian release (Closes: #669908).
 
  -- Thomas Dreibholz <dreibh@iem.uni-due.de>  Wed, 07 Aug 2019 17:40:55 +0200
