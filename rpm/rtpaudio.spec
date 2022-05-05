@@ -758,6 +758,8 @@ Requires: %{name}-rtpaudio-server = %{version}-%{release}
  RTP Audio supports IPv4 and IPv6 including flowlabels and traffic
  classes, QoS management as well as transport via UDP and SCTP.
 
+%files all
+
 
 %changelog
 * Thu Feb 17 2022 Thomas Dreibholz <dreibh@iem.uni-due.de> - 2.0.5
