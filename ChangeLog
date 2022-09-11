@@ -1,3 +1,45 @@
+commit ce043eb413eae3a35979e495e421b1ed2f778b43
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Aug 31 11:47:32 2022 +0200
+
+    Removed Vcs-* fields from debian/control.
+
+commit c02b46d03953abd5b0e1017e1bb5ef9ae0f54762
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Aug 31 11:21:06 2022 +0200
+
+    RPM fix.
+
+commit 3e20567e717c452ff28e0731dbdaf084516322c6
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Aug 31 11:19:33 2022 +0200
+
+    Updated CI scripts
+
+commit 641a5f665964ef8bdb0b8c662c2de185f565822a
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Aug 31 11:19:32 2022 +0200
+
+    Updated build scripts
+
+commit 4d4c7a4591572142414b8df7af5194abb8b1c06f
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu May 5 11:41:26 2022 +0200
+
+    Fix for RPM spec: rtpaudio-all is build now.
+
+commit 43f37568b3ea9828919bcd070a07c7a6db14fec6
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Feb 17 12:38:36 2022 +0100
+
+    Updated LSM entry.
+
+commit 671bc93f3285dbb823c3910798a36dc0deac0552
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Feb 17 12:25:22 2022 +0100
+
+    New release rtpaudio-2.0.5.
+
 commit 44618678ebf444e8f63968ae0ef2a5370ce6b38b
 Author: Thomas Dreibholz <dreibh@simula.no>
 Date:   Thu Feb 17 11:30:59 2022 +0100

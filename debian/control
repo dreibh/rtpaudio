@@ -11,7 +11,7 @@ Build-Depends: cmake (>= 3.0.2) | cmake3,
                qtbase5-dev,
                qtbase5-dev-tools,
                qtchooser
-Standards-Version: 4.6.0.1
+Standards-Version: 4.6.1
 Rules-Requires-Root: no
 
 Package: libmpegsound2
