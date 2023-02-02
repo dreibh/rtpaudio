@@ -9,11 +9,11 @@
 // ####                                                                  ####
 // #### Bandwidth Manager                                                ####
 // ####                                                                  ####
-// ####           Copyright (C) 1999-2021 by Thomas Dreibholz            ####
+// ####           Copyright (C) 1999-2023 by Thomas Dreibholz            ####
 // ####                                                                  ####
 // #### Contact:                                                         ####
-// ####    EMail: dreibh@iem.uni-due.de                                  ####
-// ####    WWW:   https://www.uni-due.de/~be0001/rtpaudio                ####
+// ####    EMail: thomas.dreibholz@gmail.com                             ####
+// ####    WWW:   https://www.nntb.no/~dreibh/rtpaudio                   ####
 // ####                                                                  ####
 // #### ---------------------------------------------------------------- ####
 // ####                                                                  ####
@@ -58,7 +58,7 @@
   * within the bandwidth manager.
   *
   * @short   Resource Utilization Simple Point
-  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
+  * @author  Thomas Dreibholz (thomas.dreibholz@gmail.com)
   * @version 1.0
 */
 struct ResourceUtilizationSimplePoint
@@ -114,7 +114,7 @@ std::ostream& operator<<(std::ostream& os, const ResourceUtilizationSimplePoint&
   * within the bandwidth manager.
   *
   * @short   Resource Utilization Simple Point
-  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
+  * @author  Thomas Dreibholz (thomas.dreibholz@gmail.com)
   * @version 1.0
 */
 struct ResourceUtilizationMultiPoint
@@ -207,7 +207,7 @@ std::ostream& operator<<(std::ostream& os, const ResourceUtilizationMultiPoint& 
   * This is the bandwidth manager.
   *
   * @short   Bandwidth Manager
-  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
+  * @author  Thomas Dreibholz (thomas.dreibholz@gmail.com)
   * @version 1.0
 */
 class BandwidthManager : virtual public QoSManagerInterface,

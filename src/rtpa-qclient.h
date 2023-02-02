@@ -5,11 +5,11 @@
 // ####                                                                  ####
 // #### QClient - A graphical client for the RTP Audio Server            ####
 // ####                                                                  ####
-// ####           Copyright (C) 1999-2021 by Thomas Dreibholz            ####
+// ####           Copyright (C) 1999-2023 by Thomas Dreibholz            ####
 // ####                                                                  ####
 // #### Contact:                                                         ####
-// ####    EMail: dreibh@iem.uni-due.de                                  ####
-// ####    WWW:   https://www.uni-due.de/~be0001/rtpaudio                ####
+// ####    EMail: thomas.dreibholz@gmail.com                             ####
+// ####    WWW:   https://www.nntb.no/~dreibh/rtpaudio                   ####
 // ####                                                                  ####
 // #### ---------------------------------------------------------------- ####
 // ####                                                                  ####
@@ -140,7 +140,7 @@ const InfoTable InfoTable2 =
   * This class is the Qt-Toolkit GUI for the RTP audio client.
   *
   * @short   QClient
-  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
+  * @author  Thomas Dreibholz (thomas.dreibholz@gmail.com)
   * @version 1.0
   */
 class QClient : public QMainWindow

@@ -8,11 +8,11 @@ Description:    The RTP Audio system is a network sound streaming systen.
                 including flowlabels and traffic classes, QoS management
                 as well as transport via UDP and SCTP.
 Keywords:       Audio Streaming, Real-Time, RTP, IPv4, IPv6, DiffServ, QoS
-Author:         dreibh@iem.uni-due.de (Thomas Dreibholz)
-Maintained-by:  dreibh@iem.uni-due.de (Thomas Dreibholz)
-Primary-site:   https://www.uni-due.de/~be0001/rtpaudio
+Author:         thomas.dreibholz@gmail.com (Thomas Dreibholz)
+Maintained-by:  thomas.dreibholz@gmail.com (Thomas Dreibholz)
+Primary-site:   https://www.nntb.no/~dreibh/rtpaudio
                 364 kB download/rtpaudio-2.0.5.tar.xz
-Original-site:  https://www.uni-due.de/~be0001/rtpaudio
+Original-site:  https://www.nntb.no/~dreibh/rtpaudio
 Platforms:      Linux, FreeBSD, MacOS, Solaris
 Copying-policy: GPL-3+
 End

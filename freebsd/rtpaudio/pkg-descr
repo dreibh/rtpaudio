@@ -3,4 +3,4 @@ designed for QoS performance analysis and teaching purposes.
 RTP Audio supports IPv4 and IPv6 including flowlabels and traffic
 classes, QoS management as well as transport via UDP and SCTP.
 
-WWW: https://www.uni-due.de/~be0001/rtpaudio/
+WWW: https://www.nntb.no/~dreibh/rtpaudio/

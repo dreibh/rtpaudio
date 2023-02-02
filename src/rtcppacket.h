@@ -5,11 +5,11 @@
 // ####                                                                  ####
 // #### RTCP Packet                                                      ####
 // ####                                                                  ####
-// ####           Copyright (C) 1999-2021 by Thomas Dreibholz            ####
+// ####           Copyright (C) 1999-2023 by Thomas Dreibholz            ####
 // ####                                                                  ####
 // #### Contact:                                                         ####
-// ####    EMail: dreibh@iem.uni-due.de                                  ####
-// ####    WWW:   https://www.uni-due.de/~be0001/rtpaudio                ####
+// ####    EMail: thomas.dreibholz@gmail.com                             ####
+// ####    WWW:   https://www.nntb.no/~dreibh/rtpaudio                   ####
 // ####                                                                  ####
 // #### ---------------------------------------------------------------- ####
 // ####                                                                  ####
@@ -72,7 +72,7 @@ enum RTCP_SDES_Type
   * This struct manages a common RTCP header.
   *
   * @short   RTCP Common Header
-  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
+  * @author  Thomas Dreibholz (thomas.dreibholz@gmail.com)
   * @version 1.0
   *
   * @see RTCPSender
@@ -185,7 +185,7 @@ struct RTCPCommonHeader
   * This struct manages a sender info block
   *
   * @short   RTCP Sender Info Block
-  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
+  * @author  Thomas Dreibholz (thomas.dreibholz@gmail.com)
   * @version 1.0
   *
   * @see RTCPSender
@@ -277,7 +277,7 @@ struct RTCPSenderInfoBlock
   * This struct manages a reception report block
   *
   * @short   RTCP Reception Report Block
-  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
+  * @author  Thomas Dreibholz (thomas.dreibholz@gmail.com)
   * @version 1.0
   *
   * @see RTCPSender
@@ -427,7 +427,7 @@ struct RTCPReceptionReportBlock
   * This struct manages an RTCP report.
   *
   * @short   RTCP Report
-  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
+  * @author  Thomas Dreibholz (thomas.dreibholz@gmail.com)
   * @version 1.0
   *
   * @see RTCPSender
@@ -472,7 +472,7 @@ struct RTCPReport : public RTCPCommonHeader
   * This struct manages an RTCP sender report
   *
   * @short   RTCP Sender Report
-  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
+  * @author  Thomas Dreibholz (thomas.dreibholz@gmail.com)
   * @version 1.0
   *
   * @see RTCPSender
@@ -517,7 +517,7 @@ struct RTCPSenderReport : public RTCPReport, public RTCPSenderInfoBlock
   * This struct manages an RTCP receiver report
   *
   * @short   RTCP Sender Report
-  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
+  * @author  Thomas Dreibholz (thomas.dreibholz@gmail.com)
   * @version 1.0
   *
   * @see RTCPSender
@@ -562,7 +562,7 @@ struct RTCPReceiverReport : public RTCPReport
   * This struct manages an RTCP source description item
   *
   * @short   RTCP Source Description Item
-  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
+  * @author  Thomas Dreibholz (thomas.dreibholz@gmail.com)
   * @version 1.0
   *
   * @see RTCPSender
@@ -593,7 +593,7 @@ struct RTCPSourceDescriptionItem
   * This struct manages an RTCP source description chunk
   *
   * @short   RTCP Source Description Chunk
-  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
+  * @author  Thomas Dreibholz (thomas.dreibholz@gmail.com)
   * @version 1.0
   *
   * @see RTCPSender
@@ -619,7 +619,7 @@ struct RTCPSourceDescriptionChunk
   * This struct manages an RTCP source description (SDES)
   *
   * @short   RTCP Source Description (SDES)
-  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
+  * @author  Thomas Dreibholz (thomas.dreibholz@gmail.com)
   * @version 1.0
   *
   * @see RTCPSender
@@ -662,7 +662,7 @@ struct RTCPSourceDescription : public RTCPCommonHeader
   * This struct manages an RTCP BYE message
   *
   * @short   RTCP BYE Message
-  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
+  * @author  Thomas Dreibholz (thomas.dreibholz@gmail.com)
   * @version 1.0
   *
   * @see RTCPSender
@@ -724,7 +724,7 @@ struct RTCPBye : public RTCPCommonHeader
   * This struct manages an RTCP APP message
   *
   * @short   RTCP APP Message
-  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
+  * @author  Thomas Dreibholz (thomas.dreibholz@gmail.com)
   * @version 1.0
   *
   * @see RTCPSender

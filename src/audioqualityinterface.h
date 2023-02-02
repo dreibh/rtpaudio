@@ -5,11 +5,11 @@
 // ####                                                                  ####
 // #### Audio Quality Interface                                          ####
 // ####                                                                  ####
-// ####           Copyright (C) 1999-2021 by Thomas Dreibholz            ####
+// ####           Copyright (C) 1999-2023 by Thomas Dreibholz            ####
 // ####                                                                  ####
 // #### Contact:                                                         ####
-// ####    EMail: dreibh@iem.uni-due.de                                  ####
-// ####    WWW:   https://www.uni-due.de/~be0001/rtpaudio                ####
+// ####    EMail: thomas.dreibholz@gmail.com                             ####
+// ####    WWW:   https://www.nntb.no/~dreibh/rtpaudio                   ####
 // ####                                                                  ####
 // #### ---------------------------------------------------------------- ####
 // ####                                                                  ####
@@ -41,7 +41,7 @@
   * This class is an interface for getting audio quality.
   *
   * @short   Audio Quality Interface
-  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
+  * @author  Thomas Dreibholz (thomas.dreibholz@gmail.com)
   * @version 1.0
   */
 class AudioQualityInterface
@@ -136,7 +136,7 @@ class AudioQualityInterface
   * It extends AudioQualityInterface with setting functions.
   *
   * @short   Adjustable Audio Quality Interface
-  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
+  * @author  Thomas Dreibholz (thomas.dreibholz@gmail.com)
   * @version 1.0
   */
 class AdjustableAudioQualityInterface : virtual public AudioQualityInterface

@@ -5,11 +5,11 @@
 // ####                                                                  ####
 // #### Internet Flow implementation                                     ####
 // ####                                                                  ####
-// ####           Copyright (C) 1999-2021 by Thomas Dreibholz            ####
+// ####           Copyright (C) 1999-2023 by Thomas Dreibholz            ####
 // ####                                                                  ####
 // #### Contact:                                                         ####
-// ####    EMail: dreibh@iem.uni-due.de                                  ####
-// ####    WWW:   https://www.uni-due.de/~be0001/rtpaudio                ####
+// ####    EMail: thomas.dreibholz@gmail.com                             ####
+// ####    WWW:   https://www.nntb.no/~dreibh/rtpaudio                   ####
 // ####                                                                  ####
 // #### ---------------------------------------------------------------- ####
 // ####                                                                  ####
@@ -44,7 +44,7 @@
   * for IPv6 support.
   *
   * @short   Internet Flow
-  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
+  * @author  Thomas Dreibholz (thomas.dreibholz@gmail.com)
   * @version 1.0
   */
 class InternetFlow : public InternetAddress

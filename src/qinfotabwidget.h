@@ -5,11 +5,11 @@
 // ####                                                                  ####
 // #### QInfoTabWidget                                                   ####
 // ####                                                                  ####
-// ####           Copyright (C) 1999-2021 by Thomas Dreibholz            ####
+// ####           Copyright (C) 1999-2023 by Thomas Dreibholz            ####
 // ####                                                                  ####
 // #### Contact:                                                         ####
-// ####    EMail: dreibh@iem.uni-due.de                                  ####
-// ####    WWW:   https://www.uni-due.de/~be0001/rtpaudio                ####
+// ####    EMail: thomas.dreibholz@gmail.com                             ####
+// ####    WWW:   https://www.nntb.no/~dreibh/rtpaudio                   ####
 // ####                                                                  ####
 // #### ---------------------------------------------------------------- ####
 // ####                                                                  ####
@@ -52,7 +52,7 @@
   * and QInfoTabWidget.
   *
   * @short   InfoEntry
-  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
+  * @author  Thomas Dreibholz (thomas.dreibholz@gmail.com)
   * @version 1.0
   */
 struct InfoEntry
@@ -83,7 +83,7 @@ struct InfoEntry
   * and QInfoTabWidget.
   *
   * @short   InfoTable
-  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
+  * @author  Thomas Dreibholz (thomas.dreibholz@gmail.com)
   * @version 1.0
   */
 struct InfoTable
@@ -105,7 +105,7 @@ struct InfoTable
   * This class is a widget for displaying sets of info strings.
   *
   * @short   QInfoWidget
-  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
+  * @author  Thomas Dreibholz (thomas.dreibholz@gmail.com)
   * @version 1.0
   */
 class QInfoWidget : public QWidget
@@ -151,7 +151,7 @@ class QInfoWidget : public QWidget
   * This class is a widget for displaying groups of sets of info strings.
   *
   * @short   QInfoTabWidget
-  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
+  * @author  Thomas Dreibholz (thomas.dreibholz@gmail.com)
   * @version 1.0
   */
 class QInfoTabWidget : public QTabWidget

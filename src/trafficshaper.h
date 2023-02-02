@@ -5,11 +5,11 @@
 // ####                                                                  ####
 // #### Traffic Shaper                                                   ####
 // ####                                                                  ####
-// ####           Copyright (C) 1999-2021 by Thomas Dreibholz            ####
+// ####           Copyright (C) 1999-2023 by Thomas Dreibholz            ####
 // ####                                                                  ####
 // #### Contact:                                                         ####
-// ####    EMail: dreibh@iem.uni-due.de                                  ####
-// ####    WWW:   https://www.uni-due.de/~be0001/rtpaudio                ####
+// ####    EMail: thomas.dreibholz@gmail.com                             ####
+// ####    WWW:   https://www.nntb.no/~dreibh/rtpaudio                   ####
 // ####                                                                  ####
 // #### ---------------------------------------------------------------- ####
 // ####                                                                  ####
@@ -53,7 +53,7 @@ class TrafficShaper;
   * This class is a singleton for the traffic shaper.
   *
   * @short   Traffic Shaper Singleton
-  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
+  * @author  Thomas Dreibholz (thomas.dreibholz@gmail.com)
   * @version 1.0
 */
 class TrafficShaperSingleton : public TimedThread
@@ -102,7 +102,7 @@ class TrafficShaperSingleton : public TimedThread
   * This class is a traffic shaper.
   *
   * @short   Traffic Shaper
-  * @author  Thomas Dreibholz (dreibh@iem.uni-due.de)
+  * @author  Thomas Dreibholz (thomas.dreibholz@gmail.com)
   * @version 1.0
 */
 class TrafficShaper : public Synchronizable

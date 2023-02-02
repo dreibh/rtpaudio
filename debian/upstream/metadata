@@ -2,8 +2,8 @@ Name: RTP Audio
 Repository: https://github.com/dreibh/rtpaudio.git
 Repository-Browse: https://github.com/dreibh/rtpaudio
 Bug-Submit: https://github.com/dreibh/rtpaudio/issues
-Contact: Thomas Dreibholz <dreibh@iem.uni-due.de>
-Security-Contact: Thomas Dreibholz <dreibh@iem.uni-due.de>
+Contact: Thomas Dreibholz <thomas.dreibholz@gmail.com>
+Security-Contact: Thomas Dreibholz <thomas.dreibholz@gmail.com>
 Reference:
  -
   Author: Thomas Dreibholz
@@ -17,4 +17,4 @@ Reference:
   Title: Echtzeit-Audioübertragung mit QoS-Management in einem DiffServ-Szenario
   Year: 2000
   Month: aug
-  Eprint: https://www.uni-due.de/~be0001/rn/DSV00.pdf
+  Eprint: https://www.nntb.no/~dreibh/rn/DSV00.pdf

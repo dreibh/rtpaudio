@@ -1,12 +1,12 @@
-# Created by: Thomas Dreibholz <dreibh@iem.uni-due.de>
+# Created by: Thomas Dreibholz <thomas.dreibholz@gmail.com>
 # $FreeBSD$
 
 PORTNAME=	rtpaudio
 PORTVERSION=	2.0.6
 CATEGORIES=	net
-MASTER_SITES=	https://www.uni-due.de/~be0001/rtpaudio/download/
+MASTER_SITES=	https://www.nntb.no/~dreibh/rtpaudio/download/
 
-MAINTAINER=	dreibh@iem.uni-due.de
+MAINTAINER=	thomas.dreibholz@gmail.com
 COMMENT=	RTP Real-Time Audio Streaming System
 
 LICENSE=	GPLv3+
