@@ -5,7 +5,7 @@
 // ####                                                                  ####
 // #### WAV Audio Reader                                                 ####
 // ####                                                                  ####
-// ####           Copyright (C) 1999-2023 by Thomas Dreibholz            ####
+// ####           Copyright (C) 1999-2024 by Thomas Dreibholz            ####
 // ####                                                                  ####
 // #### Contact:                                                         ####
 // ####    EMail: thomas.dreibholz@gmail.com                             ####
