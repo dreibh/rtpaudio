@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	rtpaudio
-PORTVERSION=	2.0.6
+PORTVERSION=	2.0.7~rc1
 CATEGORIES=	net
 MASTER_SITES=	https://www.nntb.no/~dreibh/rtpaudio/download/
 

@@ -3,15 +3,15 @@ Section: net
 Priority: optional
 Maintainer: Thomas Dreibholz <thomas.dreibholz@gmail.com>
 Homepage: https://www.nntb.no/~dreibh/rtpaudio/
-Build-Depends: cmake (>= 3.0.2) | cmake3,
-               debhelper (>= 9),
+Build-Depends: cmake,
+               debhelper (>= 12),
                libfile-fcntllock-perl,
                libpulse-dev,
                libsctp-dev (>= 1.0.5),
                qtbase5-dev,
                qtbase5-dev-tools,
                qtchooser
-Standards-Version: 4.6.1
+Standards-Version: 4.6.2
 Rules-Requires-Root: no
 
 Package: libmpegsound2
