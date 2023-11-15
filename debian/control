@@ -5,7 +5,6 @@ Maintainer: Thomas Dreibholz <thomas.dreibholz@gmail.com>
 Homepage: https://www.nntb.no/~dreibh/rtpaudio/
 Build-Depends: cmake,
                debhelper (>= 12),
-               libfile-fcntllock-perl,
                libpulse-dev,
                libsctp-dev (>= 1.0.5),
                qtbase5-dev,
@@ -29,8 +28,7 @@ Package: libmpegsound-dev
 Section: libdevel
 Architecture: any
 Depends: libmpegsound2 (= ${binary:Version}),
-         ${misc:Depends},
-         ${shlibs:Depends}
+         ${misc:Depends}
 Description: Development files for the sound decoder library
  libmpegsound decodes a couple of sound formats (e.g. MP3, OGG) and
  returns a raw data stream.
@@ -52,8 +50,7 @@ Package: libtdtoolbox-dev
 Section: libdevel
 Architecture: any
 Depends: libtdtoolbox2 (= ${binary:Version}),
-         ${misc:Depends},
-         ${shlibs:Depends}
+         ${misc:Depends}
 Description: Development files for RTP Audio (common helper functions)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
@@ -75,8 +72,7 @@ Package: libmediainfo-dev
 Section: libdevel
 Architecture: any
 Depends: libmediainfo2 (= ${binary:Version}),
-         ${misc:Depends},
-         ${shlibs:Depends}
+         ${misc:Depends}
 Description: Development files for RTP Audio (media information handling)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
@@ -100,8 +96,7 @@ Section: libdevel
 Architecture: any
 Depends: libaudiocommon2 (= ${binary:Version}),
          libtdtoolbox-dev (= ${binary:Version}),
-         ${misc:Depends},
-         ${shlibs:Depends}
+         ${misc:Depends}
 Description: Development files for RTP Audio (common audio data handling)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
@@ -131,8 +126,7 @@ Depends: libaudiocommon-dev (= ${binary:Version}),
          libmediainfo-dev (= ${binary:Version}),
          libmpegsound-dev (= ${binary:Version}),
          libtdtoolbox-dev (= ${binary:Version}),
-         ${misc:Depends},
-         ${shlibs:Depends}
+         ${misc:Depends}
 Description: Development files for RTP Audio (audio input reading)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
@@ -160,8 +154,7 @@ Depends: libaudiocommon-dev (= ${binary:Version}),
          libaudiowriter2 (= ${binary:Version}),
          libpulse-dev,
          libtdtoolbox-dev (= ${binary:Version}),
-         ${misc:Depends},
-         ${shlibs:Depends}
+         ${misc:Depends}
 Description: Development files for RTP Audio (audio output writing)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
@@ -185,8 +178,7 @@ Section: libdevel
 Architecture: any
 Depends: libaudiocodeccommon2 (= ${binary:Version}),
          libaudiocommon-dev (= ${binary:Version}),
-         ${misc:Depends},
-         ${shlibs:Depends}
+         ${misc:Depends}
 Description: Development files for RTP Audio (common audio codec handling)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
@@ -212,8 +204,7 @@ Architecture: any
 Depends: libaudiocodeccommon-dev (= ${binary:Version}),
          libaudiocommon-dev (= ${binary:Version}),
          libaudioencoder2 (= ${binary:Version}),
-         ${misc:Depends},
-         ${shlibs:Depends}
+         ${misc:Depends}
 Description: Development files for RTP Audio (audio encoding)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
@@ -243,8 +234,7 @@ Depends: libaudiocodeccommon-dev (= ${binary:Version}),
          libaudiodecoder2 (= ${binary:Version}),
          libmediainfo-dev (= ${binary:Version}),
          libtdtoolbox-dev (= ${binary:Version}),
-         ${misc:Depends},
-         ${shlibs:Depends}
+         ${misc:Depends}
 Description: Development files for RTP Audio (audio decoding)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
@@ -266,8 +256,7 @@ Package: librtpaudiocommon-dev
 Section: libdevel
 Architecture: any
 Depends: librtpaudiocommon2 (= ${binary:Version}),
-         ${misc:Depends},
-         ${shlibs:Depends}
+         ${misc:Depends}
 Description: Development files for RTP Audio (common RTP audio handling)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
@@ -301,8 +290,7 @@ Depends: libaudiocommon-dev (= ${binary:Version}),
          librtpaudiocommon-dev (= ${binary:Version}),
          librtpclient-dev (= ${binary:Version}),
          libtdtoolbox-dev (= ${binary:Version}),
-         ${misc:Depends},
-         ${shlibs:Depends}
+         ${misc:Depends}
 Description: Development files for RTP Audio (RTP client-side audio handling)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
@@ -334,8 +322,7 @@ Depends: libaudioencoder-dev (= ${binary:Version}),
          librtpaudioserver2 (= ${binary:Version}),
          librtpserver-dev (= ${binary:Version}),
          libtdtoolbox-dev (= ${binary:Version}),
-         ${misc:Depends},
-         ${shlibs:Depends}
+         ${misc:Depends}
 Description: Development files for RTP Audio (RTP server-side audio handling)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
@@ -357,8 +344,7 @@ Package: librtpcommon-dev
 Section: libdevel
 Architecture: any
 Depends: librtpcommon2 (= ${binary:Version}),
-         ${misc:Depends},
-         ${shlibs:Depends}
+         ${misc:Depends}
 Description: Development files for RTP Audio (common RTP handling)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
@@ -384,8 +370,7 @@ Architecture: any
 Depends: librtpclient2 (= ${binary:Version}),
          librtpcommon-dev (= ${binary:Version}),
          libtdtoolbox-dev (= ${binary:Version}),
-         ${misc:Depends},
-         ${shlibs:Depends}
+         ${misc:Depends}
 Description: Development files for RTP Audio (RTP client-side handling)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
@@ -411,8 +396,7 @@ Architecture: any
 Depends: librtpcommon-dev (= ${binary:Version}),
          librtpserver2 (= ${binary:Version}),
          libtdtoolbox-dev (= ${binary:Version}),
-         ${misc:Depends},
-         ${shlibs:Depends}
+         ${misc:Depends}
 Description: Development files for RTP Audio (RTP server-side handling)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
@@ -438,8 +422,7 @@ Architecture: any
 Depends: libqosmgr2 (= ${binary:Version}),
          librtpserver-dev (= ${binary:Version}),
          libtdtoolbox-dev (= ${binary:Version}),
-         ${misc:Depends},
-         ${shlibs:Depends}
+         ${misc:Depends}
 Description: Development files for RTP Audio (QoS management)
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
@@ -495,8 +478,7 @@ Package: rtpaudio-all
 Architecture: all
 Depends: rtpaudio-clients (>= ${source:Version}),
          rtpaudio-server (>= ${source:Version}),
-         ${misc:Depends},
-         ${shlibs:Depends}
+         ${misc:Depends}
 Description: RTP Audio sound streaming system
  The RTP Audio system is a network sound streaming system. It has been
  designed for QoS performance analysis and teaching purposes.
