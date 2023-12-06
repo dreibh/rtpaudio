@@ -216,7 +216,7 @@ class UnixAddress : virtual public SocketAddress
 
    // ====== Private data ===================================================
    private:
-   static const cardinal MaxNameLength = 108 - 1;
+   static const cardinal MaxNameLength = 104 - 1;
 
    char Name[MaxNameLength + 1];
 };
