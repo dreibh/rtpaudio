@@ -1,0 +1,2 @@
+# No libc functions are used in this library:
+librtpaudiocommon2: library-not-linked-against-libc
