@@ -1,9 +1,9 @@
-rtpaudio (2.0.7~rc1-1ubuntu1) jammy; urgency=medium
+rtpaudio (2.0.7-1ubuntu1) jammy; urgency=medium
 
   * New upstream release.
   * Closes: #669908 (ITP).
 
- -- Thomas Dreibholz <thomas.dreibholz@gmail.com>  Wed, 15 Nov 2023 10:52:55 +0100
+ -- Thomas Dreibholz <thomas.dreibholz@gmail.com>  Wed, 06 Dec 2023 16:54:40 +0100
 
 rtpaudio (2.0.6-1ubuntu1) jammy; urgency=medium
 
