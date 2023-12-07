@@ -1,7 +1,7 @@
 Name: rtpaudio
 Version: 2.0.8
 Release: 1
-Summary: Reliable Server Pooling (RSerPool) implementation
+Summary: RTP Audio network sound streaming system
 License: GPL-3+
 Group: Applications/Internet
 URL: https://www.uni-due.de/~be0001/rtpaudio/
@@ -21,7 +21,7 @@ Requires: %{name}-all
 
 
 %description
-The RTP Audio system is a network sound streaming systen. It has been designed for QoS performance analysis and teaching purposes. RTP Audio supports IPv4 and IPv6 including flowlabels and traffic classes, QoS management as well as transport via UDP and SCTP.
+The RTP Audio system is a network sound streaming system. It has been designed for QoS performance analysis and teaching purposes. RTP Audio supports IPv4 and IPv6 including flowlabels and traffic classes, QoS management as well as transport via UDP and SCTP.
 
 %prep
 %setup -q
