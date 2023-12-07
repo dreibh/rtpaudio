@@ -16,8 +16,9 @@ BuildRequires: qtchooser
 BuildRequires: pulseaudio-libs-devel
 BuildRoot: %{_tmppath}/%{name}-%{version}-build
 
-# Meta-package rtpaudio: install rtpaudio-all => install all sub-packages!
-Requires: %{name}-all
+# Meta-package rtpaudio: install all sub-packages!
+Requires: %{name}-rtpaudio-clients = %{version}-%{release}
+Requires: %{name}-rtpaudio-server = %{version}-%{release}
 
 
 %description
@@ -32,8 +33,6 @@ The RTP Audio system is a network sound streaming system. It has been designed f
 
 %install
 %cmake_install
-
-%files all
 
 
 %package libmpegsound
@@ -750,20 +749,6 @@ Recommends: traceroute
 %files rtpaudio-server
 %{_bindir}/rtpa-server
 %{_mandir}/man1/rtpa-server.1.gz
-
-
-%package all
-Summary: RTP Audio sound streaming system
-Requires: %{name}-rtpaudio-clients = %{version}-%{release}
-Requires: %{name}-rtpaudio-server = %{version}-%{release}
-
-%description all
- The RTP Audio system is a network sound streaming system. It has been
- designed for QoS performance analysis and teaching purposes.
- RTP Audio supports IPv4 and IPv6 including flowlabels and traffic
- classes, QoS management as well as transport via UDP and SCTP.
-
-%files all
 
 
 %changelog
