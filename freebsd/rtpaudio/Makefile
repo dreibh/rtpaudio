@@ -1,5 +1,4 @@
 # Created by: Thomas Dreibholz <thomas.dreibholz@gmail.com>
-# $FreeBSD$
 
 PORTNAME=	rtpaudio
 PORTVERSION=	2.0.8
@@ -8,6 +7,7 @@ MASTER_SITES=	https://www.nntb.no/~dreibh/rtpaudio/download/
 
 MAINTAINER=	thomas.dreibholz@gmail.com
 COMMENT=	RTP Real-Time Audio Streaming System
+WWW=		https://www.nntb.no/~dreibh/rtpaudio/
 
 LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/COPYING
