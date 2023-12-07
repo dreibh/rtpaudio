@@ -1,3 +1,51 @@
+commit 6f741a1851b4ce35a2dc7dbf7f20aac2b716111c
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Dec 7 14:17:00 2023 +0100
+
+    Updated packaging configuration.
+
+commit 01ff4b24a92dc6518e8bdda5621420c0e18b33eb
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Dec 7 14:07:46 2023 +0100
+
+    FreeBSD build fix.
+
+commit ce4414517294195ef6578d8b66ef76babebe92ef
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Dec 7 13:47:27 2023 +0100
+
+    Packaging update.
+
+commit 65eaa6e46d8b547a6536aeb0adb50446842eb8c5
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Dec 7 12:32:29 2023 +0100
+
+    Improved FreeBSD test script.
+
+commit 935cee09e85c735aba38035ad3935824be1c0f4d
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Dec 7 10:29:54 2023 +0100
+
+    Updated LSM entry.
+
+commit f4f6bb87107bd8bf6c179c28e1dae1e50eb37e2e
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Thu Dec 7 10:20:27 2023 +0100
+
+    Updated packaging configuration.
+
+commit dac93f6bb5bd8923b4156ea87ea89890f9363630
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Dec 6 17:18:26 2023 +0100
+
+    Updated LSM entry.
+
+commit 0fca1af2d6163cefedf9c5e74cd3241a06492720
+Author: Thomas Dreibholz <dreibh@simula.no>
+Date:   Wed Dec 6 16:54:41 2023 +0100
+
+    New release rtpaudio-2.0.7.
+
 commit 09a51260dfbf72af1f0fea2962e867e047f17e69
 Author: Thomas Dreibholz <dreibh@simula.no>
 Date:   Wed Dec 6 13:59:49 2023 +0100
