@@ -2,6 +2,7 @@
 
 PORTNAME=	rtpaudio
 PORTVERSION=	2.0.8
+PORTREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	https://www.nntb.no/~dreibh/rtpaudio/download/
 
@@ -18,7 +19,8 @@ USES=           cmake qt:5 tar:xz
 
 CMAKE_ARGS+=    -DUSE_KERNEL_SCTP=1 -DENABLE_CSP=1 -DENABLE_QT=1
 USE_LDCONFIG=   yes
-USE_QT=         buildtools_build core gui widgets qmake_build
+USE_QT=         core gui widgets xml \
+                buildtools:build qmake:build
 
 PLIST_SUB=      VERSION=${PORTVERSION}
 
