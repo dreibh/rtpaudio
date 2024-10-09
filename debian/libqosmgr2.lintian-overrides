@@ -1,0 +1,2 @@
+# C++ library => symbols file is not recommended
+libqosmgr2: no-symbols-control-file

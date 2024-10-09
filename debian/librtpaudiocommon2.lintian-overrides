@@ -1,2 +1,4 @@
+# C++ library => symbols file is not recommended
+librtpaudiocommon2: no-symbols-control-file
 # No libc functions are used in this library:
 librtpaudiocommon2: library-not-linked-against-libc

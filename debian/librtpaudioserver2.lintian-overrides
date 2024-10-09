@@ -1,0 +1,2 @@
+# C++ library => symbols file is not recommended
+librtpaudioserver2: no-symbols-control-file
