@@ -154,7 +154,7 @@ void QSpectrumDisplay::drawBar(QPainter*      painter,
 
    // ====== Remove area above bar =========================================
    painter->fillRect(x,y,width,height - value,
-                     palette().color(QPalette::Background));
+                     palette().color(QPalette::Window));
 
    const cardinal y1 = y + height - value;
    const cardinal h1 = value / BarColors;
