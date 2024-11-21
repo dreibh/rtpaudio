@@ -2,7 +2,7 @@ Name: rtpaudio
 Version: 2.0.8
 Release: 1
 Summary: RTP Audio network sound streaming system
-License: GPL-3+
+License: GPL-3.0-or-later
 Group: Applications/Internet
 URL: https://www.uni-due.de/~be0001/rtpaudio/
 Source: https://www.uni-due.de/~be0001/rtpaudio/download/%{name}-%{version}.tar.xz
