@@ -3,6 +3,8 @@ Section: net
 Priority: optional
 Maintainer: Thomas Dreibholz <thomas.dreibholz@gmail.com>
 Homepage: https://www.nntb.no/~dreibh/rtpaudio/
+Vcs-Git: https://github.com/dreibh/rtpaudio.git
+Vcs-Browser: https://github.com/dreibh/rtpaudio
 Build-Depends: cmake,
                debhelper (>= 12),
                libpulse-dev,
