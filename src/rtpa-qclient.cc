@@ -41,6 +41,7 @@
 #include "tools.h"
 #include "audioclient.h"
 #include "trafficclassvalues.h"
+#include "package-version.h"
 
 
 #include <qapplication.h>
@@ -432,13 +433,20 @@ void QClient::closeEvent(QCloseEvent* event)
 // ###### Show information window ###########################################
 void QClient::information()
 {
-   QMessageBox::information(this,
-      "RTP Audio Information",
-      "RTP Audio Client - Version 2.00\n\n"
-      "Copyright (C) 1999-2020\n"
-      "Thomas Dreibholz\n"
-      "thomas.dreibholz@gmail.com.de",
-      "Okay");
+   QMessageBox about(this);
+   about.setWindowTitle(QStringLiteral("RTP Audio Information"));
+   about.setTextFormat(Qt::RichText);
+   about.setText(QStringLiteral(
+      "<p><center><strong>%1 %2</strong></center></p>"
+      "<p><center>%3</center></p>"
+      "<p><center><a href=\"%4\">%4</a></center></p>").arg(
+         QStringLiteral("RTP Audio Client"),
+         QStringLiteral(RTPAUDIO_VERSION),
+         QStringLiteral("Copyright (C) 1999-2025 by Thomas Dreibholz"),
+         QStringLiteral("https://www.nntb.no/~dreibh/rtpaudio/")
+      )
+   );
+   about.exec();
 }
 
 
@@ -465,7 +473,18 @@ void QClient::showError(const cardinal error)
     }
    strcpy((char*)&str,"Connection terminated due to encoder error:\n");
    strcat((char*)&str,errorString);
-   QMessageBox::warning(this,"RTP Audio Encoder Error",(char*)&str,"Okay!");
+
+   QMessageBox errorMessage(this);
+   errorMessage.setWindowTitle(QStringLiteral("Error"));
+   errorMessage.setTextFormat(Qt::RichText);
+   errorMessage.setText(QStringLiteral(
+      "<p><center><strong>%1</strong></center></p>"
+      "<p><center>%2</center></p>").arg(
+         QStringLiteral("RTP Audio Encoder Error"),
+         QString(str)
+      )
+   );
+   errorMessage.exec();
 }
 
 
@@ -487,11 +506,18 @@ void QClient::play()
    protocol = protocol.toLower();
    if((newOK == false) || ((protocol != "rtpa") && (protocol != "rtpa+udp") && (protocol != "rtpa+sctp"))) {
       StatusBar->setText("Invalid URL! Check URL and try again.");
-      QMessageBox::warning(this,"Warning",
-                           "This URL is invalid!\n"
-                           "Check URL and try again.\n"
-                           "Example: rtpa://odin:7500/Test.list",
-                           "Okay!");
+      QMessageBox errorMessage(this);
+      errorMessage.setWindowTitle(QStringLiteral("Error"));
+      errorMessage.setTextFormat(Qt::RichText);
+      errorMessage.setText(QStringLiteral(
+         "<p><center><strong>%1</strong></center></p>"
+         "<p><center>%2</center></p>").arg(
+            QStringLiteral("This URL is invalid!"),
+            QStringLiteral("Check URL and try again.<br/>"
+                           "Example: rtpa://odin:7500/Test.list")
+         )
+      );
+      errorMessage.exec();
       return;
    }
 
@@ -541,11 +567,18 @@ void QClient::play()
    }
    else {
       StatusBar->setText("Unable to find server! Check parameters and try again.");
-      QMessageBox::warning(this,"Warning",
-                           "Unable to find server!\n"
-                           "Check parameters and try again.\n"
-                           "Example: rtpa+udp://odin:7500/CD1.list",
-                           "Okay!");
+      QMessageBox errorMessage(this);
+      errorMessage.setWindowTitle(QStringLiteral("Error"));
+      errorMessage.setTextFormat(Qt::RichText);
+      errorMessage.setText(QStringLiteral(
+         "<p><center><strong>%1</strong></center></p>"
+         "<p><center>%2</center></p>").arg(
+            QStringLiteral("Unable to find server!"),
+            QStringLiteral("Check parameters and try again.<br/>"
+                           "Example: rtpa+udp://odin:7500/CD1.list")
+         )
+      );
+      errorMessage.exec();
    }
 }
 
@@ -1192,6 +1225,9 @@ int main(int argc, char* argv[])
    // ======Initialize GUI ==================================================
    QApplication* application = new QApplication(argc,argv);
    Q_CHECK_PTR(application);
+#if QT_VERSION < 0x060000
+   application->setAttribute(Qt::AA_UseHighDpiPixmaps, true);
+#endif
    QClient* player = new QClient(audioOutput,local,defaultURL,spectrumAnalyzer,mixer);
    Q_CHECK_PTR(player);
    application->setActiveWindow(player);

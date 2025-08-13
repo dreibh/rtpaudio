@@ -1,8 +1,20 @@
 SET(CMAKE_INCLUDE_CURRENT_DIR ON)
 INCLUDE_DIRECTORIES(../libmpegsound)
 
+
 #############################################################################
-# LIBRARIES
+#### VERSION FILE                                                        ####
+#############################################################################
+
+CONFIGURE_FILE (
+   "${CMAKE_CURRENT_SOURCE_DIR}/package-version.h.in"
+   "${CMAKE_CURRENT_BINARY_DIR}/package-version.h"
+)
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
+
+
+#############################################################################
+#### LIBRARIES                                                           ####
 #############################################################################
 
 # ====== libtdtoolbox =======================================================
@@ -456,9 +468,8 @@ FOREACH(TYPE shared;static)
 ENDFOREACH()
 
 
-
 #############################################################################
-# PROGRAMS
+#### PROGRAMS                                                            ####
 #############################################################################
 
 ADD_EXECUTABLE(rtpa-server rtpa-server.cc)
