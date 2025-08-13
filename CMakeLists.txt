@@ -116,7 +116,18 @@ ADD_DEFINITIONS(-DHAVE_PULSEAUDIO)
 OPTION(WITH_QT "Include Qt programs" 1)
 IF (WITH_QT)
    SET(CMAKE_AUTOMOC ON)
-   FIND_PACKAGE(Qt5 COMPONENTS Core Widgets REQUIRED)
+   FIND_PACKAGE(QT NAMES Qt6 COMPONENTS Core Widgets)
+   IF (NOT QT_FOUND)
+      FIND_PACKAGE(QT NAMES Qt5 REQUIRED COMPONENTS Core Widgets)
+   ENDIF()
+   MESSAGE("Using Qt version ${QT_VERSION_MAJOR}!")
+   FIND_PACKAGE(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Widgets)
+   FIND_PROGRAM(LRELEASE lrelease PATHS /usr/local/lib/qt${QT_VERSION_MAJOR}/bin
+                                       /usr/lib64/qt${QT_VERSION_MAJOR}/bin
+                                       /usr/lib/qt${QT_VERSION_MAJOR}/bin
+                                       /usr/bin
+                                 REQUIRED)
+   MESSAGE("Using LRelease ${LRELEASE}!")
 ENDIF()
 
 
@@ -153,19 +164,6 @@ ELSE()
    ENDIF()
 
    SET(SCTP_LIB ${SCTPSOCKET_LIB} ${SCTPLIB_LIB} ${GLIB_LIBRARIES})
-ENDIF()
-
-
-# ###### NEAT ###############################################################
-OPTION(WITH_NEAT "Include NEAT support" 0)
-IF (WITH_NEAT)
-   CHECK_INCLUDE_FILE(neat-socketapi.h HAVE_NEAT_SOCKETAPI_H)
-   FIND_LIBRARY(NEAT_SOCKETAPI_LIB neat-socketapi)
-   MESSAGE(STATUS "neat-socketapi found: ${NEAT_SOCKETAPI_LIB}")
-   IF (NOT HAVE_NEAT_SOCKETAPI_H OR NOT NEAT_SOCKETAPI_LIB)
-      MESSAGE(FATAL_ERROR "neat-socketapi not found - neat-socketapi installed?")
-   ENDIF()
-   ADD_DEFINITIONS("-DWITH_NEAT")
 ENDIF()
 
 

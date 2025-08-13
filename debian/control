@@ -9,9 +9,8 @@ Build-Depends: cmake,
                debhelper (>= 12),
                libpulse-dev,
                libsctp-dev (>= 1.0.5),
-               qtbase5-dev,
-               qtbase5-dev-tools,
-               qtchooser
+               qt6-base-dev,
+               qt6-l10n-tools
 Standards-Version: 4.6.2
 Rules-Requires-Root: no
 

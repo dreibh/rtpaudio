@@ -11,9 +11,9 @@ AutoReqProv: on
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: lksctp-tools-devel
-BuildRequires: qt5-qtbase-devel
-BuildRequires: qtchooser
 BuildRequires: pulseaudio-libs-devel
+BuildRequires: qt6-linguist
+BuildRequires: qt6-qtbase-devel
 BuildRoot: %{_tmppath}/%{name}-%{version}-build
 
 # Meta-package rtpaudio: install all sub-packages!

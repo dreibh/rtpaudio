@@ -485,7 +485,10 @@ INSTALL(FILES rtpa-vclient.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
 
 IF (WITH_QT)
    ADD_EXECUTABLE(rtpa-qclient rtpa-qclient.cc qaudiomixer.cc qinfotabwidget.cc qspectrumanalyzer.cc)
-   qt5_use_modules(rtpa-qclient Core Widgets)
+   TARGET_LINK_LIBRARIES(rtpa-qclient
+      Qt${QT_VERSION_MAJOR}::Core
+      Qt${QT_VERSION_MAJOR}::Widgets
+   )
    TARGET_LINK_LIBRARIES(rtpa-qclient librtpaudioclient-shared libaudiodecoder-shared libaudiowriter-shared libaudiocommon-shared libtdtoolbox-shared "${CMAKE_THREAD_cLIBS_INIT}")
    INSTALL(TARGETS             rtpa-qclient
            RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}

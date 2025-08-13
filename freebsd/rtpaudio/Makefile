@@ -2,7 +2,6 @@
 
 PORTNAME=	rtpaudio
 DISTVERSION=	2.0.8
-PORTREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	https://www.nntb.no/~dreibh/rtpaudio/download/
 
@@ -15,12 +14,12 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 
 LIB_DEPENDS=    libpulse.so:audio/pulseaudio
 
-USES=           cmake qt:5 tar:xz
+USES=           cmake compiler:c++17-lang gl qt:6
+USE_GL=         gl opengl
+USE_QT=         base tools:build
 
 CMAKE_ARGS+=    -DUSE_KERNEL_SCTP=1 -DENABLE_CSP=1 -DENABLE_QT=1
 USE_LDCONFIG=   yes
-USE_QT=         core gui widgets xml \
-                buildtools:build qmake:build
 
 PLIST_SUB=      VERSION=${PORTVERSION}
 
