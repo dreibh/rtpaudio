@@ -90,18 +90,18 @@ QClient::QClient(AudioWriterInterface* audioOutput,
 
    QMenu* fileMenu = new QMenu("&File", this);
    Q_CHECK_PTR(fileMenu);
-   fileMenu->addAction("&Load Bookmarks",this,SLOT(loadBookmarks()),Qt::CTRL+Qt::Key_O);
-   fileMenu->addAction("&Save Bookmarks",this,SLOT(saveBookmarks()),Qt::CTRL+Qt::Key_W);
+   fileMenu->addAction("&Load Bookmarks",Qt::CTRL|Qt::Key_O,this,SLOT(loadBookmarks()));
+   fileMenu->addAction("&Save Bookmarks",Qt::CTRL|Qt::Key_W,this,SLOT(saveBookmarks()));
    fileMenu->addSeparator();
-   fileMenu->addAction("&Quit",this,SLOT(quit()),Qt::CTRL+Qt::Key_Q);
+   fileMenu->addAction("&Quit",Qt::CTRL|Qt::Key_Q,this,SLOT(quit()));
    menu->addMenu(fileMenu);
 
    QMenu* controlMenu = new QMenu("&Control", this);
    Q_CHECK_PTR(controlMenu);
-   controlMenu->addAction("&Play",this,SLOT(play()),Qt::CTRL+Qt::Key_T);
-   controlMenu->addAction("&Stop",this,SLOT(stop()),Qt::CTRL+Qt::Key_Z);
+   controlMenu->addAction("&Play",Qt::CTRL|Qt::Key_T,this,SLOT(play()));
+   controlMenu->addAction("&Stop",Qt::CTRL|Qt::Key_Z,this,SLOT(stop()));
    controlMenu->addSeparator();
-   controlMenu->addAction("&Toggle Pause",this,SLOT(togglePause()),Qt::CTRL+Qt::Key_U);
+   controlMenu->addAction("&Toggle Pause",Qt::CTRL|Qt::Key_U,this,SLOT(togglePause()));
    menu->addMenu(controlMenu);
 
    URLMenu = new QMenu("&Bookmarks", this);
@@ -118,18 +118,18 @@ QClient::QClient(AudioWriterInterface* audioOutput,
       }
    }
    URLMenu->addSeparator();
-   URLMenu->addAction("&Clear Bookmarks",this,SLOT(clearBookmarks()),Qt::ALT+Qt::Key_K);
+   URLMenu->addAction("&Clear Bookmarks",Qt::ALT|Qt::Key_K,this,SLOT(clearBookmarks()));
    menu->addMenu(URLMenu);
    QObject::connect(URLMenu,SIGNAL(triggered(QAction*)),this,SLOT(locationSelected(QAction*)));
 
    ToolsMenu = new QMenu("&Tools", this);
    Q_CHECK_PTR(ToolsMenu);
-   SpectrumAnalyzerAction = ToolsMenu->addAction("Spectrum Analyzer",this,SLOT(spectrumAnalyzer()),Qt::CTRL+Qt::Key_F);
+   SpectrumAnalyzerAction = ToolsMenu->addAction("Spectrum Analyzer",Qt::CTRL|Qt::Key_F,this,SLOT(spectrumAnalyzer()));
    Q_CHECK_PTR(SpectrumAnalyzerAction);
    SpectrumAnalyzerAction->setCheckable(true);
    SpectrumAnalyzerAction->setChecked(false);
    if(mixer != NULL) {
-      MixerAction = ToolsMenu->addAction("Audio Mixer",this,SLOT(audioMixer()),Qt::CTRL+Qt::Key_M);
+      MixerAction = ToolsMenu->addAction("Audio Mixer",Qt::CTRL|Qt::Key_M,this,SLOT(audioMixer()));
       Q_CHECK_PTR(MixerAction);
       MixerAction->setCheckable(true);
       MixerAction->setChecked(false);
@@ -141,23 +141,23 @@ QClient::QClient(AudioWriterInterface* audioOutput,
 
    SettingsMenu = new QMenu("&Settings", this);
    Q_CHECK_PTR(SettingsMenu);
-   ResolverAction = SettingsMenu->addAction("&Resolve Addresses",this,SLOT(toggleAddressResolution(bool)),Qt::CTRL+Qt::Key_R);
+   ResolverAction = SettingsMenu->addAction("&Resolve Addresses",Qt::CTRL|Qt::Key_R,this,SLOT(toggleAddressResolution(bool)));
    Q_CHECK_PTR(ResolverAction);
    ResolverAction->setCheckable(true);
    AutoRepeatAction = SettingsMenu->addAction("Auto Repeat");
-   AutoRepeatAction->setShortcut(Qt::CTRL+Qt::Key_E);
+   AutoRepeatAction->setShortcut(Qt::CTRL|Qt::Key_E);
    Q_CHECK_PTR(AutoRepeatAction);
    AutoRepeatAction->setCheckable(true);
    AutoSaveBookmarksAction = SettingsMenu->addAction("Auto Save Bookmarks");
    Q_CHECK_PTR(AutoSaveBookmarksAction);
-   AutoSaveBookmarksAction->setShortcut(Qt::CTRL+Qt::Key_B);
+   AutoSaveBookmarksAction->setShortcut(Qt::CTRL|Qt::Key_B);
    menu->addMenu(SettingsMenu);
    AutoSaveBookmarksAction->setCheckable(true);
 
    QMenu* helpMenu = new QMenu("&Help", this);
    Q_CHECK_PTR(helpMenu);
-   helpMenu->addAction("&About",this,SLOT(information()),Qt::Key_F11);
-   helpMenu->addAction("&What's This?",this,SLOT(whatsThis()),Qt::Key_F12);
+   helpMenu->addAction("&About",Qt::Key_F11, this,SLOT(information()));
+   helpMenu->addAction("&What's This?",Qt::Key_F12,this,SLOT(whatsThis()));
    menu->addSeparator();
    menu->addMenu(helpMenu);
 
