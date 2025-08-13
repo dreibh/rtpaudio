@@ -5,7 +5,7 @@
 // ####                                                                  ####
 // #### Audio Server                                                     ####
 // ####                                                                  ####
-// ####           Copyright (C) 1999-2024 by Thomas Dreibholz            ####
+// ####           Copyright (C) 1999-2025 by Thomas Dreibholz            ####
 // ####                                                                  ####
 // #### Contact:                                                         ####
 // ####    EMail: thomas.dreibholz@gmail.com                             ####
@@ -1861,7 +1861,7 @@ int main(int argc, char* argv[])
 
 
    // ====== Print status ===================================================
-   cout << "RTP Audio Server - Copyright (C) 1999-2019 Thomas Dreibholz" << endl;
+   cout << "RTP Audio Server - Copyright (C) 1999-2025 Thomas Dreibholz" << endl;
    cout << "-----------------------------------------------------------" << endl;
    cout << endl;
    cout << "Version:          " << __DATE__ << ", " << __TIME__ << endl;

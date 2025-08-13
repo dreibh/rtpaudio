@@ -5,7 +5,7 @@
 // ####                                                                  ####
 // #### Audio Client                                                     ####
 // ####                                                                  ####
-// ####           Copyright (C) 1999-2024 by Thomas Dreibholz            ####
+// ####           Copyright (C) 1999-2025 by Thomas Dreibholz            ####
 // ####                                                                  ####
 // #### Contact:                                                         ####
 // ####    EMail: thomas.dreibholz@gmail.com                             ####
@@ -294,7 +294,7 @@ int main(int argc, char* argv[])
 
 
    // ====== Print status ===================================================
-   std::cout << "RTP Audio Client - Copyright (C) 1999-2019 Thomas Dreibholz" << std::endl
+   std::cout << "RTP Audio Client - Copyright (C) 1999-2025 Thomas Dreibholz" << std::endl
              << "-----------------------------------------------------------" << std::endl
              << std::endl
              << "Server Address:  " << client->getServerAddressString() << std::endl;
