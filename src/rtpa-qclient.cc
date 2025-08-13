@@ -1230,8 +1230,8 @@ int main(int argc, char* argv[])
 #endif
    QClient* player = new QClient(audioOutput,local,defaultURL,spectrumAnalyzer,mixer);
    Q_CHECK_PTR(player);
-   application->setActiveWindow(player);
    player->show();
+   player->activateWindow();
    if(optAnalyzer > 1) {
       player->spectrumAnalyzer();
    }
