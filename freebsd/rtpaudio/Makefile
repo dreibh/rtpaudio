@@ -12,7 +12,7 @@ WWW=		https://www.nntb.no/~dreibh/rtpaudio/
 LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-LIB_DEPENDS=    libpulse.so:audio/pulseaudio
+LIB_DEPENDS=	libpulse.so:audio/pulseaudio
 
 USES=           cmake compiler:c++17-lang gl qt:6
 USE_GL=         gl opengl
