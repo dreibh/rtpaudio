@@ -33,14 +33,22 @@ jobs:
         include:
 
           # ====== Ubuntu Linux =============================================
-          - label: "Ubuntu 25.04 (Plucky Puffin) with GCC"
-            image: ubuntu:25.04
+          - label: "Ubuntu 24.04 (Noble Numbat) with GCC"
+            image: ubuntu:24.04
+            cc: gcc
+            cxx: g++
+          - label: "Ubuntu 22.04 (Jammy Jellyfish) with GCC"
+            image: ubuntu:22.04
             cc: gcc
             cxx: g++
 
           # ====== Debian Linux =============================================
           - label: "Debian 13 (Trixie) with GCC"
             image: debian:trixie
+            cc: gcc
+            cxx: g++
+          - label: "Debian 12 (Bookworm) with GCC"
+            image: debian:bookworm
             cc: gcc
             cxx: g++
 
