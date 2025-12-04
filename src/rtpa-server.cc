@@ -5,7 +5,7 @@
 // ####                                                                  ####
 // #### Audio Server                                                     ####
 // ####                                                                  ####
-// ####           Copyright (C) 1999-2025 by Thomas Dreibholz            ####
+// ####           Copyright (C) 1999-2026 by Thomas Dreibholz            ####
 // ####                                                                  ####
 // #### Contact:                                                         ####
 // ####    EMail: thomas.dreibholz@gmail.com                             ####
@@ -467,7 +467,7 @@ int main(int argc, char* argv[])
 
 
    // ====== Print status ===================================================
-   std::cout << "RTP Audio Server - Copyright (C) 1999-2025 Thomas Dreibholz" << std::endl
+   std::cout << "RTP Audio Server - Copyright (C) 1999-2026 Thomas Dreibholz" << std::endl
              << "-----------------------------------------------------------" << std::endl
              << std::endl;
    if(optUseSCTP) {

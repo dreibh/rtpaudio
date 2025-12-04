@@ -5,7 +5,7 @@
 // ####                                                                  ####
 // #### Simple Audio Packet                                              ####
 // ####                                                                  ####
-// ####           Copyright (C) 1999-2025 by Thomas Dreibholz            ####
+// ####           Copyright (C) 1999-2026 by Thomas Dreibholz            ####
 // ####                                                                  ####
 // #### Contact:                                                         ####
 // ####    EMail: thomas.dreibholz@gmail.com                             ####
