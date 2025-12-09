@@ -34,6 +34,8 @@ The RTP Audio system is a network sound streaming system. It has been designed f
 %install
 %cmake_install
 
+%files
+
 
 %package libmpegsound
 Summary: Sound decoder library
