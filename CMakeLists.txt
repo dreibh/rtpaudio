@@ -71,7 +71,7 @@ ELSE()
 
 ENDIF()
 
-find_package(Threads REQUIRED)
+FIND_PACKAGE(Threads REQUIRED)
 
 
 #############################################################################
@@ -123,10 +123,11 @@ IF (WITH_QT)
    MESSAGE("Using Qt version ${QT_VERSION_MAJOR}!")
    FIND_PACKAGE(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Widgets)
    FIND_PROGRAM(LRELEASE lrelease PATHS /usr/local/lib/qt${QT_VERSION_MAJOR}/bin
-                                       /usr/lib64/qt${QT_VERSION_MAJOR}/bin
-                                       /usr/lib/qt${QT_VERSION_MAJOR}/bin
-                                       /usr/bin
-                                 REQUIRED)
+                                        /usr/lib64/qt${QT_VERSION_MAJOR}/bin
+                                        /usr/lib/qt${QT_VERSION_MAJOR}/bin
+                                        /usr/bin
+                                  NO_DEFAULT_PATH
+                                  REQUIRED)
    MESSAGE("Using LRelease ${LRELEASE}!")
 ENDIF()
 
