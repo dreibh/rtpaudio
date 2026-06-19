@@ -1,7 +1,16 @@
+rtpaudio (2.0.9~rc0-1ubuntu1) resolute; urgency=medium
+
+  * New upstream release.
+  * debian/control: Updated standards version to 4.7.2.
+  * debian/control: Updated standards version to 4.7.3.
+  * debian/control: Updated standards version to 4.7.4.
+  * Closes: #669908 (ITP).
+
+ -- Thomas Dreibholz <thomas.dreibholz@gmail.com>  Fri, 19 Jun 2026 15:33:58 +0200
+
 rtpaudio (2.0.8-1ubuntu1) jammy; urgency=medium
 
   * New upstream release.
-  * Closes: #669908 (ITP).
 
  -- Thomas Dreibholz <thomas.dreibholz@gmail.com>  Thu, 07 Dec 2023 14:34:30 +0100
 

@@ -3,39 +3,60 @@ PROJECT(rtpaudio LANGUAGES C CXX)
 
 SET(BUILD_MAJOR "2")
 SET(BUILD_MINOR "0")
-SET(BUILD_PATCH "8")
+SET(BUILD_PATCH "9~rc0")
 SET(BUILD_VERSION ${BUILD_MAJOR}.${BUILD_MINOR}.${BUILD_PATCH})
 
 
 #############################################################################
-# INSTALLATION_DIRECTORIES
+#### CMAKE INCLUDES                                                      ####
 #############################################################################
 
-# See: https://cmake.org/cmake/help/v3.0/module/GNUInstallDirs.html
+INCLUDE(CheckCCompilerFlag)
+INCLUDE(CheckCSourceCompiles)
+INCLUDE(CheckCSourceRuns)
+INCLUDE(CheckIncludeFile)
+INCLUDE(CheckStructHasMember)
 INCLUDE(GNUInstallDirs)
 
 
 #############################################################################
-# PACKAGING
+#### PACKAGING                                                           ####
 #############################################################################
 
 SET(CPACK_SOURCE_GENERATOR "TXZ")
 SET(CPACK_SOURCE_PACKAGE_FILE_NAME
-   "${CMAKE_PROJECT_NAME}-${BUILD_MAJOR}.${BUILD_MINOR}.${BUILD_PATCH}")
-SET(CPACK_SOURCE_IGNORE_FILES
-   "${PROJECT_SOURCE_DIR}/${CMAKE_PROJECT_NAME}-*;${PROJECT_SOURCE_DIR}/${CMAKE_PROJECT_NAME}_*;/build/;/.git/;/config.log;/CMakeFiles/;CMakeCache.txt$;.cmake$;.tar.gz$;/_CPack_Packages;/Makefile$;~$;/build-deb;/clean-deb;/filter-empty-entries;/make-symbols;/make-ppa;/make-deb;/debian.conf;/make-rpm;/rpm.conf;${CPACK_SOURCE_IGNORE_FILES}")
+    "${CMAKE_PROJECT_NAME}-${BUILD_MAJOR}.${BUILD_MINOR}.${BUILD_PATCH}")
+SET(CPACK_SOURCE_IGNORE_FILES "\\\\.git;\\\\.swp$;~$;\\\\.\\\\#;/\\\\#")
+LIST(APPEND CPACK_SOURCE_IGNORE_FILES "^${PROJECT_SOURCE_DIR}/${CMAKE_PROJECT_NAME}[_-]")
+LIST(APPEND CPACK_SOURCE_IGNORE_FILES "\\\\.make$|\\\\.log$")
+LIST(APPEND CPACK_SOURCE_IGNORE_FILES "/CMakeCache\\\\.txt$")
+LIST(APPEND CPACK_SOURCE_IGNORE_FILES "/(CMakeFiles|CMakeScripts|_CPack_Packages)/")
+LIST(APPEND CPACK_SOURCE_IGNORE_FILES "/package-version\\\\.h$")
+LIST(APPEND CPACK_SOURCE_IGNORE_FILES "/packaging\\\\.conf$")
+LIST(APPEND CPACK_SOURCE_IGNORE_FILES "^${PROJECT_SOURCE_DIR}/(po.*/|src.*/|)Makefile$")
+LIST(APPEND CPACK_SOURCE_IGNORE_FILES "^${PROJECT_SOURCE_DIR}/(po.*|src.*|[^/]*)\\\\.cmake$")
 INCLUDE(CPack)
 
 ADD_CUSTOM_TARGET(dist COMMAND ${CMAKE_MAKE_PROGRAM} clean package_source)
 
 
-INCLUDE(CheckIncludeFile)
-INCLUDE(CheckStructHasMember)
-INCLUDE(CheckCCompilerFlag)
+#############################################################################
+#### UNINSTALL                                                           ####
+#############################################################################
+
+IF(NOT TARGET uninstall)
+   CONFIGURE_FILE(
+      "${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
+      "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
+      IMMEDIATE @ONLY)
+
+   ADD_CUSTOM_TARGET(uninstall
+      COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
+ENDIF()
 
 
 #############################################################################
-# OS DEPENDENT
+#### OS DEPENDENT                                                        ####
 #############################################################################
 
 IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
@@ -75,7 +96,7 @@ FIND_PACKAGE(Threads REQUIRED)
 
 
 #############################################################################
-# CHECK STRUCT MEMBERS
+#### CHECK STRUCT MEMBERS                                                ####
 #############################################################################
 
 CHECK_STRUCT_HAS_MEMBER("struct sockaddr" "sa_len" "sys/types.h;sys/socket.h" HAVE_SA_LEN)
@@ -169,7 +190,7 @@ ENDIF()
 
 
 #############################################################################
-# COMPILER FLAGS
+#### COMPILER FLAGS                                                      ####
 #############################################################################
 
 # ------ Check for "aggressive-loop-optimizations" --------------------------
@@ -190,7 +211,7 @@ ENDIF()
 
 
 #############################################################################
-# SUBDIRECTORIES
+#### SUBDIRECTORIES                                                      ####
 #############################################################################
 
 ADD_SUBDIRECTORY(libmpegsound)

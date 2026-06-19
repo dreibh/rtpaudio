@@ -1,20 +1,20 @@
 Name: rtpaudio
-Version: 2.0.8
+Version: 2.0.9~rc0
 Release: 1
 Summary: RTP Audio network sound streaming system
 License: GPL-3.0-or-later
 Group: Applications/Internet
-URL: https://www.uni-due.de/~be0001/rtpaudio/
-Source: https://www.uni-due.de/~be0001/rtpaudio/download/%{name}-%{version}.tar.xz
+URL: https://www.nntb.no/~dreibh/rtpaudio/
+Source: https://www.nntb.no/~dreibh/rtpaudio/download/%{name}-%{version}.tar.xz
 
 AutoReqProv: on
 BuildRequires: cmake
+BuildRequires: extra-cmake-modules
 BuildRequires: gcc-c++
 BuildRequires: lksctp-tools-devel
 BuildRequires: pulseaudio-libs-devel
-BuildRequires: qt6-linguist
-BuildRequires: qt6-qtbase-devel
-BuildRoot: %{_tmppath}/%{name}-%{version}-build
+BuildRequires: (qt6-qtbase-devel or qt6-base-devel)
+BuildRequires: (qt6-linguist or qt6-linguist-devel)
 
 # Meta-package rtpaudio: install all sub-packages!
 Requires: %{name}-rtpaudio-clients = %{version}-%{release}
