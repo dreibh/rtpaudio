@@ -12,7 +12,7 @@ BuildRequires: cmake
 BuildRequires: extra-cmake-modules
 BuildRequires: gcc-c++
 BuildRequires: lksctp-tools-devel
-BuildRequires: pulseaudio-libs-devel
+BuildRequires: (pulseaudio-libs-devel or libpulse-devel)
 BuildRequires: (qt6-qtbase-devel or qt6-base-devel)
 BuildRequires: (qt6-linguist or qt6-linguist-devel)
 
