@@ -147,7 +147,6 @@ IF (WITH_QT)
                                         /usr/lib64/qt${QT_VERSION_MAJOR}/bin
                                         /usr/lib/qt${QT_VERSION_MAJOR}/bin
                                         /usr/bin
-                                  NO_DEFAULT_PATH
                                   REQUIRED)
    MESSAGE("Using LRelease ${LRELEASE}!")
 ENDIF()
