@@ -123,66 +123,141 @@ ENDIF()
 
 
 #############################################################################
+#### CHECK OPTIONS                                                       ####
+#############################################################################
+
+OPTION(WITH_QT         "Include Qt programs" ON)
+OPTION(USE_KERNEL_SCTP "Use Kernel SCTP"     ON)
+
+
+#############################################################################
 # REQUIREMENTS
 #############################################################################
 
-# ###### PulseAudio #########################################################
+# ====== PulseAudio =========================================================
 FIND_PACKAGE(PulseAudio 1.0 REQUIRED)
 ADD_DEFINITIONS(-DHAVE_PULSEAUDIO)
 
 
-# ###### Qt #################################################################
-OPTION(WITH_QT "Include Qt programs" 1)
-IF (WITH_QT)
+# ====== Qt =================================================================
+IF (WITH_QT OR WITH_KDE)
+   FIND_PROGRAM(QMAKE NAMES qmake6 qmake-qt6 qmake5 qmake-qt5 qmake PATHS /usr/lib/qt/*/bin)
+   IF (QMAKE)
+      EXECUTE_PROCESS(
+         COMMAND "${QMAKE}" -query QT_INSTALL_LIBS
+         OUTPUT_VARIABLE QT_INSTALL_LIBS
+         OUTPUT_STRIP_TRAILING_WHITESPACE
+      )
+      LIST(APPEND CMAKE_PREFIX_PATH "${QT_INSTALL_LIBS}/cmake")
+   ENDIF()
+
    SET(CMAKE_AUTOMOC ON)
-   FIND_PACKAGE(QT NAMES Qt6 COMPONENTS Core Widgets)
-   IF (NOT QT_FOUND)
-      FIND_PACKAGE(QT NAMES Qt5 REQUIRED COMPONENTS Core Widgets)
+   FIND_PACKAGE(Qt6 COMPONENTS Core Network Widgets Xml)
+   IF (NOT Qt6_FOUND)
+      # Try Qt5 instead:
+      FIND_PACKAGE(Qt5 COMPONENTS Core Network Widgets Xml)
+   ENDIF()
+   IF ((NOT Qt6_FOUND) AND (NOT Qt5_FOUND))
+      MESSAGE(FATAL_ERROR
+            "Cannot find Qt! Try:\n"
+            " * Ubuntu/Debian: sudo apt install -y qt6-base-dev\n"
+            " * Fedora:        sudo dnf install -y qt6-qtbase-devel\n"
+            " * OpenSUSE:      sudo zypper install -y qt6-base-devel\n"
+            " * Alpine:        sudo apk add qt6-qtbase-dev\n"
+            " * FreeBSD:       sudo pkg install -y qt6-base\n"
+            " * NetBSD:        sudo pkgin -y install qt6-qtbase\n"
+            " * OpenBSD:       sudo pkg_add qt6-qtbase\n"
+            " * Solaris:       sudo pkg install library/qt6 print/cups\n"
+            " * Apple:         brew install qt")
+   ELSEIF (Qt6_FOUND)
+      SET(QT_FOUND TRUE)
+      SET(QT_VERSION_MAJOR ${Qt6_VERSION_MAJOR})
+   ELSEIF (Qt5_FOUND)
+      SET(QT_FOUND TRUE)
+      SET(QT_VERSION_MAJOR ${Qt5_VERSION_MAJOR})
    ENDIF()
    MESSAGE("Using Qt version ${QT_VERSION_MAJOR}!")
-   FIND_PACKAGE(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Widgets)
-   FIND_PROGRAM(LRELEASE lrelease PATHS /usr/local/lib/qt${QT_VERSION_MAJOR}/bin
-                                        /usr/lib64/qt${QT_VERSION_MAJOR}/bin
-                                        /usr/lib/qt${QT_VERSION_MAJOR}/bin
-                                        /usr/bin
-                                  REQUIRED)
-   MESSAGE("Using LRelease ${LRELEASE}!")
+
+   FIND_PROGRAM(LRELEASE lrelease lrelease-qt${QT_VERSION_MAJOR}
+                PATHS /usr/pkg/qt${QT_VERSION_MAJOR}/bin
+                      /usr/local/lib/qt${QT_VERSION_MAJOR}/bin
+                      /usr/lib64/qt${QT_VERSION_MAJOR}/bin
+                      /usr/lib/qt${QT_VERSION_MAJOR}/bin
+                      /usr/bin
+                REQUIRED)
+   IF (LRELEASE)
+      MESSAGE("LRelease found: ${LRELEASE}!")
+   ELSE()
+      MESSAGE(FATAL_ERROR
+             "Cannot find Qt Linguist's LRelease tool! Try:\n"
+             " * Ubuntu/Debian: sudo apt install -y qt6-l10n-tools\n"
+             " * Fedora:        sudo dnf install -y qt6-linguist\n"
+             " * OpenSUSE:      sudo zypper install -y qt6-linguist-devel\n"
+             " * Alpine:        sudo apk add qt6-qttools\n"
+             " * FreeBSD:       sudo pkg install -y qt6-tools\n"
+             " * NetBSD:        sudo pkgin -y install qt6-qttools\n"
+             " * OpenBSD:       sudo pkg_add qt6-qttools\n"
+             " * Solaris:       sudo pkg install library/qt6\n"
+             " * Apple:         brew install qt")
+   ENDIF()
 ENDIF()
 
 
-# ###### SCTP ###############################################################
-OPTION(USE_KERNEL_SCTP "Use Kernel SCTP" 1)
+# ====== SCTP ===============================================================
 IF (USE_KERNEL_SCTP)
-   # ====== Kernel SCTP =====================================================
+   ADD_DEFINITIONS(-DHAVE_KERNEL_SCTP)
+
+   # ------ Kernel SCTP -----------------------------------------------------
    CHECK_INCLUDE_FILE(netinet/sctp.h HAVE_NETINET_SCTP_H)
    IF (HAVE_NETINET_SCTP_H)
       SET(SCTP_INCLUDE "netinet/sctp.h")
-      ADD_DEFINITIONS(-DHAVE_KERNEL_SCTP -DHAVE_NETINET_SCTP_H)
+      ADD_DEFINITIONS(-DHAVE_SCTP -DHAVE_NETINET_SCTP_H)
+   ENDIF()
+
+   # ------ Linux LK-SCTP library -------------------------------------------
+   IF (CMAKE_SYSTEM_NAME MATCHES "Linux")
+      MESSAGE(STATUS "${CMAKE_SYSTEM_NAME} supported")
+      FIND_LIBRARY(SCTP_LIBRARY sctp)
+      FIND_PATH(SCTP_INCLUDE_DIR NAMES netinet/sctp.h)
+      IF (SCTP_LIBRARY AND SCTP_INCLUDE_DIR)
+         MESSAGE(STATUS "LK-SCTP library found:")
+         MESSAGE(STATUS " SCTP_LIBRARY:     ${SCTP_LIBRARY}")
+         MESSAGE(STATUS " SCTP_INCLUDE_DIR: ${SCTP_INCLUDE_DIR}")
+      ELSE()
+         MESSAGE(FATAL_ERROR
+               "Cannot find Linux Kernel SCTP library! Try:\n"
+               " * Ubuntu/Debian: sudo apt install -y libsctp-dev\n"
+               " * Fedora:        sudo dnf install -y lksctp-tools-devel\n"
+               " * OpenSUSE:      sudo zypper install -y lksctp-tools-devel\n"
+               " * Alpine:        sudo apk add lksctp-tools-dev\n")
+      ENDIF()
    ENDIF()
 
 ELSE()
    # ====== SCTPLIB User-Space SCTP =========================================
    CHECK_INCLUDE_FILE(sctp.h HAVE_SCTPLIB_SCTP_H)
    FIND_LIBRARY(SCTPLIB_LIB sctplib)
-   MESSAGE(STATUS "sctplib found: ${SCTPLIB_LIB}")
    IF (NOT HAVE_SCTPLIB_SCTP_H OR NOT SCTPLIB_LIB)
       MESSAGE(FATAL_ERROR "sctplib not found - libsctplib installed?")
    ENDIF()
+   MESSAGE(STATUS "sctplib found: ${SCTPLIB_LIB}")
 
    CHECK_INCLUDE_FILE(sctp.h HAVE_SCTPSOCKET_SCTP_H)
    FIND_LIBRARY(SCTPSOCKET_LIB sctpsocket)
-   MESSAGE(STATUS "sctpsocket found: ${SCTPSOCKET_LIB}")
    IF (NOT HAVE_SCTPSOCKET_SCTP_H OR NOT SCTPSOCKET_LIB)
       MESSAGE(FATAL_ERROR "sctpsocket not found - libsctpsocket installed?")
    ENDIF()
+   MESSAGE(STATUS "sctpsocket found: ${SCTPSOCKET_LIB}")
 
    FIND_PACKAGE(PkgConfig)
    PKG_CHECK_MODULES(GLIB glib-2.0)
    IF (NOT ${GLIB_LIBS})
       MESSAGE(FATAL_ERROR "glib not found - glib-2.0 installed?")
    ENDIF()
+   MESSAGE(STATUS "glib found: ${GLIB_LIBRARIES}")
 
    SET(SCTP_LIB ${SCTPSOCKET_LIB} ${SCTPLIB_LIB} ${GLIB_LIBRARIES})
+   SET(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES} ${SCTPSOCKET_LIB} ${SCTPLIB_LIB} ${GLIB_LIBRARIES})
 ENDIF()
 
 
